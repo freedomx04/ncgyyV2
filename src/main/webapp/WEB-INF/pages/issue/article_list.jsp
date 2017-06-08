@@ -82,7 +82,7 @@
 				events: window.operateEvents = {
 					'click .btn-article-detail': function(e, value, row, index) {
 						e.stopPropagation();
-						//window.location.href = './articleDetail?id=' + row.id;
+						window.location.href = './articleGet/' + row.path;
 					},
 					'click .btn-article-edit': function(e, value, row, index) {
 						e.stopPropagation();

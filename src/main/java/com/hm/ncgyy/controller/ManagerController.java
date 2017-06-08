@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.entity.issue.ArticleEntity;
@@ -61,6 +62,18 @@ public class ManagerController {
 		}
 		
 		return "pages/issue/article_add";
+	}
+	
+	@RequestMapping(value = "/articleGet/{path}")
+	String articleGet(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
+		ArticleEntity article = articleService.findByPath(path);
+		if (article != null) {
+			String content = commonService.getArticleContent(article.getPath());
+			article.setContent(content);
+			modelMap.addAttribute("article", article);
+		}
+		
+		return "pages/issue/article_get";
 	}
 
 }

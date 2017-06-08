@@ -20,6 +20,11 @@ public class ArticleServiceImpl implements ArticleService {
 	public ArticleEntity findOne(Long articleId) {
 		return articleRepository.findOne(articleId);
 	}
+	
+	@Override
+	public ArticleEntity findByPath(String path) {
+		return articleRepository.findByPath(path);
+	}
 
 	@Override
 	public void save(ArticleEntity article) {
