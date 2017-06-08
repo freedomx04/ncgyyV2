@@ -34,9 +34,34 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public String updateArticle(String path, String content) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateArticle(String path, String content) throws IOException {
+		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		if (file.exists()) {
+			FileUtils.write(file, content, "UTF-8");
+		} else {
+			throw new IOException("article file not exist!");
+		}
+	}
+
+	@Override
+	public String getArticleContent(String path) throws IOException {
+		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		if (file.exists()) {
+			String content = FileUtils.readFileToString(file, "UTF-8");
+			return content;
+		} else {
+			throw new IOException("article file not exist!");
+		}
+	}
+
+	@Override
+	public void deleteArticle(String path) throws IOException {
+		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		if (file.exists()) {
+			file.delete();
+		} else {
+			throw new IOException("article file not exist!");
+		}
 	}
 
 }

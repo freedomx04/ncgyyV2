@@ -55,6 +55,12 @@ public class ArticleController {
 	@RequestMapping(value = "/api/article/update", method = RequestMethod.POST)
 	public Result update(Long articleId, String title, String source, String imagePath, String content) {
 		try {
+			ArticleEntity article = articleService.findOne(articleId);
+			article.setTitle(title);
+			article.setSource(source);
+			article.setUpdateTime(new Date());
+			commonService.updateArticle(article.getPath(), content);
+			articleService.save(article);
 			
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
@@ -66,6 +72,8 @@ public class ArticleController {
 	@RequestMapping(value = "/api/article/delete")
 	public Result delete(Long articleId) {
 		try {
+			ArticleEntity article = articleService.findOne(articleId);
+			commonService.deleteArticle(article.getPath());
 			articleService.delete(articleId);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
@@ -80,7 +88,9 @@ public class ArticleController {
 	@RequestMapping(value = "/api/article/batchDelete")
 	public Result batchDelete(@RequestParam("articleIdList[]") List<Long> articleIdList) {
 		try {
-			articleService.delete(articleIdList);
+			for (Long articleId: articleIdList) {
+				delete(articleId);
+			}	
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {

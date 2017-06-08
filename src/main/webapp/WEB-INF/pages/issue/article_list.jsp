@@ -24,7 +24,7 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
 	 		<div class="ibox-title">
-	 			<h5>${type}</h5>
+	 			<h5>${title}</h5>
 	 		</div>
 	 		<div class="ibox-content">
  				<div class="btn-group hidden-xs" id="article-list-table-toolbar" role="group">
@@ -77,16 +77,19 @@
 				title: '操作',
 				align: 'center',
 				formatter: function(value, row, index) {
-					return '<a class="btn-article-detail">详情</a> | ' + '<a class="btn-article-edit">编辑</a> | ' + '<a class="btn-article-delete">删除</a>';
+					return '<a class="btn-article-detail a-operate">详情</a><a class="btn-article-edit a-operate">编辑</a><a class="btn-article-delete a-operate">删除</a>';
 				},
 				events: window.operateEvents = {
 					'click .btn-article-detail': function(e, value, row, index) {
+						e.stopPropagation();
 						//window.location.href = './articleDetail?id=' + row.id;
 					},
 					'click .btn-article-edit': function(e, value, row, index) {
+						e.stopPropagation();
 						window.location.href = './articleAdd?type=${type}&method=edit&articleId=' + row.id;
 					},
 					'click .btn-article-delete': function(e, value, row, index) {
+						e.stopPropagation();
 						swal({
 							title: '',
 							text: '确定删除选中记录',
@@ -144,9 +147,9 @@
 				var rows = $table.bootstrapTable('getSelections');
 				
 				$.ajax({
-					url: '${ctx}/api/article/deleteBatch',
+					url: '${ctx}/api/article/batchDelete',
 					data: {
-						articleIds: $k.util.getIds(rows)
+						articleIdList: $k.util.getIdList(rows) 
 					},
 					success: function(ret) {
 						if (ret.code == '0') {

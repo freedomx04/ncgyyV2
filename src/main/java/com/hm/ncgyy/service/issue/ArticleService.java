@@ -19,5 +19,7 @@ public interface ArticleService {
 	List<ArticleEntity> listByType(Integer type);
 	
 	Page<ArticleEntity> listByType(Integer type, int page, int size);
+	
+	String getArticleTitle(Integer type);
 
 }

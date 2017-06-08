@@ -47,4 +47,17 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleRepository.findByTypeOrderByCreateTimeDesc(type, new PageRequest(page, size));
 	}
 
+	@Override
+	public String getArticleTitle(Integer type) {
+		String title = "";
+		switch (type) {
+		case 1:		title = "图片新闻";		break;
+		case 2:		title = "公示公告";		break;
+		case 3:		title = "政策法规";		break;
+		case 4:		title = "工业信息";		break;
+		default:	break;
+		}
+		return title;
+	}
+
 }

@@ -118,7 +118,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-area-edit">编辑</a> | ' + '<a class="btn-area-delete">删除</a>';
+                    return '<a class="btn-area-edit a-operate">编辑</a><a class="btn-area-delete a-operate">删除</a>';
                 },
             	events: window.operateEvents = {
             		'click .btn-area-edit': function(e, value, row, index) {

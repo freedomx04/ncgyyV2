@@ -130,7 +130,7 @@
 					contentType: false,
 					cache: false, 
 					success: function(ret) {
-						if (ret.code == '0') {
+						if (ret.code == 0) {
 							swal({
 								title: '',
 								text: '操作成功',
@@ -151,8 +151,31 @@
 			validator.validate();
 			
 			if (validator.isValid()) {
+				var formData = new FormData($form[0]); 
+				formData.append('articleId', '${article.id}');
+				formData.append('content', $('#summernote').summernote('code'));
+				
 				$.ajax({
 					url: '${ctx}/api/article/update',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					cache: false, 
+					success: function(ret) {
+						if (ret.code == 0) {
+							swal({
+								title: '',
+								text: '操作成功',
+								type: 'success'
+							}, function() {
+								window.location.href = './articleList?type=' + type;
+							});
+						} else {
+							swal('', '操作失败', 'error');
+						}
+					}
+					
 				});
 			}
 		})

@@ -13,3 +13,7 @@ body img {
 .gohome {
 	display: none;
 }
+
+.a-operate + .a-operate{
+	margin-left: 10px;
+}
