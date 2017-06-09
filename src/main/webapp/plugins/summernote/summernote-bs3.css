@@ -5778,9 +5778,9 @@ td.visible-lg {
     display: table-cell !important;
   }
 }
-.hidden-xs {
+/* .hidden-xs {
   display: block !important;
-}
+} */
 tr.hidden-xs {
   display: table-row !important;
 }

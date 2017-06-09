@@ -14,8 +14,8 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, Long> {
 	
 	Iterable<ArticleEntity> findByIdIn(List<Long> articleIdList);
 	
-	List<ArticleEntity> findByTypeOrderByCreateTimeDesc(Integer type);
+	List<ArticleEntity> findByTypeOrderByUpdateTimeDesc(Integer type);
 	
-	Page<ArticleEntity> findByTypeOrderByCreateTimeDesc(Integer type, Pageable pageable);
+	Page<ArticleEntity> findByTypeOrderByUpdateTimeDesc(Integer type, Pageable pageable);
 
 }

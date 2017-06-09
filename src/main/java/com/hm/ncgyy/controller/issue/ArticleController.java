@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
@@ -20,17 +21,18 @@ import com.hm.ncgyy.service.issue.ArticleService;
 
 @RestController
 public class ArticleController {
-	
+
 	static Logger log = LoggerFactory.getLogger(ArticleController.class);
-	
+
 	@Autowired
 	ArticleService articleService;
-	
+
 	@Autowired
 	CommonService commonService;
-	
+
 	/**
 	 * 新增文章
+	 * 
 	 * @param type
 	 * @param title
 	 * @param source
@@ -39,9 +41,16 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping(value = "/api/article/create", method = RequestMethod.POST)
-	public Result create(Integer type, String title, String source, String imagePath, String content) {
+	public Result create(Integer type, String title, String source,
+			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content) {
 		try {
 			String path = commonService.saveArticle(content);
+
+			String imagePath = null;
+			if (uploadImage != null) {
+				imagePath = commonService.saveImage(uploadImage);
+			}
+
 			Date now = new Date();
 			ArticleEntity article = new ArticleEntity(type, title, source, imagePath, path, now, now);
 			articleService.save(article);
@@ -51,56 +60,68 @@ public class ArticleController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/article/update", method = RequestMethod.POST)
-	public Result update(Long articleId, String title, String source, String imagePath, String content) {
+	public Result update(Long articleId, String title, String source,
+			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
 			article.setTitle(title);
 			article.setSource(source);
 			article.setUpdateTime(new Date());
+			
+			if (uploadImage != null && !uploadImage.isEmpty()) {
+				String imagePath = commonService.saveImage(uploadImage);
+				article.setImagePath(imagePath);
+			}
+			
 			commonService.updateArticle(article.getPath(), content);
 			articleService.save(article);
-			
+
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/article/delete")
 	public Result delete(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
+			
 			commonService.deleteArticle(article.getPath());
+			if (article.getImagePath() != null) {
+				commonService.deleteImage(article.getImagePath());
+			}
 			articleService.delete(articleId);
+			
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
-			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "constraint");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/article/batchDelete")
 	public Result batchDelete(@RequestParam("articleIdList[]") List<Long> articleIdList) {
 		try {
-			for (Long articleId: articleIdList) {
+			for (Long articleId : articleIdList) {
 				delete(articleId);
-			}	
+			}
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
-			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "constraint");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "api/article/get")
 	public Result get(Long articleId) {
 		try {
@@ -111,7 +132,7 @@ public class ArticleController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/article/list")
 	public Result list(Integer type) {
 		try {
@@ -122,5 +143,5 @@ public class ArticleController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 }

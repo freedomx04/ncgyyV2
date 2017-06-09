@@ -28,12 +28,10 @@
 	 		<div class="ibox-content">
  				<div class="text-center"><h1>${article.title}</h1></div>
  				
- 				<div style="padding: 0 20px; color: #999;">
+ 				<div style="padding: 10px 20px; color: #999;">
  					<span style="padding-right: 15px;">来源： ${article.source}</span>
  					<span><fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm"/></span>
  				</div>
- 				
- 				<div></div>
  				
  				<div style="padding: 20px;">${article.content}</div>
 	 		</div>

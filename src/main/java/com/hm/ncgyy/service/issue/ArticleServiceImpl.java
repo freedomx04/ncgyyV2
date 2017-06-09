@@ -44,12 +44,12 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleEntity> listByType(Integer type) {
-		return articleRepository.findByTypeOrderByCreateTimeDesc(type);
+		return articleRepository.findByTypeOrderByUpdateTimeDesc(type);
 	}
 
 	@Override
 	public Page<ArticleEntity> listByType(Integer type, int page, int size) {
-		return articleRepository.findByTypeOrderByCreateTimeDesc(type, new PageRequest(page, size));
+		return articleRepository.findByTypeOrderByUpdateTimeDesc(type, new PageRequest(page, size));
 	}
 
 	@Override

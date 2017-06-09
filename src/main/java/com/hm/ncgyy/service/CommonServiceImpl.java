@@ -1,6 +1,8 @@
 package com.hm.ncgyy.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -9,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hm.ncgyy.common.PathFormat;
 import com.hm.ncgyy.common.utils.CommonUtils;
 
 @Service
@@ -21,6 +25,7 @@ public class CommonServiceImpl implements CommonService {
 	private String uploadPath;
 	
 	private String articlePath = "article";
+	private String imageFormat = "/image/{time}{rand:6}";
 
 	@Override
 	public String saveArticle(String content) throws IOException {
@@ -59,8 +64,40 @@ public class CommonServiceImpl implements CommonService {
 		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
 		if (file.exists()) {
 			file.delete();
-		} else {
-			throw new IOException("article file not exist!");
+		}
+	}
+
+	@Override
+	public String saveImage(MultipartFile uploadImage) throws IOException {
+		if (uploadImage == null) {
+			return "";
+		}
+		
+		String filename = uploadImage.getOriginalFilename();
+		String suffix = getSuffixByFilename(filename);
+		
+		String tarPath = imageFormat + suffix;
+		tarPath = PathFormat.parse(tarPath);
+		
+		File file = Paths.get(uploadPath, tarPath).toFile();
+		com.hm.ncgyy.common.utils.FileUtils.sureDirExists(file, true);
+		
+		BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+		bout.write(uploadImage.getBytes());
+		bout.close();
+		
+		return tarPath;
+	}
+	
+	public static String getSuffixByFilename(String filename) {
+		return filename.substring( filename.lastIndexOf( "." ) ).toLowerCase();
+	}
+
+	@Override
+	public void deleteImage(String path) throws IOException {
+		File file = Paths.get(uploadPath, path).toFile();
+		if (file.exists()) {
+			file.delete();
 		}
 	}
 

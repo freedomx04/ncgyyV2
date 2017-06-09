@@ -15,9 +15,20 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/summernote/summernote.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/summernote/summernote-bs3.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput-rtl.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
+	
+	<style type="text/css">
+	.note-editor.note-frame {
+		border: solid 1px #e5e6e7;
+	}
+	.close.fileinput-remove {
+		display: none;
+	}
+	</style>
 	
 </head>
 
@@ -36,12 +47,20 @@
 							<input type="text" class="form-control" name="title" value="${article.title}" required>
 						</div>
 					</div>	
-					 <div class="form-group">
+					<div class="form-group">
 						<label for="source" class="col-sm-1 control-label">来源</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="source" value="${article.source}">
 						</div>
 					</div>
+					<c:if test="${type==1}">
+					<div class="form-group">
+						<label for="uploadImage" class="col-sm-1 control-label"><i class="form-required">*</i>图片</label>
+						<div class="col-sm-10">
+							<input id="uploadImage" type="file" class="file-loading" name="uploadImage" required>
+						</div>
+					</div>
+					</c:if>
 					<div class="form-group" >
 						<label for="source" class="col-sm-1 control-label">正文</label>
 						<div class="col-sm-10">
@@ -52,7 +71,7 @@
 					<div class="form-group">
 						<div class="col-sm-4 col-sm-offset-1">
 							<c:if test="${method == 'add'}">
-							<button type="button" class="btn btn-primary btn-article-add">
+							<button type="button" class="btn btn-primary btn-submit btn-article-add">
 		                        <i class="fa fa-check fa-fw"></i>确定
 		                    </button>
 		                    </c:if>
@@ -83,6 +102,9 @@
 	<script type="text/javascript" src="${ctx}/plugins/summernote/lang/summernote-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
+	
+	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 
 	<script type="text/javascript">
 	
@@ -102,6 +124,17 @@
 				dialogsFade: true,
 				placeholder: '文章内容'
 			});
+			
+			if (type == 1) {
+				$('#uploadImage').fileinput({
+					language: 'zh', 
+				    showUpload: false, 
+				    showRemove: false,
+				    allowedFileExtensions: [ 'jpg', 'png', 'gif' ],
+				    browseClass: "btn btn-primary",
+				    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+				});
+			}
 		} else {
 			$('#summernote').summernote({
 				minHeight: 360,
@@ -110,10 +143,27 @@
 				dialogsFade: true,
 			});
 			$('#summernote').summernote('code', '${article.content}');
+			
+			if (type == 1) {
+				$('#uploadImage').fileinput({
+					language: 'zh', 
+				    showUpload: false, 
+				    showRemove: false,
+				    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
+				    browseClass: "btn btn-primary",
+				    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+				    
+				    initialPreview:	'<img src="${ctx}${article.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
+				    initialCaption: '${article.imagePath}',
+				});
+			}
 		}
 		
 		$page
 		.on('click', '.btn-article-add', function() {
+			
+			$('#uploadImage').fileinput('upload');
+			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
 			
@@ -148,6 +198,7 @@
 		})
 		.on('click', '.btn-article-edit', function() {
 			var validator = $form.data('bootstrapValidator');
+			validator.removeField('uploadImage');
 			validator.validate();
 			
 			if (validator.isValid()) {
