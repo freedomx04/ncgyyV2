@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hm.ncgyy.common.PathFormat;
 import com.hm.ncgyy.common.utils.CommonUtils;
+import com.hm.ncgyy.common.utils.FileUtil;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -32,7 +33,7 @@ public class CommonServiceImpl implements CommonService {
 		String path = CommonUtils.getShortUuid();
 		
 		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
-		com.hm.ncgyy.common.utils.FileUtils.sureDirExists(file, true);
+		FileUtil.sureDirExists(file, true);
 		FileUtils.write(file, content, "UTF-8");
 		
 		return path;
@@ -80,7 +81,7 @@ public class CommonServiceImpl implements CommonService {
 		tarPath = PathFormat.parse(tarPath);
 		
 		File file = Paths.get(uploadPath, tarPath).toFile();
-		com.hm.ncgyy.common.utils.FileUtils.sureDirExists(file, true);
+		FileUtil.sureDirExists(file, true);
 		
 		BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
 		bout.write(uploadImage.getBytes());

@@ -112,7 +112,7 @@ public class HttpUtils {
     public static boolean downloadFile(String url, File output) throws IOException {
         boolean ret = false;
         
-        FileUtils.sureDirExists(output, true);
+        FileUtil.sureDirExists(output, true);
         
         CloseableHttpClient client = WebClient.newHttpClient();
         HttpGet method = new HttpGet(url);
