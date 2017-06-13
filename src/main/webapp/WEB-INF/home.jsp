@@ -63,7 +63,7 @@
 							<li><a class="J_menuItem" href="#">角色管理</a></li>
 							<li><a class="J_menuItem" href="#">用户管理</a></li>
 							<li><a class="J_menuItem" href="#">企业管理</a></li>
-							<li><a class="J_menuItem" href="#">政府部门管理</a></li>
+							<li><a class="J_menuItem" href="#">部门管理</a></li>
 						</ul>
 					</li>
 					<li>
