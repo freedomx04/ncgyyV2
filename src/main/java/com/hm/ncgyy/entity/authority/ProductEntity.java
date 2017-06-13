@@ -1,5 +1,7 @@
 package com.hm.ncgyy.entity.authority;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +46,18 @@ public class ProductEntity extends BaseEntity {
 	
 	public ProductEntity() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public ProductEntity(EnterpriseBaseEntity enterprise, String name, String imagePath, String specification,
+			String introduction, Date createTime, Date updateTime) {
+		super();
+		this.enterprise = enterprise;
+		this.name = name;
+		this.imagePath = imagePath;
+		this.specification = specification;
+		this.introduction = introduction;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
 	}
 
 	public EnterpriseBaseEntity getEnterprise() {

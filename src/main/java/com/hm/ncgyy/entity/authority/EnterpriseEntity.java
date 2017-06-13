@@ -108,6 +108,138 @@ public class EnterpriseEntity extends BaseEntity {
 	/**
 	 * 重点企业标识
 	 */
-    private Integer pointStatus = PointStatus.UNPOINT; 
-	
+    private Integer pointStatus = PointStatus.UNPOINT;
+    
+	public EnterpriseEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public AreaEntity getArea() {
+		return area;
+	}
+
+	public void setArea(AreaEntity area) {
+		this.area = area;
+	}
+
+	public String getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(String principal) {
+		this.principal = principal;
+	}
+
+	public String getMainProduct() {
+		return mainProduct;
+	}
+
+	public void setMainProduct(String mainProduct) {
+		this.mainProduct = mainProduct;
+	}
+
+	public Date getProductTime() {
+		return productTime;
+	}
+
+	public void setProductTime(Date productTime) {
+		this.productTime = productTime;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDesignCapacity() {
+		return designCapacity;
+	}
+
+	public void setDesignCapacity(String designCapacity) {
+		this.designCapacity = designCapacity;
+	}
+
+	public String getShareholder() {
+		return shareholder;
+	}
+
+	public void setShareholder(String shareholder) {
+		this.shareholder = shareholder;
+	}
+
+	public String getRegisteredCapital() {
+		return registeredCapital;
+	}
+
+	public void setRegisteredCapital(String registeredCapital) {
+		this.registeredCapital = registeredCapital;
+	}
+
+	public String getAlterRecording() {
+		return alterRecording;
+	}
+
+	public void setAlterRecording(String alterRecording) {
+		this.alterRecording = alterRecording;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public String getNationalTax() {
+		return nationalTax;
+	}
+
+	public void setNationalTax(String nationalTax) {
+		this.nationalTax = nationalTax;
+	}
+
+	public String getLocalTax() {
+		return localTax;
+	}
+
+	public void setLocalTax(String localTax) {
+		this.localTax = localTax;
+	}
+
+	public Integer getPointStatus() {
+		return pointStatus;
+	}
+
+	public void setPointStatus(Integer pointStatus) {
+		this.pointStatus = pointStatus;
+	} 
+    
 }

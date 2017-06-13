@@ -30,16 +30,6 @@ public class ArticleController {
 	@Autowired
 	CommonService commonService;
 
-	/**
-	 * 新增文章
-	 * 
-	 * @param type
-	 * @param title
-	 * @param source
-	 * @param imagePath
-	 * @param content
-	 * @return
-	 */
 	@RequestMapping(value = "/api/article/create", method = RequestMethod.POST)
 	public Result create(Integer type, String title, String source,
 			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content) {
@@ -69,12 +59,12 @@ public class ArticleController {
 			article.setTitle(title);
 			article.setSource(source);
 			article.setUpdateTime(new Date());
-			
+
 			if (uploadImage != null && !uploadImage.isEmpty()) {
 				String imagePath = commonService.saveImage(uploadImage);
 				article.setImagePath(imagePath);
 			}
-			
+
 			commonService.updateArticle(article.getPath(), content);
 			articleService.save(article);
 
@@ -89,13 +79,13 @@ public class ArticleController {
 	public Result delete(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
-			
+
 			commonService.deleteArticle(article.getPath());
 			if (article.getImagePath() != null) {
 				commonService.deleteImage(article.getImagePath());
 			}
 			articleService.delete(articleId);
-			
+
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
