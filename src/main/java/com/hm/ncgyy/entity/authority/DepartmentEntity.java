@@ -1,4 +1,4 @@
-package com.hm.ncgyy.repository.authority;
+package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
 import java.util.LinkedList;

@@ -52,7 +52,7 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="form-department" autocomplete="off">
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>名称</label>
+                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>部门名称</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="name" required>
                             </div>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">描述</label>
+                            <label for="description" class="col-sm-3 control-label">部门描述</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="description">
                             </div>
@@ -114,7 +114,7 @@
             	checkbox: true
             }, {
             	field: 'name',
-            	title: '名称',
+            	title: '部门名称',
             	align: 'center'
             }, {
             	field: 'principal',
@@ -122,7 +122,7 @@
             	align: 'center'
             }, {
             	field: 'description',
-            	title: '描述',
+            	title: '部门描述',
             	align: 'center'
             }, {
             	title: '操作',

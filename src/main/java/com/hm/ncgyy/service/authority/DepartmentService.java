@@ -2,7 +2,7 @@ package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
-import com.hm.ncgyy.repository.authority.DepartmentEntity;
+import com.hm.ncgyy.entity.authority.DepartmentEntity;
 
 public interface DepartmentService {
 	
