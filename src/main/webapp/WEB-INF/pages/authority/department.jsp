@@ -154,7 +154,6 @@
                             		type: 'POST',
                             		data: {
                             			departmentId: row.id,
-                            			areaId: $departmentForm.find('input[name = "areaId"]').val(),
                             			principal: $departmentForm.find('input[name = "principal"]').val(),
                             			description: $departmentForm.find('input[name = "description"]').val()
                             		},
@@ -230,7 +229,6 @@
                  		type: 'POST',
                  		data: {
                  			name: $departmentForm.find('input[name = "name"]').val(),
-                 			areaId: $departmentForm.find('input[name = "areaId"]').val(),
                 			principal: $departmentForm.find('input[name = "principal"]').val(),
                  			description: $departmentForm.find('input[name = "description"]').val()
                  		},
