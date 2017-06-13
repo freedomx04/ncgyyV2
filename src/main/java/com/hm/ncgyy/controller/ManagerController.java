@@ -26,11 +26,24 @@ public class ManagerController {
 	CommonService commonService;
 	
 	/**
+	 * 企业接口
+	 */
+	@RequestMapping(value = "/enterprise")
+	String enterprise() {
+		return "pages/authority/enterprise";
+	}
+	
+	/**
 	 * 基础数据接口
 	 */
 	@RequestMapping(value = "/area")
 	String area() {
 		return "pages/base/area";
+	}
+	
+	@RequestMapping(value = "/industry")
+	String industry() {
+		return "pages/base/industry";
 	}
 	
 	/**
