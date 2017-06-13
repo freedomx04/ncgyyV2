@@ -1,7 +1,3 @@
-body img {
-	max-width: 100%;
-}
-
 .form-required {
 	color: red;
 	margin-right: 5px;
@@ -17,3 +13,45 @@ body img {
 .a-operate + .a-operate{
 	margin-left: 10px;
 }
+
+.height-full {
+    height: 100%!important;
+}
+
+.vertical-align {
+    font-size: 0;
+}
+.vertical-align:before {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    content: "";
+}
+.vertical-align-middle {
+    vertical-align: middle;
+}
+.vertical-align-bottom, .vertical-align-middle {
+    display: inline-block;
+    max-width: 100%;
+    font-size: 14px;
+}
+
+@media (max-width: 767px){
+	.hidden-xs {
+   		display: none!important;
+	}
+}
+.visible-xs {
+    display: none!important;
+}
+
+.padding-0 {
+	padding: 0!important;
+}
+
+@media (max-width: 767px){
+	.visible-xs {
+    	display: block!important;
+	}
+}
+

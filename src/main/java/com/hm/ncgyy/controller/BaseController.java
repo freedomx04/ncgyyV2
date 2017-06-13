@@ -25,6 +25,11 @@ public class BaseController {
 		return "overview";
 	}
 	
+	@RequestMapping(value = "/login")
+	String login() {
+		return "login";
+	}
+	
 	/**
 	 * 权限管理接口
 	 */
