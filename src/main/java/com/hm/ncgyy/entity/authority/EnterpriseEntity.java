@@ -1,16 +1,20 @@
 package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
+import com.hm.ncgyy.entity.base.IndustryEntity;
 
 @Entity
 @Table(name = "authority_enterprise")
@@ -39,9 +43,12 @@ public class EnterpriseEntity extends BaseEntity {
     @JoinColumn(name = "area_id")
     private AreaEntity area; 
 
-//	@OneToOne(cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "product_type_id")
-//    private ProductTypeEntity productType; 
+	/**
+	 * 行业
+	 */
+	@OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "industry_id")
+    private IndustryEntity industry; 
 	
 	/**
 	 * 企业负责人
@@ -109,6 +116,20 @@ public class EnterpriseEntity extends BaseEntity {
 	 * 重点企业标识
 	 */
     private Integer pointStatus = PointStatus.UNPOINT;
+    
+    /**
+     * 企业产品
+     */
+    @OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "enterprise_id")
+	private List<ProductEntity> products = new LinkedList<>(); 
+
+    /**
+     * 企业新闻
+     */
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "enterprise_id")
+	private List<NewsEntity> newsList = new LinkedList<>(); 
     
 	public EnterpriseEntity() {
 		// TODO Auto-generated constructor stub
@@ -240,6 +261,30 @@ public class EnterpriseEntity extends BaseEntity {
 
 	public void setPointStatus(Integer pointStatus) {
 		this.pointStatus = pointStatus;
+	}
+
+	public IndustryEntity getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(IndustryEntity industry) {
+		this.industry = industry;
+	}
+
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
+	}
+
+	public List<NewsEntity> getNewsList() {
+		return newsList;
+	}
+
+	public void setNewsList(List<NewsEntity> newsList) {
+		this.newsList = newsList;
 	} 
-    
+	
 }

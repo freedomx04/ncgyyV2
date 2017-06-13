@@ -49,4 +49,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		return baseRepository.findOne(enterpriseId);
 	}
 
+	@Override
+	public List<EnterpriseBaseEntity> listBase() {
+		return (List<EnterpriseBaseEntity>) baseRepository.findAll();
+	}
+
 }

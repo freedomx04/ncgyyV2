@@ -17,6 +17,11 @@ public interface EnterpriseService {
 	
 	List<EnterpriseEntity> list();
 	
+	/**
+	 * base enterprise
+	 */
 	EnterpriseBaseEntity findOneBase(Long enterpriseId);
-
+	
+	List<EnterpriseBaseEntity> listBase();
+	
 }

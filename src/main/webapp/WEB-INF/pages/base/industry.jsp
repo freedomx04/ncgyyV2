@@ -107,43 +107,9 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-industry-edit a-operate">编辑</a><a class="btn-industry-delete a-operate">删除</a>';
+                    return '<a class="btn-industry-delete a-operate">删除</a>';
                 },
             	events: window.operateEvents = {
-            		'click .btn-industry-edit': function(e, value, row, index) {
-            			e.stopPropagation();
-            			
-            			$industryDialog.find('.modal-title strong').text('编辑');
-            			$.each(row, function(key, val) {
-            				if (key == 'name') {
-                                $industryForm.find('input[name = "name"]').attr('disabled', 'disabled');
-                            }
-            				$industryForm.find('input[name="' + key + '"]').val(val);
-            			});
-            			$industryDialog.modal('show');
-            			
-            			$industryDialog.on('click', '.btn-confirm', function() {
-            				var validator = $industryForm.data('bootstrapValidator');
-            				validator.validate();
-            				
-                            if (validator.isValid()) {
-                            	$.ajax({
-                            		url: '${ctx}/api/industry/update',
-                            		type: 'POST',
-                            		data: {
-                            			industryId: row.id,
-                            			description: $industryForm.find('input[name = "description"]').val()
-                            		},
-                            		success: function(ret) {
-                            			$industryDialog.modal('hide');
-                                        swal('', '编辑成功!', 'success');
-                                        $table.bootstrapTable('refresh'); 
-                            		},
-                            		error: function(err) {}
-                            	});
-                            }
-            			});
-            		},
             		'click .btn-industry-delete': function(e, value, row, index) {
             			e.stopPropagation();
             			
@@ -266,13 +232,12 @@
 						threshold: 6,
 	                    remote: {
 	                    	url: '${ctx}/api/industry/exist',
-	                    	message: '区域已存在',
+	                    	message: '行业已存在',
 	                    	delay: 2000,
 	                    	type: 'GET',
 	                    }
 					} 
-				},
-				description: {}
+				}
             }
         });
 		
