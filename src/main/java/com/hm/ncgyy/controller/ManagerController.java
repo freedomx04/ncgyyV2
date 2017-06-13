@@ -33,6 +33,11 @@ public class ManagerController {
 		return "pages/authority/enterprise";
 	}
 	
+	@RequestMapping(value = "/department")
+	String department() {
+		return "pages/authority/department";
+	}
+	
 	/**
 	 * 基础数据接口
 	 */
@@ -45,7 +50,7 @@ public class ManagerController {
 	String industry() {
 		return "pages/base/industry";
 	}
-	
+		
 	/**
 	 * 新闻发布接口
 	 */
