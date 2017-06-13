@@ -33,6 +33,11 @@ public class ManagerController {
 		return "pages/base/area";
 	}
 	
+	@RequestMapping(value = "/department")
+	String department() {
+		return "pages/authority/department";
+	}
+	
 	/**
 	 * 新闻发布接口
 	 */

@@ -14,6 +14,7 @@
 
 	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.min.css">
@@ -30,7 +31,7 @@
 	        <div class="page-brand-info vertical-align animated slideInLeft hidden-xs">
 	            <div class="page-brand vertical-align-middle">
 	                <div class="brand">
-	                    <img class="brand-img" src="/public/images/logo-white.svg" height="50" alt="Admui">
+	                    <img class="brand-img" src="" height="50" alt="Admui">
 	                </div>
 	                <h3>南城县工业园区综合信息服务平台</h3>
 	                <ul class="list-icons">
@@ -57,14 +58,14 @@
 	                    </div>
 	                    <h3 class="hidden-xs">登录 南城县工业园区综合信息服务平台</h3>
 	                    <p class="hidden-xs">南城县工业园区综合信息服务平台 在线系统</p>
-	                    <form action="/system/loginValidate" class="login-form" method="post" id="loginForm">
+	                    <form class="login-form" id="loginForm">
 	                        <div class="form-group">
 	                            <label class="sr-only" for="username">用户名</label>
-	                            <input type="text" class="form-control" id="username" name="loginName" placeholder="请输入用户名">
+	                            <input type="text" class="form-control" id="username" name="loginName" placeholder="请输入用户名" required data-bv-notempty-message="用户名不能为空">
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="sr-only" for="password">密码</label>
-	                            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+	                            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required data-bv-notempty-message="密码不能为空">
 	                        </div>
 	                        <div class="form-group">
 	                            <label class="sr-only" for="password">验证码</label>
@@ -77,17 +78,23 @@
 	                        </div>
 	                        <div class="form-group clearfix">
 	                        	<label class="i-checks">
-                                    <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins><iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></div><i></i> 自动登录</label>
+                                    <div class="icheckbox_square-green" style="position: relative;">
+                                    	<input type="checkbox" id="rememberPassword" style="position: absolute; opacity: 0;">
+                                    	<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                    </div>
+                                    <i></i> 
+                                             记住密码
+                                    </label>
 	                            <a class="pull-right collapsed" data-toggle="collapse" href="#forgetPassword" aria-expanded="false" aria-controls="forgetPassword">
 	                                忘记密码了？
 	                            </a>
 	                        </div>
 	                        <div class="form-group row" style="margin: 0 auto;">
 	                        	<div class="col-sm-7">
-	                        		<button type="submit" class="btn btn-primary btn-block margin-top-10">登 录</button>
+	                        		<button id="login-btn" class="btn btn-primary btn-block">登 录</button>
 	                        	</div>
 	                        	<div class="col-sm-5">
-	                        		<a class="btn btn-outline btn-success btn-block margin-top-10" href="" target="_blank">注册账号</a>
+	                        		<a class="btn btn-outline btn-success btn-block" href="" target="_blank">注册账号</a>
 	                        	</div>
 	                        </div>
 	                    </form>
@@ -95,7 +102,7 @@
 	            </div>
 	            <footer class="page-copyright">
 	                <p>&copy; 2017
-	                    <a href="http://www.admui.com" target="_blank">南城县工业园区综合信息服务平台</a>
+	                    <a href="" target="_blank">南城县工业园区综合信息服务平台</a>
 	                </p>
 	            </footer>
 	        </div>
@@ -105,15 +112,95 @@
 	<!-- JS -->
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 
 
 	<script>
-		var $kaptcha_img = $("#kaptcha-img");
-		var $kaptcha = $("#kaptcha");
-		
+		var $page = $(".page");
+		var $kaptcha_img = $page.find("#kaptcha-img");
+		var $kaptcha = $page.find("#kaptcha");
+		var $form = $page.find(".login-form");
+		var $username = $form .find("#username");
+		var $password = $form .find("#password");
+		var $rememberPassword = $form .find("#rememberPassword");
+
+		//点击更换图形验证码
 		$kaptcha_img.click(function() {
-			$(this).attr("src","kaptcha.jpg?t=" + Math.random()); 
+			$(this).attr("src", "kaptcha.jpg?t=" + Math.random()); 
 		});
+		
+		//单选框插件
+		$page.find(".i-checks").iCheck({
+			checkboxClass: "icheckbox_square-green",
+			radioClass: "iradio_square-green"
+		});
+		
+		document.onkeydown = function(e){
+			var ev = document.all ? window.event : e;
+			if(ev.keyCode==13) {
+				$form.find("#login_btn").trigger("click");
+			}
+		}
+		
+		//是否为记住密码登录
+		if ($k.util.getRequestParam('username') != "") {
+			//从注册转到登录页面自动填写用户名
+			$username.val($k.util.getRequestParam('username'));
+		} else {
+			$rememberPassword.prop("checked", getCookie("rememberPassword") == "" ? false : true);
+			if (getCookie("rememberPassword") != "") {
+				$username.val(getCookie("username"));
+				$password.val(getCookie("password"));
+			} else {
+				$username.val("");
+				$password.val("");
+			}
+		}
+
+		//勾选记住密码
+		$rememberPassword.click(function() {
+			var checked = $(this).prop('checked');
+			if (checked) {
+				setCookie("username", $password.val(), "d7");
+				setCookie("rememberLoginName", checked, "d7");
+				setCookie("password", $password.val(), "d7");
+				setCookie("rememberPassword", checked, "d7");
+			} else {
+				setCookie("username", "", "d7");
+				setCookie("rememberLoginName", "", "d7");
+				setCookie("password", "", "d7");
+				setCookie("rememberPassword", "", "d7");
+			}
+		});
+		
+		
+		$page
+		.on("click", "#login-btn", function() {
+			var redirect = $k.util.getRequestParam("redirect");
+			if ($rememberPassword.prop("checked")) {
+				setCookie("username", $username.val(), "d7")
+				setCookie("password", $password.val(), "d7")
+			}
+			
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			if (validator.isValid()) {
+				$.ajax({
+					type: "POST",
+					url: "${ctx}/api/user/login",
+					data: {
+						username: $form.find("#username").val(),
+						//password: 
+					},
+					success: function(data) {},
+					error: function(error) {}
+				});
+			}
+		})
 		
 		$("#check").click(function() {
 			$.ajax({
@@ -133,6 +220,9 @@
 				error: function(err) {}
 			});
 		});
+		
+		// 添加验证器
+		$k.util.bsValidator($form);
     </script>
 </body>
 </html>
