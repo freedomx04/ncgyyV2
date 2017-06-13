@@ -93,6 +93,18 @@ public class CommonServiceImpl implements CommonService {
 	public static String getSuffixByFilename(String filename) {
 		return filename.substring( filename.lastIndexOf( "." ) ).toLowerCase();
 	}
+	
+	@Override
+	public void updateImage(String path, MultipartFile uploadImage) throws IOException {
+		if (uploadImage == null) {
+			return;
+		}
+		
+		File file = Paths.get(uploadPath, path).toFile();
+		BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+		bout.write(uploadImage.getBytes());
+		bout.close();
+	}
 
 	@Override
 	public void deleteImage(String path) throws IOException {

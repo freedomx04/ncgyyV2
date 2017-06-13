@@ -61,6 +61,7 @@ public class ArticleController {
 			article.setUpdateTime(new Date());
 
 			if (uploadImage != null && !uploadImage.isEmpty()) {
+				commonService.deleteImage(article.getImagePath());
 				String imagePath = commonService.saveImage(uploadImage);
 				article.setImagePath(imagePath);
 			}

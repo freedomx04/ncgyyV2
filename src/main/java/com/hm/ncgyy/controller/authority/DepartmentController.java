@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.base;
+package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -19,28 +19,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.service.base.AreaService;
+import com.hm.ncgyy.repository.authority.DepartmentEntity;
+import com.hm.ncgyy.service.authority.DepartmentService;
+import com.hm.ncgyy.service.authority.UserService;
 
 @RestController
-public class AreaController {
+public class DepartmentController {
 	
-	static Logger log = LoggerFactory.getLogger(AreaController.class);
+	static Logger log = LoggerFactory.getLogger(DepartmentController.class);
 	
 	@Autowired
-	AreaService areaService;
+	DepartmentService departmentService;
 	
-	@RequestMapping(value = "/api/area/create", method = RequestMethod.POST)
-	public Result create(String name, String description) {
+	@Autowired
+	UserService userService;
+	
+	@RequestMapping(value = "/api/department/create", method = RequestMethod.POST)
+	public Result create(String name, String description, String principal) {
 		try {
-			AreaEntity area = areaService.findByName(name);
-			if (area != null) {
-				return new Result(Code.EXISTED.value(), "existed");
-			}
-			
 			Date now = new Date();
-			area = new AreaEntity(name, description, now, now);
-			areaService.save(area);
+			DepartmentEntity department = new DepartmentEntity(name, description, principal, now, now);
+			departmentService.save(department);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -48,13 +47,14 @@ public class AreaController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/area/update", method = RequestMethod.POST)
-	public Result update(Long areaId, String description) {
+	@RequestMapping(value = "/api/department/update", method = RequestMethod.POST)
+	public Result update(Long departmentId, String description, String principal) {
 		try {
-			AreaEntity area = areaService.findOne(areaId);
-			area.setDescription(description);
-			area.setUpdateTime(new Date());
-			areaService.save(area);
+			DepartmentEntity department = departmentService.findOne(departmentId);
+			department.setDescription(description);
+			department.setPrincipal(principal);
+			department.setUpdateTime(new Date());
+			departmentService.save(department);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -62,10 +62,10 @@ public class AreaController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/area/delete")
-	public Result delete(Long areaId) {
+	@RequestMapping(value = "/api/department/delete")
+	public Result delete(Long departmentId) {
 		try {
-			areaService.delete(areaId);
+			departmentService.delete(departmentId);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
@@ -76,10 +76,12 @@ public class AreaController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/area/batchDelete")
-	public Result batchDelete(@RequestParam("areaIdList[]") List<Long> areaIdList) {
+	@RequestMapping(value = "/api/department/batchDelete")
+	public Result batchDelete(@RequestParam("departmentIdList[]") List<Long> departmentIdList) {
 		try {
-			areaService.delete(areaIdList);
+			for (Long departmentId: departmentIdList) {
+				delete(departmentId);
+			}
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
@@ -90,34 +92,34 @@ public class AreaController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/area/get")
-	public Result get(Long areaId) {
+	@RequestMapping(value = "/api/department/get")
+	public Result get(Long departmentId) {
 		try {
-			AreaEntity area = areaService.findOne(areaId);
-			return new ResultInfo(Code.SUCCESS.value(), "ok", area);
+			DepartmentEntity department = departmentService.findOne(departmentId);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", department);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
 	
-	@RequestMapping(value= "/api/area/list")
+	@RequestMapping(value= "/api/department/list")
 	public Result list() {
 		try {
-			List<AreaEntity> areaList = areaService.list();
-			return new ResultInfo(Code.SUCCESS.value(), "ok", areaList);
+			List<DepartmentEntity> departmentList = departmentService.list();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", departmentList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
 	
-	@RequestMapping(value = "/api/area/exist")
+	@RequestMapping(value = "/api/department/exist")
 	public @ResponseBody String exist(String name) throws JsonProcessingException {
 		boolean result = true;
 
-		AreaEntity area = areaService.findByName(name);
-		if (area != null) {
+		DepartmentEntity department = departmentService.findByName(name);
+		if (department != null) {
 			result = false;
 		}
 

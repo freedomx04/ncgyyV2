@@ -22,6 +22,8 @@ public interface CommonService {
 	 */
 	String saveImage(MultipartFile uploadImage) throws IOException;
 	
+	void updateImage(String path, MultipartFile uploadImage) throws IOException;
+	
 	void deleteImage(String path) throws IOException;
 	
 	
