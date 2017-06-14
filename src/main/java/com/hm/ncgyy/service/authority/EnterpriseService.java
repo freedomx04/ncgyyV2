@@ -22,6 +22,15 @@ public interface EnterpriseService {
 	 */
 	EnterpriseBaseEntity findOneBase(Long enterpriseId);
 	
+	EnterpriseBaseEntity findByNameBase(String name);
+	
 	List<EnterpriseBaseEntity> listBase();
+	
+	List<EnterpriseBaseEntity> listByAreaId(Long areaId);
+	
+	List<EnterpriseBaseEntity> listByIndustryId(Long industryId);
+	
+	List<EnterpriseBaseEntity> listPoint();
+	
 	
 }

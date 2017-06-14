@@ -48,10 +48,34 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	public EnterpriseBaseEntity findOneBase(Long enterpriseId) {
 		return baseRepository.findOne(enterpriseId);
 	}
+	
+	@Override
+	public EnterpriseBaseEntity findByNameBase(String name) {
+		return baseRepository.findByName(name);
+	}
 
 	@Override
 	public List<EnterpriseBaseEntity> listBase() {
 		return (List<EnterpriseBaseEntity>) baseRepository.findAll();
 	}
+
+	@Override
+	public List<EnterpriseBaseEntity> listByAreaId(Long areaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<EnterpriseBaseEntity> listByIndustryId(Long industryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<EnterpriseBaseEntity> listPoint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

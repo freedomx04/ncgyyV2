@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseEntity.PointStatus;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 
@@ -39,6 +40,11 @@ public class EnterpriseBaseEntity extends BaseEntity {
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "industry_id")
     private IndustryEntity industry; 
+	
+	/**
+	 * 重点企业标识
+	 */
+    private Integer pointStatus = PointStatus.UNPOINT;
 	
 	public EnterpriseBaseEntity() {
 		// TODO Auto-generated constructor stub
@@ -74,6 +80,14 @@ public class EnterpriseBaseEntity extends BaseEntity {
 
 	public void setIndustry(IndustryEntity industry) {
 		this.industry = industry;
+	}
+
+	public Integer getPointStatus() {
+		return pointStatus;
+	}
+
+	public void setPointStatus(Integer pointStatus) {
+		this.pointStatus = pointStatus;
 	} 
 	
 }
