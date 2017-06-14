@@ -68,7 +68,7 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-cog fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
+							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="area">区域管理</a></li>
@@ -77,50 +77,14 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">企业主要指标</span><span class="fa arrow"></span>
+							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">监测平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							
-							<li><a class="J_menuItem" href="target?type=0-1">主营业务收入及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=0-2">用电量及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=0-3">利润总额及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=0-4">实现税金总额及增幅图表</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">行业主要指标</span><span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							
-							<li><a class="J_menuItem" href="target?type=1-1">主营业务收入及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=1-2">用电量及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=1-3">利润总额及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=1-4">实现税金总额及增幅图表</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">区域主要指标</span><span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							
-							<li><a class="J_menuItem" href="target?type=2-1">主营业务收入及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=2-2">用电量及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=2-3">利润总额及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=2-4">实现税金总额及增幅图表</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">重点企业主要指标</span><span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							
-							<li><a class="J_menuItem" href="target?type=3-1">主营业务收入及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=3-2">用电量及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=3-3">利润总额及增幅图表</a></li>
-							<li><a class="J_menuItem" href="target?type=3-4">实现税金总额及增幅图表</a></li>
+							<li><a class="J_menuItem" href="targetImport">主要指标上报</a></li>
+							<li><a class="J_menuItem" href="targetEnterprise">企业主要指标</a></li>
+							<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
+							<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
+							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
 						</ul>
 					</li>
 					<li>

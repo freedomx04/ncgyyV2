@@ -50,6 +50,34 @@ public class ManagerController {
 	String industry() {
 		return "pages/base/industry";
 	}
+	
+	/**
+	 * 监测平台接口
+	 */
+	@RequestMapping(value = "/targetImport")
+	String targetImport() {
+		return "pages/monitor/target_import";
+	}
+	
+	@RequestMapping(value = "/targetEnterprise")
+	String targetEnterprise() {
+		return "pages/monitor/target_enterprise";
+	}
+	
+	@RequestMapping(value = "/targetIndustry")
+	String targetIndustry() {
+		return "pages/monitor/target_industry";
+	}
+	
+	@RequestMapping(value = "/targetArea")
+	String targetArea() {
+		return "pages/monitor/target_area";
+	}
+	
+	@RequestMapping(value = "/targetPointEnterprise")
+	String targetPointEnterprise() {
+		return "pages/monitor/target_point_enterprise";
+	}
 		
 	/**
 	 * 新闻发布接口
@@ -92,14 +120,6 @@ public class ManagerController {
 		}
 		
 		return "pages/issue/article_get";
-	}
-	
-	/**
-	 * 监测平台/主要指标接口
-	 */
-	@RequestMapping(value = "/target")
-	String target() {
-		return "pages/target/target";
 	}
 
 }
