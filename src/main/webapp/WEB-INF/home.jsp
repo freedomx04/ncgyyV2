@@ -68,11 +68,23 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-cog fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
+							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="area">区域管理</a></li>
 							<li><a class="J_menuItem" href="industry">行业管理</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">监测平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="targetImport">主要指标上报</a></li>
+							<li><a class="J_menuItem" href="targetEnterprise">企业主要指标</a></li>
+							<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
+							<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
+							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
 						</ul>
 					</li>
 					<li>
