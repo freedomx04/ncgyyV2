@@ -93,5 +93,13 @@ public class ManagerController {
 		
 		return "pages/issue/article_get";
 	}
+	
+	/**
+	 * 监测平台/主要指标接口
+	 */
+	@RequestMapping(value = "/target")
+	String target() {
+		return "pages/target/target";
+	}
 
 }
