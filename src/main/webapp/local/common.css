@@ -14,6 +14,11 @@
 	margin-left: 10px;
 }
 
+table thead tr {
+	background-color: #18a689;
+	color: #fff;
+}
+
 .height-full {
     height: 100%!important;
 }

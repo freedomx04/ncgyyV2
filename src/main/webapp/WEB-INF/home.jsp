@@ -62,7 +62,7 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="#">角色管理</a></li>
 							<li><a class="J_menuItem" href="#">用户管理</a></li>
-							<li><a class="J_menuItem" href="enterprise">企业管理</a></li>
+							<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
 							<li><a class="J_menuItem" href="department">部门管理</a></li>
 						</ul>
 					</li>

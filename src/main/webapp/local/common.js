@@ -37,7 +37,7 @@
 			cache: false,					// 是否禁用ajax数据缓存, 默认为true
 			//height: 500,					// 定义表格的高度
 			//undefinedText: '-',			// 当数据为 undefined 时显示的字符, 默认为 '-'
-			//striped: false,				// 设置为 true 会有隔行变色效果, 默认为false
+			striped: true,					// 设置为 true 会有隔行变色效果, 默认为false
 			
 			// 分页设置
 			pagination: true,				// 是否显示分页条, 默认为false

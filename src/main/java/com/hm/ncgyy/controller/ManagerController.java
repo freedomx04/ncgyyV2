@@ -28,9 +28,9 @@ public class ManagerController {
 	/**
 	 * 企业接口
 	 */
-	@RequestMapping(value = "/enterprise")
+	@RequestMapping(value = "/enterpriseList")
 	String enterprise() {
-		return "pages/authority/enterprise";
+		return "pages/authority/enterprise_list";
 	}
 	
 	@RequestMapping(value = "/department")
