@@ -69,6 +69,14 @@ public class ManagerController {
 		return "pages/authority/enterprise_add";
 	}
 	
+	@RequestMapping(value = "/enterpriseGet")
+	String enterpriseGet(ModelMap modelMap, Long enterpriseId) {
+		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+		modelMap.addAttribute("enterprise", enterprise);
+		
+		return "pages/authority/enterprise_get";
+	}
+	
 	@RequestMapping(value = "/department")
 	String department() {
 		return "pages/authority/department";
@@ -153,6 +161,9 @@ public class ManagerController {
 			String content = commonService.getArticleContent(article.getPath());
 			article.setContent(content);
 			modelMap.addAttribute("article", article);
+			
+			String title = articleService.getArticleTitle(article.getType());
+			modelMap.addAttribute("title", title);
 		}
 		
 		return "pages/issue/article_get";

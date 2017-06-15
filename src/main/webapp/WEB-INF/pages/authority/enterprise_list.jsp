@@ -32,9 +32,9 @@
                     <button type="button" class="btn btn-white btn-enterprise-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
-                    <button type="button" class="btn btn-white btn-enterprise-delete-batch" disabled='disabled'>
+                    <!-- <button type="button" class="btn btn-white btn-enterprise-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button>
+                    </button> -->
                 </div>
                 <table id="enterprise-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -82,12 +82,12 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-enterprise-detail a-operate">详情</a><a class="btn-enterprise-edit a-operate">编辑</a><a class="btn-enterprise-delete a-operate">删除</a>';
+            		return '<a class="btn-enterprise-detail a-operate">详情</a><a class="btn-enterprise-edit a-operate">编辑</a>';
             	},
             	events: window.operateEvents = {
             		'click .btn-enterprise-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('add');
+            			window.location.href= './enterpriseGet?enterpriseId=' + row.id;
             		},
             		'click .btn-enterprise-edit': function(e, value, row, index) {
             			e.stopPropagation();
@@ -95,7 +95,6 @@
             		},
             		'click .btn-enterprise-delete': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('delete');
             		}
             	}
             }]

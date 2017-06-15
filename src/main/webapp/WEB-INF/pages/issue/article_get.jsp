@@ -22,7 +22,7 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox float-e-margins">
 	 		<div class="ibox-title">
-	 			<button type="button" class="btn btn-white btn-article-back"><i class="fa fa-reply fa-fw"></i>返回</button>
+	 			<button type="button" class="btn btn-white btn-article-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i>${title}</button>
 	 		</div>
 	 		
 	 		<div class="ibox-content">
