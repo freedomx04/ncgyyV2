@@ -85,7 +85,18 @@
             		return '<a class="btn-enterprise-detail a-operate">详情</a><a class="btn-enterprise-edit a-operate">编辑</a><a class="btn-enterprise-delete a-operate">删除</a>';
             	},
             	events: window.operateEvents = {
-            			
+            		'click .btn-enterprise-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('add');
+            		},
+            		'click .btn-enterprise-edit': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './enterpriseAdd?method=edit&enterpriseId=' + row.id;
+            		},
+            		'click .btn-enterprise-delete': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('delete');
+            		}
             	}
             }]
 		});

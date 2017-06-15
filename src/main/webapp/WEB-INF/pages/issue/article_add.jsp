@@ -162,9 +162,6 @@
 		
 		$page
 		.on('click', '.btn-article-add', function() {
-			
-			$('#uploadImage').fileinput('upload');
-			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
 			

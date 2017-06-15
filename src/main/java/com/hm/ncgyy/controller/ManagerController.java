@@ -11,10 +11,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
@@ -36,6 +38,9 @@ public class ManagerController {
 	@Autowired
 	IndustryService industryService;
 	
+	@Autowired
+	EnterpriseService enterpriseService;
+	
 	/**
 	 * 企业接口
 	 */
@@ -45,7 +50,7 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/enterpriseAdd")
-	String enterpriseAdd(ModelMap modelMap, String method) {
+	String enterpriseAdd(ModelMap modelMap, String method, Long enterpriseId) {
 		List<AreaEntity> areaList = areaService.list();
 		List<IndustryEntity> industryList = industryService.list();
 		
@@ -55,6 +60,11 @@ public class ManagerController {
 		
 		modelMap.addAttribute("areaList", areaList);
 		modelMap.addAttribute("industryList", industryList);
+		
+		if (enterpriseId != null) {
+			EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+			modelMap.addAttribute("enterprise", enterprise);
+		}
 		
 		return "pages/authority/enterprise_add";
 	}

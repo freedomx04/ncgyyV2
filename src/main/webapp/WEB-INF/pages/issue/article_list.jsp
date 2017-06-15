@@ -120,8 +120,7 @@
 						});
 					}
 				}
-			}
-			]
+			}]
 		});
 		
 		$table.on('all.bs.table', function(e, row) {

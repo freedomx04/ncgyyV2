@@ -43,7 +43,7 @@
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label"><i class="form-required">*</i>企业名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="name" value="${article.title}" required>
+                            <input type="text" class="form-control" name="name" value="${enterprise.name}" required>
                         </div>
 					</div>
 					
@@ -81,28 +81,28 @@
 					<div class="form-group">
 						<label for="mainProduct" class="col-sm-2 control-label"><i class="form-required">*</i>主要产品</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="mainProduct" value="${article.title}" required>
+                            <input type="text" class="form-control" name="mainProduct" value="${enterprise.mainProduct}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="principal" class="col-sm-2 control-label"><i class="form-required">*</i>企业负责人</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="principal" value="${article.title}" required>
+                            <input type="text" class="form-control" name="principal" value="${enterprise.principal}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="telephone" class="col-sm-2 control-label"><i class="form-required">*</i>联系电话</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="telephone" value="${article.title}" required>
+                            <input type="text" class="form-control" name="telephone" value="${enterprise.telephone}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="address" class="col-sm-2 control-label"><i class="form-required">*</i>企业地址</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="address" value="${article.title}" required>
+                            <input type="text" class="form-control" name="address" value="${enterprise.address}" required>
                         </div>
 					</div>
 					
@@ -119,56 +119,56 @@
 						<label for="productionTime" class="col-sm-2 control-label">投产时间</label>
                         <div class="col-sm-8 input-group date productTime" style="padding-left: 15px; padding-right: 15px;">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" class="form-control" name="productionTime">
+                            <input type="text" class="form-control" name="productionTime" value="${enterprise.productionTime}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="representative" class="col-sm-2 control-label">企业法人</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="representative" value="${article.title}">
+                            <input type="text" class="form-control" name="representative" value="${enterprise.representative}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="shareholder" class="col-sm-2 control-label">主要股东</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="shareholder" value="${article.title}">
+                            <input type="text" class="form-control" name="shareholder" value="${enterprise.shareholder}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="registeredCapital" class="col-sm-2 control-label">注册资金</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="registeredCapital" value="${article.title}">
+                            <input type="text" class="form-control" name="registeredCapital" value="${enterprise.registeredCapital}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="alterRecording" class="col-sm-2 control-label">变更记录</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" name="alterRecording" style="resize:none; height: 100px;"></textarea>
+                            <textarea class="form-control" name="alterRecording" style="resize:none; height: 100px;">${enterprise.alterRecording}</textarea>
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="nationalTax" class="col-sm-2 control-label">国税识别码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="nationalTax" value="${article.title}">
+                            <input type="text" class="form-control" name="nationalTax" value="${enterprise.nationalTax}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="localTax" class="col-sm-2 control-label">地税识别码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="localTax" value="${article.title}">
+                            <input type="text" class="form-control" name="localTax" value="${enterprise.localTax}">
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="introduction" class="col-sm-2 control-label">企业简介</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" name="introduction" style="resize:none; height: 150px;"></textarea>
+                            <textarea class="form-control" name="introduction" style="resize:none; height: 150px;">${enterprise.introduction}</textarea>
                         </div>
 					</div>
 					
@@ -216,13 +216,17 @@
         var $form = $page.find('#form-enterprise');
         var method = '${method}';
         
-        $(".i-checks").iCheck({
+        $page.find(".i-checks").iCheck({
         	checkboxClass: "icheckbox_square-green", 
         	radioClass: "iradio_square-green"
         });
         
+        $page.find(".productTime").datepicker({
+    		autoclose: true
+    	});
+        
         if (method == 'add') {
-        	$('#uploadImage').fileinput({
+        	$page.find('#uploadImage').fileinput({
                 language: 'zh', 
                 showUpload: false, 
                 showRemove: false,
@@ -230,16 +234,28 @@
                 browseClass: "btn btn-primary",
                 browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
             });
-        	
-        	$(".productTime").datepicker({
-        		todayBtn: "linked",
-        		keyboardNavigation: !1,
-        		forceParse: !1,
-        		calendarWeeks: !0,
-        		autoclose: !0
-        	})
         } else {
+        	$page.find('input[name="name"]').attr('disabled', 'disabled');
         	
+        	$page.find('#uploadImage').fileinput({
+				language: 'zh', 
+			    showUpload: false, 
+			    showRemove: false,
+			    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
+			    browseClass: "btn btn-primary",
+			    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+			    
+			    initialPreview:	'<img src="${ctx}${enterprise.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
+			    initialCaption: '${article.imagePath}',
+			});
+        	
+        	$page.find('select[name="areaId"]').val(${enterprise.area.id});
+        	$page.find('select[name="industryId"]').val(${enterprise.industry.id});
+        	
+        	var pointStatus = '${enterprise.pointStatus}';
+        	if (pointStatus == 1) {
+        		$page.find('.pointStatus').iCheck('check');
+        	}
         }
         
         $k.util.bsValidator($form, {
@@ -266,7 +282,6 @@
             
             if (validator.isValid()) {
             	var formData = new FormData($form[0]); 
-            	
             	var pointStatus = 0;
             	if ($(".pointStatus input").is(':checked')) {
             		pointStatus = 1;
@@ -298,7 +313,42 @@
             }
         })
         .on('click', '.btn-enterprise-edit', function() {
-        	
+        	var validator = $form.data('bootstrapValidator');
+        	validator.removeField('uploadImage');
+            validator.validate();
+            
+            if (validator.isValid()) {
+            	var formData = new FormData($form[0]); 
+            	var pointStatus = 0;
+            	if ($(".pointStatus input").is(':checked')) {
+            		pointStatus = 1;
+            	}
+            	formData.append('enterpriseId', '${enterprise.id}');
+            	formData.append('pointStatus', pointStatus);
+            	
+            	$.ajax({
+            		url: '${ctx}/api/enterprise/update',
+            		type: 'POST',
+            		data: formData,
+            		processData: false,
+                    contentType: false,
+                    cache: false, 
+                    success: function(ret) {
+                    	if (ret.code == 0) {
+                    		swal({
+                                title: '',
+                                text: '操作成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './enterpriseList?';
+                            });
+                    	} else {
+                    		swal('', '操作失败', 'error');
+                    	}
+                    },
+                    error: function(err) {}
+            	});
+            }
         })
         .on('click', '.btn-enterprise-cancel', function() {
         	window.location.href = './enterpriseList';

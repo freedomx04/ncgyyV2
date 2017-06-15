@@ -81,9 +81,39 @@ public class EnterpriseController {
 	}
 
 	@RequestMapping(value = "/api/enterprise/update", method = RequestMethod.POST)
-	public Result update() {
+	public Result update(Long enterpriseId, MultipartFile uploadImage, Long areaId, Long industryId, String mainProduct,
+			String principal, String telephone, String address, Integer pointStatus, String productionTime,
+			String representative, String shareholder, String registeredCapital, String alterRecording,
+			String nationalTax, String localTax, String introduction) {
 		try {
-
+			EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+			AreaEntity area = areaService.findOne(areaId);
+			IndustryEntity industry = industryService.findOne(industryId);
+			
+			enterprise.setArea(area);
+			enterprise.setIndustry(industry);
+			enterprise.setMainProduct(mainProduct);
+			enterprise.setPrincipal(principal);
+			enterprise.setTelephone(telephone);
+			enterprise.setAddress(address);
+			enterprise.setPointStatus(pointStatus);
+			enterprise.setProductionTime(productionTime);
+			enterprise.setRepresentative(representative);
+			enterprise.setShareholder(shareholder);
+			enterprise.setRegisteredCapital(registeredCapital);
+			enterprise.setAlterRecording(alterRecording);
+			enterprise.setNationalTax(nationalTax);
+			enterprise.setLocalTax(localTax);
+			enterprise.setIntroduction(introduction);
+			enterprise.setUpdateTime(new Date());
+			
+			if (uploadImage != null && !uploadImage.isEmpty()) {
+				commonService.deleteImage(enterprise.getImagePath());
+				String imagePath = commonService.saveImage(uploadImage);
+				enterprise.setImagePath(imagePath);
+			}
+			
+			enterpriseService.save(enterprise);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
