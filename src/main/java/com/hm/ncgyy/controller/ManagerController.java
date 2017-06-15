@@ -1,6 +1,7 @@
 package com.hm.ncgyy.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.base.AreaEntity;
+import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.base.AreaService;
+import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
 @Controller
@@ -25,12 +30,33 @@ public class ManagerController {
 	@Autowired
 	CommonService commonService;
 	
+	@Autowired
+	AreaService areaService;
+	
+	@Autowired
+	IndustryService industryService;
+	
 	/**
 	 * 企业接口
 	 */
 	@RequestMapping(value = "/enterpriseList")
 	String enterprise() {
 		return "pages/authority/enterprise_list";
+	}
+	
+	@RequestMapping(value = "/enterpriseAdd")
+	String enterpriseAdd(ModelMap modelMap, String method) {
+		List<AreaEntity> areaList = areaService.list();
+		List<IndustryEntity> industryList = industryService.list();
+		
+		String title = method.equals("add") ? "企业新增" : "企业编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		modelMap.addAttribute("areaList", areaList);
+		modelMap.addAttribute("industryList", industryList);
+		
+		return "pages/authority/enterprise_add";
 	}
 	
 	@RequestMapping(value = "/department")

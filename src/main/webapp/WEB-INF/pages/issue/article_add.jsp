@@ -68,6 +68,8 @@
 						</div>
 					</div>	
 					
+					<div class="hr-line-dashed"></div>
+					
 					<div class="form-group">
 						<div class="col-sm-4 col-sm-offset-1">
 							<c:if test="${method == 'add'}">
@@ -83,7 +85,6 @@
 							<button type="button" class="btn btn-white btn-article-cancel">
 		                        <i class="fa fa-close fa-fw"></i>取消
 		                    </button>
-
 						</div>
 					</div>
  				</form>

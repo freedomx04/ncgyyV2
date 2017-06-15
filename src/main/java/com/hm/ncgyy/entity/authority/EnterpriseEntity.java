@@ -32,9 +32,9 @@ public class EnterpriseEntity extends BaseEntity {
 	private String name;
 	
 	/**
-	 * 企业图片
+	 * 企业图片路径
 	 */
-	private String avatar;
+	private String imagePath;
 	
 	/**
 	 * 园区
@@ -63,7 +63,7 @@ public class EnterpriseEntity extends BaseEntity {
 	/**
 	 * 投产时间
 	 */
-	private Date productTime;
+	private String productionTime;
 	
 	/**
 	 * 联系电话
@@ -76,9 +76,9 @@ public class EnterpriseEntity extends BaseEntity {
 	private String address;
 	
 	/**
-	 * 设计产能
+	 * 企业法人
 	 */
-	private String designCapacity;
+	private String representative; 
 	
 	/**
 	 * 主要股东
@@ -134,6 +134,32 @@ public class EnterpriseEntity extends BaseEntity {
 	public EnterpriseEntity() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public EnterpriseEntity(String name, String imagePath, AreaEntity area, IndustryEntity industry, String principal,
+			String mainProduct, String productionTime, String telephone, String address, String representative,
+			String shareholder, String registeredCapital, String alterRecording, String introduction,
+			String nationalTax, String localTax, Integer pointStatus, Date createTime, Date updateTime) {
+		super();
+		this.name = name;
+		this.imagePath = imagePath;
+		this.area = area;
+		this.industry = industry;
+		this.principal = principal;
+		this.mainProduct = mainProduct;
+		this.productionTime = productionTime;
+		this.telephone = telephone;
+		this.address = address;
+		this.representative = representative;
+		this.shareholder = shareholder;
+		this.registeredCapital = registeredCapital;
+		this.alterRecording = alterRecording;
+		this.introduction = introduction;
+		this.nationalTax = nationalTax;
+		this.localTax = localTax;
+		this.pointStatus = pointStatus;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+	}
 
 	public String getName() {
 		return name;
@@ -143,12 +169,12 @@ public class EnterpriseEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getAvatar() {
-		return avatar;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public AreaEntity getArea() {
@@ -175,12 +201,12 @@ public class EnterpriseEntity extends BaseEntity {
 		this.mainProduct = mainProduct;
 	}
 
-	public Date getProductTime() {
-		return productTime;
+	public String getProductionTime() {
+		return productionTime;
 	}
 
-	public void setProductTime(Date productTime) {
-		this.productTime = productTime;
+	public void setProductionTime(String productionTime) {
+		this.productionTime = productionTime;
 	}
 
 	public String getTelephone() {
@@ -198,13 +224,13 @@ public class EnterpriseEntity extends BaseEntity {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public String getDesignCapacity() {
-		return designCapacity;
+	
+	public String getRepresentative() {
+		return representative;
 	}
 
-	public void setDesignCapacity(String designCapacity) {
-		this.designCapacity = designCapacity;
+	public void setRepresentative(String representative) {
+		this.representative = representative;
 	}
 
 	public String getShareholder() {
