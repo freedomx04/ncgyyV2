@@ -87,6 +87,40 @@
 		$form.bootstrapValidator(defaultParam);
 	}
 	
+	
+	/**
+	 * 月份选择器
+	 */
+	$k.util.initDatePicker = function($obj) {
+		$obj.datepicker({
+			format: 'yyyy-mm',
+			minViewMode: 1,
+			keyboardNavigation: !1,
+			forceParse: !1,
+			autoclose: !0,
+			todayHighlight: !0
+		});
+		var now = new Date();
+		var month = now.getMonth();
+		$obj.parent().find("input").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+	}
+	
+	/**
+	 * 下拉选框插件
+	 */
+	$k.util.chosen = function() {
+		//下拉选框
+		var config = {
+			".chosen-select": {},
+			".chosen-select-deselect": {allow_single_deselect:!0},
+			".chosen-select-no-single": {disable_search_threshold:10},
+			".chosen-select-no-results": {no_results_text:"Oops, nothing found!"},
+			".chosen-select-width": {width:"95%"}
+		};
+		for(var selector in config)
+			$(selector).chosen(config[selector]);
+	}
+	
 	/**
 	 * 从url中获取参数
 	 */
