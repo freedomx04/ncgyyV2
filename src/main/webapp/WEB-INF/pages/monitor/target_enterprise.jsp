@@ -64,14 +64,14 @@
 		                        </div>
 		                    </div>
 		                    <div class="form-group col-sm-2">
-			                    <button class="btn btn-sm btn-primary">
+			                    <button type="button" class="btn btn-sm btn-primary search">
 			                    	<strong>查询</strong>
 			                   	</button>
 			                </div>
 		                </form>
 		                
 		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		                <div id="chart-container" style="height: 400px; margin-top: 40px;"></div>
+		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
 		                
 		                <table id="target-list-table" data-mobile-responsive="true"> </table>
                     </div>
@@ -79,16 +79,107 @@
                 
                 <div id="tab-2" class="tab-pane">
                     <div class="panel-body">
+						<form role="form" class="form-inline row">
+							<div class="form-group col-sm-4">
+								<div class="input-group" style="width: 100%;">
+			                        <select data-placeholder="选择企业" class="chosen-select">
+			                        	<option value="0">企业总览</option>
+			                        </select>
+								</div>
+							</div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyStart" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyEnd" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-2">
+			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    	<strong>查询</strong>
+			                   	</button>
+			                </div>
+		                </form>
+		                
+		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+		                
+		                <table id="target-list-table" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
                 
                 <div id="tab-3" class="tab-pane">
                     <div class="panel-body">
+                    	<form role="form" class="form-inline row">
+							<div class="form-group col-sm-4">
+								<div class="input-group" style="width: 100%;">
+			                        <select data-placeholder="选择企业" class="chosen-select">
+			                        	<option value="0">企业总览</option>
+			                        </select>
+								</div>
+							</div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyStart" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyEnd" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-2">
+			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    	<strong>查询</strong>
+			                   	</button>
+			                </div>
+		                </form>
+		                
+		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+		                
+		                <table id="target-list-table" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
                 
                 <div id="tab-4" class="tab-pane">
                     <div class="panel-body">
+                    	<form role="form" class="form-inline row">
+							<div class="form-group col-sm-4">
+								<div class="input-group" style="width: 100%;">
+			                        <select data-placeholder="选择企业" class="chosen-select">
+			                        	<option value="0">企业总览</option>
+			                        </select>
+								</div>
+							</div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyStart" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-3">
+		                        <div class="input-group date">
+		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                            <input type="text" id="monthlyEnd" class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="form-group col-sm-2">
+			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    	<strong>查询</strong>
+			                   	</button>
+			                </div>
+		                </form>
+		                
+		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+		                
+		                <table id="target-list-table" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
             </div>
@@ -112,6 +203,8 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-target');
+		var tab = "#tab-1";
+		var $tab = $("#tab-1");
 		
 		//日期选择器，只选月份
 		$page.find(".input-group.date").datepicker({
@@ -141,16 +234,22 @@
 		
 		getData();
 		
-		function getData(year, month) {
-			var $tab = $page.find(".tab-pane.active");
-			var id = $page.find(".chosen-select").val();
+		$page
+		.on("click", ".nav-tabs li", function() {
+			tab = $(this).find("a").attr("href");
+			$tab = $(tab);
+			initDate(getData);
+		})
+		.on("click", ".search", function() {
+			getData();
+		});
+		
+		function getData() {
+			var id = $tab.find(".chosen-select").val();
 			var monthlyStart = $tab.find("#monthlyStart").val();
 			var monthlyEnd = $tab.find("#monthlyEnd").val();
 			
 			var url, data;
-			var columns = [{field: 'monthly',
-            	title: '月份',
-            	align: 'center'}];
 			
 			var overViewData = {
 				monthlyStart: monthlyStart,
@@ -166,98 +265,15 @@
 			{
 				data = overViewData;
 				url = '${ctx}/api/target/listRange';
-				switch ($tab.attr("id")) {
-					case 'tab-1': 
-						columns.push({
-			            	field: 'target_current.mainBusiness',
-			            	title: '主营业务收入(万元)',
-			            	align: 'center'
-			            }, {
-			            	field: 'mainBusiness_yearGrowth',
-			            	title: '同比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            }, {
-			            	field: 'mainBusiness_monthGrowth',
-			            	title: '环比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            });
-						break;
-					case 'tab-2':
-						columns.push({
-			            	field: 'target_current.electricity',
-			            	title: '用电量(万度)',
-			            	align: 'center'
-			            }, {
-			            	field: 'electricity_yearGrowth',
-			            	title: '同比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            }, {
-			            	field: 'electricity_monthGrowth',
-			            	title: '环比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            });
-						break;
-					case 'tab-3':
-						columns.push({
-			            	field: 'target_current.profit',
-			            	title: '利润总额(万元)',
-			            	align: 'center'
-			            }, {
-			            	field: 'profit_yearGrowth',
-			            	title: '同比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            }, {
-			            	field: 'profit_monthGrowth',
-			            	title: '环比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            });
-						break;
-					case 'tab-4':
-						columns.push({
-			            	field: 'target_current.tax',
-			            	title: '实现税金总额(万元)',
-			            	align: 'center'
-			            }, {
-			            	field: 'tax_yearGrowth',
-			            	title: '同比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            }, {
-			            	field: 'tax_monthGrowth',
-			            	title: '环比增幅%',
-			            	align: 'center',
-			            	formatter: function (value, row, index) {
-	                             return value != null ? (value*100).toFixed(2) : "-";
-	                        }
-			            });
-						break;
-				}
 			} else {
 				data = enterpriseData;
 				url = '${ctx}/api/target/listByEnterpriseIdRange';
 			}
 			
-			var $table = $k.util.bsTable($page.find('#target-list-table'), {
+			//先销毁表格  
+	        $tab.find('#target-list-table').bootstrapTable('destroy');
+
+			var $table = $k.util.bsTable($tab.find('#target-list-table'), {
 				url: url,
 				method: "post",
 				contentType : "application/x-www-form-urlencoded",
@@ -267,22 +283,15 @@
 					getChart(res.data);
 	                return res.data;
 	            },
-	            columns: columns
+	            columns: getColumns()
 			});
-			
-			$table.on('all.bs.table', function(e, row) {
-	            var selNum = $table.bootstrapTable('getSelections').length;
-	            selNum > 0 ? $page.find('.btn-industry-delete-batch').removeAttr('disabled') : $page.find('.btn-industry-delete-batch').attr('disabled', 'disabled');
-	        });
 			
 		}
 		
 		
 		function getChart(data) {
-			
 			// 基于准备好的dom，初始化echarts图表
-	        var myChart = echarts.init(document.getElementById('chart-container')); 
-	        var $tab = $page.find(".tab-pane.active");
+	        var myChart = echarts.init($tab.find('.chart-container')[0]); 
 	        var xAxisArr = [];
 			var arr1 = [];
 			var arr2 = [];
@@ -298,48 +307,48 @@
 					legendName = '主营业务收入'; 
 					unit = "万元";	
 					
-					var mainBusiness = val.target_current != null ? val.target_current.mainBusiness : 0;
-					var mainBusiness_yearGrowth = val.mainBusiness_yearGrowth != null && val.mainBusiness_yearGrowth != "" ? (parseFloat(val.mainBusiness_yearGrowth)*100).toFixed(2) : 0;
-					var mainBusiness_monthGrowth = val.mainBusiness_monthGrowth != null && val.mainBusiness_monthGrowth != "" ? (parseFloat(val.mainBusiness_monthGrowth)*100).toFixed(2) : 0;
-					arr1.push({y: mainBusiness, extra: val.target_current==null ? "-" : mainBusiness + unit});
-					arr2.push({y: parseFloat(mainBusiness_yearGrowth), extra: val.mainBusiness_yearGrowth==null ? "-" : mainBusiness_yearGrowth});
-					arr3.push({y: parseFloat(mainBusiness_monthGrowth), extra: val.mainBusiness_monthGrowth==null ? "-" : mainBusiness_monthGrowth});
+					var mainBusiness = val.target_current != null ? val.target_current.mainBusiness : '-';
+					var mainBusiness_yearGrowth = val.mainBusiness_yearGrowth != null && val.mainBusiness_yearGrowth != "" ? (parseFloat(val.mainBusiness_yearGrowth)*100).toFixed(2) : "-";
+					var mainBusiness_monthGrowth = val.mainBusiness_monthGrowth != null && val.mainBusiness_monthGrowth != "" ? (parseFloat(val.mainBusiness_monthGrowth)*100).toFixed(2) : "-";
+					arr1.push(mainBusiness);
+					arr2.push(mainBusiness_yearGrowth);
+					arr3.push(mainBusiness_monthGrowth);
 					
 					break;
 				case 'tab-2':	
 					legendName = '用电量'; 
 					unit = "万度";		
 					
-					var electricity = val.target_current != null ? val.target_current.electricity : 0;
-					var electricity_yearGrowth = val.electricity_yearGrowth != null && val.electricity_yearGrowth != "" ? (parseFloat(val.electricity_yearGrowth)*100).toFixed(2) : 0;
-					var electricity_monthGrowth = val.electricity_monthGrowth != null && val.electricity_monthGrowth != "" ? (parseFloat(val.electricity_monthGrowth)*100).toFixed(2) : 0;
-					arr1.push({y: electricity, extra: val.target_current==null ? "-" : electricity + unit});
-					arr2.push({y: parseFloat(electricity_yearGrowth), extra: val.electricity_yearGrowth==null ? "-" : electricity_yearGrowth});
-					arr3.push({y: parseFloat(electricity_monthGrowth), extra: val.electricity_monthGrowth==null ? "-" : electricity_monthGrowth});
+					var electricity = val.target_current != null ? val.target_current.electricity : "-";
+					var electricity_yearGrowth = val.electricity_yearGrowth != null && val.electricity_yearGrowth != "" ? (parseFloat(val.electricity_yearGrowth)*100).toFixed(2) : "-";
+					var electricity_monthGrowth = val.electricity_monthGrowth != null && val.electricity_monthGrowth != "" ? (parseFloat(val.electricity_monthGrowth)*100).toFixed(2) : "-";
+					arr1.push(electricity);
+					arr2.push(parseFloat(electricity_yearGrowth));
+					arr3.push(parseFloat(electricity_monthGrowth));
 					
 					break;
 				case 'tab-3':	
 					legendName = '利润总额'; 
 					unit = "万元";		
 					
-					var profit = val.target_current != null ? val.target_current.profit : 0;
-					var profit_yearGrowth = val.profit_yearGrowth != null && val.profit_yearGrowth != "" ? (parseFloat(val.profit_yearGrowth)*100).toFixed(2) : 0;
-					var profit_monthGrowth = val.profit_monthGrowth != null && val.profit_monthGrowth != "" ? (parseFloat(val.profit_monthGrowth)*100).toFixed(2) : 0;
-					arr1.push({y: profit, extra: val.target_current==null ? "-" : profit + unit});
-					arr2.push({y: parseFloat(profit_yearGrowth), extra: val.profit_yearGrowth==null ? "-" : profit_yearGrowth});
-					arr3.push({y: parseFloat(profit_monthGrowth), extra: val.profit_monthGrowth==null ? "-" : profit_monthGrowth});
+					var profit = val.target_current != null ? val.target_current.profit : "-";
+					var profit_yearGrowth = val.profit_yearGrowth != null && val.profit_yearGrowth != "" ? (parseFloat(val.profit_yearGrowth)*100).toFixed(2) : "-";
+					var profit_monthGrowth = val.profit_monthGrowth != null && val.profit_monthGrowth != "" ? (parseFloat(val.profit_monthGrowth)*100).toFixed(2) : "-";
+					arr1.push(profit);
+					arr2.push(parseFloat(profit_yearGrowth));
+					arr3.push(parseFloat(profit_monthGrowth));
 					
 					break;
 				case 'tab-4':	
 					legendName = '实现税金总额'; 
 					unit = "万元";	
 					
-					var tax = val.target_current != null ? val.target_current.tax : 0;
-					var tax_yearGrowth = val.tax_yearGrowth != null && val.tax_yearGrowth != "" ? (parseFloat(val.tax_yearGrowth)*100).toFixed(2) : 0;
-					var tax_monthGrowth = val.tax_monthGrowth != null && val.tax_monthGrowth != "" ? (parseFloat(val.tax_monthGrowth)*100).toFixed(2) : 0;
-					arr1.push({y: tax, extra: val.target_current==null ? "-" : tax + unit});
-					arr2.push({y: parseFloat(tax_yearGrowth), extra: val.tax_yearGrowth==null ? "-" : tax_yearGrowth});
-					arr3.push({y: parseFloat(tax_monthGrowth), extra: val.tax_monthGrowth==null ? "-" : tax_monthGrowth});
+					var tax = val.target_current != null ? val.target_current.tax : "-";
+					var tax_yearGrowth = val.tax_yearGrowth != null && val.tax_yearGrowth != "" ? (parseFloat(val.tax_yearGrowth)*100).toFixed(2) : "-";
+					var tax_monthGrowth = val.tax_monthGrowth != null && val.tax_monthGrowth != "" ? (parseFloat(val.tax_monthGrowth)*100).toFixed(2) : "-";
+					arr1.push(tax);
+					arr2.push(parseFloat(tax_yearGrowth));
+					arr3.push(parseFloat(tax_monthGrowth));
 					
 					break;
 				}
@@ -362,7 +371,7 @@
 				    },
 				    calculable : true,
 				    legend: {
-				        data:[legendName, '同比增长', '环比增长']
+				        data: ['本月止' +　legendName, '同比增幅', '环比增幅']
 				    },
 				    xAxis : [
 				        {
@@ -389,7 +398,7 @@
 				    series : [
 
 				        {
-				            name: '本月止' + legendName,
+				            name: '本月止' + legendName,  //这里的name要和legend里的data一致
 				            type: 'bar',
 				            data: arr1
 				        },
@@ -412,20 +421,130 @@
 		} 
     	
     	
-    	function initDate() {
+    	function initDate(fn) {
     		var now = new Date();
 			// start time
 			now.setYear(now.getFullYear() - 1);
     		var month = now.getMonth();
-			$page.find("#monthlyStart").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+			$tab.find("#monthlyStart").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
 			// end time 
 			now.setDate(1);
-			now.setMonth(now.getMonth() - 1);
+			now.setMonth(now.getMonth());
 			now.setYear(now.getFullYear() + 1);
 			month = now.getMonth();
-			$page.find("#monthlyEnd").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+			$tab.find("#monthlyEnd").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+
+			if (typeof fn === 'function') {
+				fn();
+			}
     	}
     	
+    	
+    	function getColumns() {
+    		var columns = [{field: 'monthly',
+            	title: '月份',
+            	align: 'center'}];
+    		
+    		switch ($tab.attr("id")) {
+				case 'tab-1': 
+					columns.push({
+		            	field: 'target_current',
+		            	title: '主营业务收入(万元)',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? value.mainBusiness : "-";
+	                    }
+		            }, {
+		            	field: 'mainBusiness_yearGrowth',
+		            	title: '同比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            }, {
+		            	field: 'mainBusiness_monthGrowth',
+		            	title: '环比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            });
+					break;
+				case 'tab-2':
+					columns.push({
+		            	field: 'target_current',
+		            	title: '用电量(万度)',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? value.electricity : "-";
+	                    }
+		            }, {
+		            	field: 'electricity_yearGrowth',
+		            	title: '同比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            }, {
+		            	field: 'electricity_monthGrowth',
+		            	title: '环比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            });
+					break;
+				case 'tab-3':
+					columns.push({
+		            	field: 'target_current',
+		            	title: '利润总额(万元)',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? value.profit : "-";
+	                    }
+		            }, {
+		            	field: 'profit_yearGrowth',
+		            	title: '同比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            }, {
+		            	field: 'profit_monthGrowth',
+		            	title: '环比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            });
+					break;
+				case 'tab-4':
+					columns.push({
+		            	field: 'target_current',
+		            	title: '实现税金总额(万元)',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? value.tax : "-";
+	                    }
+		            }, {
+		            	field: 'tax_yearGrowth',
+		            	title: '同比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            }, {
+		            	field: 'tax_monthGrowth',
+		            	title: '环比增幅%',
+		            	align: 'center',
+		            	formatter: function (value, row, index) {
+	                         return value != null ? (value*100).toFixed(2) : "-";
+	                    }
+		            });
+					break;
+			}
+    		return columns;
+    	}
 	})( jQuery );
 	
 	</script>

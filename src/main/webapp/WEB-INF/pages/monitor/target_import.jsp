@@ -34,8 +34,8 @@
 					<div class="col-sm-4">
 						<div class="input-group date">
 	                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	                        <input type="text" id="monthlyStart" class="form-control">
-	                        <span class="input-group-addon btn btn-sm btn-primary">
+	                        <input type="text" id="monthly" class="form-control">
+	                        <span id="search" class="input-group-addon btn btn-sm btn-primary">
 	                    		查询
 	                   		</span>
 	                    </div>
@@ -47,14 +47,15 @@
 	                    <button type="button" class="btn btn-white btn-target-delete-batch" disabled='disabled'>
 	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
 	                    </button>
-	                    <button type="button" class="btn btn-white btn-target-export" data-toggle="modal" data-target="#modal-target-dialog">
+	                    <button type="button" class="btn btn-white btn-target-export">
 	                        <i class="fa fa-save fa-fw"></i>导出到excel
 	                    </button>
-	                    <button type="button" class="btn btn-white btn-target-import" data-toggle="modal" data-target="#modal-target-dialog">
-	                        <i class="fa fa-cloud-upload fa-fw"></i>导入excel
-	                    </button>
-	                    <button type="button" class="btn btn-white btn-target-download" data-toggle="modal" data-target="#modal-target-dialog">
-	                        <i class="fa fa-download fa-fw"></i>下载
+					    <input id="importTarget-file-input" type="file" style="display:none">
+					    <button class="btn btn-white btn-target-import">
+					    	<i class="fa fa-save fa-fw"></i>导入excel
+					    </button>
+	                    <button type="button" class="btn btn-white btn-target-download">
+	                        <i class="fa fa-download fa-fw"></i>下载模板
 	                    </button>
 	                </div>
                 </div>
@@ -76,16 +77,15 @@
                     	<div class="form-group">
                             <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>企业名称</label>
                             <div class="col-sm-7">
-                                <select data-placeholder="选择企业" class="chosen-select">
-		                        	<option value="0">企业总览</option>
+                                <select data-placeholder="选择企业" class="chosen-select form-control" name="enterpriseId">
+                                	<option value="">请选择</option>
 		                        </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>年月</label>
                             <div class="col-sm-7">
-                                <div class="input-group date">
-			                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <div class="input-group" id="monthly" style="width: 100%;">
 			                        <input type="text" name="monthly" class="form-control">
 			                    </div>
                             </div>
@@ -136,6 +136,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/chosen/chosen.jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/prettyfile/bootstrap-prettyfile.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
@@ -150,101 +151,10 @@
 		
 		//日期选择器，只选月份
 		$k.util.initDatePicker($page.find(".date"));
+		//文件选择
+		$page.find('#file-pretty input[type="file"]').prettyFile();
 		
-		var $table = $k.util.bsTable($page.find('#target-list-table'), {
-			url: '${ctx}/api/target/listByMonthly',
-			method: "post",
-			contentType : "application/x-www-form-urlencoded",
-			queryParams: {monthly: $page.find(".date input").val()},
-			toolbar: '#target-list-table-toolbar',
-			idField: 'id',
-			responseHandler: function(res) {
-                return res.data;
-            },
-            columns: [{
-            	field: 'state',
-            	checkbox: true
-            }, {
-            	field: 'enterprise.name',
-            	title: '企业名称',
-            	align: 'center'
-            }, {
-            	field: 'target_current',
-            	title: '本月止主营业务收入',
-            	align: 'center',
-            	formatter: function (value, row, index) {
-                    return value != null ? value.mainBusiness : "-";
-               	}
-            }, {
-            	field: 'target_current',
-            	title: '本月止用电量',
-            	align: 'center',
-            	formatter: function (value, row, index) {
-                    return value != null ? value.electricity : "-";
-               	}
-            }, {
-            	field: 'target_current',
-            	title: '本月止利润总额',
-            	align: 'center',
-            	formatter: function (value, row, index) {
-                    return value != null ? value.profit : "-";
-               	}
-            }, {
-            	field: 'target_current',
-            	title: '本月止实现税金总额',
-            	align: 'center',
-            	formatter: function (value, row, index) {
-                    return value != null ? value.tax : "-";
-               	}
-            }, {
-            	title: '操作',
-            	align: 'center',
-            	formatter: function(value, row, index) {
-                    return '<a class="btn-target-delete a-operate">删除</a>';
-                },
-            	events: window.operateEvents = {
-            		'click .btn-target-delete': function(e, value, row, index) {
-            			e.stopPropagation();
-            			
-            			swal({
-            				title: '',
-            				text: '确定删除选中记录?',
-            				type: 'warning',
-            				showCancelButton: true,
-                            cancelButtonText: '取消',
-                            confirmButtonColor: '#DD6B55',
-                            confirmButtonText: '确定',
-                            closeOnConfirm: false
-            			}, function() {
-            				var targetId = row['id'];
-            				
-            				$.ajax({
-            					url: '${ctx}/api/target/delete',
-            					data: {
-            						targetId: targetId
-            					},
-            					success: function(ret) {
-            						if (ret.code == 0) {
-            							swal('', '删除成功!', 'success');
-            						} else if (ret.code == 1004) {
-            							swal('', '该数据存在关联, 无法删除', 'error');
-            						} else {
-            							swal('', ret.msg, 'error');
-            						}
-            						$table.bootstrapTable('refresh'); 
-            					},
-            					error: function(err) {}
-            				});
-            			});
-            		}
-            	}
-            }]
-		});
-		
-		$table.on('all.bs.table', function(e, row) {
-            var selNum = $table.bootstrapTable('getSelections').length;
-            selNum > 0 ? $page.find('.btn-target-delete-batch').removeAttr('disabled') : $page.find('.btn-target-delete-batch').attr('disabled', 'disabled');
-        });
+		initTable();
 		
 		$page
 		.on('hidden.bs.modal', '#modal-target-dialog', function() {
@@ -252,27 +162,35 @@
             $(this).removeData('bs.modal');
         }) 
 		.on('click', '.btn-target-add', function() {
-			 getSelectList()
-			 $k.util.initDatePicker($page.find("input[name='monthly']"));
+			 getSelectList();
+			 $k.util.initDatePicker($targetDialog.find("#monthly"));
+			 
 			 $targetDialog.find('.modal-title strong').text('新增');
 			 $targetForm.find('input').removeAttr('disabled');
 			 
 			 $targetDialog.on('click', '.btn-confirm', function() {
  				var validator = $targetForm.data('bootstrapValidator');
  				validator.validate();
- 				
  				if (validator.isValid()) {
  					$.ajax({
  						url: '${ctx}/api/target/create',
                  		type: 'POST',
                  		data: {
-                 			name: $targetForm.find('input[name = "name"]').val(),
-                 			description: $targetForm.find('input[name = "description"]').val()
+                 			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
+                 			monthly: $targetForm.find('input[name = "monthly"]').val(),
+                 			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
+                 			electricity: $targetForm.find('input[name = "electricity"]').val(),
+                 			profit: $targetForm.find('input[name = "profit"]').val(),
+                 			tax: $targetForm.find('input[name = "tax"]').val()
                  		},
                  		success: function(ret) {
-                 			$targetDialog.modal('hide');
-                 			swal('', '添加成功!', 'success');
-                 			$table.bootstrapTable('refresh'); 
+                 			if (ret.code == 0) {
+	                 			$targetDialog.modal('hide');
+	                 			swal('', '添加成功!', 'success');
+	                 			$table.bootstrapTable('refresh'); 
+                 			} else if (ret.code == 1003) {
+                 				swal('', '添加失败，该月份记录已存在!', 'warning');
+                 			}
                  		},
                  		error: function(err) {}
                  	});
@@ -310,7 +228,45 @@
                     error: function(err) {}
                 });
             });
-        });
+        })
+        .on("change", "#importTarget-file-input", function() {
+        	var oMyForm = new FormData();
+			oMyForm.append("uploadfile",this.files[0]);
+
+			$.ajax({
+				url: "${ctx}/api/target/import",
+				type: "POST",
+				data: oMyForm,
+				enctype : 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function(ret) {
+					if(ret.code != 0) {
+						swal('', '上传数据格式不正确，请重新上传！', 'error');
+					} else {
+						initTable();
+						$page.find('#importTarget-file-input').val("");
+					}
+				},
+				error: function(data) {
+				}
+			});
+		})
+		.on("click", ".btn-target-import", function() {
+			$('input[id=importTarget-file-input]').click();
+		})
+		.on("click", ".btn-target-export", function() {
+			var monthly = $page.find(".date input").val();
+			location.href = "${ctx}/api/target/export?monthly=" + monthly + "&type=1";
+		})
+		.on("click", ".btn-target-download", function() {
+			var monthly = $page.find(".date input").val();
+			location.href = "${ctx}/api/target/template?monthly=" + monthly + "&type=6";
+		})
+		.on("click", "#search", function() {
+			initTable();
+		});
 		
 		// 添加验证器
         $targetDialog.find('form').bootstrapValidator({
@@ -322,21 +278,38 @@
             },
             excluded: [':disabled'],
             fields: {
-            	name: {
+            	mainBusiness: {
 					validators: {
-						threshold: 6,
-	                    remote: {
-	                    	url: '${ctx}/api/target/exist',
-	                    	message: '行业已存在',
-	                    	delay: 2000,
-	                    	type: 'GET',
-	                    }
+						digits: {
+							message: '请输入数字'
+						}
+					} 
+				},
+				electricity: {
+					validators: {
+						digits: {
+							message: '请输入数字'
+						}
+					} 
+				},
+				profit: {
+					validators: {
+						digits: {
+							message: '请输入数字'
+						}
+					} 
+				},
+				tax: {
+					validators: {
+						digits: {
+							message: '请输入数字'
+						}
 					} 
 				}
             }
         });
 		
-		function getSelectList() {
+		function getSelectList(fn) {
 			//下拉选框数据获取
 			$.ajax({
 				type: "POST",
@@ -346,11 +319,163 @@
 						$.each(data.data, function(key, val) {
 							$('<option value="'+ val.id +'">'+ val.name +'</option>').appendTo($page.find(".chosen-select"));
 						});
+						if (typeof fn === 'function') {
+							fn();
+						}
 						$k.util.chosen();
 					}
 				},
 				error: function(err) {}
 			});
+		}
+		
+		function initTable() {
+			//先销毁表格  
+	        $page.find('#target-list-table').bootstrapTable('destroy'); 
+			
+			var $table = $k.util.bsTable($page.find('#target-list-table'), {
+				url: '${ctx}/api/target/listByMonthly',
+				method: "post",
+				contentType : "application/x-www-form-urlencoded",
+				queryParams: {monthly: $page.find(".date input").val()},
+				toolbar: '#target-list-table-toolbar',
+				idField: 'target_current.id',
+				responseHandler: function(res) {
+	                return res.data;
+	            },
+	            columns: [{
+	            	checkbox: true
+	            }, {
+	            	field: 'enterprise.name',
+	            	title: '企业名称',
+	            	align: 'center'
+	            }, {
+	            	field: 'target_current',
+	            	title: '本月止主营业务收入',
+	            	align: 'center',
+	            	formatter: function (value, row, index) {
+	                    return value != null ? value.mainBusiness : "-";
+	               	}
+	            }, {
+	            	field: 'target_current',
+	            	title: '本月止用电量',
+	            	align: 'center',
+	            	formatter: function (value, row, index) {
+	                    return value != null ? value.electricity : "-";
+	               	}
+	            }, {
+	            	field: 'target_current',
+	            	title: '本月止利润总额',
+	            	align: 'center',
+	            	formatter: function (value, row, index) {
+	                    return value != null ? value.profit : "-";
+	               	}
+	            }, {
+	            	field: 'target_current',
+	            	title: '本月止实现税金总额',
+	            	align: 'center',
+	            	formatter: function (value, row, index) {
+	                    return value != null ? value.tax : "-";
+	               	}
+	            }, {
+	            	title: '操作',
+	            	align: 'center',
+	            	formatter: function(value, row, index) {
+	            		if (row.target_current == null) {
+	            			return '<a class="btn-target-edit a-operate text-muted">编辑</a><a class="btn-target-delete a-operate text-muted">删除</a>';	
+	            		} else {
+	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
+	            		}
+	           			
+	                },
+	            	events: window.operateEvents = {
+	           			'click .btn-target-edit': function(e, value, row, index) {
+	               			e.stopPropagation();
+	               			if (row.targetCurrent == null) {
+	               				return;
+	               			}
+	               			
+	               			$targetDialog.find('.modal-title strong').text('编辑');
+	                        $targetForm.find('input[name = "monthly"]').attr('disabled', 'disabled');
+	                        $targetForm.find('input[name = "enterpriseId"]').attr('disabled', 'disabled');
+	                        
+	               			$.each(row, function(key, val) {
+	               				if (key == 'enterprise') {
+	               					getSelectList(function() {$targetForm.find('select[name = "enterpriseId"]').val(val.id);});
+	                            }
+	               				$targetForm.find('input[name="' + key + '"]').val(val);
+	               			});
+	               			$targetDialog.modal('show');
+	               			
+	               			$targetDialog.on('click', '.btn-confirm', function() {
+	               				var validator = $targetForm.data('bootstrapValidator');
+	               				validator.validate();
+	               				
+	                               if (validator.isValid()) {
+	                               	$.ajax({
+	                               		url: '${ctx}/api/target/update',
+	                               		type: 'POST',
+	                               		data: {
+	                               			targetId: row.target_current.id,
+	                               			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
+	                             			monthly: $targetForm.find('input[name = "monthly"]').val(),
+	                             			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
+	                             			electricity: $targetForm.find('input[name = "electricity"]').val(),
+	                             			profit: $targetForm.find('input[name = "profit"]').val(),
+	                             			tax: $targetForm.find('input[name = "tax"]').val()
+	                               		},
+	                               		success: function(ret) {
+	                               			$targetDialog.modal('hide');
+	                                         swal('', '编辑成功!', 'success');
+	                                         $table.bootstrapTable('refresh'); 
+	                               		},
+	                               		error: function(err) {}
+	                               	});
+	                               }
+	               			});
+	               		},
+	            		'click .btn-target-delete': function(e, value, row, index) {
+	            			e.stopPropagation();
+	            			
+	            			swal({
+	            				title: '',
+	            				text: '确定删除选中记录?',
+	            				type: 'warning',
+	            				showCancelButton: true,
+	                            cancelButtonText: '取消',
+	                            confirmButtonColor: '#DD6B55',
+	                            confirmButtonText: '确定',
+	                            closeOnConfirm: false
+	            			}, function() {
+	            				var targetId = row['id'];
+	            				
+	            				$.ajax({
+	            					url: '${ctx}/api/target/delete',
+	            					data: {
+	            						targetId: targetId
+	            					},
+	            					success: function(ret) {
+	            						if (ret.code == 0) {
+	            							swal('', '删除成功!', 'success');
+	            						} else if (ret.code == 1004) {
+	            							swal('', '该数据存在关联, 无法删除', 'error');
+	            						} else {
+	            							swal('', ret.msg, 'error');
+	            						}
+	            						$table.bootstrapTable('refresh'); 
+	            					},
+	            					error: function(err) {}
+	            				});
+	            			});
+	            		}
+	            	}
+	            }]
+			});
+			
+			$table.on('all.bs.table', function(e, row) {
+	            var selNum = $table.bootstrapTable('getSelections').length;
+	            selNum > 0 ? $page.find('.btn-target-delete-batch').removeAttr('disabled') : $page.find('.btn-target-delete-batch').attr('disabled', 'disabled');
+	        });
 		}
 	})( jQuery );
 	
