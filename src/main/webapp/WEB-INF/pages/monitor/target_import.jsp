@@ -136,7 +136,6 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/chosen/chosen.jquery.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/prettyfile/bootstrap-prettyfile.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
@@ -151,8 +150,6 @@
 		
 		//日期选择器，只选月份
 		$k.util.initDatePicker($page.find(".date"));
-		//文件选择
-		$page.find('#file-pretty input[type="file"]').prettyFile();
 		
 		initTable();
 		
