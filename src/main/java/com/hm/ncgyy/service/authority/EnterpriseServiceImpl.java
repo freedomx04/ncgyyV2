@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseEntity.PointStatus;
 import com.hm.ncgyy.repository.authority.EnterpriseBaseRepository;
 import com.hm.ncgyy.repository.authority.EnterpriseRepository;
 
@@ -61,20 +62,17 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
 	@Override
 	public List<EnterpriseBaseEntity> listByAreaId(Long areaId) {
-		// TODO Auto-generated method stub
-		return null;
+		return baseRepository.findByAreaId(areaId);
 	}
 
 	@Override
 	public List<EnterpriseBaseEntity> listByIndustryId(Long industryId) {
-		// TODO Auto-generated method stub
-		return null;
+		return baseRepository.findByIndustryId(industryId);
 	}
 
 	@Override
 	public List<EnterpriseBaseEntity> listPoint() {
-		// TODO Auto-generated method stub
-		return null;
+		return baseRepository.findByPointStatus(PointStatus.POINT);
 	}
 
 

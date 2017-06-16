@@ -19,6 +19,14 @@
 	color: #fff;
 }
 
+.close.fileinput-remove {
+	display: none;
+}
+
+.note-editor.note-frame {
+	border: solid 1px #e5e6e7;
+}
+
 .height-full {
     height: 100%!important;
 }

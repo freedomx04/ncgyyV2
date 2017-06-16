@@ -81,12 +81,43 @@
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
-            }
+            },
+            excluded: [':disabled']
 		}, param);
 		
 		$form.bootstrapValidator(defaultParam);
 	}
 	
+	/**
+	 * 图片选择器
+	 */
+	$k.util.fileinput = function($input, param) {
+		var defaultParam = $.extend({
+			language: 'zh', 
+            showUpload: false, 
+            showRemove: false,
+            allowedFileExtensions: [ 'jpg', 'png', 'gif' ],
+            browseClass: "btn btn-primary",
+            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i>"
+		}, param);
+		
+		$input.fileinput(defaultParam);
+	}
+	
+	/**
+	 * 文本编辑器
+	 */
+	$k.util.summernote = function($obj, param) {
+		var defaultParam = $.extend({
+			minHeight: 360,
+			lang: 'zh-CN',
+			focus: true,
+			dialogsFade: true,
+			placeholder: '正文内容'
+		}, param);
+		
+		$obj.summernote(defaultParam);
+	}
 	
 	/**
 	 * 月份选择器

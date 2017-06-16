@@ -9,7 +9,6 @@
 	
 	<title>企业新增</title>
 	
-	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
@@ -226,28 +225,14 @@
     	});
         
         if (method == 'add') {
-        	$page.find('#uploadImage').fileinput({
-                language: 'zh', 
-                showUpload: false, 
-                showRemove: false,
-                allowedFileExtensions: [ 'jpg', 'png', 'gif' ],
-                browseClass: "btn btn-primary",
-                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-            });
+        	$k.util.fileinput($page.find('#uploadImage'));
         } else {
         	$page.find('input[name="name"]').attr('disabled', 'disabled');
         	
-        	$page.find('#uploadImage').fileinput({
-				language: 'zh', 
-			    showUpload: false, 
-			    showRemove: false,
-			    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
-			    browseClass: "btn btn-primary",
-			    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-			    
-			    initialPreview:	'<img src="${ctx}${enterprise.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
-			    initialCaption: '${article.imagePath}',
-			});
+        	$k.util.fileinput($page.find('#uploadImage'), {
+        		initialPreview:	'<img src="${ctx}${enterprise.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
+			    initialCaption: '${enterprise.imagePath}',
+        	});
         	
         	$page.find('select[name="areaId"]').val(${enterprise.area.id});
         	$page.find('select[name="industryId"]').val(${enterprise.industry.id});

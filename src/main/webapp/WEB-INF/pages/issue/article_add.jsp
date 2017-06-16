@@ -21,15 +21,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
-	<style type="text/css">
-	.note-editor.note-frame {
-		border: solid 1px #e5e6e7;
-	}
-	.close.fileinput-remove {
-		display: none;
-	}
-	</style>
-	
 </head>
 
 <body class="gray-bg body-article-add">

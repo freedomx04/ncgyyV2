@@ -31,7 +31,7 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
-	
+
 	@Autowired
 	CommonService commonService;
 
@@ -40,12 +40,12 @@ public class ProductController {
 			String introduction) {
 		try {
 			EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
-			
+
 			String imagePath = null;
 			if (uploadImage != null) {
 				imagePath = commonService.saveImage(uploadImage);
 			}
-			
+
 			Date now = new Date();
 			ProductEntity product = new ProductEntity(enterprise, name, imagePath, specification, introduction, now, now);
 			productService.save(product);
@@ -66,13 +66,13 @@ public class ProductController {
 			product.setSpecification(specification);
 			product.setIntroduction(introduction);
 			product.setUpdateTime(new Date());
-			
+
 			if (uploadImage != null && !uploadImage.isEmpty()) {
 				commonService.deleteImage(product.getImagePath());
 				String imagePath = commonService.saveImage(uploadImage);
 				product.setImagePath(imagePath);
 			}
-			
+
 			productService.save(product);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {

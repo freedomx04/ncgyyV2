@@ -122,7 +122,7 @@ public class EnterpriseEntity extends BaseEntity {
      */
     @OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enterprise_id")
-	private List<ProductEntity> products = new LinkedList<>(); 
+	private List<ProductEntity> productList = new LinkedList<>(); 
 
     /**
      * 企业新闻
@@ -297,12 +297,12 @@ public class EnterpriseEntity extends BaseEntity {
 		this.industry = industry;
 	}
 
-	public List<ProductEntity> getProducts() {
-		return products;
+	public List<ProductEntity> getProductList() {
+		return productList;
 	}
 
-	public void setProducts(List<ProductEntity> products) {
-		this.products = products;
+	public void setProductList(List<ProductEntity> productList) {
+		this.productList = productList;
 	}
 
 	public List<NewsEntity> getNewsList() {

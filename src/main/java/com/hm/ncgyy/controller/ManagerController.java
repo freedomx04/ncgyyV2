@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.NewsEntity;
+import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.NewsService;
+import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
@@ -40,6 +44,12 @@ public class ManagerController {
 	
 	@Autowired
 	EnterpriseService enterpriseService;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	NewsService newsService;
 	
 	/**
 	 * 企业接口
@@ -75,6 +85,56 @@ public class ManagerController {
 		modelMap.addAttribute("enterprise", enterprise);
 		
 		return "pages/authority/enterprise_get";
+	}
+	
+	@RequestMapping(value = "/productAdd")
+	String productAdd(ModelMap modelMap, String method, Long productId, Long enterpriseId) {
+		String title = method.equals("add") ? "产品新增" : "产品编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("enterpriseId", enterpriseId);
+		
+		if (productId != null) {
+			ProductEntity product = productService.findOne(productId);
+			modelMap.addAttribute("product", product);
+		}
+		
+		return "pages/authority/product_add";
+	}
+	
+	@RequestMapping(value = "/productGet")
+	String productGet(ModelMap modelMap, Long productId) {
+		ProductEntity product = productService.findOne(productId);
+		modelMap.addAttribute("product", product);
+		
+		return "pages/authority/product_get";
+	}
+	
+	@RequestMapping(value = "/newsAdd")
+	String newsAdd(ModelMap modelMap, String method, Long newsId, Long enterpriseId) throws IOException {
+		String title = method.equals("add") ? "新闻新增" : "新闻编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("enterpriseId", enterpriseId);
+		
+		if (newsId != null) {
+			NewsEntity news = newsService.findOne(newsId);
+			String content = commonService.getArticleContent(news.getPath());
+			news.setContent(content);
+			modelMap.addAttribute("news", news);
+		}
+		
+		return "pages/authority/news_add";
+	}
+	
+	@RequestMapping(value = "/newsGet")
+	String newsGet(ModelMap modelMap, Long newsId) throws IOException {
+		NewsEntity news = newsService.findOne(newsId);
+		String content = commonService.getArticleContent(news.getPath());
+		news.setContent(content);
+		modelMap.addAttribute("news", news);
+		
+		return "pages/authority/news_get";
 	}
 	
 	@RequestMapping(value = "/department")

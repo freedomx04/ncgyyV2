@@ -167,6 +167,17 @@ public class EnterpriseController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/enterprise/listPoint")
+	public Result listPoint() {
+		try {
+			List<EnterpriseBaseEntity> enterpriseList = enterpriseService.listPoint();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", enterpriseList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 	@RequestMapping(value = "/api/enterprise/search")
 	public Result search(String input) {
