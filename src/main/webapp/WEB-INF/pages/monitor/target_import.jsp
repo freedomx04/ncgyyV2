@@ -151,7 +151,7 @@
 		//日期选择器，只选月份
 		$k.util.initDatePicker($page.find(".date"));
 		
-		initTable();
+		var $table = initTable();
 		
 		$page
 		.on('hidden.bs.modal', '#modal-target-dialog', function() {
@@ -473,6 +473,7 @@
 	            var selNum = $table.bootstrapTable('getSelections').length;
 	            selNum > 0 ? $page.find('.btn-target-delete-batch').removeAttr('disabled') : $page.find('.btn-target-delete-batch').attr('disabled', 'disabled');
 	        });
+			return $table;
 		}
 	})( jQuery );
 	
