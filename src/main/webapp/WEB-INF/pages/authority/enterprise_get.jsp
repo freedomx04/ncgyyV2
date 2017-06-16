@@ -237,7 +237,7 @@
                 events: window.operateEvents = {
                 	'click .btn-news-get': function(e, value, row, index) {
                 		e.stopPropagation();
-                		alert('get');
+                		window.location.href = './newsGet?newsId=' + row.id;
                 	},
                 	'click .btn-news-edit': function(e, value, row, index) {
                 		e.stopPropagation();
