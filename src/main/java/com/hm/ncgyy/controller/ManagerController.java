@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
+import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
@@ -21,6 +22,7 @@ import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
+import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
@@ -43,6 +45,9 @@ public class ManagerController {
 	IndustryService industryService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	EnterpriseService enterpriseService;
 	
 	@Autowired
@@ -52,10 +57,40 @@ public class ManagerController {
 	NewsService newsService;
 	
 	/**
+	 * 用户接口
+	 */
+	@RequestMapping(value = "/userList")
+	String userList() {
+		return "pages/authority/user_list";
+	}
+	
+	@RequestMapping(value = "/userAdd")
+	String userAdd(ModelMap modelMap, String method, Long userId) {
+		String title = method.equals("add") ? "用户新增" : "用户编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		if (userId != null) {
+			UserEntity user = userService.findOne(userId);
+			modelMap.addAttribute("user", user);
+		}
+		
+		return "pages/authority/user_add";
+	}
+	
+	@RequestMapping(value = "/userGet")
+	String userGet(ModelMap modelMap, Long userId) {
+		UserEntity user = userService.findOne(userId);
+		modelMap.addAttribute("user", user);
+		
+		return "pages/authority/user_get";
+	}
+	
+	/**
 	 * 企业接口
 	 */
 	@RequestMapping(value = "/enterpriseList")
-	String enterprise() {
+	String enterpriseList() {
 		return "pages/authority/enterprise_list";
 	}
 	

@@ -109,43 +109,17 @@
 		$k.util.bsValidator($form);
 		
 		if (method == 'add') {
-			$('#summernote').summernote({
-				minHeight: 360,
-				lang: 'zh-CN',
-				focus: true,
-				dialogsFade: true,
-				placeholder: '文章内容'
-			});
-			
+			$k.util.summernote($page.find('#summernote'));
 			if (type == 1) {
-				$('#uploadImage').fileinput({
-					language: 'zh', 
-				    showUpload: false, 
-				    showRemove: false,
-				    allowedFileExtensions: [ 'jpg', 'png', 'gif' ],
-				    browseClass: "btn btn-primary",
-				    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-				});
+				$k.util.fileinput($page.find('#uploadImage'));
 			}
 		} else {
-			$('#summernote').summernote({
-				minHeight: 360,
-				lang: 'zh-CN',
-				focus: true,
-				dialogsFade: true,
-			});
+			$k.util.summernote($page.find('#summernote'));
 			$('#summernote').summernote('code', '${article.content}');
 			
 			if (type == 1) {
-				$('#uploadImage').fileinput({
-					language: 'zh', 
-				    showUpload: false, 
-				    showRemove: false,
-				    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
-				    browseClass: "btn btn-primary",
-				    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-				    
-				    initialPreview:	'<img src="${ctx}${article.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
+				$k.util.fileinput($page.find('#uploadImage'), {
+					initialPreview:	'<img src="${ctx}${article.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
 				    initialCaption: '${article.imagePath}',
 				});
 			}

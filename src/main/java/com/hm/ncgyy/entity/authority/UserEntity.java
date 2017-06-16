@@ -1,7 +1,10 @@
 package com.hm.ncgyy.entity.authority;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
@@ -66,6 +69,13 @@ public class UserEntity extends BaseEntity {
 	private String avatar;
 	
 	/**
+	 * 关联角色
+	 */
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "role_id")
+	private RoleEntity role;
+	
+	/**
 	 * 用户状态
 	 */
 	private Integer status = UserStatus.STATUS_VALID;
@@ -74,8 +84,6 @@ public class UserEntity extends BaseEntity {
 	//private EnterpriseEntity enterprise;
 	
 	//private DepartmentEntity department;
-	
-	//private RoleEntity role;
 	
 	/**
 	 * 微信userId
@@ -140,6 +148,14 @@ public class UserEntity extends BaseEntity {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	
+	public RoleEntity getRole() {
+		return role;
+	}
+
+	public void setRole(RoleEntity role) {
+		this.role = role;
 	}
 
 	public Integer getStatus() {
