@@ -22,12 +22,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
-	<style type="text/css">
-	.close.fileinput-remove {
-        display: none;
-    }
-	</style>
-	
 </head>
 
 <body class="gray-bg body-enterprise-add">
@@ -40,22 +34,22 @@
 			<div class="ibox-content">
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-enterprise">
 					<div class="form-group">
-						<label for="name" class="col-sm-2 control-label"><i class="form-required">*</i>企业名称</label>
-                        <div class="col-sm-8">
+						<label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>企业名称</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="name" value="${enterprise.name}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="uploadImage" class="col-sm-2 control-label"><i class="form-required">*</i>企业图片</label>
-						<div class="col-sm-8">
+						<label for="uploadImage" class="col-sm-3 control-label"><i class="form-required">*</i>企业图片</label>
+						<div class="col-sm-5">
 							<input id="uploadImage" type="file" class="file-loading" name="uploadImage" required>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="areaId" class="col-sm-2 control-label"><i class="form-required">*</i>所属园区</label>
-						<div class="col-sm-8">
+						<label for="areaId" class="col-sm-3 control-label"><i class="form-required">*</i>所属园区</label>
+						<div class="col-sm-5">
 							<select class="form-control" name="areaId" required> 
 								<option value="">请选择</option>
 								<c:forEach var="area" items="${areaList}">
@@ -66,8 +60,8 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="industryId" class="col-sm-2 control-label"><i class="form-required">*</i>行业类别</label>
-						<div class="col-sm-8">
+						<label for="industryId" class="col-sm-3 control-label"><i class="form-required">*</i>行业类别</label>
+						<div class="col-sm-5">
 							<select class="form-control" name="industryId" required> 
 								<option value="">请选择</option>
 								<c:forEach var="industry" items="${industryList}">
@@ -78,36 +72,36 @@
 					</div>
 						
 					<div class="form-group">
-						<label for="mainProduct" class="col-sm-2 control-label"><i class="form-required">*</i>主要产品</label>
-                        <div class="col-sm-8">
+						<label for="mainProduct" class="col-sm-3 control-label"><i class="form-required">*</i>主要产品</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="mainProduct" value="${enterprise.mainProduct}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="principal" class="col-sm-2 control-label"><i class="form-required">*</i>企业负责人</label>
-                        <div class="col-sm-8">
+						<label for="principal" class="col-sm-3 control-label"><i class="form-required">*</i>企业负责人</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="principal" value="${enterprise.principal}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="telephone" class="col-sm-2 control-label"><i class="form-required">*</i>联系电话</label>
-                        <div class="col-sm-8">
+						<label for="telephone" class="col-sm-3 control-label"><i class="form-required">*</i>联系电话</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="telephone" value="${enterprise.telephone}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="address" class="col-sm-2 control-label"><i class="form-required">*</i>企业地址</label>
-                        <div class="col-sm-8">
+						<label for="address" class="col-sm-3 control-label"><i class="form-required">*</i>企业地址</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="address" value="${enterprise.address}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="pointStatus" class="col-sm-2 control-label">重点企业</label>
-						<div class="col-sm-8">
+						<label for="pointStatus" class="col-sm-3 control-label">重点企业</label>
+						<div class="col-sm-5">
 							<label class="checkbox-inline i-checks pointStatus">
 								<input type="checkbox">
 							</label>
@@ -115,58 +109,58 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="productionTime" class="col-sm-2 control-label">投产时间</label>
-                        <div class="col-sm-8 input-group date productTime" style="padding-left: 15px; padding-right: 15px;">
+						<label for="productionTime" class="col-sm-3 control-label">投产时间</label>
+                        <div class="col-sm-5 input-group date productTime" style="padding-left: 15px; padding-right: 15px;">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" class="form-control" name="productionTime" value="${enterprise.productionTime}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="representative" class="col-sm-2 control-label">企业法人</label>
-                        <div class="col-sm-8">
+						<label for="representative" class="col-sm-3 control-label">企业法人</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="representative" value="${enterprise.representative}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="shareholder" class="col-sm-2 control-label">主要股东</label>
-                        <div class="col-sm-8">
+						<label for="shareholder" class="col-sm-3 control-label">主要股东</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="shareholder" value="${enterprise.shareholder}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="registeredCapital" class="col-sm-2 control-label">注册资金</label>
-                        <div class="col-sm-8">
+						<label for="registeredCapital" class="col-sm-3 control-label">注册资金</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="registeredCapital" value="${enterprise.registeredCapital}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="alterRecording" class="col-sm-2 control-label">变更记录</label>
-                        <div class="col-sm-8">
+						<label for="alterRecording" class="col-sm-3 control-label">变更记录</label>
+                        <div class="col-sm-5">
                             <textarea class="form-control" name="alterRecording" style="resize:none; height: 100px;">${enterprise.alterRecording}</textarea>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="nationalTax" class="col-sm-2 control-label">国税识别码</label>
-                        <div class="col-sm-8">
+						<label for="nationalTax" class="col-sm-3 control-label">国税识别码</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="nationalTax" value="${enterprise.nationalTax}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="localTax" class="col-sm-2 control-label">地税识别码</label>
-                        <div class="col-sm-8">
+						<label for="localTax" class="col-sm-3 control-label">地税识别码</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="localTax" value="${enterprise.localTax}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="introduction" class="col-sm-2 control-label">企业简介</label>
-                        <div class="col-sm-8">
+						<label for="introduction" class="col-sm-3 control-label">企业简介</label>
+                        <div class="col-sm-5">
                             <textarea class="form-control" name="introduction" style="resize:none; height: 150px;">${enterprise.introduction}</textarea>
                         </div>
 					</div>
@@ -174,7 +168,7 @@
 					<div class="hr-line-dashed"></div>
 					
 					<div class="form-group">
-                        <div class="col-sm-4 col-sm-offset-2">
+                        <div class="col-sm-4 col-sm-offset-3">
                             <c:if test="${method == 'add'}">
                             <button type="button" class="btn btn-primary btn-submit btn-enterprise-add">
                                 <i class="fa fa-check fa-fw"></i>确定

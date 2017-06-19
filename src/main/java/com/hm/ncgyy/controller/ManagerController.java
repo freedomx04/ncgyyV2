@@ -11,17 +11,22 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.authority.DepartmentEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
+import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
+import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
@@ -48,7 +53,13 @@ public class ManagerController {
 	UserService userService;
 	
 	@Autowired
+	RoleService roleService;
+	
+	@Autowired
 	EnterpriseService enterpriseService;
+	
+	@Autowired
+	DepartmentService departmentService;
 	
 	@Autowired
 	ProductService productService;
@@ -67,8 +78,15 @@ public class ManagerController {
 	@RequestMapping(value = "/userAdd")
 	String userAdd(ModelMap modelMap, String method, Long userId) {
 		String title = method.equals("add") ? "用户新增" : "用户编辑";
+		List<RoleEntity> roleList = roleService.list();
+		List<EnterpriseBaseEntity> enterpriseList = enterpriseService.listBase();
+		List<DepartmentEntity> departmentList = departmentService.list();
+		
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("roleList", roleList);
+		modelMap.addAttribute("enterpriseList", enterpriseList);
+		modelMap.addAttribute("departmentList", departmentList);
 		
 		if (userId != null) {
 			UserEntity user = userService.findOne(userId);
