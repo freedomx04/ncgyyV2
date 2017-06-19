@@ -1,9 +1,7 @@
 package com.hm.ncgyy.controller.base;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -35,7 +30,7 @@ public class IndustryController {
 		try {
 			IndustryEntity industry = industryService.findByName(name);
 			if (industry != null) {
-				return new Result(Code.EXISTED.value(), "existed");
+				return new Result(Code.EXISTED.value(), "行业已存在");
 			}
 			
 			Date now = new Date();
@@ -49,11 +44,18 @@ public class IndustryController {
 	}
 	
 	@RequestMapping(value = "/api/industry/update", method = RequestMethod.POST)
-	public Result update(Long industryId) {
+	public Result update(Long industryId, String name) {
 		try {
 			IndustryEntity industry = industryService.findOne(industryId);
-			industry.setUpdateTime(new Date());
-			industryService.save(industry);
+			
+			IndustryEntity updateIndustry = industryService.findByName(name);
+			if (updateIndustry == null || industry.getId() == updateIndustry.getId()) {
+				industry.setName(name);
+				industry.setUpdateTime(new Date());
+				industryService.save(industry);
+			} else {
+				return new Result(Code.EXISTED.value(), "行业已存在");
+			}
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -113,21 +115,4 @@ public class IndustryController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/industry/exist")
-	public @ResponseBody String exist(String name) throws JsonProcessingException {
-		boolean result = true;
-
-		IndustryEntity industry = industryService.findByName(name);
-		if (industry != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
-	}
-
 }
