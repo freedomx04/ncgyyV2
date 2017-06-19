@@ -11,6 +11,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
@@ -20,6 +21,11 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
+	<style>
+	.datepicker.dropdown-menu {
+		z-index: 999999!important;
+	}
+	</style>
 </head>
 
 <body class="gray-bg body-target">
@@ -34,8 +40,8 @@
 					<div class="col-sm-4">
 						<div class="input-group date">
 	                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	                        <input type="text" id="monthly" class="form-control">
-	                        <span id="search" class="input-group-addon btn btn-sm btn-primary">
+	                        <input type="text" id="search-monthly" class="form-control">
+	                        <span id="search" class="input-group-addon btn btn-primary">
 	                    		查询
 	                   		</span>
 	                    </div>
@@ -59,7 +65,7 @@
 	                    </button>
 	                </div>
                 </div>
-                <table id="target-list-table" data-mobile-responsive="true"> </table>
+                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
 		</div>
 	</div>
@@ -83,13 +89,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>年月</label>
+	                        <label for="monthly" class="col-sm-3 control-label"><i class="form-required">*</i>月份</label>
                             <div class="col-sm-7">
-                                <div class="input-group" id="monthly" style="width: 100%;">
-			                        <input type="text" name="monthly" class="form-control">
-			                    </div>
+                            	<div class="input-group" style="width: 100%;">
+	                            	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                                <input type="text" name="monthly" id="monthly" readonly="readonly" class="form-control">
+	                            </div> 
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>本月止主营业务收入(万元)</label>
                             <div class="col-sm-7">
@@ -128,6 +136,7 @@
         </div>
     </div>
 	
+	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
@@ -158,9 +167,16 @@
             $targetForm.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
         }) 
+        /* .on('shown.bs.modal', '#modal-target-dialog', function() {
+            $k.util.initDatePicker($targetDialog.find("#monthly"));
+        }) */
 		.on('click', '.btn-target-add', function() {
 			 getSelectList();
-			 $k.util.initDatePicker($targetDialog.find("#monthly"));
+			 $('#monthly').datepicker({
+				 format: 'yyyy-mm',
+			     minViewMode: 1,
+			     autoclose: true
+			 });
 			 
 			 $targetDialog.find('.modal-title strong').text('新增');
 			 $targetForm.find('input').removeAttr('disabled');
@@ -334,7 +350,7 @@
 				url: '${ctx}/api/target/listByMonthly',
 				method: "post",
 				contentType : "application/x-www-form-urlencoded",
-				queryParams: {monthly: $page.find(".date input").val()},
+				queryParams: {monthly: $page.find("#search-monthly").val()},
 				toolbar: '#target-list-table-toolbar',
 				idField: 'target_current.id',
 				responseHandler: function(res) {

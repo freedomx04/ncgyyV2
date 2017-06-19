@@ -11,6 +11,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
@@ -31,13 +32,13 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="tabs-container">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 主营业务收入及增幅</a>
+                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 主营业务收入</a>
                 </li>
-                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">用电量及增幅</a>
+                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">用电量</a>
                 </li>
-                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">利润总额及增幅</a>
+                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">利润总额</a>
                 </li>
-                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">实现税金总额及增幅</a>
+                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">实现税金总额</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -64,14 +65,14 @@
 		                        </div>
 		                    </div>
 		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    <button type="button" class="btn btn-primary search">
 			                    	<strong>查询</strong>
 			                   	</button>
 			                </div>
 		                </form>
 		                
 		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+		                <div class="chart-container" class="table-hm" style="height: 400px; margin-top: 40px;"></div>
 		                
 		                <table id="target-list-table" data-mobile-responsive="true"> </table>
                     </div>
@@ -100,7 +101,7 @@
 		                        </div>
 		                    </div>
 		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    <button type="button" class="btn btn-primary search">
 			                    	<strong>查询</strong>
 			                   	</button>
 			                </div>
@@ -109,7 +110,7 @@
 		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
 		                
-		                <table id="target-list-table" data-mobile-responsive="true"> </table>
+		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
                 
@@ -136,7 +137,7 @@
 		                        </div>
 		                    </div>
 		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    <button type="button" class="btn btn-primary search">
 			                    	<strong>查询</strong>
 			                   	</button>
 			                </div>
@@ -144,7 +145,7 @@
 		                
 		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
 		                
-		                <table id="target-list-table" data-mobile-responsive="true"> </table>
+		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
                 
@@ -171,7 +172,7 @@
 		                        </div>
 		                    </div>
 		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-sm btn-primary search">
+			                    <button type="button" class="btn btn-primary search">
 			                    	<strong>查询</strong>
 			                   	</button>
 			                </div>
@@ -179,7 +180,7 @@
 		                
 		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
 		                
-		                <table id="target-list-table" data-mobile-responsive="true"> </table>
+		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
                     </div>
                 </div>
             </div>
