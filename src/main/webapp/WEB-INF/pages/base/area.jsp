@@ -208,6 +208,7 @@
 			 $areaForm.find('input').removeAttr('disabled');
 			 
 			 $areaDialog.on('click', '.btn-confirm', function() {
+				 debugger;
  				var validator = $areaForm.data('bootstrapValidator');
  				validator.validate();
  				

@@ -224,6 +224,8 @@
     },
 
     ajaxUpload: function () {
+    	debugger;
+    	
       var url = this.$avatarForm.attr('action'),
           data = new FormData(this.$avatarForm[0]),
           _this = this;

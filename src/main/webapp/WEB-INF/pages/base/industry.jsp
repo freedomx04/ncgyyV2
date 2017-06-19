@@ -87,8 +87,10 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-industry');
-		var $industryDialog = $page.find('#modal-industry-dialog');
-		var $industryForm = $industryDialog.find('form');
+		var $dialog = $page.find('#modal-industry-dialog');
+		var $form = $dialog.find('form');
+		
+		$k.util.bsValidator($form);
 		
 		var $table = $k.util.bsTable($page.find('#industry-list-table'), {
 			url: '${ctx}/api/industry/list',
@@ -108,9 +110,43 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-industry-delete a-operate">删除</a>';
+                    return '<a class="btn-industry-edit a-operate">编辑</a><a class="btn-industry-delete a-operate">删除</a>';
                 },
             	events: window.operateEvents = {
+            		'click .btn-industry-edit': function(e, value, row, index) {
+            			/* e.stopPropagation();
+            			
+            			$dialog.find('.modal-title strong').text('编辑');
+            			$dialog.find('input[name="name"]').val(row.name);
+            			$dialog.modal('show');
+            			
+            			$dialog.on('click', '.btn-confirm', function() {
+            				debugger;
+            				var validator = $form.data('bootstrapValidator');
+             				validator.validate();
+             				
+             				if (validator.isValid()) {
+             					$.ajax({
+             						url: '${ctx}/api/industry/update',
+             						type: 'POST',
+             						data: {
+             							industryId: row.id,
+             							name: $dialog.find('input[name="name"]').val()
+             						},
+             						success: function(ret) {
+             							if (ret.code == 0) {
+             								$dialog.modal('hide');
+                                 			swal('', '编辑成功!', 'success');
+                                 			$table.bootstrapTable('refresh');
+             							} else {
+             								swal('', ret.msg, 'error');
+             							}
+             						},
+             						error: function(err) {}
+             					});
+             				}
+            			}); */
+            		},
             		'click .btn-industry-delete': function(e, value, row, index) {
             			e.stopPropagation();
             			
@@ -156,15 +192,17 @@
 		
 		$page
 		.on('hidden.bs.modal', '#modal-industry-dialog', function() {
-            $industryForm.bootstrapValidator('resetForm', true);
+            $form.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
         }) 
 		.on('click', '.btn-industry-add', function() {
-			 $industryDialog.find('.modal-title strong').text('新增');
-			 $industryForm.find('input').removeAttr('disabled');
-			 
-			 $industryDialog.on('click', '.btn-confirm', function() {
- 				var validator = $industryForm.data('bootstrapValidator');
+			$dialog.find('.modal-title strong').text('新增');
+			
+			$dialog.on('click', '.btn-confirm', function(e) {
+				debugger;
+				e.stopPropagation();
+				
+				var validator = $form.data('bootstrapValidator');
  				validator.validate();
  				
  				if (validator.isValid()) {
@@ -172,13 +210,16 @@
  						url: '${ctx}/api/industry/create',
                  		type: 'POST',
                  		data: {
-                 			name: $industryForm.find('input[name = "name"]').val(),
-                 			description: $industryForm.find('input[name = "description"]').val()
+                 			name: $form.find('input[name = "name"]').val(),
                  		},
                  		success: function(ret) {
-                 			$industryDialog.modal('hide');
-                 			swal('', '添加成功!', 'success');
-                 			$table.bootstrapTable('refresh'); 
+                 			if (ret.code == 0) {
+                 				$dialog.modal('hide');
+                     			swal('', '添加成功!', 'success');
+                     			$table.bootstrapTable('refresh'); 
+                 			} else {
+                 				swal('', ret.msg, 'error');
+                 			}
                  		},
                  		error: function(err) {}
                  	});
@@ -216,30 +257,6 @@
                     error: function(err) {}
                 });
             });
-        });
-		
-		// 添加验证器
-        $industryDialog.find('form').bootstrapValidator({
-            message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            excluded: [':disabled'],
-            fields: {
-            	name: {
-					validators: {
-						threshold: 6,
-	                    remote: {
-	                    	url: '${ctx}/api/industry/exist',
-	                    	message: '行业已存在',
-	                    	delay: 2000,
-	                    	type: 'GET',
-	                    }
-					} 
-				}
-            }
         });
 		
 	})( jQuery );
