@@ -184,6 +184,24 @@ public class ManagerController {
 	}
 		
 	/**
+	 * 帮扶平台接口
+	 */
+	@RequestMapping(value = "/appealDispatcher")
+	String appealDispatcher() {
+		return "pages/assist/appeal_dispatcher";
+	}
+	
+	@RequestMapping(value = "/appealEP")
+	String appealEP() {
+		return "pages/assist/appeal_ep";
+	}
+	
+	@RequestMapping(value = "/appealGV")
+	String appealGV() {
+		return "pages/assist/appeal_gv";
+	}
+	
+	/**
 	 * 新闻发布接口
 	 */
 	@RequestMapping(value = "/articleList")

@@ -89,6 +89,16 @@
 					</li>
 					<li>
 						<a href="#">
+							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">精准帮扶平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="appealDispatcher">诉求中心（派单）</a></li>
+							<li><a class="J_menuItem" href="appealEP">诉求中心（企业）</a></li>
+							<li><a class="J_menuItem" href="appealGV">诉求中心（部门）</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
 							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">新闻发布</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
