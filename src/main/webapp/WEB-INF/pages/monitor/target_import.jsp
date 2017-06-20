@@ -167,9 +167,6 @@
             $targetForm.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
         }) 
-        /* .on('shown.bs.modal', '#modal-target-dialog', function() {
-            $k.util.initDatePicker($targetDialog.find("#monthly"));
-        }) */
 		.on('click', '.btn-target-add', function() {
 			 getSelectList();
 			 $('#monthly').datepicker({
