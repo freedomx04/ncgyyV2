@@ -114,42 +114,15 @@
                 },
             	events: window.operateEvents = {
             		'click .btn-industry-edit': function(e, value, row, index) {
-            			/* e.stopPropagation();
-            			
+            			e.stopPropagation();
             			$dialog.find('.modal-title strong').text('编辑');
             			$dialog.find('input[name="name"]').val(row.name);
+            			$dialog.data('method', 'edit');
+            			$dialog.data('industryId', row.id);
             			$dialog.modal('show');
-            			
-            			$dialog.on('click', '.btn-confirm', function() {
-            				debugger;
-            				var validator = $form.data('bootstrapValidator');
-             				validator.validate();
-             				
-             				if (validator.isValid()) {
-             					$.ajax({
-             						url: '${ctx}/api/industry/update',
-             						type: 'POST',
-             						data: {
-             							industryId: row.id,
-             							name: $dialog.find('input[name="name"]').val()
-             						},
-             						success: function(ret) {
-             							if (ret.code == 0) {
-             								$dialog.modal('hide');
-                                 			swal('', '编辑成功!', 'success');
-                                 			$table.bootstrapTable('refresh');
-             							} else {
-             								swal('', ret.msg, 'error');
-             							}
-             						},
-             						error: function(err) {}
-             					});
-             				}
-            			}); */
             		},
             		'click .btn-industry-delete': function(e, value, row, index) {
             			e.stopPropagation();
-            			
             			swal({
             				title: '',
             				text: '确定删除选中记录?',
@@ -160,18 +133,14 @@
                             confirmButtonText: '确定',
                             closeOnConfirm: false
             			}, function() {
-            				var industryId = row['id'];
-            				
             				$.ajax({
             					url: '${ctx}/api/industry/delete',
             					data: {
-            						industryId: industryId
+            						industryId: row.id
             					},
             					success: function(ret) {
             						if (ret.code == 0) {
             							swal('', '删除成功!', 'success');
-            						} else if (ret.code == 1004) {
-            							swal('', '该数据存在关联, 无法删除', 'error');
             						} else {
             							swal('', ret.msg, 'error');
             						}
@@ -189,6 +158,53 @@
             var selNum = $table.bootstrapTable('getSelections').length;
             selNum > 0 ? $page.find('.btn-industry-delete-batch').removeAttr('disabled') : $page.find('.btn-industry-delete-batch').attr('disabled', 'disabled');
         });
+			
+		$dialog.on('click', '.btn-confirm', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var method = $dialog.data('method');
+				if (method == 'add') {
+					$.ajax({
+						url: '${ctx}/api/industry/create',
+	               		type: 'POST',
+	               		data: {
+	               			name: $form.find('input[name = "name"]').val(),
+	               		},
+	               		success: function(ret) {
+	               			if (ret.code == 0) {
+	               				$dialog.modal('hide');
+	                   			swal('', '添加成功!', 'success');
+	                   			$table.bootstrapTable('refresh'); 
+	               			} else {
+	               				swal('', ret.msg, 'error');
+	               			}
+	               		},
+	               		error: function(err) {}
+	               	});
+				} else {
+					$.ajax({
+ 						url: '${ctx}/api/industry/update',
+ 						type: 'POST',
+ 						data: {
+ 							industryId: $dialog.data('industryId'),
+ 							name: $dialog.find('input[name="name"]').val()
+ 						},
+ 						success: function(ret) {
+ 							if (ret.code == 0) {
+ 								$dialog.modal('hide');
+                     			swal('', '编辑成功!', 'success');
+                     			$table.bootstrapTable('refresh');
+ 							} else {
+ 								swal('', ret.msg, 'error');
+ 							}
+ 						},
+ 						error: function(err) {}
+ 					});
+				}
+			}
+		});
 		
 		$page
 		.on('hidden.bs.modal', '#modal-industry-dialog', function() {
@@ -197,34 +213,7 @@
         }) 
 		.on('click', '.btn-industry-add', function() {
 			$dialog.find('.modal-title strong').text('新增');
-			
-			$dialog.on('click', '.btn-confirm', function(e) {
-				debugger;
-				e.stopPropagation();
-				
-				var validator = $form.data('bootstrapValidator');
- 				validator.validate();
- 				
- 				if (validator.isValid()) {
- 					$.ajax({
- 						url: '${ctx}/api/industry/create',
-                 		type: 'POST',
-                 		data: {
-                 			name: $form.find('input[name = "name"]').val(),
-                 		},
-                 		success: function(ret) {
-                 			if (ret.code == 0) {
-                 				$dialog.modal('hide');
-                     			swal('', '添加成功!', 'success');
-                     			$table.bootstrapTable('refresh'); 
-                 			} else {
-                 				swal('', ret.msg, 'error');
-                 			}
-                 		},
-                 		error: function(err) {}
-                 	});
-                 }
- 			});
+			$dialog.data('method', 'add');
 		})
 		.on('click', '.btn-industry-delete-batch', function() {
             swal({
@@ -238,7 +227,6 @@
                 closeOnConfirm: false
             }, function() {
                 var rows = $table.bootstrapTable('getSelections');
-                
                 $.ajax({
                     url: '${ctx}/api/industry/batchDelete',
                     data: { 
@@ -247,8 +235,6 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '删除成功!', 'success');
-                        } else if (ret.code == 1004) {
-							swal('', '该数据存在关联, 无法删除', 'error');
 						} else {
                             swal('', ret.msg, 'error');
                         }

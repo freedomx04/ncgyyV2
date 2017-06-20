@@ -89,6 +89,26 @@
 					</li>
 					<li>
 						<a href="#">
+							<i class="fa fa-hand-paper-o fa-fw"></i><span class="nav-label">帮扶平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="#">诉求中心</a></li>
+							<li><a class="J_menuItem" href="#">诉求中心(企业)</a></li>
+							<li><a class="J_menuItem" href="#">诉求中心(部门)</a></li>
+							<li><a class="J_menuItem" href="#">诉求预警</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="#">网上申报</a></li>
+							<li><a class="J_menuItem" href="#">网上申报(企业)</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
 							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">新闻发布</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
@@ -236,7 +256,7 @@
 			
 			<!-- 主窗口 -->
 			<div class="row J_mainContent" id="content-main">
-				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="area" frameborder="0" data-id="overview" seamless></iframe>
+				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="overview" frameborder="0" data-id="overview" seamless></iframe>
 			</div>
 			
 			<!-- footer -->

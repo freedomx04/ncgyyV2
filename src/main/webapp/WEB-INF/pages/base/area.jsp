@@ -93,8 +93,10 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-area');
-		var $areaDialog = $page.find('#modal-area-dialog');
-		var $areaForm = $areaDialog.find('form');
+		var $dialog = $page.find('#modal-area-dialog');
+		var $form = $dialog.find('form');
+		
+		$k.util.bsValidator($form);
 		
 		var $table = $k.util.bsTable($page.find('#area-list-table'), {
 			url: '${ctx}/api/area/list',
@@ -124,40 +126,16 @@
             		'click .btn-area-edit': function(e, value, row, index) {
             			e.stopPropagation();
             			
-            			$areaDialog.find('.modal-title strong').text('编辑');
+            			$dialog.find('.modal-title strong').text('编辑');
             			$.each(row, function(key, val) {
-            				if (key == 'name') {
-                                $areaForm.find('input[name = "name"]').attr('disabled', 'disabled');
-                            }
-            				$areaForm.find('input[name="' + key + '"]').val(val);
+            				$form.find('input[name="' + key + '"]').val(val);
             			});
-            			$areaDialog.modal('show');
-            			
-            			$areaDialog.on('click', '.btn-confirm', function() {
-            				var validator = $areaForm.data('bootstrapValidator');
-            				validator.validate();
-            				
-                            if (validator.isValid()) {
-                            	$.ajax({
-                            		url: '${ctx}/api/area/update',
-                            		type: 'POST',
-                            		data: {
-                            			areaId: row.id,
-                            			description: $areaForm.find('input[name = "description"]').val()
-                            		},
-                            		success: function(ret) {
-                            			$areaDialog.modal('hide');
-                                        swal('', '编辑成功!', 'success');
-                                        $table.bootstrapTable('refresh'); 
-                            		},
-                            		error: function(err) {}
-                            	});
-                            }
-            			});
+            			$dialog.data('method', 'edit');
+            			$dialog.data('areaId', row.id);
+            			$dialog.modal('show');
             		},
             		'click .btn-area-delete': function(e, value, row, index) {
             			e.stopPropagation();
-            			
             			swal({
             				title: '',
             				text: '确定删除选中记录?',
@@ -168,18 +146,14 @@
                             confirmButtonText: '确定',
                             closeOnConfirm: false
             			}, function() {
-            				var areaId = row['id'];
-            				
             				$.ajax({
             					url: '${ctx}/api/area/delete',
             					data: {
-            						areaId: areaId
+            						areaId: row.id
             					},
             					success: function(ret) {
             						if (ret.code == 0) {
             							swal('', '删除成功!', 'success');
-            						} else if (ret.code == 1004) {
-            							swal('', '该数据存在关联, 无法删除', 'error');
             						} else {
             							swal('', ret.msg, 'error');
             						}
@@ -198,37 +172,63 @@
             selNum > 0 ? $page.find('.btn-area-delete-batch').removeAttr('disabled') : $page.find('.btn-area-delete-batch').attr('disabled', 'disabled');
         });
 		
-		$page
-		.on('hidden.bs.modal', '#modal-area-dialog', function() {
-            $areaForm.bootstrapValidator('resetForm', true);
-            $(this).removeData('bs.modal');
-        }) 
-		.on('click', '.btn-area-add', function() {
-			 $areaDialog.find('.modal-title strong').text('新增');
-			 $areaForm.find('input').removeAttr('disabled');
-			 
-			 $areaDialog.on('click', '.btn-confirm', function() {
-				 debugger;
- 				var validator = $areaForm.data('bootstrapValidator');
- 				validator.validate();
- 				
- 				if (validator.isValid()) {
- 					$.ajax({
+		$dialog.on('click', '.btn-confirm', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+            if (validator.isValid()) {
+            	var method = $dialog.data('method');
+            	if (method == 'add') {
+            		$.ajax({
  						url: '${ctx}/api/area/create',
                  		type: 'POST',
                  		data: {
-                 			name: $areaForm.find('input[name = "name"]').val(),
-                 			description: $areaForm.find('input[name = "description"]').val()
+                 			name: $dialog.find('input[name = "name"]').val(),
+                 			description: $dialog.find('input[name = "description"]').val()
                  		},
                  		success: function(ret) {
-                 			$areaDialog.modal('hide');
-                 			swal('', '添加成功!', 'success');
-                 			$table.bootstrapTable('refresh'); 
+                 			if (ret.code == 0) {
+	               				$dialog.modal('hide');
+	                   			swal('', '添加成功!', 'success');
+	                   			$table.bootstrapTable('refresh'); 
+	               			} else {
+	               				swal('', ret.msg, 'error');
+	               			}
                  		},
                  		error: function(err) {}
                  	});
-                 }
- 			});
+            	} else {
+            		$.ajax({
+                		url: '${ctx}/api/area/update',
+                		type: 'POST',
+                		data: {
+                			areaId: $dialog.data('areaId'),
+                			name: $dialog.find('input[name="name"]').val(),
+                			description: $dialog.find('input[name = "description"]').val()
+                		},
+                		success: function(ret) {
+                			if (ret.code == 0) {
+                				$dialog.modal('hide');
+                                swal('', '编辑成功!', 'success');
+                                $table.bootstrapTable('refresh');
+                			} else {
+                				swal('', ret.msg, 'error');
+                			}
+                		},
+                		error: function(err) {}
+                	});
+            	}
+            }
+		});
+		
+		$page
+		.on('hidden.bs.modal', '#modal-area-dialog', function() {
+            $form.bootstrapValidator('resetForm', true);
+            $(this).removeData('bs.modal');
+        }) 
+		.on('click', '.btn-area-add', function() {
+			 $dialog.find('.modal-title strong').text('新增');
+			 $dialog.data('method', 'add');
 		})
 		.on('click', '.btn-area-delete-batch', function() {
             swal({
@@ -261,31 +261,6 @@
                     error: function(err) {}
                 });
             });
-        });
-		
-		// 添加验证器
-        $areaDialog.find('form').bootstrapValidator({
-            message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            excluded: [':disabled'],
-            fields: {
-            	name: {
-					validators: {
-						threshold: 6,
-	                    remote: {
-	                    	url: '${ctx}/api/area/exist',
-	                    	message: '区域已存在',
-	                    	delay: 2000,
-	                    	type: 'GET',
-	                    }
-					} 
-				},
-				description: {}
-            }
         });
 		
 	})( jQuery );
