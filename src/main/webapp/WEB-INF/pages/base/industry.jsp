@@ -42,7 +42,6 @@
 		</div>
 	</div>
 	
-	<!-- 用户新增,编辑对话框 -->
     <div class="modal" id="modal-industry-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content animated fadeInDown">

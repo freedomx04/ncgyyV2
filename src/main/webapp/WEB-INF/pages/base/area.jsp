@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>区域管理</title>
+	<title>园区管理</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,7 +25,7 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>区域管理</h5>
+				<h5>园区管理</h5>
 			</div>
 			
 			<div class="ibox-content">
@@ -42,7 +42,6 @@
 		</div>
 	</div>
 	
-	<!-- 用户新增,编辑对话框 -->
     <div class="modal" id="modal-area-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content animated fadeInDown">
@@ -53,13 +52,13 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="form-area" autocomplete="off">
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>名称</label>
+                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>园区名称</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="name" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">描述</label>
+                            <label for="description" class="col-sm-3 control-label">园区描述</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="description">
                             </div>
@@ -110,11 +109,11 @@
             	checkbox: true
             }, {
             	field: 'name',
-            	title: '名称',
+            	title: '园区名称',
             	align: 'center'
             }, {
             	field: 'description',
-            	title: '描述',
+            	title: '园区描述',
             	align: 'center'
             }, {
             	title: '操作',
@@ -251,8 +250,6 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '删除成功!', 'success');
-                        } else if (ret.code == 1004) {
-							swal('', '该数据存在关联, 无法删除', 'error');
 						} else {
                             swal('', ret.msg, 'error');
                         }
