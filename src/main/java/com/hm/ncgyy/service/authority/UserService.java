@@ -2,6 +2,7 @@ package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
+import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 
 public interface UserService {
@@ -10,11 +11,15 @@ public interface UserService {
 	
 	UserEntity findByUsername(String username);
 	
+	UserEntity findByWxUserId(String wxUserId);
+	
 	void save(UserEntity user);
 	
 	void delete(Long userId);
 	
 	List<UserEntity> list();
 	
-	UserEntity findByWxUserId(String wxUserId);
+	UserBaseEntity findOneBase(Long userId);
+	
+	
 }
