@@ -71,8 +71,9 @@
 							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="area">区域管理</a></li>
+							<li><a class="J_menuItem" href="area">园区管理</a></li>
 							<li><a class="J_menuItem" href="industry">行业管理</a></li>
+							<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
 						</ul>
 					</li>
 					<li>

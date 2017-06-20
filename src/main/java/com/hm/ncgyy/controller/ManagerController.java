@@ -208,6 +208,11 @@ public class ManagerController {
 		return "pages/base/industry";
 	}
 	
+	@RequestMapping(value = "/appealType")
+	String appealType() {
+		return "pages/base/appealType";
+	}
+	
 	/**
 	 * 监测平台接口
 	 */
