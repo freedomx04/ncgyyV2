@@ -71,8 +71,9 @@
 							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="area">区域管理</a></li>
+							<li><a class="J_menuItem" href="area">园区管理</a></li>
 							<li><a class="J_menuItem" href="industry">行业管理</a></li>
+							<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
 						</ul>
 					</li>
 					<li>
@@ -85,6 +86,26 @@
 							<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
 							<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
 							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-hand-paper-o fa-fw"></i><span class="nav-label">帮扶平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="#">诉求中心</a></li>
+							<li><a class="J_menuItem" href="#">诉求中心(企业)</a></li>
+							<li><a class="J_menuItem" href="#">诉求中心(部门)</a></li>
+							<li><a class="J_menuItem" href="#">诉求预警</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="#">网上申报</a></li>
+							<li><a class="J_menuItem" href="#">网上申报(企业)</a></li>
 						</ul>
 					</li>
 					<li>
@@ -246,7 +267,7 @@
 			
 			<!-- 主窗口 -->
 			<div class="row J_mainContent" id="content-main">
-				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="area" frameborder="0" data-id="overview" seamless></iframe>
+				<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="overview" frameborder="0" data-id="overview" seamless></iframe>
 			</div>
 			
 			<!-- footer -->

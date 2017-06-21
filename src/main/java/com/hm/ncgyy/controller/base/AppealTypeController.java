@@ -30,7 +30,7 @@ public class AppealTypeController {
 		try {
 			AppealTypeEntity type = typeService.findByName(name);
 			if (type != null) {
-				return new Result(Code.EXISTED.value(), "existed");
+				return new Result(Code.EXISTED.value(), "诉求类别已存在");
 			}
 			
 			Date now = new Date();
@@ -73,7 +73,7 @@ public class AppealTypeController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -89,7 +89,7 @@ public class AppealTypeController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

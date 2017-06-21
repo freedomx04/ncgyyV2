@@ -27,6 +27,12 @@
 	border: solid 1px #e5e6e7;
 }
 
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	color: #999;
+}
+
 .height-full {
     height: 100%!important;
 }
