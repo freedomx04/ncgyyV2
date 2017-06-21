@@ -1,11 +1,14 @@
 package com.hm.ncgyy.entity.service;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -70,8 +73,9 @@ public class DeclareEntity extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private UserBaseEntity user;
 	
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "declare_id")
+	List<DeclareFileEntity> fileList = new LinkedList<>();
 
 	private Integer applyStatus = ApplyStatus.UNAPPLY;
 	
@@ -160,6 +164,14 @@ public class DeclareEntity extends BaseEntity {
 
 	public void setApplyStatus(Integer applyStatus) {
 		this.applyStatus = applyStatus;
+	}
+
+	public List<DeclareFileEntity> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<DeclareFileEntity> fileList) {
+		this.fileList = fileList;
 	}
 	
 }

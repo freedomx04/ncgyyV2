@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +37,7 @@ import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.common.utils.CommonUtils;
 import com.hm.ncgyy.common.utils.FileUtil;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.LoginService;
 import com.hm.ncgyy.service.authority.UserService;
 
@@ -51,6 +53,8 @@ public class UserController {
 	private String uploadPath;
 	
 	private String avatarPath = "avatar";
+	
+	
 
 	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
 	public Result create(String username, String password) {
@@ -188,13 +192,7 @@ public class UserController {
 		return resultString;
 	}
 
-	/**
-	 * 修改用户头像
-	 * @param userId
-	 * @param base64
-	 * @return
-	 */
-	@RequestMapping(value = "/api/user/avatar", method = RequestMethod.POST)
+/*	@RequestMapping(value = "/api/user/avatar", method = RequestMethod.POST)
 	public Result avatar(Long userId, String base64) {
 		try {
 			String str = base64.substring(base64.indexOf(",") + 1);
@@ -217,7 +215,7 @@ public class UserController {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
-	}
+	}*/
 	
 	@RequestMapping(value = "/avatar/{avatar}")
 	public void getAvatar(@PathVariable("avatar") String avatar, HttpServletRequest request, HttpServletResponse response) {
@@ -247,15 +245,6 @@ public class UserController {
 		}
 	}
 	
-	
-	/**
-	 * 修改密码
-	 * 
-	 * @param userId
-	 * @param oldPassword
-	 * @param newPassword
-	 * @return
-	 */
 	@RequestMapping(value = "/api/user/password", method = RequestMethod.POST)
 	public Result password(Long userId, String oldPassword, String newPassword) {
 		try {
@@ -272,5 +261,23 @@ public class UserController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
+	@Autowired
+	CommonService commonService;
+	
+	@RequestMapping(value = "/api/user/avatar", method = RequestMethod.POST)
+	public Result avatar(MultipartFile avatar_file, Object avatar_data) {
+		try {
+			String imagePath = null;
+			if (avatar_file != null) {
+				//imagePath = commonService.saveImage(avatar_file);
+			}
+			
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
 }

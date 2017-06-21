@@ -32,17 +32,20 @@ public class DeclareServiceImpl implements DeclareService {
 
 	@Override
 	public List<DeclareEntity> list() {
-		return declareRepository.findAllByOrderByUpdateTimeDesc();
+		return null;
+		//return declareRepository.findAllByOrderByUpdateTimeDesc();
 	}
 
 	@Override
 	public List<DeclareEntity> listByUserId(Long userId) {
-		return declareRepository.findByUserIdOrderbyUpdateTimeDesc(userId);
+		return null;
+		//return declareRepository.findByUserIdOrderbyUpdateTimeDesc(userId);
 	}
 
 	@Override
 	public List<DeclareEntity> listOnline() {
-		return declareRepository.findByStatusOrderbyUpdateTimeDesc(DeclareStatus.ONLINE);
+		return null;
+		//return declareRepository.findByStatusOrderbyUpdateTimeDesc(DeclareStatus.ONLINE);
 	}
 
 }
