@@ -33,10 +33,15 @@
 			<div class="ibox-content">
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-user">
 					<div class="form-group">
-						<label for="username" class="col-sm-3 control-label">头像</label>
+						<label for="avatar" class="col-sm-3 control-label">头像</label>
 						<div id="crop-avatar" class="col-md-5">
 							<div class="avatar-view" title="点击修改头像" style="width: 160px; height: 160px;">
-						    	<img src="${ctx}/api/avatar/${user.avatar}" alt="头像">
+								<c:if test="${method=='add'}">
+									<img src="${ctx}/api/avatar/default_user" alt="头像">
+								</c:if>
+								<c:if test="${method=='edit'}">
+									<img src="${ctx}/api/avatar/${user.avatar}" alt="头像">
+								</c:if>
 						    </div>
 						</div>
 					</div>
@@ -182,7 +187,7 @@
 			}
 		});
 		
-		if (method = 'edit') {
+		if (method == 'edit') {
 			$page.find('input[name="username"]').attr('disabled', 'disabled');
 			$page.find('select[name="roleId"]').val(${user.role.id});
 			$page.find('select[name="gender"]').val(${user.gender});

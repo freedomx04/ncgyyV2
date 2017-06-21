@@ -72,7 +72,7 @@
 									</dl>
 								</div>
 								<div class="col-sm-5 text-right">
-									<img src="${ctx}${enterprise.imagePath}" style="max-width: 300px; padding: 20px;">
+									<img src="${ctx}/api/avatar/${enterprise.avatar}" style="max-width: 300px; padding: 20px;">
 								</div>
 								<div class="col-sm-12">
 									<dl class="dl-horizontal">

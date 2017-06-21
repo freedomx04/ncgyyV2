@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ include file="/WEB-INF/include/avatar.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,9 +16,9 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/iCheck/custom.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
-    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput.min.css">
-    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput-rtl.min.css">
-     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/cropper/cropper.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sitelogo/sitelogo.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
@@ -34,17 +35,24 @@
 			<div class="ibox-content">
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-enterprise">
 					<div class="form-group">
+						<label for="avatar" class="col-sm-3 control-label">企业图标</label>
+						<div id="crop-avatar" class="col-md-5">
+							<div class="avatar-view" title="点击修改企业图标" style="width: 160px; height: 160px;">
+								<c:if test="${method=='add'}">
+									<img src="${ctx}/api/avatar/default_enterprise" alt="企业图标">
+								</c:if>
+								<c:if test="${method=='edit'}">
+									<img src="${ctx}/api/avatar/${enterprise.avatar}" alt="企业图标">
+								</c:if>
+						    </div>
+						</div>
+					</div>
+				
+					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>企业名称</label>
                         <div class="col-sm-5">
                             <input type="text" class="form-control" name="name" value="${enterprise.name}" required>
                         </div>
-					</div>
-					
-					<div class="form-group">
-						<label for="uploadImage" class="col-sm-3 control-label"><i class="form-required">*</i>企业图片</label>
-						<div class="col-sm-5">
-							<input id="uploadImage" type="file" class="file-loading" name="uploadImage" required>
-						</div>
 					</div>
 					
 					<div class="form-group">
@@ -197,10 +205,10 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
-    <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/cropper/cropper.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/sitelogo/sitelogo.js"></script>
     
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -208,6 +216,8 @@
 		var $page = $('.body-enterprise-add');
         var $form = $page.find('#form-enterprise');
         var method = '${method}';
+        
+        $k.util.bsValidator($form);
         
         $page.find(".i-checks").iCheck({
         	checkboxClass: "icheckbox_square-green", 
@@ -218,42 +228,15 @@
     		autoclose: true
     	});
         
-        if (method == 'add') {
-        	$k.util.fileinput($page.find('#uploadImage'));
-        } else {
-        	$page.find('input[name="name"]').attr('disabled', 'disabled');
-        	
-        	$k.util.fileinput($page.find('#uploadImage'), {
-        		initialPreview:	'<img src="${ctx}${enterprise.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
-			    initialCaption: '${enterprise.imagePath}',
-        	});
-        	
+        if (method == 'edit') {
         	$page.find('select[name="areaId"]').val(${enterprise.area.id});
         	$page.find('select[name="industryId"]').val(${enterprise.industry.id});
-        	
         	var pointStatus = '${enterprise.pointStatus}';
         	if (pointStatus == 1) {
         		$page.find('.pointStatus').iCheck('check');
         	}
         }
         
-        $k.util.bsValidator($form, {
-        	excluded: [':disabled'],
-        	fields: {
-        		name: {
-        			validators: {
-        				threshold: 6,
- 	                    remote: {
- 	                    	url: '${ctx}/api/enterprise/exist',
- 	                    	message: '企业已存在',
- 	                    	delay: 2000,
- 	                    	type: 'GET',
- 	                    }
- 					} 
- 				},
-             }
-        });
-		
         $page
         .on('click', '.btn-enterprise-add', function() {
         	var validator = $form.data('bootstrapValidator');
@@ -261,6 +244,8 @@
             
             if (validator.isValid()) {
             	var formData = new FormData($form[0]); 
+				formData.append('avatar', $k.util.getAvatar($page.find('.avatar-view > img')));
+            	
             	var pointStatus = 0;
             	if ($(".pointStatus input").is(':checked')) {
             		pointStatus = 1;
@@ -284,7 +269,7 @@
                                 window.location.href = './enterpriseList';
                             });
                     	} else {
-                    		swal('', '操作失败', 'error');
+                    		swal('', ret.msg, 'error');
                     	}
                     },
                     error: function(err) {}
@@ -293,7 +278,6 @@
         })
         .on('click', '.btn-enterprise-edit', function() {
         	var validator = $form.data('bootstrapValidator');
-        	validator.removeField('uploadImage');
             validator.validate();
             
             if (validator.isValid()) {
@@ -304,6 +288,7 @@
             	}
             	formData.append('enterpriseId', '${enterprise.id}');
             	formData.append('pointStatus', pointStatus);
+            	formData.append('avatar', $k.util.getAvatar($page.find('.avatar-view > img')));
             	
             	$.ajax({
             		url: '${ctx}/api/enterprise/update',
@@ -322,7 +307,7 @@
                                 window.location.href = './enterpriseList';
                             });
                     	} else {
-                    		swal('', '操作失败', 'error');
+                    		swal('', ret.msg, 'error');
                     	}
                     },
                     error: function(err) {}

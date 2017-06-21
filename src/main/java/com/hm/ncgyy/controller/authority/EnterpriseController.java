@@ -1,21 +1,15 @@
 package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -50,25 +44,21 @@ public class EnterpriseController {
 	CommonService commonService;
 
 	@RequestMapping(value = "/api/enterprise/create", method = RequestMethod.POST)
-	public Result create(String name, MultipartFile uploadImage, Long areaId, Long industryId, String mainProduct,
+	public Result create(String avatar, String name, Long areaId, Long industryId, String mainProduct,
 			String principal, String telephone, String address, Integer pointStatus, String productionTime,
 			String representative, String shareholder, String registeredCapital, String alterRecording,
 			String nationalTax, String localTax, String introduction) {
 		try {
 			EnterpriseEntity enterprise = enterpriseService.findByName(name);
 			if (enterprise != null) {
-				return new Result(Code.EXISTED.value(), "existed");
+				return new Result(Code.EXISTED.value(), "企业已存在");
 			}
 
-			String imagePath = null;
-			if (uploadImage != null) {
-				imagePath = commonService.saveImage(uploadImage);
-			}
 			AreaEntity area = areaService.findOne(areaId);
 			IndustryEntity industry = industryService.findOne(industryId);
 
 			Date now = new Date();
-			enterprise = new EnterpriseEntity(name, imagePath, area, industry, principal, mainProduct, productionTime,
+			enterprise = new EnterpriseEntity(avatar, name, area, industry, principal, mainProduct, productionTime,
 					telephone, address, representative, shareholder, registeredCapital, alterRecording, introduction,
 					nationalTax, localTax, pointStatus, now, now);
 			enterpriseService.save(enterprise);
@@ -81,7 +71,7 @@ public class EnterpriseController {
 	}
 
 	@RequestMapping(value = "/api/enterprise/update", method = RequestMethod.POST)
-	public Result update(Long enterpriseId, MultipartFile uploadImage, Long areaId, Long industryId, String mainProduct,
+	public Result update(Long enterpriseId, String avatar, String name, Long areaId, Long industryId, String mainProduct,
 			String principal, String telephone, String address, Integer pointStatus, String productionTime,
 			String representative, String shareholder, String registeredCapital, String alterRecording,
 			String nationalTax, String localTax, String introduction) {
@@ -90,6 +80,13 @@ public class EnterpriseController {
 			AreaEntity area = areaService.findOne(areaId);
 			IndustryEntity industry = industryService.findOne(industryId);
 			
+			EnterpriseEntity updateEnterprise = enterpriseService.findByName(name);
+			if (updateEnterprise != null && updateEnterprise.getName() != enterprise.getName()) {
+				return new Result(Code.EXISTED.value(), "企业已存在");
+			}
+			
+			enterprise.setName(name);
+			enterprise.setAvatar(avatar);
 			enterprise.setArea(area);
 			enterprise.setIndustry(industry);
 			enterprise.setMainProduct(mainProduct);
@@ -106,12 +103,6 @@ public class EnterpriseController {
 			enterprise.setLocalTax(localTax);
 			enterprise.setIntroduction(introduction);
 			enterprise.setUpdateTime(new Date());
-			
-			if (uploadImage != null && !uploadImage.isEmpty()) {
-				commonService.deleteImage(enterprise.getImagePath());
-				String imagePath = commonService.saveImage(uploadImage);
-				enterprise.setImagePath(imagePath);
-			}
 			
 			enterpriseService.save(enterprise);
 			return new Result(Code.SUCCESS.value(), "updated");
@@ -188,23 +179,6 @@ public class EnterpriseController {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
-	}
-
-	@RequestMapping(value = "/api/enterprise/exist")
-	public @ResponseBody String exist(String name) throws JsonProcessingException {
-		boolean result = true;
-
-		EnterpriseBaseEntity enterprise = enterpriseService.findByNameBase(name);
-		if (enterprise != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
 	}
 
 }

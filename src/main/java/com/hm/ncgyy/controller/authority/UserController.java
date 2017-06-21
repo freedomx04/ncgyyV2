@@ -1,9 +1,7 @@
 package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -11,11 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -200,23 +195,6 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/api/user/exist", method = RequestMethod.GET)
-	public @ResponseBody String exist(String username) throws JsonProcessingException {
-		boolean result = true;
-
-		UserEntity user = userService.findByUsername(username);
-		if (user != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
-	}
-
 	@RequestMapping(value = "/api/user/password", method = RequestMethod.POST)
 	public Result password(Long userId, String oldPassword, String newPassword) {
 		try {
@@ -226,6 +204,19 @@ public class UserController {
 			}
 
 			user.setPassword(CiphersUtils.getInstance().MD5Password(newPassword));
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/status") 
+	public Result status(Long userId, Integer status) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setStatus(status);
 			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
