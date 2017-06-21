@@ -13,6 +13,10 @@ public interface UserService {
 	
 	UserEntity findByWxUserId(String wxUserId);
 	
+	UserEntity findByMobile(String mobile);
+	
+	UserEntity findByEmail(String email);
+	
 	void save(UserEntity user);
 	
 	void delete(Long userId);

@@ -172,6 +172,15 @@
 	}
 	
 	/**
+	 * 从url中获取avatar
+	 */
+	$k.util.getAvatar = function($obj) {
+		var url = $obj.attr('src');
+		var avatar = url.substring(url.lastIndexOf('/') + 1);
+		return avatar;
+	}
+	
+	/**
 	 * 其他方法
 	 */
 	Date.prototype.Format = function (fmt) { 

@@ -281,7 +281,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './enterpriseList?';
+                                window.location.href = './enterpriseList';
                             });
                     	} else {
                     		swal('', '操作失败', 'error');
@@ -319,7 +319,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './enterpriseList?';
+                                window.location.href = './enterpriseList';
                             });
                     	} else {
                     		swal('', '操作失败', 'error');

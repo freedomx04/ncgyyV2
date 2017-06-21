@@ -66,7 +66,10 @@
             }, {
             	field: 'avatar',
             	title: '头像',
-            	align: 'center'
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<img src="${ctx}/api/avatar/' + value + '" style="width: 32px; height: 32px;">';
+            	}
             }, {
             	field: 'username',
             	title: '用户名',
@@ -78,10 +81,6 @@
             }, {
             	field: 'mobile',
             	title: '手机号',
-            	align: 'center'
-            }, {
-            	field: 'email',
-            	title: '邮箱',
             	align: 'center'
             }, {
             	field: 'role.name',
@@ -104,7 +103,7 @@
             		},
             		'click .btn-user-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('edit');
+            			window.location.href = './userAdd?method=edit&userId=' + row.id;
             		},
             		'click .btn-user-password': function(e, value, row, index) {
             			e.stopPropagation();
