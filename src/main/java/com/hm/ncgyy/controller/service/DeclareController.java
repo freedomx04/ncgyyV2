@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,17 @@ public class DeclareController {
 			Date now = new Date();
 			DeclareEntity declare = new DeclareEntity(title, description, startTime, endTime, user, now, now);
 			declareService.save(declare);
+			return new Result(Code.SUCCESS.value(), "created");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/declare/uploadFiles", method = RequestMethod.POST)
+	public Result uploadFiles(@RequestParam("fileList")MultipartFile uploadFile) {
+		try {
+			
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

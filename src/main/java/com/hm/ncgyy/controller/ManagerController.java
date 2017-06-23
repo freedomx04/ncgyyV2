@@ -21,6 +21,7 @@ import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
@@ -31,6 +32,7 @@ import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
+import com.hm.ncgyy.service.service.DeclareService;
 
 @Controller
 public class ManagerController {
@@ -66,6 +68,9 @@ public class ManagerController {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@Autowired
+	DeclareService declareService;
 	
 	/**
 	 * 用户接口
@@ -257,6 +262,37 @@ public class ManagerController {
 	@RequestMapping(value = "/appealGV")
 	String appealGV() {
 		return "pages/assist/appeal_gv";
+	}
+	
+	/**
+	 * 服务平台接口
+	 */
+	@RequestMapping(value = "/declareGV")
+	String declareGV() {
+		return "pages/service/declare_gv";
+	}
+	
+	@RequestMapping(value = "/declareEP")
+	String declareEP() {
+		return "pages/service/declare_ep";
+	}
+	
+	@RequestMapping(value = "/declareAdd")
+	String declareAdd(ModelMap modelMap, String method, Long declareId) {
+		List<DeclareEntity> declareList = declareService.list();
+		
+		String title = method.equals("add") ? "网上申报新增" : "网上申报编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		modelMap.addAttribute("declareList", declareList);
+		
+		if (declareId != null) {
+			DeclareEntity declare = declareService.findOne(declareId);
+			modelMap.addAttribute("declare", declare);
+		}
+		
+		return "pages/service/declare_add";
 	}
 	
 	/**

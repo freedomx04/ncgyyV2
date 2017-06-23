@@ -104,8 +104,8 @@
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">网上申报</a></li>
-							<li><a class="J_menuItem" href="#">网上申报(企业)</a></li>
+							<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
+							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
 						</ul>
 					</li>
 					<li>
