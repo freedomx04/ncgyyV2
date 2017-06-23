@@ -27,4 +27,10 @@ public interface CommonService {
 	void deleteImage(String path) throws IOException;
 	
 	
+	/**
+	 * 文件通用处理方法
+	 */
+	void deleteFile(String path) throws IOException;
+	
+	
 }

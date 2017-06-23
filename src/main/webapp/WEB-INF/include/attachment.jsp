@@ -21,6 +21,8 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+	
+	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 </head>
 
 <div class="modal fade" id="modal-attachment-dialog" aria-hidden="true" role="dialog" tabindex="-1">
@@ -49,10 +51,16 @@
 
 	var $dialog = $('#modal-attachment-dialog');
 	var $input = $dialog.find('#attachment-input');
-	var $list;
 	
-	function attachment($element) {
-		$list = $element.find('.attachment-list');
+	function attachment($element, list) {
+		var $list = $element.find('.attachment-list');
+		
+		$list.find('li').each(function(k, elem) {
+			var $elem = $(elem);
+			var filename = $elem.data('filename');
+			var iconClass = $k.util.getIconClass(filename);
+			$elem.find('i.icon').addClass(iconClass);
+		});
 		
 		$input.fileinput({
 			language: 'zh', 
@@ -69,40 +77,10 @@
 			var file = data.files[0];
 			var filepath = data.response.data;
 			var filename = file.name;
+			var iconClass = $k.util.getIconClass(filename);
 			
-			var suffix = filename.substring(filename.lastIndexOf('.') + 1);
-			var $faclass = 'fa-file';
-			switch (suffix) {
-			case 'jpg':case 'png':case 'bmp':case 'tiff':case 'gif':
-				$faclass = 'fa fa-file-image-o fa-fw';
-				break
-			case 'doc':case 'docx':
-				$faclass = 'fa fa-file-word-o fa-fw';
-				break;
-			case 'pdf':
-				$faclass = 'fa fa-file-pdf-o fa-fw';
-				break;
-			case 'xls':case 'xlsx':
-				$faclass = 'fa fa-file-excel-o fa-fw';
-				break;
-			case 'txt':
-				$faclass = 'fa fa-file-text-o fa-fw';
-				break;
-			case 'ppt':case 'pptx':
-				$faclass = 'fa fa-file-powerpoint-o fa-fw';
-				break;
-			case 'zip':case 'rar':case 'z':
-				$faclass = 'fa fa-file-zip-o fa-fw';
-				break;
-			case 'avi':case 'mov':case 'mp4':case 'rmvb':case 'rm':case 'wma':
-				$faclass = 'fa fa-file-video-o fa-fw';
-				break;
-			default:
-				break;
-			}
-			
-			var $li = '<li data-filepath = ' + filepath + ' data-filename=' + filename + '>'
-					+ '<i class="' + $faclass + '"></i>' + file.name
+			var $li = '<li data-filename = ' + filename + ' data-filepath=' + filepath + '>'
+					+ '<i class="' + iconClass + '"></i>' + file.name
 					+ '<a class="btn-attachment-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>'
 					+ '</li>'
 			$list.append($li);
@@ -111,7 +89,6 @@
 		$list.on('click', '.btn-attachment-delete', function(e) {
 			e.stopPropagation();
 			var $this = $(this);
-			
 			swal({
 				title: '',
 				text: '确定删除选中附件?',
@@ -149,7 +126,5 @@
 	.on('click', '.btn-upload', function() {
 		$input.fileinput('upload');
 	}); 
-	
-	
 	
 </script>

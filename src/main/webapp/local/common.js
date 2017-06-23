@@ -120,6 +120,46 @@
 	}
 	
 	/**
+	 * 根据文件名获取文件icon
+	 */
+	$k.util.getIconClass = function(filename) {
+		var suffix = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+		var iconClass = 'fa fa-file fa-fw';
+		
+		switch (suffix) {
+		case 'jpg':case 'png':case 'bmp':case 'tiff':case 'gif':
+			iconClass = 'fa fa-file-image-o fa-fw';
+			break
+		case 'doc':case 'docx':
+			iconClass = 'fa fa-file-word-o fa-fw';
+			break;
+		case 'pdf':
+			iconClass = 'fa fa-file-pdf-o fa-fw';
+			break;
+		case 'xls':case 'xlsx':
+			iconClass = 'fa fa-file-excel-o fa-fw';
+			break;
+		case 'txt':
+			iconClass = 'fa fa-file-text-o fa-fw';
+			break;
+		case 'ppt':case 'pptx':
+			iconClass = 'fa fa-file-powerpoint-o fa-fw';
+			break;
+		case 'zip':case 'rar':case 'z':
+			iconClass = 'fa fa-file-zip-o fa-fw';
+			break;
+		case 'avi':case 'mov':case 'mp4':case 'rmvb':case 'rm':case 'wma':
+			iconClass = 'fa fa-file-video-o fa-fw';
+			break;
+		default:
+			break;
+		}
+		
+		return iconClass;
+	}
+	
+	
+	/**
 	 * 月份选择器
 	 */
 	$k.util.initDatePicker = function($obj) {

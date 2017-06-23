@@ -1,5 +1,7 @@
 package com.hm.ncgyy.entity.issue;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,11 +32,13 @@ public class ArticleFileEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArticleFileEntity(Long articleId, String filename, String filepath, long filelength) {
+	public ArticleFileEntity(Long articleId, String filename, String filepath, Date createTime, Date updateTime) {
 		super();
 		this.articleId = articleId;
 		this.filename = filename;
 		this.filepath = filepath;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
 	}
 
 	public Long getArticleId() {

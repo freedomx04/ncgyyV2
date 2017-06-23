@@ -66,7 +66,14 @@
 							<button type="button" class="btn btn-white btn-attachment-dialog" data-toggle="modal" data-target="#modal-attachment-dialog">
 		                        <i class="fa fa-paperclip fa-fw"></i>添加附件
 		                    </button>
-		                    <ul class="attachment-list list-unstyled project-files"></ul>
+		                    <ul class="attachment-list list-unstyled project-files">
+		                   		<c:forEach var="file" items="${article.fileList}">
+									<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+										<i class="icon"></i>${file.filename}
+										<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
+									</li>
+								</c:forEach> 
+		                    </ul>
 						</div>
 					</div>
 					
@@ -119,17 +126,16 @@
 		var method = '${method}';
 		
 		$k.util.bsValidator($form);
+		attachment($articleFile);
 		
 		if (method == 'add') {
 			$k.util.summernote($page.find('#summernote'));
 			if (type == 1) {
 				$k.util.fileinput($page.find('#uploadImage'));
 			}
-			attachment($articleFile);
 		} else {
 			$k.util.summernote($page.find('#summernote'));
 			$('#summernote').summernote('code', '${article.content}');
-			
 			if (type == 1) {
 				$k.util.fileinput($page.find('#uploadImage'), {
 					initialPreview:	'<img src="${ctx}${article.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
@@ -147,6 +153,14 @@
 				var formData = new FormData($form[0]); 
 				formData.append('type', type);
 				formData.append('content', $('#summernote').summernote('code'));
+				
+				var attachmentList = new Array();
+				$form.find('.attachment-list li').each(function(k, elem) {
+					var filename = $(elem).data('filename');
+					var filepath = $(elem).data('filepath');
+					attachmentList.push(filename + '?' + filepath);
+				});
+				formData.append('attachmentList', attachmentList);
 				
 				$.ajax({
 					url: '${ctx}/api/article/create',
@@ -182,6 +196,17 @@
 				formData.append('articleId', '${article.id}');
 				formData.append('content', $('#summernote').summernote('code'));
 				
+				var attachmentList = new Array();
+				$form.find('.attachment-list li').each(function(k, elem) {
+					var fileid = $(elem).data('fileid');
+					if (!fileid) {
+						var filename = $(elem).data('filename');
+						var filepath = $(elem).data('filepath');
+						attachmentList.push(filename + '?' + filepath);
+					}
+				});
+				formData.append('attachmentList', attachmentList);
+				
 				$.ajax({
 					url: '${ctx}/api/article/update',
 					type: 'POST',
@@ -208,6 +233,37 @@
 		})
 		.on('click', '.btn-article-cancel', function() {
 			window.location.href = './articleList?type=' + type;
+		})
+		.on('click', '.btn-articleFile-delete', function(e) {
+			e.stopPropagation();
+			var $this = $(this);
+			swal({
+				title: '',
+				text: '确定删除选中附件?',
+				type: 'warning',
+				showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+			}, function() {
+				var fileid = $this.closest('li').data('fileid');
+				$.ajax({
+					url: '${ctx}/api/article/fileDelete',
+					data: {
+						articleFileId: fileid
+					},
+					success: function(ret) {
+						if (ret.code == 0) {
+							swal('', '删除成功!', 'success');
+							$this.closest('li').remove();
+						} else {
+							swal('', ret.msg, 'error');
+						}
+					},
+					error: function(err) {}
+				});
+			});
 		});
 		
 	</script>
