@@ -34,6 +34,13 @@
  				</div>
  				
  				<div style="padding: 20px;">${article.content}</div>
+ 				
+ 				<div style="padding: 20px;">
+ 					<p class="font-bold">相关附件</p>
+ 					<c:forEach var="file" items="${article.fileList}">
+ 						<p><a href="${ctx}${file.filepath}">${file.filename}</a></p>
+ 					</c:forEach>
+ 				</div>
 	 		</div>
 	 	</div>
 	
