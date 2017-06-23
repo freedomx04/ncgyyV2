@@ -67,6 +67,13 @@
             	field: 'state',
             	checkbox: true
             }, {
+            	field: 'avatar',
+            	title: '企业图标',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<img src="${ctx}/api/avatar/' + value + '" style="width: 32px; height: 32px;">';
+            	}
+            }, {
             	field: 'name',
             	title: '企业名称',
             	align: 'center',

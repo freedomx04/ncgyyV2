@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ include file="/WEB-INF/include/avatar.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>用户新增</title>
+	<title>${title}</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,10 +33,15 @@
 			<div class="ibox-content">
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-user">
 					<div class="form-group">
-						<label for="username" class="col-sm-3 control-label">头像</label>
+						<label for="avatar" class="col-sm-3 control-label">头像</label>
 						<div id="crop-avatar" class="col-md-5">
-							<div class="avatar-view" title="Change Logo Picture">
-						    	<img src="img/default_avatar_male.jpg" alt="Logo">
+							<div class="avatar-view" title="点击修改头像" style="width: 160px; height: 160px;">
+								<c:if test="${method=='add'}">
+									<img src="${ctx}/api/avatar/default_user" alt="头像">
+								</c:if>
+								<c:if test="${method=='edit'}">
+									<img src="${ctx}/api/avatar/${user.avatar}" alt="头像">
+								</c:if>
 						    </div>
 						</div>
 					</div>
@@ -55,6 +61,13 @@
 					</div>
 					
 					<div class="form-group">
+						<label for="mobile" class="col-sm-3 control-label"><i class="form-required">*</i>手机号</label>
+						<div class="col-sm-5">
+                            <input type="text" class="form-control" name="mobile" value="${user.mobile}" required>
+                        </div>
+					</div>
+					
+					<div class="form-group">
 						<label for="role" class="col-sm-3 control-label"><i class="form-required">*</i>角色</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="roleId" required>
@@ -66,6 +79,8 @@
 						</div>
 					</div>
 					
+					<div class="hr-line-dashed"></div>
+					
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">性别</label>
 						<div class="col-sm-5">
@@ -75,15 +90,6 @@
 								<option value="2">女</option>
 							</select>
 						</div>
-					</div>
-					
-					<div class="hr-line-dashed"></div>
-					
-					<div class="form-group">
-						<label for="mobile" class="col-sm-3 control-label">手机号</label>
-						<div class="col-sm-5">
-                            <input type="text" class="form-control" name="mobile" value="${user.mobile}">
-                        </div>
 					</div>
 					
 					<div class="form-group">
@@ -150,53 +156,6 @@
 		
 	</div>
 	
-	
-<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<form class="avatar-form" action="${ctx}/api/user/avatar" enctype="multipart/form-data" method="post">
-				<div class="modal-header">
-					<button class="close" data-dismiss="modal" type="button">&times;</button>
-					<h4 class="modal-title" id="avatar-modal-label">Change Logo Picture</h4>
-				</div>
-				<div class="modal-body">
-					<div class="avatar-body">
-						<div class="avatar-upload">
-							<input class="avatar-src" name="avatar_src" type="hidden">
-							<input class="avatar-data" name="avatar_data" type="hidden">
-							<label for="avatarInput">图片上传</label>
-							<input class="avatar-input" id="avatarInput" name="avatar_file" type="file"></div>
-						<div class="row">
-							<div class="col-md-9">
-								<div class="avatar-wrapper"></div>
-							</div>
-							<div class="col-md-3">
-								<div class="avatar-preview preview-lg"></div>
-								<div class="avatar-preview preview-md"></div>
-								<div class="avatar-preview preview-sm"></div>
-							</div>
-						</div>
-						<div class="row avatar-btns">
-							<div class="col-md-9">
-								<div class="btn-group">
-									<button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
-								</div>
-								<div class="btn-group">
-									<button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<button class="btn btn-success btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
-							</div>
-						</div>
-					</div>
-				</div>
-  		</form>
-  	</div>
-  </div>
-</div>
-	
-	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
@@ -215,17 +174,87 @@
 		var $form = $page.find('#form-user');
 		var method = '${method}';
 		
-		if (method = 'add') {
-			
-		} else {
-			
+		$k.util.bsValidator($form, {
+			fields: {
+				mobile: {
+	                 validators: {
+	                     regexp: {
+	                         regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+	                         message: '请输入正确的手机号码'
+	                     }
+	                 }
+	             },
+			}
+		});
+		
+		if (method == 'edit') {
+			$page.find('input[name="username"]').attr('disabled', 'disabled');
+			$page.find('select[name="roleId"]').val(${user.role.id});
+			$page.find('select[name="gender"]').val(${user.gender});
+			$page.find('select[name="enterpriseId"]').val(${user.enterprise.id});
+			$page.find('select[name="departmentId"]').val(${user.department.id});
 		}
 		
 		$page
 		.on('click', '.btn-user-add', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
 			
+			if (validator.isValid()) {
+				var formData = new FormData($form[0]);
+				formData.append('avatar', $k.util.getAvatar($page.find('.avatar-view > img')));
+				
+				$.ajax({
+					url :'${ctx}/api/user/create',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					cache: false,
+					success: function(ret) {
+						if (ret.code == 0) {
+                    		swal({
+                                title: '',
+                                text: '操作成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './userList';
+                            });
+                    	} else {
+                    		swal('', ret.msg, 'error');
+                    	}
+					},
+					error: function(err) {}
+				});
+			}
 		})
 		.on('click', '.btn-user-edit', function() {
+			var formData = new FormData($form[0]);
+			formData.append('avatar', $k.util.getAvatar($page.find('.avatar-view > img')));
+			formData.append('userId', '${user.id}');
+			
+			$.ajax({
+				url :'${ctx}/api/user/update',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				cache: false,
+				success: function(ret) {
+					if (ret.code == 0) {
+                		swal({
+                            title: '',
+                            text: '操作成功',
+                            type: 'success'
+                        }, function() {
+                            window.location.href = './userList';
+                        });
+                	} else {
+                		swal('', ret.msg, 'error');
+                	}
+				},
+				error: function(err) {}
+			});
 			
 		})
 		.on('click', '.btn-user-cancel', function() {

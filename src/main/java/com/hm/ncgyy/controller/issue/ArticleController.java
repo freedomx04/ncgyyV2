@@ -3,6 +3,7 @@ package com.hm.ncgyy.controller.issue;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.issue.ArticleFileEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.issue.ArticleFileService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
 @RestController
@@ -28,11 +31,15 @@ public class ArticleController {
 	ArticleService articleService;
 
 	@Autowired
+	ArticleFileService articleFileService;
+
+	@Autowired
 	CommonService commonService;
 
 	@RequestMapping(value = "/api/article/create", method = RequestMethod.POST)
 	public Result create(Integer type, String title, String source,
-			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content) {
+			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content,
+			@RequestParam("attachmentList") List<String> attachmentList) {
 		try {
 			String path = commonService.saveArticle(content);
 
@@ -44,6 +51,14 @@ public class ArticleController {
 			Date now = new Date();
 			ArticleEntity article = new ArticleEntity(type, title, source, imagePath, path, now, now);
 			articleService.save(article);
+
+			for (String attachment : attachmentList) {
+				String filename = StringUtils.split(attachment, "?")[0];
+				String filepath = StringUtils.split(attachment, "?")[1];
+				ArticleFileEntity articleFile = new ArticleFileEntity(article.getId(), filename, filepath, now, now);
+				articleFileService.save(articleFile);
+			}
+
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -53,7 +68,8 @@ public class ArticleController {
 
 	@RequestMapping(value = "/api/article/update", method = RequestMethod.POST)
 	public Result update(Long articleId, String title, String source,
-			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content) {
+			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content,
+			@RequestParam("attachmentList") List<String> attachmentList) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
 			article.setTitle(title);
@@ -66,6 +82,14 @@ public class ArticleController {
 				article.setImagePath(imagePath);
 			}
 
+			Date now = new Date();
+			for (String attachment: attachmentList) {
+				String filename = StringUtils.split(attachment, "?")[0];
+				String filepath = StringUtils.split(attachment, "?")[1];
+				ArticleFileEntity articleFile = new ArticleFileEntity(article.getId(), filename, filepath, now, now);
+				articleFileService.save(articleFile);
+			}
+			
 			commonService.updateArticle(article.getPath(), content);
 			articleService.save(article);
 
@@ -113,7 +137,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "api/article/get")
+	@RequestMapping(value = "/api/article/get")
 	public Result get(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
@@ -130,6 +154,22 @@ public class ArticleController {
 			List<ArticleEntity> list = articleService.listByType(type);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/api/article/fileDelete")
+	public Result fileDelete(Long articleFileId) {
+		try {
+			ArticleFileEntity articleFile = articleFileService.fileOne(articleFileId);
+			commonService.deleteFile(articleFile.getFilepath());
+			articleFileService.delete(articleFileId);
+			return new Result(Code.SUCCESS.value(), "deleted");
+		} catch (Exception e) {
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "constraint");
+			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}

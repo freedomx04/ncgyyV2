@@ -32,9 +32,9 @@ public class EnterpriseEntity extends BaseEntity {
 	private String name;
 	
 	/**
-	 * 企业图片路径
+	 * 企业图片
 	 */
-	private String imagePath;
+	private String avatar;
 	
 	/**
 	 * 园区
@@ -135,13 +135,13 @@ public class EnterpriseEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EnterpriseEntity(String name, String imagePath, AreaEntity area, IndustryEntity industry, String principal,
+	public EnterpriseEntity(String avatar, String name, AreaEntity area, IndustryEntity industry, String principal,
 			String mainProduct, String productionTime, String telephone, String address, String representative,
 			String shareholder, String registeredCapital, String alterRecording, String introduction,
 			String nationalTax, String localTax, Integer pointStatus, Date createTime, Date updateTime) {
 		super();
+		this.avatar = avatar;
 		this.name = name;
-		this.imagePath = imagePath;
 		this.area = area;
 		this.industry = industry;
 		this.principal = principal;
@@ -160,6 +160,14 @@ public class EnterpriseEntity extends BaseEntity {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
+	
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
 	public String getName() {
 		return name;
@@ -167,14 +175,6 @@ public class EnterpriseEntity extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
 	}
 
 	public AreaEntity getArea() {

@@ -1,5 +1,7 @@
 package com.hm.ncgyy.entity.authority;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,63 +37,91 @@ public class UserEntity extends BaseEntity {
 	 */
 	@Column(unique = true)
 	private String username;
-	
+
 	/**
 	 * MD5加密后的密码
 	 */
 	private String password;
-	
+
 	/**
 	 * 姓名
 	 */
 	private String name;
-	
+
+	/**
+	 * 头像
+	 */
+	private String avatar = "default_user";
+
 	/**
 	 * 手机号码,唯一
 	 */
-	@Column(unique = true)
 	private String mobile;
-	
+
 	/**
 	 * 邮箱,唯一
 	 */
-	@Column(unique = true)
 	private String email;
-	
+
 	/**
 	 * 性别,默认为未定义
 	 */
 	private Integer gender = Gender.GENDER_UNDERFINE;
-	
-	/**
-	 * 头像地址
-	 */
-	private String avatar;
-	
+
 	/**
 	 * 关联角色
 	 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "role_id")
 	private RoleEntity role;
-	
+
 	/**
 	 * 用户状态
 	 */
 	private Integer status = UserStatus.STATUS_VALID;
-	
-	
-	//private EnterpriseEntity enterprise;
-	
-	//private DepartmentEntity department;
-	
+
+	/**
+	 * 关联企业
+	 */
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "enterprise_id")
+	private EnterpriseEntity enterprise;
+
+	/**
+	 * 关联部门
+	 */
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "department_id")
+	private DepartmentEntity department;
+
 	/**
 	 * 微信userId
 	 */
 	private String wxUserId;
-	
+
+	/**
+	 * 个人描述
+	 */
+	@Column(length = 4000)
+	private String introduction;
+
 	public UserEntity() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public UserEntity(String username, String name, String avatar, String mobile, String email, Integer gender,
+			RoleEntity role, String introduction, Date createTime, Date updateTime) {
+		super();
+		this.username = username;
+		this.name = name;
+		this.avatar = avatar;
+		this.mobile = mobile;
+		this.email = email;
+		this.gender = gender;
+		this.role = role;
+		this.introduction = introduction;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
 	}
 
 	public String getUsername() {
@@ -118,6 +148,14 @@ public class UserEntity extends BaseEntity {
 		this.name = name;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public String getMobile() {
 		return mobile;
 	}
@@ -142,14 +180,6 @@ public class UserEntity extends BaseEntity {
 		this.gender = gender;
 	}
 
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-	
 	public RoleEntity getRole() {
 		return role;
 	}
@@ -173,5 +203,29 @@ public class UserEntity extends BaseEntity {
 	public void setWxUserId(String wxUserId) {
 		this.wxUserId = wxUserId;
 	}
-	
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public EnterpriseEntity getEnterprise() {
+		return enterprise;
+	}
+
+	public void setEnterprise(EnterpriseEntity enterprise) {
+		this.enterprise = enterprise;
+	}
+
+	public DepartmentEntity getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(DepartmentEntity department) {
+		this.department = department;
+	}
+
 }

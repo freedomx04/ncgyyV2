@@ -224,11 +224,10 @@
     },
 
     ajaxUpload: function () {
-      var url = this.$avatarForm.attr('action'),
+      /*var url = this.$avatarForm.attr('action'),
           data = new FormData(this.$avatarForm[0]),
           _this = this;
 
-      debugger;
       var o = $(".avatar-wrapper > img");
       window.open(o.cropper("getCroppedCanvas").toDataURL());
       
@@ -255,7 +254,34 @@
         complete: function () {
           _this.submitEnd();
         }
-      });
+      });*/
+    	var url = this.$avatarForm.attr('action'),
+    		_this = this,
+    		o = $(".avatar-wrapper > img");
+    	var base64 = o.cropper("getCroppedCanvas").toDataURL();
+    	
+    	$.ajax({
+    		url: url,
+    		type: 'POST',
+    		data: {
+    			base64: base64
+    		},
+    		beforeSend: function () {
+	          _this.submitStart();
+	        },
+
+	        success: function (data) {
+	          _this.submitDone(data);
+	        },
+
+	        error: function (XMLHttpRequest, textStatus, errorThrown) {
+	          _this.submitFail(textStatus || errorThrown);
+	        },
+
+	        complete: function () {
+	          _this.submitEnd();
+	        }
+    	});
     },
 
     syncUpload: function () {
@@ -268,8 +294,8 @@
 
     submitDone: function (data) {
       if ($.isPlainObject(data)) {
-        if (data.result) {
-          this.url = data.result;
+        if (data.data) {
+          this.url = data.data;
           if (this.support.datauri || this.uploaded) {
             this.uploaded = false;
             this.cropDone();

@@ -1,44 +1,27 @@
 package com.hm.ncgyy.controller.authority;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.common.utils.CiphersUtils;
-import com.hm.ncgyy.common.utils.CommonUtils;
-import com.hm.ncgyy.common.utils.FileUtil;
+import com.hm.ncgyy.entity.authority.DepartmentEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
-import com.hm.ncgyy.service.CommonService;
-import com.hm.ncgyy.service.authority.LoginService;
+import com.hm.ncgyy.service.authority.DepartmentService;
+import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
 
 @RestController
@@ -49,17 +32,45 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@Value("${customize.path.upload}")
-	private String uploadPath;
-	
-	private String avatarPath = "avatar";
-	
-	
+	@Autowired
+	RoleService roleService;
+
+	@Autowired
+	EnterpriseService enterpriseService;
+
+	@Autowired
+	DepartmentService departmentService;
 
 	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
-	public Result create(String username, String password) {
+	public Result create(String avatar, String username, String name, Long roleId, Integer gender, String mobile,
+			String email, Long enterpriseId, Long departmentId, String introduction) {
 		try {
+			UserEntity user = userService.findByUsername(username);
+			if (user != null) {
+				return new Result(Code.EXISTED.value(), "用户名已存在");
+			}
 
+			if (!mobile.isEmpty()) {
+				user = userService.findByMobile(mobile);
+				if (user != null) {
+					return new Result(Code.EXISTED.value(), "手机号已存在");
+				}
+			}
+
+			RoleEntity role = roleService.findOne(roleId);
+			Date now = new Date();
+			user = new UserEntity(username, name, avatar, mobile, email, gender, role, introduction, now, now);
+
+			if (enterpriseId != null) {
+				EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+				user.setEnterprise(enterprise);
+			}
+			if (departmentId != null) {
+				DepartmentEntity department = departmentService.findOne(departmentId);
+				user.setDepartment(department);
+			}
+
+			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -68,9 +79,42 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/api/user/update", method = RequestMethod.POST)
-	public Result update(Long userId) {
+	public Result update(Long userId, String avatar, String name, Long roleId, Integer gender, String mobile,
+			String email, Long enterpriseId, Long departmentId, String introduction) {
 		try {
-
+			UserEntity user = userService.findOne(userId);
+			if (!mobile.isEmpty()) {
+				UserEntity updateUser = userService.findByMobile(mobile);
+				if (updateUser != null && updateUser.getMobile() != user.getMobile()) {
+					return new Result(Code.EXISTED.value(), "手机号已存在");
+				}
+			}
+			
+			RoleEntity role = roleService.findOne(roleId);
+			user.setAvatar(avatar);
+			user.setName(name);
+			user.setRole(role);
+			user.setGender(gender);
+			user.setMobile(mobile);
+			user.setEmail(email);
+			
+			if (enterpriseId != null) {
+				EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+				user.setEnterprise(enterprise);
+			} else {
+				user.setEnterprise(null);
+			}
+			
+			if (departmentId != null) {
+				DepartmentEntity department = departmentService.findOne(departmentId);
+				user.setDepartment(department);
+			} else {
+				user.setDepartment(null);
+			}
+			
+			user.setUpdateTime(new Date());
+			userService.save(user);
+			
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -78,12 +122,6 @@ public class UserController {
 		}
 	}
 
-	/**
-	 * 删除用户
-	 * 
-	 * @param userId
-	 * @return
-	 */
 	@RequestMapping(value = "/api/user/delete")
 	public Result delete(Long userId) {
 		try {
@@ -98,12 +136,6 @@ public class UserController {
 		}
 	}
 
-	/**
-	 * 获取用户详情
-	 * 
-	 * @param userId
-	 * @return
-	 */
 	@RequestMapping(value = "/api/user/get")
 	public Result get(Long userId) {
 		try {
@@ -115,11 +147,6 @@ public class UserController {
 		}
 	}
 
-	/**
-	 * 获取用户列表
-	 * 
-	 * @return
-	 */
 	@RequestMapping(value = "/api/user/list")
 	public Result list() {
 		try {
@@ -168,83 +195,6 @@ public class UserController {
 		}
 	}
 
-	/**
-	 * 用户名是否存在
-	 * 
-	 * @param username
-	 * @return
-	 * @throws JsonProcessingException
-	 */
-	@RequestMapping(value = "/api/user/exist", method = RequestMethod.GET)
-	public @ResponseBody String exist(String username) throws JsonProcessingException {
-		boolean result = true;
-
-		UserEntity user = userService.findByUsername(username);
-		if (user != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
-	}
-
-/*	@RequestMapping(value = "/api/user/avatar", method = RequestMethod.POST)
-	public Result avatar(Long userId, String base64) {
-		try {
-			String str = base64.substring(base64.indexOf(",") + 1);
-			byte[] bytes = Base64.decodeBase64(new String(str).getBytes());
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            
-            String avatar = CommonUtils.getShortUuid();
-            File file = Paths.get(uploadPath, avatarPath, avatar + ".png").toFile();
-            FileUtil.sureDirExists(file, true);
-            
-            FileOutputStream out = new FileOutputStream(file);
-            IOUtils.copy(in, out);
-            
-            UserEntity user = userService.findOne(userId);
-            user.setAvatar(avatar);
-            userService.save(user);
-            
-			return new Result(Code.SUCCESS.value(), "ok");
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return new Result(Code.ERROR.value(), e.getMessage());
-		}
-	}*/
-	
-	@RequestMapping(value = "/avatar/{avatar}")
-	public void getAvatar(@PathVariable("avatar") String avatar, HttpServletRequest request, HttpServletResponse response) {
-		FileInputStream fis = null;
-		try {
-			OutputStream out = response.getOutputStream();
-			File file = Paths.get(uploadPath, avatarPath, avatar + ".png").toFile();
-			if (!file.exists()) {
-				return;
-			}
-			
-			fis = new FileInputStream(file);
-			byte[] buff = new byte[fis.available()];
-			fis.read(buff);
-			out.write(buff);
-			out.flush();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		} finally {
-			if (fis != null) {
-				try {
-					fis.close();
-				} catch (IOException ioe) {
-					log.error(ioe.getMessage(), ioe);
-				}
-			}
-		}
-	}
-	
 	@RequestMapping(value = "/api/user/password", method = RequestMethod.POST)
 	public Result password(Long userId, String oldPassword, String newPassword) {
 		try {
@@ -262,22 +212,17 @@ public class UserController {
 		}
 	}
 	
-	@Autowired
-	CommonService commonService;
-	
-	@RequestMapping(value = "/api/user/avatar", method = RequestMethod.POST)
-	public Result avatar(MultipartFile avatar_file, Object avatar_data) {
+	@RequestMapping(value = "/api/user/status") 
+	public Result status(Long userId, Integer status) {
 		try {
-			String imagePath = null;
-			if (avatar_file != null) {
-				//imagePath = commonService.saveImage(avatar_file);
-			}
-			
+			UserEntity user = userService.findOne(userId);
+			user.setStatus(status);
+			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 }

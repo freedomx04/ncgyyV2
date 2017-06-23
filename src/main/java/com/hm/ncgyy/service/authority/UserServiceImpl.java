@@ -33,6 +33,16 @@ public class UserServiceImpl implements UserService {
 	public UserEntity findByWxUserId(String wxUserId) {
 		return userRepository.findByWxUserId(wxUserId);
 	}
+		
+	@Override
+	public UserEntity findByMobile(String mobile) {
+		return userRepository.findByMobile(mobile);
+	}
+
+	@Override
+	public UserEntity findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 
 	@Override
 	public void save(UserEntity user) {
@@ -53,5 +63,5 @@ public class UserServiceImpl implements UserService {
 	public UserBaseEntity findOneBase(Long userId) {
 		return baseRepository.findOne(userId);
 	}
-	
+
 }

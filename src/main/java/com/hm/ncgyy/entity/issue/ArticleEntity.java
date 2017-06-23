@@ -1,9 +1,14 @@
 package com.hm.ncgyy.entity.issue;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
@@ -52,6 +57,13 @@ public class ArticleEntity extends BaseEntity {
 	 * 内容
 	 */
 	private String content;
+	
+	/**
+	 * 附件
+	 */
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "article_id")
+	private List<ArticleFileEntity> fileList = new LinkedList<>();
 
 	public ArticleEntity() {
 		super();
@@ -115,6 +127,14 @@ public class ArticleEntity extends BaseEntity {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public List<ArticleFileEntity> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<ArticleFileEntity> fileList) {
+		this.fileList = fileList;
 	}
 
 }

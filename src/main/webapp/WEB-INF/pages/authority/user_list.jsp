@@ -66,7 +66,10 @@
             }, {
             	field: 'avatar',
             	title: '头像',
-            	align: 'center'
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<img src="${ctx}/api/avatar/' + value + '" style="width: 32px; height: 32px;">';
+            	}
             }, {
             	field: 'username',
             	title: '用户名',
@@ -80,22 +83,32 @@
             	title: '手机号',
             	align: 'center'
             }, {
-            	field: 'email',
-            	title: '邮箱',
-            	align: 'center'
-            }, {
             	field: 'role.name',
             	title: '角色',
             	align: 'center'
             }, {
             	field: 'status',
             	title: '状态',
-            	align: 'center'
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		if (value == 0) {
+            			return '<span class="label label-primary">正常</span>';
+            		} else {
+            			return '<span class="label label-warning">禁用</span>';
+            		}
+            	}
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-user-detail a-operate">查看</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>';
+            		var $operate;
+            		if (row.status == 0) {
+            			$operate = '<a class="btn-user-disable a-operate">禁用</a>';
+            		} else {
+            			$operate = '<a class="btn-user-enable a-operate">启用</a>';
+            		}
+            		
+            		return '<a class="btn-user-detail a-operate">查看</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>' + $operate;
             	},
             	events: window.operateEvents = {
             		'click .btn-user-detail': function(e, value, row, index) {
@@ -104,11 +117,81 @@
             		},
             		'click .btn-user-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('edit');
+            			window.location.href = './userAdd?method=edit&userId=' + row.id;
             		},
             		'click .btn-user-password': function(e, value, row, index) {
             			e.stopPropagation();
             			alert('password');
+            		},
+            		'click .btn-user-enable': function(e, value, row, index) {
+            			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定启用该用户?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false		
+            			}, function() {
+            				$.ajax({
+                				url: '${ctx}/api/user/status',
+                				data: {
+                					userId: row.id,
+                					status: 0
+                				},
+                				success: function(ret) {
+                					if (ret.code == 0) {
+                						swal({
+                                            title: '',
+                                            text: '操作成功',
+                                            type: 'success'
+                                        }, function() {
+                                        	$table.bootstrapTable('refresh'); 
+                                        });
+                					} else {
+                						swal('', ret.msg, 'error');
+                					}
+                				},
+                				error: function(err) {}
+                			});
+            			});
+            		},
+            		'click .btn-user-disable': function(e, value, row, index) {
+            			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定禁用该用户?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false		
+            			}, function() {
+            				$.ajax({
+                				url: '${ctx}/api/user/status',
+                				data: {
+                					userId: row.id,
+                					status: 1
+                				},
+                				success: function(ret) {
+                					if (ret.code == 0) {
+                						swal({
+                                            title: '',
+                                            text: '操作成功',
+                                            type: 'success'
+                                        }, function() {
+                                        	$table.bootstrapTable('refresh'); 
+                                        });
+                					} else {
+                						swal('', ret.msg, 'error');
+                					}
+                				},
+                				error: function(err) {}
+                			});
+            			});
             		}
             	}
             }]

@@ -75,7 +75,7 @@ public class CommonServiceImpl implements CommonService {
 		}
 		
 		String filename = uploadImage.getOriginalFilename();
-		String suffix = getSuffixByFilename(filename);
+		String suffix = FileUtil.getSuffix(filename);
 		
 		String tarPath = imageFormat + suffix;
 		tarPath = PathFormat.parse(tarPath);
@@ -88,10 +88,6 @@ public class CommonServiceImpl implements CommonService {
 		bout.close();
 		
 		return tarPath;
-	}
-	
-	public static String getSuffixByFilename(String filename) {
-		return filename.substring( filename.lastIndexOf( "." ) ).toLowerCase();
 	}
 	
 	@Override
@@ -108,6 +104,14 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public void deleteImage(String path) throws IOException {
+		File file = Paths.get(uploadPath, path).toFile();
+		if (file.exists()) {
+			file.delete();
+		}
+	}
+
+	@Override
+	public void deleteFile(String path) throws IOException {
 		File file = Paths.get(uploadPath, path).toFile();
 		if (file.exists()) {
 			file.delete();
