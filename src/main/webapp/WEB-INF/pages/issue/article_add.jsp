@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ include file="/WEB-INF/include/attachment.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -53,18 +54,28 @@
 					</div>
 					</c:if>
 					<div class="form-group" >
-						<label for="source" class="col-sm-1 control-label">正文</label>
+						<label for="content" class="col-sm-1 control-label">正文</label>
 						<div class="col-sm-10">
 							<div id="summernote"></div>
 						</div>
 					</div>	
+					
+					<div class="form-group">
+						<label for="attachment" class="col-sm-1 control-label">附件</label>
+						<div class="col-sm-10 article-attachment">
+							<button type="button" class="btn btn-white btn-attachment-dialog" data-toggle="modal" data-target="#modal-attachment-dialog">
+		                        <i class="fa fa-paperclip fa-fw"></i>添加附件
+		                    </button>
+		                    <ul class="attachment-list list-unstyled project-files"></ul>
+						</div>
+					</div>
 					
 					<div class="hr-line-dashed"></div>
 					
 					<div class="form-group">
 						<div class="col-sm-4 col-sm-offset-1">
 							<c:if test="${method == 'add'}">
-							<button type="button" class="btn btn-primary btn-submit btn-article-add">
+							<button type="button" class="btn btn-primary btn-article-add">
 		                        <i class="fa fa-check fa-fw"></i>确定
 		                    </button>
 		                    </c:if>
@@ -90,18 +101,19 @@
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/summernote/summernote.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/summernote/summernote.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/summernote/lang/summernote-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
 	
-	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 
 	<script type="text/javascript">
 	
 		var $page = $('.body-article-add');
 		var $form = $page.find('#form-article');
+		var $articleFile = $page.find('.article-attachment');
 		
 		var type = '${type}';
 		var method = '${method}';
@@ -113,6 +125,7 @@
 			if (type == 1) {
 				$k.util.fileinput($page.find('#uploadImage'));
 			}
+			attachment($articleFile);
 		} else {
 			$k.util.summernote($page.find('#summernote'));
 			$('#summernote').summernote('code', '${article.content}');

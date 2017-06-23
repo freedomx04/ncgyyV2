@@ -1,5 +1,6 @@
 package com.hm.ncgyy.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hm.ncgyy.common.PathFormat;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -42,6 +45,9 @@ public class CommonController {
 	
 	@Value("${customize.path.avatar}")
 	private String avatarPath;
+	
+	@Value("${customize.path.attachment}")
+	private String attachmentPath;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -92,6 +98,43 @@ public class CommonController {
 					log.error(ioe.getMessage(), ioe);
 				}
 			}
+		}
+	}
+	
+	@RequestMapping(value = "/api/fileUpload", method = RequestMethod.POST)
+	public Result fileUpload(MultipartFile attachment) {
+		try {
+			String filename = attachment.getOriginalFilename();
+			String suffix = FileUtil.getSuffix(filename);
+			
+			String filepath = attachmentPath + suffix;
+			filepath = PathFormat.parse(filepath);
+			
+			File file = Paths.get(uploadPath, filepath).toFile();
+			FileUtil.sureDirExists(file, true);
+			
+			BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+			IOUtils.copy(attachment.getInputStream(), bout);
+			bout.close();
+			
+			return new ResultInfo(Code.SUCCESS.value(), "updated", filepath);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/fileDelete")
+	public Result fileDelete(String filepath) {
+		try {
+			File file = Paths.get(uploadPath, filepath).toFile();
+			if (file.exists()) {
+				file.delete();
+			}
+			return new Result(Code.SUCCESS.value(), "deleted");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
 

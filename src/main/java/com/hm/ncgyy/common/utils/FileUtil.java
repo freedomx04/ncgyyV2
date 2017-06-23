@@ -13,10 +13,6 @@ public class FileUtil {
 
     static Log log = LogFactory.getLog(FileUtil.class);
     
-	public static String getSuffixByFilename(String filename) {
-		return filename.substring(filename.lastIndexOf(".")).toLowerCase();
-	}
-
     public static void writeInfo(File file, String data, boolean append) throws IOException {
         FileWriter fw = null;
         BufferedWriter bw = null;
