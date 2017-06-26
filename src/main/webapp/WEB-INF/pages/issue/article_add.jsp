@@ -69,7 +69,7 @@
 		                    <ul class="attachment-list list-unstyled project-files">
 		                   		<c:forEach var="file" items="${article.fileList}">
 									<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-										<i class="icon"></i>${file.filename}
+										<i class="icon-attachment"></i>${file.filename}
 										<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
 									</li>
 								</c:forEach> 
@@ -142,6 +142,7 @@
 				    initialCaption: '${article.imagePath}',
 				});
 			}
+			$k.util.attachmentIcon($articleFile.find('.attachment-list'));
 		}
 		
 		$page

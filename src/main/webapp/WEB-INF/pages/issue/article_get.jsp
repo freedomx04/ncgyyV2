@@ -35,12 +35,18 @@
  				
  				<div style="padding: 20px;">${article.content}</div>
  				
- 				<div style="padding: 20px;">
+ 				<c:if test="${not empty article.fileList}">
+ 				<div class="article-file" style="padding: 20px;">
  					<p class="font-bold">相关附件</p>
+ 					<ul class="attachment-list list-unstyled">
  					<c:forEach var="file" items="${article.fileList}">
- 						<p><a href="${ctx}${file.filepath}">${file.filename}</a></p>
+ 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+							<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
+						</li>
  					</c:forEach>
+ 					</ul>
  				</div>
+ 				</c:if>
 	 		</div>
 	 	</div>
 	
@@ -58,6 +64,8 @@
 		$page.on('click', '.btn-article-back', function() {
 			window.location.href = '../articleList?type=${article.type}';
 		});
+		
+		$k.util.attachmentIcon($page.find('.article-file'));
 		
 	</script>
 </body>

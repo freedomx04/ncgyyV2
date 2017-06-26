@@ -158,6 +158,17 @@
 		return iconClass;
 	}
 	
+	/**
+	 * 设置附件图标
+	 */
+	$k.util.attachmentIcon = function($obj) {
+		$obj.find('li').each(function(k, elem) {
+			var $elem = $(elem);
+			var filename = $elem.data('filename');
+			var iconClass = $k.util.getIconClass(filename);
+			$elem.find('i.icon-attachment').addClass(iconClass);
+		});
+	}
 	
 	/**
 	 * 月份选择器
