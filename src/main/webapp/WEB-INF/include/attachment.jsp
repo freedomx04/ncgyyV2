@@ -55,13 +55,6 @@
 	function attachment($element, list) {
 		var $list = $element.find('.attachment-list');
 		
-		$list.find('li').each(function(k, elem) {
-			var $elem = $(elem);
-			var filename = $elem.data('filename');
-			var iconClass = $k.util.getIconClass(filename);
-			$elem.find('i.icon').addClass(iconClass);
-		});
-		
 		$input.fileinput({
 			language: 'zh', 
 			uploadUrl: '${ctx}/api/fileUpload',
