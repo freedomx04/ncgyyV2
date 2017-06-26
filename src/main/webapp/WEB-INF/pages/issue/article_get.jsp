@@ -42,7 +42,7 @@
  					<c:forEach var="file" items="${article.fileList}">
  						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
 							<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
-						</li>
+					</li>
  					</c:forEach>
  					</ul>
  				</div>
