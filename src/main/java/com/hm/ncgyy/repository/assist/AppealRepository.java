@@ -31,7 +31,6 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 	List<AppealEntity> findByEnterpriseIdAndStatusLessThanOrderByUpdateTimeDesc(Long enterpriseId, Integer status);
 	
 	
-	
 	/**
 	 * department
 	 */
