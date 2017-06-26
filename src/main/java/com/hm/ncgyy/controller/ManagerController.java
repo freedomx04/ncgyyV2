@@ -295,6 +295,14 @@ public class ManagerController {
 		return "pages/service/declare_add";
 	}
 	
+	@RequestMapping(value = "/declareGet")
+	String declareGet(ModelMap modelMap, Long declareId) {
+		DeclareEntity declare = declareService.findOne(declareId);
+		modelMap.addAttribute("declare", declare);
+		
+		return "pages/service/declare_get";
+	}
+	
 	/**
 	 * 新闻发布接口
 	 */

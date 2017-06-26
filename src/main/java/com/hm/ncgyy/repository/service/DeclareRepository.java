@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 
 public interface DeclareRepository extends PagingAndSortingRepository<DeclareEntity, Long> {
@@ -13,5 +14,7 @@ public interface DeclareRepository extends PagingAndSortingRepository<DeclareEnt
 	List<DeclareEntity> findByUserIdOrderbyUpdateTimeDesc(Long userId);
 	
 	List<DeclareEntity> findByStatusOrderbyUpdateTimeDesc(Integer status);*/
+	
+	Iterable<DeclareEntity> findByIdIn(List<Long> declareIdList);
 
 }

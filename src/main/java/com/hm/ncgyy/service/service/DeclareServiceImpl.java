@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
-import com.hm.ncgyy.entity.service.DeclareEntity.DeclareStatus;
 import com.hm.ncgyy.repository.service.DeclareRepository;
 
 @Service
@@ -31,9 +31,14 @@ public class DeclareServiceImpl implements DeclareService {
 	}
 
 	@Override
+	public void delete(List<Long> declareIdList) {
+		Iterable<DeclareEntity> it = declareRepository.findByIdIn(declareIdList);
+		declareRepository.delete(it);
+	}
+	
+	@Override
 	public List<DeclareEntity> list() {
-		return null;
-		//return declareRepository.findAllByOrderByUpdateTimeDesc();
+		return (List<DeclareEntity>) declareRepository.findAll();
 	}
 
 	@Override

@@ -59,15 +59,11 @@
 			url: '${ctx}/api/declare/list',
 			toolbar: '#declare-list-table-toolbar',
 			idField: 'id',
-			showExport: true, 
 			responseHandler: function(res) {
                 return res.data;
             },
             columns: [{
-            	field: 'state',
-            	checkbox: true
-            }, {
-            	field: 'name',
+            	field: 'title',
             	title: '项目名称',
             	align: 'center',
             }, {
@@ -76,7 +72,7 @@
             	align: 'center'
             }, {
             	field: 'endTime',
-            	title: '上班结束时间',
+            	title: '申报结束时间',
             	align: 'center'
             }, {
             	title: '操作',

@@ -1,5 +1,7 @@
 package com.hm.ncgyy.entity.service;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -26,21 +28,17 @@ public class DeclareFileEntity extends BaseEntity {
 	 */
 	private String filepath;
 	
-	/**
-	 * 申报文件大小
-	 */
-	private long filelength;
-	
 	public DeclareFileEntity() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DeclareFileEntity(Long declareId, String filename, String filepath, long filelength) {
+	public DeclareFileEntity(Long declareId, String filename, String filepath, Date createTime, Date updateTime) {
 		super();
 		this.declareId = declareId;
 		this.filename = filename;
 		this.filepath = filepath;
-		this.filelength = filelength;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
 	}
 
 	public Long getDeclareId() {
@@ -65,14 +63,6 @@ public class DeclareFileEntity extends BaseEntity {
 
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
-	}
-
-	public long getFilelength() {
-		return filelength;
-	}
-
-	public void setFilelength(long filelength) {
-		this.filelength = filelength;
 	}
 	
 }

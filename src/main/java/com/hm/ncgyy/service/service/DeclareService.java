@@ -12,6 +12,8 @@ public interface DeclareService {
 	
 	void delete(Long declareId);
 	
+	void delete(List<Long> declareIdList);
+	
 	List<DeclareEntity> list();
 	
 	List<DeclareEntity> listByUserId(Long userId);
