@@ -3,9 +3,7 @@ package com.hm.ncgyy.service.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.issue.ArticleFileEntity;
 import com.hm.ncgyy.entity.service.DeclareFileEntity;
-import com.hm.ncgyy.repository.issue.ArticleFileRepository;
 import com.hm.ncgyy.repository.service.DeclareFileRepository;
 
 @Service

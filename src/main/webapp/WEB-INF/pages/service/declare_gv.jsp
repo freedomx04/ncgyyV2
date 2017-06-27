@@ -67,6 +67,25 @@
             	title: '项目名称',
             	align: 'center',
             }, {
+            	field: 'status',
+            	title: '发布状态',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		var status = '';
+            		switch (row.status) {
+           			case 0:
+            			status = '新增';
+           			break;
+           			case 1:
+            			status = '上架';
+           			break;
+           			case 2:
+            			status = '下架';
+           			break;
+            		}
+            		return status;
+            	},
+            }, {
             	field: 'startTime',
             	title: '申报开始时间',
             	align: 'center'
@@ -78,7 +97,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-declare-detail a-operate">查看</a><a class="btn-declare-edit a-operate">编辑</a>';
+            		return '<a class="btn-declare-detail a-operate">查看</a><a class="btn-declare-edit a-operate">编辑</a><a class="btn-declare-edit a-operate">删除</a><a class="btn-declare-display a-operate">发布/结束</a>';
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
@@ -91,6 +110,62 @@
             		},
             		'click .btn-declare-delete': function(e, value, row, index) {
             			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定删除选中记录?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false
+            			}, function() {
+            				$.ajax({
+            					url: '${ctx}/api/declare/delete',
+            					data: {
+            						declareId: row.id
+            					},
+            					success: function(ret) {
+            						if (ret.code == 0) {
+            							swal('', '删除成功!', 'success');
+            						} else {
+            							swal('', ret.msg, 'error');
+            						}
+            						$table.bootstrapTable('refresh'); 
+            					},
+            					error: function(err) {}
+            				});
+            			});
+            		},
+            		'click .btn-declare-display': function(e, value, row, index) {
+            			e.stopPropagation();
+            			var status = row.status;
+            			swal({
+            				title: '',
+            				text: ((status == '0' || status == '2') ? '确定将该项目上架吗？' : '确定将该项目下架吗？'),
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false
+            			}, function() {
+            				$.ajax({
+            					url: ((status == '0' || status == '2') ? '${ctx}/api/declare/online' : '${ctx}/api/declare/downline'),
+            					data: {
+            						declareId: row.id
+            					},
+            					success: function(ret) {
+            						if (ret.code == 0) {
+            							swal('', '操作成功!', 'success');
+            						} else {
+            							swal('', ret.msg, 'error');
+            						}
+            						$table.bootstrapTable('refresh'); 
+            					},
+            					error: function(err) {}
+            				});
+            			});
             		}
             	}
             }]

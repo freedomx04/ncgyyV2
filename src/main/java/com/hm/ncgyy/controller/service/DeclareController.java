@@ -11,16 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.issue.ArticleEntity;
-import com.hm.ncgyy.entity.issue.ArticleFileEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
+import com.hm.ncgyy.entity.service.DeclareEntity.DeclareStatus;
 import com.hm.ncgyy.entity.service.DeclareFileEntity;
 import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.service.DeclareFileService;
@@ -154,4 +151,29 @@ public class DeclareController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/declare/online")
+	public Result online(@RequestParam Long declareId) {
+		try {
+			DeclareEntity declare = declareService.findOne(declareId);
+			declare.setStatus(DeclareStatus.ONLINE);
+			declareService.save(declare);
+			return new Result(Code.SUCCESS.value(), "online");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/api/declare/downline")
+	public Result downline(@RequestParam Long declareId) {
+		try {
+			DeclareEntity declare = declareService.findOne(declareId);
+			declare.setStatus(DeclareStatus.DOWNLINE);
+			declareService.save(declare);
+			return new Result(Code.SUCCESS.value(), "downline");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 }

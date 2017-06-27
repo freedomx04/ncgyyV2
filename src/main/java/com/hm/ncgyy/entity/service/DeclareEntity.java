@@ -57,16 +57,6 @@ public class DeclareEntity extends BaseEntity {
 	private Integer status = DeclareStatus.NEW;
 	
 	/**
-	 * 文件名称
-	 */
-	private String fileName;
-	
-	/**
-	 * 文件路径
-	 */
-	private String filePath;
-	
-	/**
 	 * 发布人
 	 */
 	@OneToOne(cascade = CascadeType.PERSIST)
@@ -132,22 +122,6 @@ public class DeclareEntity extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
 	}
 
 	public UserBaseEntity getUser() {

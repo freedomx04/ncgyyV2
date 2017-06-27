@@ -1,8 +1,12 @@
 package com.hm.ncgyy.entity.service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -48,6 +52,64 @@ public class ApplyEntity extends BaseEntity {
 	 * 申请描述
 	 */
 	private String description;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "apply_id")
+	List<DeclareFileEntity> fileList = new LinkedList<>();
+
+	public ApplyEntity(DeclareEntity declare, EnterpriseBaseEntity enterprise, String description) {
+		this.declare = declare;
+		this.enterprise = enterprise;
+		this.description = description;
+	}
+
+	public DeclareEntity getDeclare() {
+		return declare;
+	}
+
+	public void setDeclare(DeclareEntity declare) {
+		this.declare = declare;
+	}
+
+	public EnterpriseBaseEntity getEnterprise() {
+		return enterprise;
+	}
+
+	public void setEnterprise(EnterpriseBaseEntity enterprise) {
+		this.enterprise = enterprise;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getOpinion() {
+		return opinion;
+	}
+
+	public void setOpinion(String opinion) {
+		this.opinion = opinion;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<DeclareFileEntity> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<DeclareFileEntity> fileList) {
+		this.fileList = fileList;
+	}
 	
 	
 }
