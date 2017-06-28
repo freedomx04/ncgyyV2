@@ -15,10 +15,12 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.common.utils.CiphersUtils;
+import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.authority.UserEntity.UserStatus;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.RoleService;
@@ -161,23 +163,21 @@ public class UserController {
 	@RequestMapping(value = "/api/user/login", method = RequestMethod.POST)
 	public Result login(String username, String password) {
 		try {
-			Integer method;
-			String emailRegex = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-			String mobileRegex = "^(((13[0-9])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8})|(0\\d{2}-\\d{8})|(0\\d{3}-\\d{7})$";
-
-			// 邮箱登录
-			if (username.matches(emailRegex)) {
-
+			UserEntity user = userService.findByUsername(username);
+			
+			if (user == null) { 
+				return new Result(Code.NULL.value(), "用户不存在"); 
 			}
-			// 手机号码登录
-			else if (username.matches(mobileRegex)) {
-
+			
+			if (user.getStatus() == UserStatus.STATUS_NO_VALID) { 
+				return new Result(Code.USER_NO_VALID.value(), "该用户已被禁用");
 			}
-			// 用户名登录
-			else {
-
+			
+			if (!StringUtils.equals(CiphersUtils.getInstance().MD5Password(password), user.getPassword())) {
+				return new Result(Code.USER_PWD_ERROR.value(), "密码错误");
 			}
 
+			CurrentUserUtils.getInstance().serUser(user);
 			return new Result(Code.SUCCESS.value(), "login success");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -187,7 +187,12 @@ public class UserController {
 
 	public Result logout(Long userId) {
 		try {
-
+			UserEntity user = userService.findOne(userId);
+			if (user == null) {
+				return new Result(Code.NULL.value(), "用户不存在"); 
+			}
+			
+			CurrentUserUtils.getInstance().removeUser();
 			return new Result(Code.SUCCESS.value(), "logout success");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

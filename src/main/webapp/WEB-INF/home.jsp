@@ -93,9 +93,10 @@
 							<i class="fa fa-hand-paper-o fa-fw"></i><span class="nav-label">帮扶平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">诉求中心</a></li>
-							<li><a class="J_menuItem" href="#">诉求中心(企业)</a></li>
-							<li><a class="J_menuItem" href="#">诉求中心(部门)</a></li>
+							<li><a class="J_menuItem" href="appealList">诉求中心</a></li>
+							<li><a class="J_menuItem" href="appealEnterprise">诉求中心(企业)</a></li>
+							<li><a class="J_menuItem" href="appealDepartment">诉求中心(部门)</a></li>
+							<li><a class="J_menuItem" href="appealDispatcher">诉求中心(派单)</a></li>
 							<li><a class="J_menuItem" href="#">诉求预警</a></li>
 						</ul>
 					</li>
@@ -106,16 +107,6 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
 							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">精准帮扶平台</span><span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="appealDispatcher">诉求中心（派单）</a></li>
-							<li><a class="J_menuItem" href="appealEP">诉求中心（企业）</a></li>
-							<li><a class="J_menuItem" href="appealGV">诉求中心（部门）</a></li>
 						</ul>
 					</li>
 					<li>
