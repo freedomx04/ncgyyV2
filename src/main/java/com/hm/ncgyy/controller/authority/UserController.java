@@ -159,6 +159,25 @@ public class UserController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
+	public Result register(String username, String password, String mobile) {
+		try {
+			UserEntity user = userService.findByUsername(username);
+			if (user != null) {
+				return new Result(Code.EXISTED.value(), "用户名已存在");
+			}
+			
+			Date now = new Date();
+			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), mobile, now, now);
+			userService.save(user);
+			
+			return new ResultInfo(Code.SUCCESS.value(), "ok", username);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 	@RequestMapping(value = "/api/user/login", method = RequestMethod.POST)
 	public Result login(String username, String password) {
@@ -185,6 +204,7 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/api/user/logout")
 	public Result logout(Long userId) {
 		try {
 			UserEntity user = userService.findOne(userId);

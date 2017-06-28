@@ -14,6 +14,8 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.assist.AppealEntity.AppealStatus;
+import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.service.assist.AppealService;
@@ -67,6 +69,7 @@ public class AppealController {
 			appeal.setAppealType(appealType);
 			appeal.setDescription(description);
 			appeal.setUpdateTime(new Date());
+			appealService.save(appeal);
 			
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
@@ -141,6 +144,95 @@ public class AppealController {
 		}
 	}
 	
+	/**
+	 * 操作
+	 */
+	@RequestMapping(value = "/api/appeal/send")
+	public Result send(Long appealId) {
+		try {
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setStatus(AppealStatus.SENDING);
+			appeal.setSendTime(new Date());
+			appealService.save(appeal);
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 	
+	@RequestMapping(value = "/api/appeal/dispatch")
+	public Result dispatch(Long appealId, Long departmentId, String dispatchOpinion) {
+		try {
+			DepartmentEntity department = departmentService.findOne(departmentId);
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setStatus(AppealStatus.PENDING);
+			appeal.setDispatchTime(new Date());
+			appeal.setDepartment(department);
+			appeal.setDispatchOpinion(dispatchOpinion);
+			appealService.save(appeal);
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/accept")
+	public Result accept() {
+		try {
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/handle")
+	public Result handle() {
+		try {
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/confirm")
+	public Result confirm() {
+		try {
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/reject")
+	public Result reject() {
+		try {
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/urge")
+	public Result urge() {
+		try {
+			
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 }

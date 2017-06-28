@@ -108,6 +108,14 @@ public class UserEntity extends BaseEntity {
 	public UserEntity() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public UserEntity(String username, String password, String mobile, Date createTime, Date updateTime) {
+		this.username = username;
+		this.password = password;
+		this.mobile = mobile;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+	}
 
 	public UserEntity(String username, String name, String avatar, String mobile, String email, Integer gender,
 			RoleEntity role, String introduction, Date createTime, Date updateTime) {
