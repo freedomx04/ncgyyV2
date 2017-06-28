@@ -18,4 +18,6 @@ public interface ApplyService {
 	
 	List<ApplyEntity> list(Long enterpriseId);
 	
+	List<ApplyEntity> listByDeclareId(Long declareId);
+	
 }

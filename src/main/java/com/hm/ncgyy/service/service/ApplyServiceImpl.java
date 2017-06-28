@@ -44,5 +44,10 @@ public class ApplyServiceImpl implements ApplyService {
 	public List<ApplyEntity> list(Long enterpriseId) {
 		return applyRepository.findByEnterpriseId(enterpriseId);
 	}
+	
+	@Override
+	public List<ApplyEntity> listByDeclareId(Long declareId) {
+		return applyRepository.findByDeclareId(declareId);
+	}
 
 }

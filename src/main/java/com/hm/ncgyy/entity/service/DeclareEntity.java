@@ -67,6 +67,10 @@ public class DeclareEntity extends BaseEntity {
 	@JoinColumn(name = "declare_id")
 	List<DeclareFileEntity> fileList = new LinkedList<>();
 
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "declare_id")
+	List<ApplyEntity> applys = new LinkedList<>(); // 申报企业
+	
 	private Integer applyStatus = ApplyStatus.UNAPPLY;
 	
 	public DeclareEntity() {
@@ -146,6 +150,14 @@ public class DeclareEntity extends BaseEntity {
 
 	public void setFileList(List<DeclareFileEntity> fileList) {
 		this.fileList = fileList;
+	}
+
+	public List<ApplyEntity> getApplys() {
+		return applys;
+	}
+
+	public void setApplys(List<ApplyEntity> applys) {
+		this.applys = applys;
 	}
 	
 }

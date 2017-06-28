@@ -21,6 +21,7 @@ import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.DepartmentService;
@@ -32,6 +33,7 @@ import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
+import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
 
 @Controller
@@ -71,6 +73,9 @@ public class ManagerController {
 	
 	@Autowired
 	DeclareService declareService;
+	
+	@Autowired
+	ApplyService applyService;
 	
 	/**
 	 * 用户接口
@@ -279,13 +284,9 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/declareAdd")
 	String declareAdd(ModelMap modelMap, String method, Long declareId) {
-		List<DeclareEntity> declareList = declareService.list();
-		
 		String title = method.equals("add") ? "网上申报新增" : "网上申报编辑";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
-		
-		modelMap.addAttribute("declareList", declareList);
 		
 		if (declareId != null) {
 			DeclareEntity declare = declareService.findOne(declareId);
@@ -301,6 +302,25 @@ public class ManagerController {
 		modelMap.addAttribute("declare", declare);
 		
 		return "pages/service/declare_get";
+	}
+	
+	@RequestMapping(value = "/declare/enterprise")
+	String declareEnterprise() {
+		return "pages/service/declare_enterprise_list";
+	}
+	
+	@RequestMapping(value = "/applyAdd")
+	String applyAdd(ModelMap modelMap, String method, Long applyId) {
+		String title = method.equals("add") ? "申报" : "申报编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		if (applyId != null) {
+			ApplyEntity apply = applyService.findOne(applyId);
+			modelMap.addAttribute("apply", apply);
+		}
+		
+		return "pages/service/declare_apply_add";
 	}
 	
 	/**

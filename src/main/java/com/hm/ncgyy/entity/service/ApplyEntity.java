@@ -17,7 +17,7 @@ import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 @Table(name = "service_apply")
 public class ApplyEntity extends BaseEntity {
 	
-	public class ApplyStatus {
+	public class DeclareApproveStatus {
 		public static final int NEW = 0;		// 新增
 		public static final int UNAPPROVE = 1;	// 未审批
 		public static final int PASS = 2;		// 审批通过
@@ -29,7 +29,7 @@ public class ApplyEntity extends BaseEntity {
 	 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "declare_id")
-	private DeclareEntity declare;
+	private DeclareBaseEntity declare;
 	
 	/**
 	 * 申报企业
@@ -41,7 +41,7 @@ public class ApplyEntity extends BaseEntity {
 	/**
 	 * 审核状态
 	 */
-	private Integer status = ApplyStatus.NEW;
+	private Integer status = DeclareApproveStatus.NEW;
 	
 	/**
 	 * 审批意见
@@ -57,17 +57,24 @@ public class ApplyEntity extends BaseEntity {
 	@JoinColumn(name = "apply_id")
 	List<DeclareFileEntity> fileList = new LinkedList<>();
 
-	public ApplyEntity(DeclareEntity declare, EnterpriseBaseEntity enterprise, String description) {
+	
+	
+	public ApplyEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ApplyEntity(DeclareBaseEntity declare, EnterpriseBaseEntity enterprise, String description) {
+		super();
 		this.declare = declare;
 		this.enterprise = enterprise;
 		this.description = description;
 	}
 
-	public DeclareEntity getDeclare() {
+	public DeclareBaseEntity getDeclare() {
 		return declare;
 	}
 
-	public void setDeclare(DeclareEntity declare) {
+	public void setDeclare(DeclareBaseEntity declare) {
 		this.declare = declare;
 	}
 

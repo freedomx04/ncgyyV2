@@ -13,9 +13,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	
-	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
-	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
-	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
@@ -32,7 +29,7 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox float-e-margins">
 	 		<div class="ibox-title">
-	 			<button type="button" class="btn btn-white btn-declare-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i>企业列表</button>
+	 			<button type="button" class="btn btn-white btn-declare-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i>申报列表</button>
 	 			<span style="padding-left: 15px; font-size: 16px;">${declare.title}</span>
 	 		</div>
 	 		
@@ -46,6 +43,9 @@
 										<dt>申报名称:</dt><dd>${declare.title}</dd>
 										<dt>申报开始时间:</dt><dd>${declare.startTime}</dd>
 										<dt>申报结束时间:</dt><dd>${declare.endTime}</dd>
+										<dt>状态:</dt><dd>${declare.status == 0 ? '新增' : declare.status == 1 ? '上架' : '下架'}</dd>
+										<dt>已申报企业数:</dt><dd>${declare.applys.size()}</dd>
+										<dt>发布人:</dt><dd>${declare.user.name}</dd>
 										<dt>项目描述:</dt><dd>${declare.description}</dd>
 									</dl>
 								</div>
@@ -83,15 +83,10 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
-	
-	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
 	<script type="text/javascript">
 	
 		var $page = $('.body-declare-detail');
-		
 		$page
 		.on('click', '.btn-declare-back', function() {
 			window.location.href = './declareGV';

@@ -16,10 +16,13 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
+import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
+import com.hm.ncgyy.entity.service.DeclareEntity.ApplyStatus;
 import com.hm.ncgyy.entity.service.DeclareEntity.DeclareStatus;
 import com.hm.ncgyy.entity.service.DeclareFileEntity;
 import com.hm.ncgyy.service.authority.UserService;
+import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareFileService;
 import com.hm.ncgyy.service.service.DeclareService;
 
@@ -34,6 +37,9 @@ public class DeclareController {
 	@Autowired
 	DeclareFileService declareFileService;
 
+	@Autowired
+	ApplyService applyService;
+	
 	@Autowired
 	UserService userService;
 
@@ -92,6 +98,23 @@ public class DeclareController {
 		try {
 			List<DeclareEntity> declareList = declareService.list();
 			return new ResultInfo(Code.SUCCESS.value(), "ok", declareList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/declare/listOnline")
+	public Result listOnlineUnapply(@RequestParam Long enterpriseId) {
+		try {
+			List<DeclareEntity> list = declareService.listOnline();
+			for (DeclareEntity declare : list) {
+				ApplyEntity apply = applyService.findOne(declare.getId(), enterpriseId);
+				if (apply != null) {
+					declare.setApplyStatus(ApplyStatus.APPLY);
+				}
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
