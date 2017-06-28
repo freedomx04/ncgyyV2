@@ -12,6 +12,7 @@ public enum Code {
 	
 	// 用户相关
 	USER_PWD_ERROR(2001),	// 密码错误
+	USER_NO_VALID(2002),	// 用户被禁用
 	
 	
 	;
