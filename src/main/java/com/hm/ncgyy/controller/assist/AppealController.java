@@ -1,11 +1,21 @@
 package com.hm.ncgyy.controller.assist;
 
+import java.util.Date;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hm.ncgyy.common.result.Code;
+import com.hm.ncgyy.common.result.Result;
+import com.hm.ncgyy.common.result.ResultInfo;
+import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
+import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
@@ -31,6 +41,105 @@ public class AppealController {
 	
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping(value = "/api/appeal/create", method = RequestMethod.POST)
+	public Result create(Long enterpriseId, String title, Long appealTypeId, String description) {
+		try {
+			EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
+			AppealTypeEntity appealType = appealTypeService.findOne(appealTypeId);
+			Date now = new Date();
+			AppealEntity appeal = new AppealEntity(enterprise, title, appealType, description, now, now);
+			appealService.save(appeal);
+			
+			return new Result(Code.SUCCESS.value(), "created");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/update", method = RequestMethod.POST)
+	public Result update(Long appealId, String title, Long appealTypeId, String description) {
+		try {
+			AppealEntity appeal = appealService.findOne(appealId);
+			AppealTypeEntity appealType = appealTypeService.findOne(appealTypeId);
+			appeal.setTitle(title);
+			appeal.setAppealType(appealType);
+			appeal.setDescription(description);
+			appeal.setUpdateTime(new Date());
+			
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/delete")
+	public Result delete(Long appealId) {
+		try {
+			appealService.delete(appealId);
+			return new Result(Code.SUCCESS.value(), "deleted");
+		} catch (Exception e) {
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "constraint");
+			}
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/get")
+	public Result get(Long appealId) {
+		try {
+			AppealEntity appeal = appealService.findOne(appealId);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", appeal);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/list")
+	public Result list() {
+		try {
+			List<AppealEntity> list = appealService.list();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	/**
+	 * enterprise
+	 */
+	
+	@RequestMapping(value = "/api/appeal/listByEnterprise")
+	public Result listByEnterprise(Long enterpriseId) {
+		try {
+			List<AppealEntity> list = appealService.findByEnterpriseId(enterpriseId);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	/**
+	 * department
+	 */
+	
+	@RequestMapping(value = "/api/appeal/listByDepartment")
+	public Result listByDepartment(Long departmentId) {
+		try {
+			List<AppealEntity> list = appealService.findByDepartmentId(departmentId);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 	
 	
 

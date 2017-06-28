@@ -254,14 +254,20 @@ public class ManagerController {
 		return "pages/assist/appeal_dispatcher";
 	}
 	
-	@RequestMapping(value = "/appealEP")
-	String appealEP() {
-		return "pages/assist/appeal_ep";
+	@RequestMapping(value = "/appealEnterprise")
+	String appealEnterprise(ModelMap modelMap) {
+		modelMap.addAttribute("enterpriseId", 2);
+		return "pages/assist/appeal_enterprise";
 	}
 	
-	@RequestMapping(value = "/appealGV")
-	String appealGV() {
-		return "pages/assist/appeal_gv";
+	@RequestMapping(value = "/appealDepartment")
+	String appealDepartment() {
+		return "pages/assist/appeal_department";
+	}
+	
+	@RequestMapping(value = "/appealList")
+	String appealList() {
+		return "pages/assist/appeal_list";
 	}
 	
 	/**
