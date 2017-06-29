@@ -225,7 +225,7 @@
 		var $form = $page.find('.login-form');
 		var $kaptcha_img = $page.find('#kaptcha-img');
 		var $kaptcha = $page.find('input[name="kaptcha"]');
-		
+	
 		//点击更换图形验证码
 		$kaptcha_img.click(function() {
 			$(this).attr("src", "${ctx}/api/kaptcha/captcha.jpg?t=" + Math.random()); 

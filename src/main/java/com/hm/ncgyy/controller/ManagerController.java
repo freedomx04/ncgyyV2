@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
@@ -18,18 +19,21 @@ import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
+import com.hm.ncgyy.service.base.AppealTypeService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
@@ -76,6 +80,12 @@ public class ManagerController {
 	
 	@Autowired
 	ApplyService applyService;
+
+	@Autowired
+	AppealService appealService;
+	
+	@Autowired
+	AppealTypeService appealTypeService;
 	
 	/**
 	 * 用户接口
@@ -273,6 +283,32 @@ public class ManagerController {
 	@RequestMapping(value = "/appealList")
 	String appealList() {
 		return "pages/assist/appeal_list";
+	}
+	
+	@RequestMapping(value = "/appealAdd")
+	String appealAdd(ModelMap modelMap, String method, Long appealId) {
+		String title = method.equals("add") ? "诉求新增" : "诉求编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		List<AppealTypeEntity> appealTypeList = appealTypeService.list();
+		modelMap.addAttribute("appealTypeList", appealTypeList);
+		
+		if (appealId != null) {
+			AppealEntity appeal = appealService.findOne(appealId);
+			modelMap.addAttribute("appeal", appeal);
+		}
+		
+		return "pages/assist/appeal_add";
+	}
+	
+	@RequestMapping(value = "/appealGet")
+	String appealGet(ModelMap modelMap, Long appealId) {
+		AppealEntity appeal = appealService.findOne(appealId);
+		modelMap.addAttribute("appeal", appeal);
+		
+		return "pages/assist/appeal_get";
+		
 	}
 	
 	/**

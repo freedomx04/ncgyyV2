@@ -2,47 +2,46 @@ package com.hm.ncgyy.service.assist;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.repository.assist.AppealRepository;
 
 @Service
 public class AppealServiceImpl implements AppealService {
+	
+	@Autowired
+	AppealRepository appealRepository;
 
 	@Override
 	public AppealEntity findOne(Long appealId) {
-		// TODO Auto-generated method stub
-		return null;
+		return appealRepository.findOne(appealId);
 	}
 
 	@Override
 	public AppealEntity save(AppealEntity appeal) {
-		// TODO Auto-generated method stub
-		return null;
+		return appealRepository.save(appeal);
 	}
 
 	@Override
 	public void delete(Long appealId) {
-		// TODO Auto-generated method stub
-
+		appealRepository.delete(appealId);
 	}
 
 	@Override
 	public List<AppealEntity> list() {
-		// TODO Auto-generated method stub
-		return null;
+		return appealRepository.findAllByOrderByUpdateTimeDesc();
 	}
 
 	@Override
 	public List<AppealEntity> listPaging(int page, int size) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<AppealEntity> findByEnterpriseId(Long enterpriseId) {
-		// TODO Auto-generated method stub
-		return null;
+		return appealRepository.findByEnterpriseIdOrderByUpdateTime(enterpriseId);
 	}
 
 	@Override
@@ -59,8 +58,7 @@ public class AppealServiceImpl implements AppealService {
 
 	@Override
 	public List<AppealEntity> findByDepartmentId(Long departmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return appealRepository.findByDepartmentIdOrderByUpdateTimeDesc(departmentId);
 	}
 
 	@Override

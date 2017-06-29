@@ -74,3 +74,16 @@
 	}
 }
 
+/** tab pane*/
+.tabs-container .panel-body {
+	border: none;
+}
+.tabs-container .nav-tabs>li.active>a, .tabs-container .nav-tabs>li.active>a:focus, .tabs-container .nav-tabs>li.active>a:hover {
+	border: none;
+	border-bottom: 1px solid #18a689;
+	color: #18a689;
+	font-weight: normal;
+}
+.nav-tabs>li>a {
+	font-weight: normal;
+}

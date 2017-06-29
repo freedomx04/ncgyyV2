@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>企业新增</title>
+	<title>${title}</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -178,7 +178,7 @@
 					<div class="form-group">
                         <div class="col-sm-4 col-sm-offset-3">
                             <c:if test="${method == 'add'}">
-                            <button type="button" class="btn btn-primary btn-submit btn-enterprise-add">
+                            <button type="button" class="btn btn-primary btn-enterprise-add">
                                 <i class="fa fa-check fa-fw"></i>确定
                             </button>
                             </c:if>

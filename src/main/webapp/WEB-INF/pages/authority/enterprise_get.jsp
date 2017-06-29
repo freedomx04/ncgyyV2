@@ -38,7 +38,7 @@
 	 		
 	 		<div class="ibox-content">
  				<div class="tabs-container">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs nav-tabs-line">
 						<li class="active">
                         	<a data-toggle="tab" href="#enterprise-tab-info" aria-expanded="true"><i class="fa fa-briefcase"></i>企业信息</a>
                     	</li>
