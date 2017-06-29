@@ -17,6 +17,8 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 	
 	Page<AppealEntity> findAllByOrderByUpdateTimeDesc(Pageable pageable);
 	
+	List<AppealEntity> findByStatusOrderByUpdateTimeDesc(Integer status);
+	
 	List<AppealEntity> findByStatusGreaterThanOrderByUpdateTimeDesc(Integer status);
 	
 	List<AppealEntity> findByStatusLessThanOrderByUpdateTimeDesc(Integer status);
@@ -24,7 +26,7 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 	/**
 	 * enterprise
 	 */
-	List<AppealEntity> findByEnterpriseIdOrderByUpdateTime(Long enterpriseId);
+	List<AppealEntity> findByEnterpriseIdOrderByUpdateTimeDesc(Long enterpriseId);
 	
 	List<AppealEntity> findByEnterpriseIdAndStatusGreaterThanOrderByUpdateTimeDesc(Long enterpriseId, Integer status);
 	

@@ -1,9 +1,7 @@
 package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -48,13 +43,20 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping(value = "/api/department/update", method = RequestMethod.POST)
-	public Result update(Long departmentId, String description, String principal) {
+	public Result update(Long departmentId, String name, String description, String principal) {
 		try {
 			DepartmentEntity department = departmentService.findOne(departmentId);
-			department.setDescription(description);
-			department.setPrincipal(principal);
-			department.setUpdateTime(new Date());
-			departmentService.save(department);
+			
+			DepartmentEntity updateDepartment = departmentService.findByName(name);
+			if (updateDepartment == null || department.getName() == updateDepartment.getName()) {
+				department.setName(name);
+				department.setDescription(description);
+				department.setPrincipal(principal);
+				department.setUpdateTime(new Date());
+				departmentService.save(department);
+			} else {
+				return new Result(Code.EXISTED.value(), "部门已存在");
+			}
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -114,21 +116,4 @@ public class DepartmentController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/department/exist")
-	public @ResponseBody String exist(String name) throws JsonProcessingException {
-		boolean result = true;
-
-		DepartmentEntity department = departmentService.findByName(name);
-		if (department != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
-	}
-
 }

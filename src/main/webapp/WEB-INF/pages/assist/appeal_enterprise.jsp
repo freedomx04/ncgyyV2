@@ -38,6 +38,35 @@
 		</div>
 	</div>
 	
+	<div class="modal" id="modal-appeal-urge-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">催办</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="content" class="col-sm-3 control-label">催办意见</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="content" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">
+                        <i class="fa fa-close fa-fw"></i>关闭
+                    </button>
+                    <button type="button" class="btn btn-primary btn-confirm">
+                        <i class="fa fa-check fa-fw"></i>确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
@@ -52,8 +81,10 @@
 		
 		//var enterpriseId = ${enterpriseId};
 		var enterpriseId = 2;
+		var userId = 9;
 		
 		var $page = $('.body-appeal-enterprise');
+		var $dialogUrge = $page.find('#modal-appeal-urge-dialog');
 		
 		var $table = $k.util.bsTable($page.find('#appeal-enterprise-table'), {
 			url: '${ctx}/api/appeal/listByEnterprise?enterpriseId=' + enterpriseId,
@@ -80,15 +111,15 @@
             		case 1:
             			return '<span class="label label-warning">待派发</span>';
             		case 2:
-            			return '<span class="label label-primary">待受理</span>';
+            			return '<span class="label label-warning">待受理</span>';
             		case 3:
             			return '<span class="label label-primary">处理中</span>';
             		case 4:
-            			return '<span class="label label-primary">待确认</span>';
+            			return '<span class="label label-info">待确认</span>';
             		case 5:
-            			return '<span class="label label-primary">已确认</span>';
+            			return '<span class="label label-success">已确认</span>';
             		case 6:
-            			return '<span class="label label-warning">已驳回</span>';
+            			return '<span class="label label-danger">已驳回</span>';
             		}
             	}
             }, {
@@ -105,8 +136,13 @@
             		switch (row.status) {
             		case 0:
             			return $detail + $edit + $delete + $send;
-            		case 1:
+            		case 1:case 2:case 3:
             			return $detail + $urge;
+            		case 4:
+            			return $detail + $confirm;
+            		case 5:
+            			return $detail;
+            		case 6:
             		}
             	},
             	events: window.operateEvents = {
@@ -178,7 +214,9 @@
             		},
             		'click .btn-appeal-urge': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('urge');
+            			$dialogUrge.data('appealId', row.id);
+            			$dialogUrge.find('textarea[name="content"]').val('');
+            			$dialogUrge.modal('show');
             		},
             		'click .btn-appeal-confirm': function(e, value, row, index) {
             			e.stopPropagation();
@@ -191,6 +229,30 @@
 		$page
 		.on('click', '.btn-appeal-add', function() {
 			window.location.href = './appealAdd?method=add';
+		});
+		
+		$dialogUrge.on('click', '.btn-confirm', function() {
+			var appealId = $dialogUrge.data('appealId');
+			
+			$.ajax({
+				url: '${ctx}/api/appeal/urge',
+				type: 'post',
+				data: {
+					appealId: appealId,
+					userId: userId,
+					content: $dialogUrge.find('textarea[name="content"]').val()
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+                           $dialogUrge.modal('hide');
+                           swal('', '催办成功!', 'success');
+                           $table.bootstrapTable('refresh'); 
+                       } else {
+                           swal('', ret.msg, 'error');
+                       }
+				},
+				error: function(err) {}
+			});
 		});
 		
 	})( jQuery );

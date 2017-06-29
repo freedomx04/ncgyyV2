@@ -38,10 +38,15 @@ public class AppealServiceImpl implements AppealService {
 	public List<AppealEntity> listPaging(int page, int size) {
 		return null;
 	}
+	
+	@Override
+	public List<AppealEntity> findByStatus(Integer status) {
+		return appealRepository.findByStatusOrderByUpdateTimeDesc(status);
+	}
 
 	@Override
 	public List<AppealEntity> findByEnterpriseId(Long enterpriseId) {
-		return appealRepository.findByEnterpriseIdOrderByUpdateTime(enterpriseId);
+		return appealRepository.findByEnterpriseIdOrderByUpdateTimeDesc(enterpriseId);
 	}
 
 	@Override

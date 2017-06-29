@@ -16,6 +16,8 @@ public interface AppealService {
 	
 	List<AppealEntity> listPaging(int page, int size);
 	
+	List<AppealEntity> findByStatus(Integer status);
+	
 	/**
 	 * enterprise
 	 */
@@ -34,6 +36,8 @@ public interface AppealService {
 	List<AppealEntity> findByDepartmentIdUnconfirm(Long departmentId);
 	
 	List<AppealEntity> findByDepartmentIdConfirmed(Long departmentId);
+	
+
 	
 	
 }

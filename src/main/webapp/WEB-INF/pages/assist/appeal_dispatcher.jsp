@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>诉求中心</title>
+	<title>诉求中心(派单)</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,28 +21,87 @@
 	
 </head>
 
-<body class="gray-bg body-appeal">
+<body class="gray-bg body-appeal-dispatcher">
 	<div class="wrapper wrapper-content animated fadeInRight">
-		<div class="tabs-container">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 诉求列表</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">诉求分类</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">诉求预警</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane active">
-                    <div class="panel-body">
-		                <table id="appeal-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-             </div>
-        </div>
-        
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>诉求中心(派单)</h5>
+			</div>
+			
+			<div class="ibox-content">
+				<table id="appeal-dispatcher-table" class="table-hm" data-mobile-responsive="true"></table>
+			</div>
+		</div>
 	</div>
 	
+	<div class="modal" id="modal-appeal-dispatch-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">派单</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="departmentId" class="col-sm-3 control-label"><i class="form-required">*</i>处理部门</label>
+                            <div class="col-sm-8">
+							<select class="form-control" name="departmentId" required> 
+								<option value="">请选择部门</option>
+								<c:forEach var="department" items="${departmentList}">
+									<option value="${department.id}">${department.name}</option>
+								</c:forEach> 
+							</select>
+						</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dispatchOpinion" class="col-sm-3 control-label"><i class="form-required">*</i>派单意见</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="dispatchOpinion" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">
+                        <i class="fa fa-close fa-fw"></i>关闭
+                    </button>
+                    <button type="button" class="btn btn-primary btn-confirm">
+                        <i class="fa fa-check fa-fw"></i>确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal-appeal-reject-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">驳回</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="rejectOpinion" class="col-sm-3 control-label"><i class="form-required">*</i>驳回意见</label>
+                            <div class="col-sm-8">
+                            	<textarea class="form-control" name="rejectOpinion" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">
+                        <i class="fa fa-close fa-fw"></i>关闭
+                    </button>
+                    <button type="button" class="btn btn-primary btn-confirm">
+                        <i class="fa fa-check fa-fw"></i>确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -58,114 +117,138 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var $page = $('.body-appeal');
+		var $page = $('.body-appeal-dispatcher');
 		
-		var $table = $k.util.bsTable($page.find('#appeal-list-table'), {
-			url: '${ctx}/api/area/list',
-			idField: 'id',
+		var $dialogDispatch = $page.find('#modal-appeal-dispatch-dialog');
+		var $formDispatch = $dialogDispatch.find('form');
+		$k.util.bsValidator($formDispatch);
+		
+		var $dialogReject = $page.find('#modal-appeal-reject-dialog');
+		var $formReject = $dialogReject.find('form');
+		$k.util.bsValidator($formReject);
+		
+		var $table = $k.util.bsTable($page.find('#appeal-dispatcher-table'), {
+			url: '${ctx}/api/appeal/listByDispatcher',
 			responseHandler: function(res) {
                 return res.data;
             },
             columns: [{
-            	field: 'state',
-            	checkbox: true
-            }, {
-            	field: 'name',
-            	title: '名称',
+            	field: 'title',
+            	title: '诉求标题',
             	align: 'center'
             }, {
-            	field: 'description',
-            	title: '描述',
+            	field: 'appealType.name',
+            	title: '诉求类型',
             	align: 'center'
+            }, {
+            	field: 'enterprise.name',
+            	title: '企业名称',
+            	align: 'center'
+            }, {
+            	field: 'sendTime',
+            	title: '发起时间',
+            	align: 'center',
+            	formatter: formatDate2
+            }, {
+            	field: 'status',
+            	title: '状态',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<span class="label label-warning">待派发</span>'; 
+            	}
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-appeal-dispatch a-operate">派单</a><a class="btn-appeal-reject a-operate">驳回</a><a class="btn-appeal-detail a-operate">查看</a><a class="btn-appeal-urge-detail a-operate">催办详情</a>';
-                },
+            		var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
+            		var $dispatch = '<a class="btn-appeal-dispatch a-operate">派单</a>';
+            		var $reject = '<a class="btn-appeal-reject a-operate">驳回</a>';
+            		return $detail + $dispatch + $reject;
+            	},
             	events: window.operateEvents = {
-            		'click .btn-area-edit': function(e, value, row, index) {
+            		'click .btn-appeal-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			
-            			$areaDialog.find('.modal-title strong').text('编辑');
-            			$.each(row, function(key, val) {
-            				if (key == 'name') {
-                                $areaForm.find('input[name = "name"]').attr('disabled', 'disabled');
-                            }
-            				$areaForm.find('input[name="' + key + '"]').val(val);
-            			});
-            			$areaDialog.modal('show');
-            			
-            			$areaDialog.on('click', '.btn-confirm', function() {
-            				var validator = $areaForm.data('bootstrapValidator');
-            				validator.validate();
-            				
-                            if (validator.isValid()) {
-                            	$.ajax({
-                            		url: '${ctx}/api/area/update',
-                            		type: 'POST',
-                            		data: {
-                            			areaId: row.id,
-                            			description: $areaForm.find('input[name = "description"]').val()
-                            		},
-                            		success: function(ret) {
-                            			$areaDialog.modal('hide');
-                                        swal('', '编辑成功!', 'success');
-                                        $table.bootstrapTable('refresh'); 
-                            		},
-                            		error: function(err) {}
-                            	});
-                            }
-            			});
+            			window.location.href= './appealGet?appealId=' + row.id;
             		},
-            		'click .btn-area-delete': function(e, value, row, index) {
+            		'click .btn-appeal-dispatch': function(e, value, row, index) {
             			e.stopPropagation();
-            			
-            			swal({
-            				title: '',
-            				text: '确定删除选中记录?',
-            				type: 'warning',
-            				showCancelButton: true,
-                            cancelButtonText: '取消',
-                            confirmButtonColor: '#DD6B55',
-                            confirmButtonText: '确定',
-                            closeOnConfirm: false
-            			}, function() {
-            				var areaId = row['id'];
-            				
-            				$.ajax({
-            					url: '${ctx}/api/area/delete',
-            					data: {
-            						areaId: areaId
-            					},
-            					success: function(ret) {
-            						if (ret.code == 0) {
-            							swal('', '删除成功!', 'success');
-            						} else if (ret.code == 1004) {
-            							swal('', '该数据存在关联, 无法删除', 'error');
-            						} else {
-            							swal('', ret.msg, 'error');
-            						}
-            						$table.bootstrapTable('refresh'); 
-            					},
-            					error: function(err) {}
-            				});
-            			});
+            			$dialogDispatch.data('appealId', row.id);
+            			$dialogDispatch.modal('show');
+            		},
+            		'click .btn-appeal-reject': function(e, value, row, index) {
+            			e.stopPropagation();
+            			$dialogReject.data('appealId', row.id);
+            			$dialogReject.modal('show');
             		}
             	}
             }]
 		});
 		
-		$table.on('all.bs.table', function(e, row) {
-            var selNum = $table.bootstrapTable('getSelections').length;
-            selNum > 0 ? $page.find('.btn-area-delete-batch').removeAttr('disabled') : $page.find('.btn-area-delete-batch').attr('disabled', 'disabled');
-        });
-		
 		$page
-		.on('hidden.bs.modal', '#modal-area-dialog', function() {
-            $areaForm.bootstrapValidator('resetForm', true);
+		.on('hidden.bs.modal', '#modal-appeal-dispatch-dialog', function() {
+            $formDispatch.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
         }) 
+		.on('hidden.bs.modal', '#modal-appeal-reject-dialog', function() {
+            $formReject.bootstrapValidator('resetForm', true);
+            $(this).removeData('bs.modal');
+        }); 
+		
+		$dialogDispatch.on('click', '.btn-confirm', function() {
+			var appealId = $dialogDispatch.data('appealId');
+			var validator = $formDispatch.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				$.ajax({
+					url: '${ctx}/api/appeal/dispatch',
+					type: 'post',
+					data: {
+						appealId: appealId,
+						departmentId: $dialogDispatch.find('select[name="departmentId"]').val(),
+						dispatchOpinion: $dialogDispatch.find('textarea[name="dispatchOpinion"]').val()
+					},
+					success: function(ret) {
+						if (ret.code == 0) {
+                            $dialogDispatch.modal('hide');
+                            swal('', '操作成功!', 'success');
+                            $table.bootstrapTable('refresh'); 
+                        } else {
+                            swal('', ret.msg, 'error');
+                        }
+					},
+					error: function(err) {}
+				});
+			}
+		});
+		
+		$dialogReject.on('click', '.btn-confirm', function() {
+			var appealId = $dialogReject.data('appealId');
+			var validator = $formReject.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				$.ajax({
+					url: '${ctx}/api/appeal/reject',
+					type: 'post',
+					data: {
+						appealId: appealId,
+						rejectOpinion: $dialogReject.find('textarea[name="rejectOpinion"]').val()
+					},
+					success: function(ret) {
+						if (ret.code == 0) {
+                            $dialogReject.modal('hide');
+                            swal('', '操作成功!', 'success');
+                            $table.bootstrapTable('refresh'); 
+                        } else {
+                            swal('', ret.msg, 'error');
+                        }
+					},
+					error: function(err) {}
+				});
+			}
+			
+		});
 		
 	})( jQuery );
 	</script>

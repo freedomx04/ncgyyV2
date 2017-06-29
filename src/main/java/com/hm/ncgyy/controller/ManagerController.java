@@ -265,7 +265,9 @@ public class ManagerController {
 	 * 帮扶平台接口
 	 */
 	@RequestMapping(value = "/appealDispatcher")
-	String appealDispatcher() {
+	String appealDispatcher(ModelMap modelMap) {
+		List<DepartmentEntity> departmentList = departmentService.list();
+		modelMap.addAttribute("departmentList", departmentList);
 		return "pages/assist/appeal_dispatcher";
 	}
 	

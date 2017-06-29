@@ -178,6 +178,23 @@ public class UserController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/user/info", method = RequestMethod.POST)
+	public Result info(Long userId, String avatar, String name, Integer gender, String email, String introduction) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setAvatar(avatar);
+			user.setName(name);
+			user.setGender(gender);
+			user.setEmail(email);
+			user.setIntroduction(introduction);
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 	@RequestMapping(value = "/api/user/login", method = RequestMethod.POST)
 	public Result login(String username, String password) {

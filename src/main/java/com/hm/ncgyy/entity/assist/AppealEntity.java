@@ -90,16 +90,18 @@ public class AppealEntity extends BaseEntity {
 	/**
 	 * 处理时间
 	 */
-	private Date handTime;
+	private Date handleTime;
 	
 	/**
 	 * 派发意见
 	 */
+	@Column(length = 2000)
 	private String dispatchOpinion;
 	
 	/**
 	 * 驳回意见
 	 */
+	@Column(length = 2000)
 	private String rejectOpinion;
 	
 	/**
@@ -109,6 +111,13 @@ public class AppealEntity extends BaseEntity {
 	@JoinColumn(name = "appeal_id")
 	@OrderBy("createTime DESC")
 	private List<UrgeEntity> urgeList = new LinkedList<>();
+	
+	/**
+	 * 评价
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "evaluation_id")
+	public EvaluationEntity evaluation; 
 	
 	public AppealEntity() {
 		// TODO Auto-generated constructor stub
@@ -196,12 +205,12 @@ public class AppealEntity extends BaseEntity {
 		this.acceptTime = acceptTime;
 	}
 
-	public Date getHandTime() {
-		return handTime;
+	public Date getHandleTime() {
+		return handleTime;
 	}
 
-	public void setHandTime(Date handTime) {
-		this.handTime = handTime;
+	public void setHandleTime(Date handleTime) {
+		this.handleTime = handleTime;
 	}
 
 	public String getDispatchOpinion() {
@@ -226,6 +235,14 @@ public class AppealEntity extends BaseEntity {
 
 	public void setUrgeList(List<UrgeEntity> urgeList) {
 		this.urgeList = urgeList;
+	}
+
+	public EvaluationEntity getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(EvaluationEntity evaluation) {
+		this.evaluation = evaluation;
 	}
 
 }
