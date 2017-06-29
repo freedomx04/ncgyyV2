@@ -1,10 +1,13 @@
 package com.hm.ncgyy.entity.service;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,7 +19,7 @@ import com.hm.ncgyy.entity.service.DeclareEntity.DeclareStatus;
 @Table(name = "service_declare")
 public class DeclareBaseEntity extends BaseEntity {
 	
-	private String itemName; // 申报项目名称
+	private String title; // 申报项目名称
 
 	private String description; // 申报简介
 
@@ -26,9 +29,9 @@ public class DeclareBaseEntity extends BaseEntity {
 
 	private Integer status = DeclareStatus.NEW; // 申报状态
 
-	private String attachName; // 文件名称
-
-	private String attachPath; // 文件路径
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "declare_id")
+	List<DeclareFileEntity> fileList = new LinkedList<>();
 	
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
@@ -38,13 +41,31 @@ public class DeclareBaseEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getItemName() {
-		return itemName;
+
+	
+	public String getTitle() {
+		return title;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
+
+
+
+	public List<DeclareFileEntity> getFileList() {
+		return fileList;
+	}
+
+
+
+	public void setFileList(List<DeclareFileEntity> fileList) {
+		this.fileList = fileList;
+	}
+
+
 
 	public String getDescription() {
 		return description;
@@ -76,22 +97,6 @@ public class DeclareBaseEntity extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public String getAttachName() {
-		return attachName;
-	}
-
-	public void setAttachName(String attachName) {
-		this.attachName = attachName;
-	}
-
-	public String getAttachPath() {
-		return attachPath;
-	}
-
-	public void setAttachPath(String attachPath) {
-		this.attachPath = attachPath;
 	}
 
 	public UserBaseEntity getUser() {

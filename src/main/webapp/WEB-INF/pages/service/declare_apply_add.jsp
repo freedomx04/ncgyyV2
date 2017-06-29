@@ -96,7 +96,6 @@
     
 	<script type="text/javascript">
 	;(function( $ ) {
-		
 		var $page = $('.body-apply-add');
         var $form = $page.find('#form-apply');
         var $applyFile = $page.find('.apply-attachment');

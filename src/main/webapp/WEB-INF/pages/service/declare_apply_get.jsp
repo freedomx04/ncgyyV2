@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>${declare.title}</title>
+	<title>${apply.declare.title}</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,8 +29,8 @@
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox float-e-margins">
 	 		<div class="ibox-title">
-	 			<button type="button" class="btn btn-white btn-declare-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i>申报列表</button>
-	 			<span style="padding-left: 15px; font-size: 16px;">${declare.title}</span>
+	 			<button type="button" class="btn btn-white btn-apply-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i></button>
+	 			<span style="padding-left: 15px; font-size: 16px;">${apply.declare.title}</span>
 	 		</div>
 	 		
 	 		<div class="ibox-content">
@@ -40,25 +40,21 @@
 							<div class="panel-body">
 								<div class="col-sm-7">
 									<dl class="dl-horizontal">
-										<dt>申报名称:</dt><dd>${declare.title}</dd>
-										<dt>申报开始时间:</dt><dd>${declare.startTime}</dd>
-										<dt>申报结束时间:</dt><dd>${declare.endTime}</dd>
-										<dt>状态:</dt><dd>${declare.status == 0 ? '新增' : declare.status == 1 ? '上架' : '下架'}</dd>
-										<dt>已申报企业数:</dt><dd>${declare.applys.size()}</dd>
-										<dt>发布人:</dt><dd>${declare.user.name}</dd>
-										<dt>项目描述:</dt><dd>${declare.description}</dd>
+										<dt>申报名称:</dt><dd>${apply.declare.title}</dd>
+										<dt>审批状态:</dt><dd>${apply.status == 1 ? '未审批' : apply.status == 2 ? '审批通过' : '审批未通过'}</dd>
+										<dt>审批意见:</dt><dd>${apply.opinion}</dd>
 									</dl>
 								</div>
 								
 				 				
 								<div class="col-sm-12">
 									<dl class="dl-horizontal">
-										<dt>相关附件:</dt>
+										<dt>申报文件:</dt>
 										<dd>
-											<c:if test="${not empty declare.fileList}">
-							 				<div class="declare-file">
+											<c:if test="${not empty apply.fileList}">
+							 				<div class="apply-file">
 							 					<ul class="attachment-list list-unstyled">
-							 					<c:forEach var="file" items="${declare.fileList}">
+							 					<c:forEach var="file" items="${apply.fileList}">
 							 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
 														<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
 												</li>
@@ -87,14 +83,20 @@
 	<script type="text/javascript">
 	
 		var $page = $('.body-declare-detail');
+		var type = $k.util.getRequestParam('type');
+		var url = '';
+		
+		if (type == 'ep') {
+			$page.find('.btn-apply-back').append('我的申报');
+			url = './declareEP#tab-2';
+		} else if (type == 'gv') {
+			$page.find('.btn-apply-back').append('已申报企业列表');
+			url = '${ctx}/declare/enterprise?declareId=${apply.declare.id}';
+		}
+		
 		$page
-		.on('click', '.btn-declare-back', function() {
-			var type = $k.util.getRequestParam('type');
-			if (type == 'ep') {
-				window.location.href = './declareEP';
-			} else if (type == 'gv') {
-				window.location.href = './declareGV';
-			}
+		.on('click', '.btn-apply-back', function() {
+			window.location.href = url;
 		});
 		
 	</script>

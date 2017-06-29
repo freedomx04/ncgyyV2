@@ -45,7 +45,7 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="form-apply" autocomplete="off">
                     	<div class="form-group">
-                            <label for="status" class="col-sm-3 control-label"><i class="form-required">*</i>审核原因</label>
+                            <label for="status" class="col-sm-3 control-label"><i class="form-required">*</i>审批状态</label>
                             <div class="col-sm-7">
                             	<select name="status" class="form-control" required> 
                             		<option value="">请选择</option> 
@@ -56,7 +56,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="opinion" class="col-sm-3 control-label"><i class="form-required">*</i>审核原因</label>
+                            <label for="opinion" class="col-sm-3 control-label"><i class="form-required">*</i>审批意见</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="opinion" required>
                             </div>
@@ -107,7 +107,7 @@
             	align: 'center'
             }, {
             	field: 'status',
-            	title: '审核状态',
+            	title: '审批状态',
             	align: 'center',
             	formatter: function(value, row, index) {
             		var status = '';
@@ -131,14 +131,18 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-apply-detail a-operate">详情</a><a class="btn-apply-approve a-operate">审核</a>';
+                    return '<a class="btn-apply-detail a-operate">详情</a><a class="btn-apply-approve a-operate">审批</a>';
                 },
             	events: window.operateEvents = {
            			'click .btn-apply-approve': function(e, value, row, index) {
                			e.stopPropagation();
-               			$dialog.data('approveId', row.id);
+               			$dialog.data('applyId', row.id);
                			$dialog.modal('show');
                		},
+               		'click .btn-apply-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= '${ctx}/applyGet?applyId=' + row.id + '&type=gv';
+            		}
             	}
             }]
 		});

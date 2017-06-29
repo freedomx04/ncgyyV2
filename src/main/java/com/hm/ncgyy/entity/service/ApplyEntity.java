@@ -55,7 +55,7 @@ public class ApplyEntity extends BaseEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "apply_id")
-	List<DeclareFileEntity> fileList = new LinkedList<>();
+	List<ApplyFileEntity> fileList = new LinkedList<>();
 
 	
 	
@@ -110,11 +110,11 @@ public class ApplyEntity extends BaseEntity {
 		this.description = description;
 	}
 
-	public List<DeclareFileEntity> getFileList() {
+	public List<ApplyFileEntity> getFileList() {
 		return fileList;
 	}
 
-	public void setFileList(List<DeclareFileEntity> fileList) {
+	public void setFileList(List<ApplyFileEntity> fileList) {
 		this.fileList = fileList;
 	}
 	

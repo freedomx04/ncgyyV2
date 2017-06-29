@@ -102,7 +102,7 @@
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './declareGet?declareId=' + row.id;
+            			window.location.href= './declareGet?declareId=' + row.id + '&type=gv';
             		},
             		'click .btn-declare-edit': function(e, value, row, index) {
             			e.stopPropagation();

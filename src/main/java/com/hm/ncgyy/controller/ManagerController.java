@@ -310,6 +310,14 @@ public class ManagerController {
 		return "pages/service/declare_get";
 	}
 	
+	@RequestMapping(value = "/applyGet")
+	String applyGet(ModelMap modelMap, Long applyId) {
+		ApplyEntity apply = applyService.findOne(applyId);
+		modelMap.addAttribute("apply", apply);
+		
+		return "pages/service/declare_apply_get";
+	}
+	
 	@RequestMapping(value = "/declare/enterprise")
 	String declareEnterprise() {
 		return "pages/service/declare_enterprise_list";

@@ -159,19 +159,20 @@ public class ApplyController {
 	}
 
 	@RequestMapping(value = "/api/apply/approve", method = RequestMethod.POST)
-	public Result approve(@RequestParam Long applyId, @RequestParam Integer status,
-			@RequestParam String opinion) {
+	public Result approve(@RequestParam Long applyId, @RequestParam Integer status, @RequestParam String opinion) {
 		try {
 			ApplyEntity apply = applyService.findOne(applyId);
 			apply.setStatus(status);
 			apply.setOpinion(opinion);
 			applyService.save(apply);
-			return new Result(Code.SUCCESS.value(), "ok");
+			
+			return new Result(Code.SUCCESS.value(), "approve");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
 	
 	@RequestMapping(value = "/api/apply/fileDelete")
 	public Result fileDelete(Long applyFileId) {

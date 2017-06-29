@@ -92,13 +92,13 @@
             	title: '是否申报',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return row.status == 0 ? '未申报' : '已申报';
+            		return row.applyStatus == 0 ? '未申报' : '已申报';
             	}
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		if (row.status == 0) {
+            		if (row.applyStatus == 0) {
 	            		return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-add a-operate">申报</a>';
             		} else {
             			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate text-muted">申报</a>';
@@ -108,6 +108,10 @@
             		'click .btn-declare-apply-add': function(e, value, row, index) {
             			e.stopPropagation();
             			window.location.href= './applyAdd?method=add&declareId=' + row.id + '&enterpriseId=1';
+            		},
+            		'click .btn-declare-apply-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './declareGet?declareId=' + row.id + '&type=ep';
             		}
             	}
             }]
@@ -163,12 +167,20 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-declare-apply-detail a-operate">查看</a><a class="btn-declare-apply-edit a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            		if (row.status == 2 || row.status == 3) {
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="text-muted a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            		} else {
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-edit a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            		}
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-apply-edit': function(e, value, row, index) {
             			e.stopPropagation();
             			window.location.href= './applyAdd?method=edit&applyId=' + row.id;
+            		},
+            		'click .btn-declare-apply-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './applyGet?applyId=' + row.id + '&type=ep';
             		},
             		'click .btn-declare-apply-delete': function(e, value, row, index) {
             			e.stopPropagation();
@@ -210,6 +222,17 @@
 		
 		$page
 		.on('click', '.btn-declare-apply-delete-batch', function() {
+            var rows = $myDeclareTable.bootstrapTable('getSelections');
+            var applyStatus = false;
+            $.each(rows, function(key, val) {
+            	if (val.status == 2 || val.status == 3) {
+            		applyStatus = true;
+            	}
+            });
+            if (applyStatus) {
+            	swal('', '包含已审批项目,不能删除', 'error');
+            	return;
+            }
             swal({
                 title: '',
                 text: '确定批量删除选中记录',
@@ -220,7 +243,6 @@
                 confirmButtonText: '确定',
                 closeOnConfirm: false
             }, function() {
-                var rows = $table.bootstrapTable('getSelections');
                 
                 $.ajax({
                     url: '${ctx}/api/apply/batchDelete',
