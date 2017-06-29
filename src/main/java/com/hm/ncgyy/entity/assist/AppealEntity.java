@@ -112,6 +112,13 @@ public class AppealEntity extends BaseEntity {
 	@OrderBy("createTime DESC")
 	private List<UrgeEntity> urgeList = new LinkedList<>();
 	
+	/**
+	 * 评价
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "evaluation_id")
+	public EvaluationEntity evaluation; 
+	
 	public AppealEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -228,6 +235,14 @@ public class AppealEntity extends BaseEntity {
 
 	public void setUrgeList(List<UrgeEntity> urgeList) {
 		this.urgeList = urgeList;
+	}
+
+	public EvaluationEntity getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(EvaluationEntity evaluation) {
+		this.evaluation = evaluation;
 	}
 
 }

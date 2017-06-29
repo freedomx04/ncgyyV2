@@ -49,7 +49,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>企业详情</label>
+						<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>诉求详情</label>
                         <div class="col-sm-5">
                             <textarea class="form-control" name="description" style="resize:none; height: 150px;" required>${appeal.description}</textarea>
                         </div>

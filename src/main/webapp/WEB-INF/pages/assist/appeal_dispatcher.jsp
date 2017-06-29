@@ -118,12 +118,12 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-appeal-dispatcher');
-		var $dialogDispatch = $page.find('#modal-appeal-dispatch-dialog');
-		var $dialogReject = $page.find('#modal-appeal-reject-dialog');
 		
+		var $dialogDispatch = $page.find('#modal-appeal-dispatch-dialog');
 		var $formDispatch = $dialogDispatch.find('form');
 		$k.util.bsValidator($formDispatch);
 		
+		var $dialogReject = $page.find('#modal-appeal-reject-dialog');
 		var $formReject = $dialogReject.find('form');
 		$k.util.bsValidator($formReject);
 		

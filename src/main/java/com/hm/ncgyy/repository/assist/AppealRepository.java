@@ -26,7 +26,7 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 	/**
 	 * enterprise
 	 */
-	List<AppealEntity> findByEnterpriseIdOrderByUpdateTime(Long enterpriseId);
+	List<AppealEntity> findByEnterpriseIdOrderByUpdateTimeDesc(Long enterpriseId);
 	
 	List<AppealEntity> findByEnterpriseIdAndStatusGreaterThanOrderByUpdateTimeDesc(Long enterpriseId, Integer status);
 	

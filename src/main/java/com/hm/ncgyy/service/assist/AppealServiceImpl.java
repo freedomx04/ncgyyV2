@@ -46,7 +46,7 @@ public class AppealServiceImpl implements AppealService {
 
 	@Override
 	public List<AppealEntity> findByEnterpriseId(Long enterpriseId) {
-		return appealRepository.findByEnterpriseIdOrderByUpdateTime(enterpriseId);
+		return appealRepository.findByEnterpriseIdOrderByUpdateTimeDesc(enterpriseId);
 	}
 
 	@Override

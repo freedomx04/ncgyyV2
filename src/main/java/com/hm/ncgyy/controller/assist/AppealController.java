@@ -15,10 +15,14 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.assist.AppealEntity.AppealStatus;
+import com.hm.ncgyy.entity.assist.EvaluationEntity;
+import com.hm.ncgyy.entity.assist.UrgeEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
+import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.service.assist.AppealService;
+import com.hm.ncgyy.service.assist.UrgeService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.UserService;
@@ -34,6 +38,9 @@ public class AppealController {
 	
 	@Autowired
 	AppealTypeService appealTypeService;
+	
+	@Autowired
+	UrgeService urgeService;
 	
 	@Autowired
 	EnterpriseService enterpriseService;
@@ -195,9 +202,12 @@ public class AppealController {
 	}
 	
 	@RequestMapping(value = "/api/appeal/accept")
-	public Result accept() {
+	public Result accept(Long appealId) {
 		try {
-			
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setAcceptTime(new Date());
+			appeal.setStatus(AppealStatus.PROCESSING);
+			appealService.save(appeal);
 			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -206,9 +216,12 @@ public class AppealController {
 	}
 	
 	@RequestMapping(value = "/api/appeal/handle")
-	public Result handle() {
+	public Result handle(Long appealId) {
 		try {
-			
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setHandleTime(new Date());
+			appeal.setStatus(AppealStatus.UNCONFIRM);
+			appealService.save(appeal);
 			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -217,8 +230,15 @@ public class AppealController {
 	}
 	
 	@RequestMapping(value = "/api/appeal/confirm")
-	public Result confirm() {
+	public Result confirm(Long appealId, Integer accept, Integer process, Integer result, String content) {
 		try {
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setStatus(AppealStatus.CONFIRMED);
+			
+			Date now = new Date();
+			EvaluationEntity evaluation = new EvaluationEntity(accept, process, result, content, now, now);
+			appeal.setEvaluation(evaluation);
+			appealService.save(appeal);
 			
 			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {
@@ -245,15 +265,18 @@ public class AppealController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/appeal/urge")
-	public Result urge() {
+	@RequestMapping(value = "/api/appeal/urge", method = RequestMethod.POST)
+	public Result urge(Long appealId, Long userId, String content) {
 		try {
-			
+			UserBaseEntity user = userService.findOneBase(userId);
+			Date now = new Date();
+			UrgeEntity urge = new UrgeEntity(appealId, user, content, now, now);
+			urgeService.save(urge);
 			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
 }
