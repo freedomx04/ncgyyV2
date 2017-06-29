@@ -88,7 +88,7 @@
             		case 5:
             			return '<span class="label label-primary">已确认</span>';
             		case 6:
-            			return '<span class="label label-warning">已驳回</span>';
+            			return '<span class="label label-danger">已驳回</span>';
             		}
             	}
             }, {

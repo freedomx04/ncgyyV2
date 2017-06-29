@@ -100,8 +100,10 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-department');
-		var $departmentDialog = $page.find('#modal-department-dialog');
-		var $departmentForm = $departmentDialog.find('form');
+		var $dialog = $page.find('#modal-department-dialog');
+		var $form = $dialog.find('form');
+		
+		$k.util.bsValidator($form);
 		
 		var $table = $k.util.bsTable($page.find('#department-list-table'), {
 			url: '${ctx}/api/department/list',
@@ -134,43 +136,16 @@
             	events: window.operateEvents = {
             		'click .btn-department-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			
-            			$departmentDialog.find('.modal-title strong').text('编辑');
+            			$dialog.find('.modal-title strong').text('编辑');
             			$.each(row, function(key, val) {
-            				if (key == 'name') {
-                                $departmentForm.find('input[name = "name"]').attr('disabled', 'disabled');
-                            }
-            				$departmentForm.find('input[name="' + key + '"]').val(val);
+            				$form.find('input[name="' + key + '"]').val(val);
             			});
-            			
-            			$departmentDialog.modal('show');
-            			
-            			$departmentDialog.on('click', '.btn-confirm', function() {
-            				var validator = $departmentForm.data('bootstrapValidator');
-            				validator.validate();
-            				
-                            if (validator.isValid()) {
-                            	$.ajax({
-                            		url: '${ctx}/api/department/update',
-                            		type: 'POST',
-                            		data: {
-                            			departmentId: row.id,
-                            			principal: $departmentForm.find('input[name = "principal"]').val(),
-                            			description: $departmentForm.find('input[name = "description"]').val()
-                            		},
-                            		success: function(ret) {
-                            			$departmentDialog.modal('hide');
-                                        swal('', '编辑成功!', 'success');
-                                        $table.bootstrapTable('refresh'); 
-                            		},
-                            		error: function(err) {}
-                            	});
-                            }
-            			});
+            			$dialog.data('method', 'edit');
+            			$dialog.data('departmentId', row.id);
+            			$dialog.modal('show');
             		},
             		'click .btn-department-delete': function(e, value, row, index) {
             			e.stopPropagation();
-            			
             			swal({
             				title: '',
             				text: '确定删除选中记录?',
@@ -211,37 +186,65 @@
             selNum > 0 ? $page.find('.btn-department-delete-batch').removeAttr('disabled') : $page.find('.btn-department-delete-batch').attr('disabled', 'disabled');
         });
 		
-		$page
-		.on('hidden.bs.modal', '#modal-department-dialog', function() {
-            $departmentForm.bootstrapValidator('resetForm', true);
-            $(this).removeData('bs.modal');
-        }) 
-		.on('click', '.btn-department-add', function() {
-			 $departmentDialog.find('.modal-title strong').text('新增');
-			 $departmentForm.find('input').removeAttr('disabled');
-			 
-			 $departmentDialog.on('click', '.btn-confirm', function() {
- 				var validator = $departmentForm.data('bootstrapValidator');
- 				validator.validate();
- 				
- 				if (validator.isValid()) {
- 					$.ajax({
+		$dialog.on('click', '.btn-confirm', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var method = $dialog.data('method');
+				if (method == 'add') {
+					$.ajax({
  						url: '${ctx}/api/department/create',
                  		type: 'POST',
                  		data: {
-                 			name: $departmentForm.find('input[name = "name"]').val(),
-                			principal: $departmentForm.find('input[name = "principal"]').val(),
-                 			description: $departmentForm.find('input[name = "description"]').val()
+                 			name: $dialog.find('input[name = "name"]').val(),
+                			principal: $dialog.find('input[name = "principal"]').val(),
+                 			description: $dialog.find('input[name = "description"]').val()
                  		},
                  		success: function(ret) {
-                 			$departmentDialog.modal('hide');
-                 			swal('', '添加成功!', 'success');
-                 			$table.bootstrapTable('refresh'); 
+                 			if (ret.code == 0) {
+                 				$dialog.modal('hide');
+                     			swal('', '添加成功!', 'success');
+                     			$table.bootstrapTable('refresh');
+                 			} else {
+                 				swal('', ret.msg, 'error');
+                 			}
                  		},
                  		error: function(err) {}
                  	});
-                 }
- 			});
+				} else {
+					$.ajax({
+	            		url: '${ctx}/api/department/update',
+	            		type: 'POST',
+	            		data: {
+	            			departmentId: $dialog.data('departmentId'),
+	            			name: $dialog.find('input[name = "name"]').val(),
+	            			principal: $dialog.find('input[name = "principal"]').val(),
+	            			description: $dialog.find('input[name = "description"]').val()
+	            		},
+	            		success: function(ret) {
+	            			if (ret.code == 0) {
+	            				$dialog.modal('hide');
+		                        swal('', '编辑成功!', 'success');
+		                        $table.bootstrapTable('refresh'); 
+	            			} else {
+	            				swal('', ret.msg, 'error');
+	            			}
+	            		},
+	            		error: function(err) {}
+	            	});
+				}
+			}
+		});
+		
+		$page
+		.on('hidden.bs.modal', '#modal-department-dialog', function() {
+            $form.bootstrapValidator('resetForm', true);
+            $(this).removeData('bs.modal');
+        }) 
+		.on('click', '.btn-department-add', function() {
+			$dialog.find('.modal-title strong').text('新增');
+			$dialog.data('method', 'add');
 		})
 		.on('click', '.btn-department-delete-batch', function() {
             swal({
@@ -274,31 +277,6 @@
                     error: function(err) {}
                 });
             });
-        });
-		
-		// 添加验证器
-        $departmentDialog.find('form').bootstrapValidator({
-            message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            excluded: [':disabled'],
-            fields: {
-            	name: {
-					validators: {
-						threshold: 6,
-	                    remote: {
-	                    	url: '${ctx}/api/department/exist',
-	                    	message: '部门已存在',
-	                    	delay: 2000,
-	                    	type: 'GET',
-	                    }
-					} 
-				},
-				description: {}
-            }
         });
 		
 	})( jQuery );

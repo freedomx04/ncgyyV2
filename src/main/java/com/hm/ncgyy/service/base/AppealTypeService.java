@@ -15,5 +15,5 @@ public interface AppealTypeService {
 	void delete(Long appealTypeId);
 	
 	List<AppealTypeEntity> list();
-
+	
 }

@@ -145,6 +145,20 @@ public class AppealController {
 	}
 	
 	/**
+	 * dispatcher
+	 */
+	@RequestMapping(value = "/api/appeal/listByDispatcher")
+	public Result listByDispatcher() {
+		try {
+			List<AppealEntity> list = appealService.findByStatus(AppealStatus.SENDING);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	/**
 	 * 操作
 	 */
 	@RequestMapping(value = "/api/appeal/send")
@@ -213,9 +227,16 @@ public class AppealController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/appeal/reject")
-	public Result reject() {
+	@RequestMapping(value = "/api/appeal/reject", method = RequestMethod.POST)
+	public Result reject(Long appealId, String rejectOpinion) {
 		try {
+			AppealEntity appeal = appealService.findOne(appealId);
+			appeal.setStatus(AppealStatus.REJECT);
+			appeal.setRejectOpinion(rejectOpinion);
+			Date now = new Date();
+			appeal.setAcceptTime(now);
+			appeal.setHandleTime(now);
+			appealService.save(appeal);
 			
 			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {

@@ -90,16 +90,18 @@ public class AppealEntity extends BaseEntity {
 	/**
 	 * 处理时间
 	 */
-	private Date handTime;
+	private Date handleTime;
 	
 	/**
 	 * 派发意见
 	 */
+	@Column(length = 2000)
 	private String dispatchOpinion;
 	
 	/**
 	 * 驳回意见
 	 */
+	@Column(length = 2000)
 	private String rejectOpinion;
 	
 	/**
@@ -196,12 +198,12 @@ public class AppealEntity extends BaseEntity {
 		this.acceptTime = acceptTime;
 	}
 
-	public Date getHandTime() {
-		return handTime;
+	public Date getHandleTime() {
+		return handleTime;
 	}
 
-	public void setHandTime(Date handTime) {
-		this.handTime = handTime;
+	public void setHandleTime(Date handleTime) {
+		this.handleTime = handleTime;
 	}
 
 	public String getDispatchOpinion() {
