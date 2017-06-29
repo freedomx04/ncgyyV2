@@ -10,10 +10,10 @@ public interface DeclareRepository extends PagingAndSortingRepository<DeclareEnt
 	
 /*	List<DeclareEntity> findAllByOrderByUpdateTimeDesc();
 	
-	List<DeclareEntity> findByUserIdOrderbyUpdateTimeDesc(Long userId);
-	
-	List<DeclareEntity> findByStatusOrderbyUpdateTimeDesc(Integer status);*/
+	List<DeclareEntity> findByUserIdOrderbyUpdateTimeDesc(Long userId);*/
 	
 	Iterable<DeclareEntity> findByIdIn(List<Long> declareIdList);
+	
+	List<DeclareEntity> findByStatusOrderByUpdateTimeDesc(Integer status);
 
 }

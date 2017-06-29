@@ -32,9 +32,9 @@
                     <button type="button" class="btn btn-white btn-declare-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
-                    <!-- <button type="button" class="btn btn-white btn-declare-delete-batch" disabled='disabled'>
+                    <button type="button" class="btn btn-white btn-declare-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button> -->
+                    </button>
                 </div>
                 <table id="declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -97,16 +97,20 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-declare-detail a-operate">查看</a><a class="btn-declare-edit a-operate">编辑</a><a class="btn-declare-edit a-operate">删除</a><a class="btn-declare-display a-operate">发布/结束</a>';
+            		return '<a class="btn-declare-detail a-operate">详情</a><a class="btn-declare-edit a-operate">编辑</a><a class="btn-declare-edit a-operate">删除</a><a class="btn-declare-display a-operate">发布/结束</a><a class="btn-declare-enterprise a-operate">查看申报企业</a>';
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './declareGet?declareId=' + row.id;
+            			window.location.href= './declareGet?declareId=' + row.id + '&type=gv';
             		},
             		'click .btn-declare-edit': function(e, value, row, index) {
             			e.stopPropagation();
             			window.location.href= './declareAdd?method=edit&declareId=' + row.id;
+            		},
+            		'click .btn-declare-enterprise': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './declare/enterprise?declareId=' + row.id;
             		},
             		'click .btn-declare-delete': function(e, value, row, index) {
             			e.stopPropagation();
@@ -179,7 +183,37 @@
 		$page
 		.on('click', '.btn-declare-add', function() {
 			window.location.href = './declareAdd?method=add';
-		});
+		})
+		.on('click', '.btn-declare-delete-batch', function() {
+            swal({
+                title: '',
+                text: '确定批量删除选中记录',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $table.bootstrapTable('getSelections');
+                
+                $.ajax({
+                    url: '${ctx}/api/declare/batchDelete',
+                    data: { 
+                        areaIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+        });
 		
 	})( jQuery );
 	</script>

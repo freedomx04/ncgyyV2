@@ -14,6 +14,8 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput.min.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput-rtl.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
@@ -22,23 +24,31 @@
 
 <body class="gray-bg body-declare-list">
 	<div class="wrapper wrapper-content animated fadeInRight">
-		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>网上申报</h5>
-			</div>
-			
-			<div class="ibox-content">
-				<div class="btn-group hidden-xs" id="declare-list-table-toolbar" role="group">
-                    <button type="button" class="btn btn-white btn-declare-add">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
-                    <!-- <button type="button" class="btn btn-white btn-declare-delete-batch" disabled='disabled'>
-                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button> -->
+		<div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 申报项目</a>
+                </li>
+                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">我的申报</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+		                <table id="declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+                    </div>
                 </div>
-                <table id="declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-			</div>
-		</div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                    	<div class="btn-group hidden-xs" id="my-declare-list-table-toolbar" role="group">
+		                    <button type="button" class="btn btn-white btn-declare-apply-delete-batch" disabled='disabled'>
+		                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+		                    </button>
+		                </div>
+		                <table id="my-declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+                    </div>
+                </div>
+             </div>
+        </div>
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -49,15 +59,16 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
 		
 		var $page = $('.body-declare-list');
 		
-		var $table = $k.util.bsTable($page.find('#declare-list-table'), {
-			url: '${ctx}/api/declare/list',
-			toolbar: '#declare-list-table-toolbar',
+		var $eclareTable = $k.util.bsTable($page.find('#declare-list-table'), {
+			url: '${ctx}/api/declare/listOnline?enterpriseId=1',
 			idField: 'id',
 			responseHandler: function(res) {
                 return res.data;
@@ -69,43 +80,187 @@
             }, {
             	field: 'startTime',
             	title: '申报开始时间',
-            	align: 'center'
+            	align: 'center',
+            	formatter: formatDate2
             }, {
             	field: 'endTime',
             	title: '申报结束时间',
-            	align: 'center'
+            	align: 'center',
+            	formatter: formatDate2
+            }, {
+            	field: 'status',
+            	title: '是否申报',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return row.applyStatus == 0 ? '未申报' : '已申报';
+            	}
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-declare-detail a-operate">查看</a><a class="btn-declare-edit a-operate">编辑</a>';
+            		if (row.applyStatus == 0) {
+	            		return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-add a-operate">申报</a>';
+            		} else {
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate text-muted">申报</a>';
+            		}
             	},
             	events: window.operateEvents = {
-            		'click .btn-declare-detail': function(e, value, row, index) {
+            		'click .btn-declare-apply-add': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './declareGet?declareId=' + row.id;
+            			window.location.href= './applyAdd?method=add&declareId=' + row.id + '&enterpriseId=1';
             		},
-            		'click .btn-declare-edit': function(e, value, row, index) {
+            		'click .btn-declare-apply-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './declareAdd?method=edit&declareId=' + row.id;
-            		},
-            		'click .btn-declare-delete': function(e, value, row, index) {
-            			e.stopPropagation();
+            			window.location.href= './declareGet?declareId=' + row.id + '&type=ep';
             		}
             	}
             }]
 		});
 		
-		$table.on('all.bs.table', function(e, row) {
-            var selNum = $table.bootstrapTable('getSelections').length;
-            selNum > 0 ? $page.find('.btn-declare-delete-batch').removeAttr('disabled') : $page.find('.btn-declare-delete-batch').attr('disabled', 'disabled');
+		var $myDeclareTable = $k.util.bsTable($page.find('#my-declare-list-table'), {
+			url: '${ctx}/api/apply/listByEnterpriseId?enterpriseId=1',
+			toolbar: '#my-declare-list-table-toolbar',
+			idField: 'id',
+			responseHandler: function(res) {
+                return res.data;
+            },
+            columns: [{
+				field: 'state',
+				checkbox: true
+			}, {
+            	field: 'declare.title',
+            	title: '项目名称',
+            	align: 'center',
+            }, {
+            	field: 'declare.startTime',
+            	title: '申报开始时间',
+            	align: 'center',
+            	formatter: formatDate2
+            }, {
+            	field: 'declare.endTime',
+            	title: '申报结束时间',
+            	align: 'center',
+            	formatter: formatDate2
+            }, {
+            	field: 'status',
+            	title: '审批状态',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		var status = '';
+            		switch(row.status) {
+            		case 0:
+            			status = '新增';
+            			break;
+            		case 1:
+            			status = '未审批';
+            			break;
+            		case 2:
+            			status = '审批通过';
+            			break;
+            		case 3:
+            			status = '审批未通过';
+            			break;
+            		}
+            		return status;
+            	}
+            }, {
+            	title: '操作',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		if (row.status == 2 || row.status == 3) {
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="text-muted a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            		} else {
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-edit a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            		}
+            	},
+            	events: window.operateEvents = {
+            		'click .btn-declare-apply-edit': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './applyAdd?method=edit&applyId=' + row.id;
+            		},
+            		'click .btn-declare-apply-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href= './applyGet?applyId=' + row.id + '&type=ep';
+            		},
+            		'click .btn-declare-apply-delete': function(e, value, row, index) {
+            			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定删除选中记录?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false
+            			}, function() {
+            				$.ajax({
+            					url: '${ctx}/api/apply/delete',
+            					data: {
+            						applyId: row.id
+            					},
+            					success: function(ret) {
+            						if (ret.code == 0) {
+            							swal('', '删除成功!', 'success');
+            						} else {
+            							swal('', ret.msg, 'error');
+            						}
+            						$myDeclareTable.bootstrapTable('refresh'); 
+            					},
+            					error: function(err) {}
+            				});
+            			});
+            		}
+            	}
+            }]
+		});
+		
+		$myDeclareTable.on('all.bs.table', function(e, row) {
+            var selNum = $myDeclareTable.bootstrapTable('getSelections').length;
+            selNum > 0 ? $page.find('.btn-declare-apply-delete-batch').removeAttr('disabled') : $page.find('.btn-declare-apply-delete-batch').attr('disabled', 'disabled');
         });
 		
 		$page
-		.on('click', '.btn-declare-add', function() {
-			window.location.href = './declareAdd?method=add';
-		});
-		
+		.on('click', '.btn-declare-apply-delete-batch', function() {
+            var rows = $myDeclareTable.bootstrapTable('getSelections');
+            var applyStatus = false;
+            $.each(rows, function(key, val) {
+            	if (val.status == 2 || val.status == 3) {
+            		applyStatus = true;
+            	}
+            });
+            if (applyStatus) {
+            	swal('', '包含已审批项目,不能删除', 'error');
+            	return;
+            }
+            swal({
+                title: '',
+                text: '确定批量删除选中记录',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                
+                $.ajax({
+                    url: '${ctx}/api/apply/batchDelete',
+                    data: { 
+                        applyIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $myDeclareTable.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+        });
 	})( jQuery );
 	</script>
 	

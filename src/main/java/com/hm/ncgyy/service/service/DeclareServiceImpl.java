@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hm.ncgyy.entity.service.DeclareBaseEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
+import com.hm.ncgyy.entity.service.DeclareEntity.DeclareStatus;
+import com.hm.ncgyy.repository.service.DeclareBaseRepository;
 import com.hm.ncgyy.repository.service.DeclareRepository;
 
 @Service
@@ -13,10 +16,18 @@ public class DeclareServiceImpl implements DeclareService {
 	
 	@Autowired
 	DeclareRepository declareRepository;
+	
+	@Autowired
+	DeclareBaseRepository declareBaseRepository;
 
 	@Override
 	public DeclareEntity findOne(Long declareId) {
 		return declareRepository.findOne(declareId);
+	}
+	
+	@Override
+	public DeclareBaseEntity findOneBase(Long declareId) {
+		return declareBaseRepository.findOne(declareId);
 	}
 
 	@Override
@@ -48,8 +59,7 @@ public class DeclareServiceImpl implements DeclareService {
 
 	@Override
 	public List<DeclareEntity> listOnline() {
-		return null;
-		//return declareRepository.findByStatusOrderbyUpdateTimeDesc(DeclareStatus.ONLINE);
+		return declareRepository.findByStatusOrderByUpdateTimeDesc(DeclareStatus.ONLINE);
 	}
 
 }
