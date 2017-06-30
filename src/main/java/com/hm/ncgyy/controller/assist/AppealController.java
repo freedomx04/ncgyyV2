@@ -229,14 +229,14 @@ public class AppealController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/appeal/confirm")
-	public Result confirm(Long appealId, Integer accept, Integer process, Integer result, String content) {
+	@RequestMapping(value = "/api/appeal/confirm", method = RequestMethod.POST)
+	public Result confirm(Long appealId, Integer accept, Integer handle, Integer result, String content) {
 		try {
 			AppealEntity appeal = appealService.findOne(appealId);
 			appeal.setStatus(AppealStatus.CONFIRMED);
 			
 			Date now = new Date();
-			EvaluationEntity evaluation = new EvaluationEntity(accept, process, result, content, now, now);
+			EvaluationEntity evaluation = new EvaluationEntity(accept, handle, result, content, now, now);
 			appeal.setEvaluation(evaluation);
 			appealService.save(appeal);
 			

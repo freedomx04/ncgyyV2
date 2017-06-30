@@ -18,6 +18,12 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
+	<style type="text/css">
+	#modal-appeal-evaluation-dialog .evaluation-star {
+		padding: 6px 12px;
+	}
+	</style>
+	
 </head>
 
 <body class="gray-bg body-appeal-enterprise">
@@ -66,6 +72,53 @@
             </div>
         </div>
     </div>
+    
+    <div class="modal" id="modal-appeal-evaluation-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">确认办结</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" autocomplete="off">
+                        <div class="form-group">
+                        	<label for="evaluation-accept" class="col-sm-3 control-label">受理速度</label>
+                        	<div class="col-sm-8">
+                        		<div class="evaluation-accept evaluation-star"></div>
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label for="evaluation-handle" class="col-sm-3 control-label">办结速度</label>
+                        	<div class="col-sm-8">
+                        		<div class="evaluation-handle evaluation-star"></div>
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label for="evaluation-result" class="col-sm-3 control-label">办结结果</label>
+                        	<div class="col-sm-8">
+                        		<div class="evaluation-result evaluation-star"></div>
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-3 control-label">评价内容</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="content" style="resize:none; height: 150px;"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">
+                        <i class="fa fa-close fa-fw"></i>关闭
+                    </button>
+                    <button type="button" class="btn btn-primary btn-confirm">
+                        <i class="fa fa-check fa-fw"></i>确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -75,6 +128,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/raty/jquery.raty.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -85,6 +139,7 @@
 		
 		var $page = $('.body-appeal-enterprise');
 		var $dialogUrge = $page.find('#modal-appeal-urge-dialog');
+		var $dialogEvaluation = $page.find('#modal-appeal-evaluation-dialog');
 		
 		var $table = $k.util.bsTable($page.find('#appeal-enterprise-table'), {
 			url: '${ctx}/api/appeal/listByEnterprise?enterpriseId=' + enterpriseId,
@@ -220,7 +275,10 @@
             		},
             		'click .btn-appeal-confirm': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('confirm');
+            			$dialogEvaluation.data('appealId', row.id);
+            			$dialogEvaluation.find('textarea[name="content"]').val('');
+            			$k.util.raty($dialogEvaluation.find('.evaluation-star'));
+            			$dialogEvaluation.modal('show');
             		}
             	}
             }]
@@ -244,15 +302,42 @@
 				},
 				success: function(ret) {
 					if (ret.code == 0) {
-                           $dialogUrge.modal('hide');
-                           swal('', '催办成功!', 'success');
-                           $table.bootstrapTable('refresh'); 
-                       } else {
-                           swal('', ret.msg, 'error');
-                       }
+						$dialogUrge.modal('hide');
+                        swal('', '催办成功!', 'success');
+                        $table.bootstrapTable('refresh'); 
+                    } else {
+                        swal('', ret.msg, 'error');
+                    }
 				},
 				error: function(err) {}
 			});
+		});
+		
+		$dialogEvaluation.on('click', '.btn-confirm', function() {
+			var appealId = $dialogEvaluation.data('appealId');
+			
+			$.ajax({
+				url: '${ctx}/api/appeal/confirm',
+				type: 'post',
+				data: {
+					appealId: appealId,
+					accept: $dialogEvaluation.find('.evaluation-accept').raty('getScore'),
+					handle: $dialogEvaluation.find('.evaluation-handle').raty('getScore'),
+					result: $dialogEvaluation.find('.evaluation-result').raty('getScore'),
+					content: $dialogEvaluation.find('textarea[name="content"]').val()
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$dialogEvaluation.modal('hide');
+                        swal('', '评价成功!', 'success');
+                        $table.bootstrapTable('refresh'); 
+                    } else {
+                        swal('', ret.msg, 'error');
+                    }
+				},
+				error: function(err) {}
+			});
+			
 		});
 		
 	})( jQuery );

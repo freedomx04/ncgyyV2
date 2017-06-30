@@ -171,6 +171,16 @@
 	}
 	
 	/**
+	 * 评价星级
+	 */
+	$k.util.raty = function($obj) {
+		$obj.raty({ 
+			score	: 	5,
+			path	: 	'plugins/raty/images/'
+		});
+	}
+	
+	/**
 	 * 月份选择器
 	 */
 	$k.util.initDatePicker = function($obj) {
