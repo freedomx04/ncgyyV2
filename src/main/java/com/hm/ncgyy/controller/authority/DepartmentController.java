@@ -71,7 +71,7 @@ public class DepartmentController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -81,13 +81,11 @@ public class DepartmentController {
 	@RequestMapping(value = "/api/department/batchDelete")
 	public Result batchDelete(@RequestParam("departmentIdList[]") List<Long> departmentIdList) {
 		try {
-			for (Long departmentId: departmentIdList) {
-				delete(departmentId);
-			}
+			departmentService.delete(departmentIdList);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

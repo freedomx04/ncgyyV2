@@ -33,6 +33,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public void delete(Long departmentId) {
 		departmentRepository.delete(departmentId);
 	}
+	
+	@Override
+	public void delete(List<Long> departmentIdList) {
+		Iterable<DepartmentEntity> it = departmentRepository.findByIdIn(departmentIdList);
+		departmentRepository.delete(it);		
+	}
 
 	@Override
 	public List<DepartmentEntity> list() {

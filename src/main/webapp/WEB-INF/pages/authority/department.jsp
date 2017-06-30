@@ -267,9 +267,7 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '删除成功!', 'success');
-                        } else if (ret.code == 1004) {
-							swal('', '该数据存在关联, 无法删除', 'error');
-						} else {
+                        } else {
                             swal('', ret.msg, 'error');
                         }
                         $table.bootstrapTable('refresh'); 
