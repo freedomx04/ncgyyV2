@@ -45,9 +45,9 @@
 </head>
 <body class="gray-bg body-register">
 	<div class="row border-bottom white-bg">
-         <nav class="navbar navbar-static-top" role="navigation">
+         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
              <div class="navbar-header">
-                 <a href="#" class="navbar-brand">南城县工业园区综合信息服务平台</a>
+                 <a href="#" style="font-size: 20px; line-height: 75px; margin-left: 30px;">南城县工业园区综合信息服务平台</a>
              </div>
              <div class="navbar-collapse collapse" id="navbar">
                  <ul class="nav navbar-top-links navbar-right">
