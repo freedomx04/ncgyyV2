@@ -41,9 +41,7 @@
 								</span>
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
-								<li><a class="J_menuItem" href="#">个人资料</a></li>
-								<li><a class="J_menuItem" href="avatar">修改头像</a></li>
-								<li><a class="J_menuItem" href="#">联系我们</a></li>
+								<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
 								<li><a class="J_menuItem" href="#">信箱</a></li>
 								<li class="divider"></li>
 								<li><a href="#">安全退出</a></li>
@@ -60,7 +58,7 @@
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">权限管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">角色管理</a></li>
+							<li><a class="J_menuItem" href="roleList">角色管理</a></li>
 							<li><a class="J_menuItem" href="userList">用户管理</a></li>
 							<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
 							<li><a class="J_menuItem" href="department">部门管理</a></li>
