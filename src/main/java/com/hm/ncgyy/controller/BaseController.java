@@ -36,6 +36,11 @@ public class BaseController {
 		return "login";
 	}
 	
+	@RequestMapping(value = "/register")
+	String register() {
+		return "register";
+	}
+	
 	/**
 	 * 权限管理接口
 	 */

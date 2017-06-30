@@ -20,12 +20,15 @@ public class CaptchaConfig {
 
 	@Value("${kaptcha.textproducer.font.size}")
 	private String fsize;
-
-	@Value("${kaptcha.obscurificator.impl}")
-	private String obscurificator;
+	
+	@Value("${kaptcha.textproducer.font.names}")
+	private String fname;
 
 	@Value("${kaptcha.noise.impl}")
 	private String noise;
+	
+	@Value("${kaptcha.noise.color}")
+	private String ncolor;
 
 	@Value("${kaptcha.image.width}")
 	private String width;
@@ -53,8 +56,9 @@ public class CaptchaConfig {
 		properties.setProperty("kaptcha.session.key", skey);// session key
 		properties.setProperty("kaptcha.textproducer.font.color", fcolor);
 		properties.setProperty("kaptcha.textproducer.font.size", fsize);
-		properties.setProperty("kaptcha.obscurificator.impl", obscurificator);
+		properties.setProperty("kaptcha.textproducer.font.names", fname);
 		properties.setProperty("kaptcha.noise.impl", noise);
+		properties.setProperty("kaptcha.noise.color", ncolor);
 		properties.setProperty("kaptcha.image.width", width);
 		properties.setProperty("kaptcha.image.height", height);
 		properties.setProperty("kaptcha.textproducer.char.length", clength);
