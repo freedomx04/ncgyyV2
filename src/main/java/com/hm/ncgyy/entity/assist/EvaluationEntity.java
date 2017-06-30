@@ -19,7 +19,7 @@ public class EvaluationEntity extends BaseEntity {
 	/**
 	 * 办理速度
 	 */
-	private Integer process = 0;
+	private Integer handle = 0;
 
 	/**
 	 * 办理结果
@@ -35,11 +35,11 @@ public class EvaluationEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EvaluationEntity(Integer accept, Integer process, Integer result, String content, Date createTime,
+	public EvaluationEntity(Integer accept, Integer handle, Integer result, String content, Date createTime,
 			Date updateTime) {
 		super();
 		this.accept = accept;
-		this.process = process;
+		this.handle = handle;
 		this.result = result;
 		this.content = content;
 		this.createTime = createTime;
@@ -54,12 +54,12 @@ public class EvaluationEntity extends BaseEntity {
 		this.accept = accept;
 	}
 
-	public Integer getProcess() {
-		return process;
+	public Integer getHandle() {
+		return handle;
 	}
 
-	public void setProcess(Integer process) {
-		this.process = process;
+	public void setHandle(Integer handle) {
+		this.handle = handle;
 	}
 
 	public Integer getResult() {
