@@ -21,6 +21,15 @@
 	.body-appeal-detail dd {
 		line-height: 2;
 	}
+	.body-appeal-detail table td {
+		padding: 4px!important;
+	}
+	.body-appeal-detail .appeal-evaluation p {
+		margin: 0;
+	}
+	.body-appeal-detail .appeal-evaluation span {
+		padding-left: 20px;
+	}
 	</style>
 </head>
 
@@ -34,23 +43,24 @@
             
             <div class="ibox-content">
             	<dl class="dl-horizontal" style="padding-right: 60px;">
-            		<dt>诉求状态:</dt><dd class="appeal-status"></dd>
-            		<dt>诉求标题:</dt><dd>${appeal.title}</dd>
-            		<dt>诉求类型:</dt><dd>${appeal.appealType.name}</dd>
-            		<dt>企业名称:</dt><dd>${appeal.enterprise.name}</dd>
-            		<dt>诉求描述:</dt><dd>${appeal.description}</dd>
-            		<dt>创建时间:</dt><dd><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>诉求状态</dt><dd class="appeal-status"></dd>
+            		<dt>诉求标题</dt><dd>${appeal.title}</dd>
+            		<dt>诉求类型</dt><dd>${appeal.appealType.name}</dd>
+            		<dt>企业名称</dt><dd>${appeal.enterprise.name}</dd>
+            		<dt>诉求描述</dt><dd>${appeal.description}</dd>
+            		<dt>创建时间</dt><dd><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
             		
-            		<dt>派单时间:</dt><dd><fmt:formatDate value="${appeal.sendTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
-            		<dt>派单意见:</dt><dd>${appeal.dispatchOpinion}</dd>
+            		<dt>派单时间</dt><dd><fmt:formatDate value="${appeal.sendTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>派单意见</dt><dd>${appeal.dispatchOpinion}</dd>
             		
-            		<dt>处理部门:</dt><dd>${appeal.department.name}</dd>
-            		<dt>受理时间:</dt><dd><fmt:formatDate value="${appeal.acceptTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
-            		<dt>办结时间:</dt><dd><fmt:formatDate value="${appeal.handleTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>处理部门</dt><dd>${appeal.department.name}</dd>
+            		<dt>受理时间</dt><dd><fmt:formatDate value="${appeal.acceptTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>办结时间</dt><dd><fmt:formatDate value="${appeal.handleTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
             		
-            		<dt>驳回意见:</dt><dd>${appeal.rejectOpinion}</dd>
+            		<dt>驳回意见</dt><dd>${appeal.rejectOpinion}</dd>
             		
-            		<dt>催办详情:</dt>
+            		<c:if test="${!empty appeal.urgeList}">
+            		<dt>催办详情</dt>
             		<dd>
             			<table class="table table-hover" data-mobile-responsive="true">
             				<thead>
@@ -71,6 +81,17 @@
             				</tbody>
             			</table>
             		</dd>
+            		</c:if>
+            		
+            		<c:if test="${!empty appeal.evaluation}">
+            		<dt>评价详情</dt>
+            		<dd class="appeal-evaluation">
+            			<p>受理速度<span class="evaluation-accept evaluation-star" data-star="${appeal.evaluation.accept}"></span></p>
+            			<p>办结速度<span class="evaluation-handle evaluation-star" data-star="${appeal.evaluation.handle}"></span></p>
+            			<p>办结结果<span class="evaluation-result evaluation-star" data-star="${appeal.evaluation.result}"></span></p>
+            			<p>评价内容<span style="word-break: break-all;">${appeal.evaluation.content}</span></p>
+            		</dd>
+            		</c:if>
             	</dl>
             </div>
 		</div>
@@ -80,6 +101,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/raty/jquery.raty.js"></script>
 	
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -112,6 +134,14 @@
 			break;
 		}
 		$page.find('.appeal-status').html($label);
+		
+		$page.find('.evaluation-star').each(function(k, val) {
+			var $star = $(val);
+			var star = $star.data('star');
+			$k.util.raty($star, {
+				readOnly: true
+			});
+		});
 		
 		$page.on('click', '.btn-appeal-back', function() {
 			window.history.back();

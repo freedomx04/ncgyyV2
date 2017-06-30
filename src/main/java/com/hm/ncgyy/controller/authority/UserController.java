@@ -242,7 +242,7 @@ public class UserController {
 		try {
 			UserEntity user = userService.findOne(userId);
 			if (!StringUtils.equals(CiphersUtils.getInstance().MD5Password(oldPassword), user.getPassword())) {
-				return new Result(Code.USER_PWD_ERROR.value(), "password error");
+				return new Result(Code.USER_PWD_ERROR.value(), "原密码错误");
 			}
 
 			user.setPassword(CiphersUtils.getInstance().MD5Password(newPassword));

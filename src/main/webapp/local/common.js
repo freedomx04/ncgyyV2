@@ -173,11 +173,12 @@
 	/**
 	 * 评价星级
 	 */
-	$k.util.raty = function($obj) {
-		$obj.raty({ 
+	$k.util.raty = function($obj, param) {
+		var defaultParam = $.extend({
 			score	: 	5,
 			path	: 	'plugins/raty/images/'
-		});
+		}, param);
+		$obj.raty(defaultParam);
 	}
 	
 	/**

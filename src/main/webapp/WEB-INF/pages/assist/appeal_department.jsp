@@ -129,7 +129,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
+                    var $detail = '<a class="btn-appeal-detail a-operate">查看</a>';
                     var $accept = '<a class="btn-appeal-accept a-operate">受理</a>';
                     var $handle = '<a class="btn-appeal-handle a-operate">办结</a>';
                     var $reject = '<a class="btn-appeal-reject a-operate">驳回</a>';

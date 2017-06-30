@@ -88,6 +88,19 @@ public class ManagerController {
 	AppealTypeService appealTypeService;
 	
 	/**
+	 * 角色管理接口
+	 */
+	@RequestMapping(value = "/roleList")
+	String roleList() {
+		return "pages/authority/role_list";
+	}
+	
+	@RequestMapping(value = "/roleAdd")
+	String roleAdd() {
+		return "pages/authority/role_add";
+	}
+	
+	/**
 	 * 用户接口
 	 */
 	@RequestMapping(value = "/userList")
@@ -419,6 +432,16 @@ public class ManagerController {
 		}
 		
 		return "pages/issue/article_get";
+	}
+	
+	/**
+	 * 个人中心
+	 */
+	@RequestMapping(value = "/personalInfo")
+	String personalInfo(ModelMap modelMap) {
+		UserEntity user = userService.findOne(Long.parseLong("9"));
+		modelMap.addAttribute("user", user);
+		return "pages/personal/info";
 	}
 
 }
