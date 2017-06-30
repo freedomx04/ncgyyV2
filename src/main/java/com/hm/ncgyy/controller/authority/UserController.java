@@ -168,11 +168,18 @@ public class UserController {
 				return new Result(Code.EXISTED.value(), "用户名已存在");
 			}
 			
+			if (!mobile.isEmpty()) {
+				user = userService.findByMobile(mobile);
+				if (user != null) {
+					return new Result(Code.EXISTED.value(), "手机号已存在");
+				}
+			}
+			
 			Date now = new Date();
 			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), mobile, now, now);
 			userService.save(user);
 			
-			return new ResultInfo(Code.SUCCESS.value(), "ok", username);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", user.getId());
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
