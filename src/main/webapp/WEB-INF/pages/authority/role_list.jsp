@@ -32,6 +32,9 @@
                     <button type="button" class="btn btn-white btn-user-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
+                    <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
+                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+                    </button>
                 </div>
                 <table id="role-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -64,20 +67,42 @@
             	field: 'state',
             	checkbox: true
             }, {
+            	field: 'name',
+            	title: '角色名称',
+            	align: 'center'
+            }, {
+            	field: 'description',
+            	title: '角色描述',
+            	align: 'center'
+            }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '';
+            		var $detail = '<a class="btn-role-detail a-operate">查看</a>';
+            		var $edit = '<a class="btn-role-edit a-operate">编辑</a>';
+            		var $delete = '<a class="btn-role-delete a-operate">删除</a>';
+            		return $detail + $edit + $delete;
             	},
             	events: window.operateEvents = {
-            		
+            		'click .btn-role-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('detail');
+            		},
+            		'click .btn-role-edit': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('edit');
+            		},
+            		'click .btn-role-delete': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('delete');
+            		},
             	}
             }]
 		});
 		
 		$page
-		.on('click', '.btn-user-add', function() {
-			window.location.href = './userAdd?method=add';
+		.on('click', '.btn-role-add', function() {
+			window.location.href = './roleAdd?method=add';
 		});
 		
 	})( jQuery );
