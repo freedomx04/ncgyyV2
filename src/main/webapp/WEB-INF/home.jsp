@@ -138,11 +138,7 @@
 				<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
 					<div class="navbar-header">
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
-                        <form role="search" class="navbar-form-custom" method="post" action="http://www.zi-han.net/theme/hplus/search_results.html">
-                            <div class="form-group">
-                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
+                        <div style="padding: 16px; font-size: 18px; font-weight: 400;">南城县工业园区综合信息服务平台后台管理页面</div>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                     	<li class="dropdown">

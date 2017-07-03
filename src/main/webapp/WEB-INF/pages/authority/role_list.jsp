@@ -78,7 +78,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var $detail = '<a class="btn-role-detail a-operate">查看</a>';
+            		var $detail = '<a class="btn-role-detail a-operate">详情</a>';
             		var $edit = '<a class="btn-role-edit a-operate">编辑</a>';
             		var $delete = '<a class="btn-role-delete a-operate">删除</a>';
             		return $detail + $edit + $delete;
@@ -94,7 +94,32 @@
             		},
             		'click .btn-role-delete': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('delete');
+            			swal({
+            				title: '',
+            				text: '确定删除选中记录?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false
+            			}, function() {
+            				$.ajax({
+            					url: '${ctx}/api/role/delete',
+            					data: {
+            						roleId: row.id
+            					},
+            					success: function(ret) {
+            						if (ret.code == 0) {
+            							swal('', '删除成功!', 'success');
+            						} else {
+            							swal('', ret.msg, 'error');
+            						}
+            						$table.bootstrapTable('refresh'); 
+            					},
+            					error: function(err) {}
+            				});
+            			});
             		},
             	}
             }]

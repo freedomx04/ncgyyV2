@@ -158,7 +158,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-product-get a-operate">查看</a><a class="btn-product-edit a-operate">编辑</a><a class="btn-product-delete a-operate">删除</a>';
+                    return '<a class="btn-product-get a-operate">详情</a><a class="btn-product-edit a-operate">编辑</a><a class="btn-product-delete a-operate">删除</a>';
                 },
                 events: window.operateEvents = {
                 	'click .btn-product-get': function(e, value, row, index) {
@@ -232,7 +232,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-news-get a-operate">查看</a><a class="btn-news-edit a-operate">编辑</a><a class="btn-news-delete a-operate">删除</a>';
+                    return '<a class="btn-news-get a-operate">详情</a><a class="btn-news-edit a-operate">编辑</a><a class="btn-news-delete a-operate">删除</a>';
                 },
                 events: window.operateEvents = {
                 	'click .btn-news-get': function(e, value, row, index) {

@@ -89,7 +89,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-enterprise-detail a-operate">查看</a><a class="btn-enterprise-edit a-operate">编辑</a>';
+            		return '<a class="btn-enterprise-detail a-operate">详情</a><a class="btn-enterprise-edit a-operate">编辑</a>';
             	},
             	events: window.operateEvents = {
             		'click .btn-enterprise-detail': function(e, value, row, index) {
