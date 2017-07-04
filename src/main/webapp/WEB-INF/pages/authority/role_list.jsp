@@ -90,7 +90,7 @@
             		},
             		'click .btn-role-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('edit');
+            			window.location.href = './roleAdd?method=edit&roleId=' + row.id;
             		},
             		'click .btn-role-delete': function(e, value, row, index) {
             			e.stopPropagation();
@@ -125,10 +125,45 @@
             }]
 		});
 		
+		$table.on('all.bs.table', function(e, row) {
+            var selNum = $table.bootstrapTable('getSelections').length;
+            selNum > 0 ? $page.find('.btn-role-delete-batch').removeAttr('disabled') : $page.find('.btn-role-delete-batch').attr('disabled', 'disabled');
+        });
+		
 		$page
 		.on('click', '.btn-role-add', function() {
 			window.location.href = './roleAdd?method=add';
-		});
+		})
+		.on('click', '.btn-role-delete-batch', function() {
+            swal({
+                title: '',
+                text: '确定批量删除选中记录',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $table.bootstrapTable('getSelections');
+                
+                $.ajax({
+                    url: '${ctx}/api/role/batchDelete',
+                    data: { 
+                        roleIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+        });
 		
 	})( jQuery );
 	</script>

@@ -28,8 +28,13 @@ public class RoleController {
 	@RequestMapping(value = "/api/role/create", method = RequestMethod.POST)
 	public Result create(String name, String description, String resource) {
 		try {
+			RoleEntity role = roleService.findByName(name);
+			if (role != null) {
+				return new Result(Code.EXISTED.value(), "角色已存在");
+			}
+			
 			Date now = new Date();
-			RoleEntity role = new RoleEntity(name, description, resource, now, now);
+			role = new RoleEntity(name, description, resource, now, now);
 			roleService.save(role);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -39,14 +44,20 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value = "/api/role/update", method = RequestMethod.POST)
-	public Result update(Long roleId, String description, String resource) {
+	public Result update(Long roleId, String name, String description, String resource) {
 		try {
 			RoleEntity role = roleService.findOne(roleId);
-			role.setDescription(description);
-			role.setResource(resource);
-			role.setUpdateTime(new Date());
 			
-			roleService.save(role);
+			RoleEntity updateRole = roleService.findByName(name);
+			if (updateRole == null || role.getId() == updateRole.getId()) {
+				role.setName(name);
+				role.setDescription(description);
+				role.setResource(resource);
+				role.setUpdateTime(new Date());
+				roleService.save(role);
+			} else {
+				return new Result(Code.EXISTED.value(), "角色已存在");
+			}
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

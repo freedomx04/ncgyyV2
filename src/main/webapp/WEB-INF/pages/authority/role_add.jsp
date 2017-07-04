@@ -20,7 +20,9 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
 	<style type="text/css">
-	
+	.body-role-add .authority-classify {
+		width: 120px;
+	}
 	</style>
 	
 </head>
@@ -49,24 +51,24 @@
                     </div>
                     
 					<div class="form-group">
-						<label class="col-sm-2 control-label">权限管理</label>
+						<label class="col-sm-2 control-label">系统管理</label>
 						<div class="col-sm-9">
-							<label for="" class="checkbox-inline i-checks control-label">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority_role">
 								<input type="checkbox"> 角色管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-role-add">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-role-delete-batch">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-role-detail">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-role-edit">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-role-delete">
 								<input type="checkbox"> 删除
 							</label>						
 						</div>
@@ -75,22 +77,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 用户管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 修改密码
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 禁用/启用
 							</label>
 						</div>
@@ -99,19 +101,19 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 企业管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -120,16 +122,16 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 部门管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
 						</div>
@@ -138,19 +140,19 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">基础数据</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority_area">
 								<input type="checkbox"> 园区管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-add">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-delete-batch">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-edit">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-delete">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -159,19 +161,19 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 行业管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -180,19 +182,19 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 诉求类别管理
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -201,28 +203,28 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">监测平台</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 主要指标上报
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 导出到excel
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 导入excel
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 下载模板
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -231,7 +233,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 企业主要指标
 							</label>
 						</div>
@@ -240,7 +242,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 行业主要指标
 							</label>
 						</div>
@@ -249,7 +251,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 园区主要指标
 							</label>
 						</div>
@@ -258,7 +260,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 重点企业主要指标
 							</label>
 						</div>
@@ -324,22 +326,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">新闻发布</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 图片新闻
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -348,22 +350,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 公示公告
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -372,22 +374,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 政策法规
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -396,22 +398,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify">
 								<input type="checkbox"> 工业信息
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks authority-classify-function">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -438,7 +440,6 @@
                     </div>
 				</form>
 			</div>
-			
 		</div>
 	</div>
 	
@@ -460,11 +461,116 @@
 		var $form = $page.find('#form-role');
 		var method = '${method}';
 		
+		$k.util.bsValidator($form);
+		
 		$page.find(".i-checks").iCheck({
         	checkboxClass: "icheckbox_square-green", 
         	radioClass: "iradio_square-green"
         });
 		
+		if (method == 'edit') {
+			var resource = '${role.resource}';
+			var arr = resource.split(',');
+			$.each(arr, function(k, val) {
+				var $label = $page.find('.i-checks[data-authority=' + val + ']');
+				$label.iCheck('check');
+				if ($label.hasClass('authority-classify')) {
+					$label.closest('div').find('.authority-classify-function').removeClass('disabled');
+				}
+			});
+		}
+		
+		$('.authority-classify')
+		.on('ifChecked', function(e) {
+			var $this = $(this);
+			$this.closest('div').find('.authority-classify-function').removeClass('disabled').iCheck('check');
+		})
+		.on('ifUnchecked', function(e) {
+			var $this = $(this);
+			$this.closest('div').find('.authority-classify-function').addClass('disabled').iCheck('uncheck');
+		});
+		
+		$page
+		.on('click', '.btn-role-add', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var arr = [];
+				$page.find('.i-checks input').each(function() {
+					if (true == $(this).is(':checked')) {
+						var authority = $(this).closest('label').data('authority');
+						arr.push(authority);
+					}
+				});
+				
+				$.ajax({
+					url: '${ctx}/api/role/create',
+					type: 'post',
+					data: {
+						name: $form.find('input[name="name"]').val(),
+						description: $form.find('textarea[name="description"]').val(),
+						resource: arr.join(',')
+					},
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal({
+                                title: '',
+                                text: '操作成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './roleList';
+                            });
+                        } else {
+                            swal('', ret.msg, 'error');
+                        }
+                    },
+                    error: function(err) {}
+				});
+			}
+		})
+		.on('click', '.btn-role-edit', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var arr = [];
+				$page.find('.i-checks input').each(function() {
+					if (true == $(this).is(':checked')) {
+						var authority = $(this).closest('label').data('authority');
+						arr.push(authority);
+					}
+				});
+				
+				$.ajax({
+					url: '${ctx}/api/role/update',
+					type: 'post',
+					data: {
+						roleId: '${role.id}',
+						name: $form.find('input[name="name"]').val(),
+						description: $form.find('textarea[name="description"]').val(),
+						resource: arr.join(',')
+					},
+					success: function(ret) {
+                        if (ret.code == 0) {
+                            swal({
+                                title: '',
+                                text: '操作成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './roleList';
+                            });
+                        } else {
+                            swal('', ret.msg, 'error');
+                        }
+                    },
+                    error: function(err) {}
+				});
+			}
+		})
+		.on('click', '.btn-role-cancel', function() {
+			window.location.href = './roleList';
+		});
 		
 	})( jQuery );
 	</script>

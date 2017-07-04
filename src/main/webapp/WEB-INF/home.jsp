@@ -55,7 +55,7 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-cog fa-fw"></i><span class="nav-label">权限管理</span><span class="fa arrow"></span>
+							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="roleList">角色管理</a></li>

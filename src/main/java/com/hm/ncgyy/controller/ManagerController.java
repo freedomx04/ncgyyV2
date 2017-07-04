@@ -97,7 +97,7 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/roleAdd")
 	String roleAdd(ModelMap modelMap, String method, Long roleId) {
-		String title = method.equals("add") ? "用户新增" : "用户编辑";
+		String title = method.equals("add") ? "角色新增" : "角色编辑";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
 		
@@ -241,7 +241,9 @@ public class ManagerController {
 	 * 基础数据接口
 	 */
 	@RequestMapping(value = "/area")
-	String area() {
+	String area(ModelMap modelMap) {
+		RoleEntity role = roleService.findByName("test1");
+		modelMap.addAttribute("role", role);
 		return "pages/base/area";
 	}
 	
