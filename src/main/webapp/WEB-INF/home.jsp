@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden">
+<body class="fixed-sidebar full-height-layout gray-bg body-home" style="overflow: hidden">
 	<div id="wrapper">
 		<!--左侧导航开始-->
 		<nav class="navbar-default navbar-static-side" role="navigation">
@@ -245,7 +245,7 @@
 						</li>
 					</ul>
 				</div>
-				 <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+				 <a href="javascript:;" class="roll-nav roll-right J_tabExit btn-logout"><i class="fa fa fa-sign-out"></i> 退出</a>
 			</div>
 			
 			<!-- 主窗口 -->
@@ -278,6 +278,22 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 	
+		var $page = $('.body-home');
+		
+		$page
+		.on('click', '.btn-logout', function() {
+			$.ajax({
+				url: '',
+				type: 'post',
+				data: {
+					
+				},
+				success: function() {
+					
+				},
+				error: function() {}
+			});
+		});
 	
 	})( jQuery );
 	</script>

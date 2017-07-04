@@ -54,21 +54,21 @@
 							<div class="panel-body">
 								<div class="col-sm-7">
 									<dl class="dl-horizontal">
-										<dt>企业名称:</dt><dd>${enterprise.name}</dd>
-										<dt>所属园区:</dt><dd>${enterprise.area.name}</dd>
-										<dt>行业类别:</dt><dd>${enterprise.industry.name}</dd>
-										<dt>主要产品:</dt><dd>${enterprise.mainProduct}</dd>
-										<dt>企业负责人:</dt><dd>${enterprise.principal}</dd>
-										<dt>联系电话:</dt><dd>${enterprise.telephone}</dd>
-										<dt>企业地址:</dt><dd>${enterprise.address}</dd>
-										<dt>企业状态:</dt><dd>重点</dd>
-										<dt>投产时间:</dt><dd>${enterprise.productionTime}</dd>
-										<dt>企业法人:</dt><dd>${enterprise.representative}</dd>
-										<dt>主要股东:</dt><dd>${enterprise.shareholder}</dd>
-										<dt>注册资金:</dt><dd>${enterprise.registeredCapital}</dd>
-										<dt>变更记录:</dt><dd>${enterprise.alterRecording}</dd>
-										<dt>国税识别码:</dt><dd>${enterprise.nationalTax}</dd>
-										<dt>地税识别码:</dt><dd>${enterprise.localTax}</dd>
+										<dt>企业名称</dt><dd>${enterprise.name}</dd>
+										<dt>所属园区</dt><dd>${enterprise.area.name}</dd>
+										<dt>行业类别</dt><dd>${enterprise.industry.name}</dd>
+										<dt>主要产品</dt><dd>${enterprise.mainProduct}</dd>
+										<dt>企业负责人</dt><dd>${enterprise.principal}</dd>
+										<dt>联系电话</dt><dd>${enterprise.telephone}</dd>
+										<dt>企业地址</dt><dd>${enterprise.address}</dd>
+										<dt>企业状态</dt><dd>重点</dd>
+										<dt>投产时间</dt><dd>${enterprise.productionTime}</dd>
+										<dt>企业法人</dt><dd>${enterprise.representative}</dd>
+										<dt>主要股东</dt><dd>${enterprise.shareholder}</dd>
+										<dt>注册资金</dt><dd>${enterprise.registeredCapital}</dd>
+										<dt>变更记录</dt><dd>${enterprise.alterRecording}</dd>
+										<dt>国税识别码</dt><dd>${enterprise.nationalTax}</dd>
+										<dt>地税识别码</dt><dd>${enterprise.localTax}</dd>
 									</dl>
 								</div>
 								<div class="col-sm-5 text-right">

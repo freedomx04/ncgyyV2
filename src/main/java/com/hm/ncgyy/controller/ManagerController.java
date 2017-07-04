@@ -88,6 +88,16 @@ public class ManagerController {
 	AppealTypeService appealTypeService;
 	
 	/**
+	 * 总览
+	 */
+	@RequestMapping(value = "/overview")
+	String overview(ModelMap modelMap) {
+		UserEntity user = userService.findOne(Long.parseLong("9"));
+		modelMap.addAttribute("user", user);
+		return "pages/overview";
+	}
+	
+	/**
 	 * 角色管理接口
 	 */
 	@RequestMapping(value = "/roleList")

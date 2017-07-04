@@ -79,8 +79,6 @@
 						</div>
 					</div>
 					
-					<div class="hr-line-dashed"></div>
-					
 					<div class="form-group">
 						<label for="name" class="col-sm-3 control-label">性别</label>
 						<div class="col-sm-5">

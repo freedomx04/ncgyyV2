@@ -123,14 +123,16 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var resource = '${role.resource}';
-            		var $operate;
-            		debugger;
-            		if ($.contains(resource, 'authority-area-edit')) {
+            		var resource = '${role.resource}'.split(',');
+            		var $operate = '';
+            		if ($.inArray('authority-area-edit', resource) != -1) {
             			$operate += '<a class="btn-area-edit a-operate">编辑</a>';
             		}
-            		if ($.contains(resource, 'authority-area-delete')) {
+            		if ($.inArray('authority-area-delete', resource) != -1) {
             			$operate += '<a class="btn-area-delete a-operate">删除</a>';
+            		}
+            		if ($operate == '') {
+            			$operate = '-';
             		}
                     return $operate;
                 },
