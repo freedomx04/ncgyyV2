@@ -29,7 +29,7 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="role-list-table-toolbar" role="group">
-                    <button type="button" class="btn btn-white btn-user-add">
+                    <button type="button" class="btn btn-white btn-role-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
                     <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>

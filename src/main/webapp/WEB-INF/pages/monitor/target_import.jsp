@@ -392,11 +392,10 @@
 	            	align: 'center',
 	            	formatter: function(value, row, index) {
 	            		if (row.target_current == null) {
-	            			return '<a class="btn-target-edit a-operate text-muted">编辑</a><a class="btn-target-delete a-operate text-muted">删除</a>';	
+	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
 	            		} else {
 	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
 	            		}
-	           			
 	                },
 	            	events: window.operateEvents = {
 	           			'click .btn-target-edit': function(e, value, row, index) {

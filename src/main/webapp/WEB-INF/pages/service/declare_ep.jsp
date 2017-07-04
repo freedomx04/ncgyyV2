@@ -101,7 +101,7 @@
             		if (row.applyStatus == 0) {
 	            		return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-add a-operate">申报</a>';
             		} else {
-            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate text-muted">申报</a>';
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate">申报</a>';
             		}
             	},
             	events: window.operateEvents = {
@@ -168,7 +168,7 @@
             	align: 'center',
             	formatter: function(value, row, index) {
             		if (row.status == 2 || row.status == 3) {
-            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="text-muted a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
             		} else {
             			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-edit a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
             		}

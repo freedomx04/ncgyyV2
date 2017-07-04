@@ -96,7 +96,16 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/roleAdd")
-	String roleAdd() {
+	String roleAdd(ModelMap modelMap, String method, Long roleId) {
+		String title = method.equals("add") ? "用户新增" : "用户编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		if (roleId != null) {
+			RoleEntity role = roleService.findOne(roleId);
+			modelMap.addAttribute("role", role);
+		}
+		
 		return "pages/authority/role_add";
 	}
 	
