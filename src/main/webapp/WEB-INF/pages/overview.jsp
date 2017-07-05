@@ -25,14 +25,14 @@
 				<div class="ibox float-e-margins">
 					<div class="ibox-content">
 						<div style="display: table-cell; vertical-align: middle; padding-right: 10px;">
-							<img alt="image" class="img-circle" src="img/kakaxi.jpg" width="48" height="48">
+							<img alt="image" class="img-circle" src="${ctx}/api/avatar/${user.avatar}" width="48" height="48">
 						</div>
 						<div style="display: table-cell; vertical-align: top; width: 10000px; padding-top: 10px;">
 							<p style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">欢迎您，${user.username} <small style="color: #999;">${user.role.name}</small></p>
 							<p style="color: #999;">这是您第113次登录，上次登录时间：2017-7-4 19:16:31，详细信息请查看日志，如果不是您本人登录，请及时修改密码。</p>
 						</div>
 						<div style="display: table-cell; vertical-align: middle; padding-left: 10px;">
-							<a class="btn btn-outline btn-primary btn-sm">个人资料</a>
+							<a class="btn btn-outline btn-primary btn-sm btn-personal-info">个人资料</a>
 						</div>
 					</div>
 				</div>
@@ -43,6 +43,18 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	;(function( $ ) {
+		
+		var $page = $('.body-overview');
+		
+		$page.on('click', '.btn-personal-info', function() {
+			window.location.href = "./personalInfo";
+		});
+		
+	})( jQuery );
+	</script>
 
 </body>
 </html>

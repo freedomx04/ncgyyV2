@@ -56,10 +56,11 @@ public class UserEntity extends BaseEntity {
 	/**
 	 * 手机号码,唯一
 	 */
+	@Column(unique = true)
 	private String mobile;
 
 	/**
-	 * 邮箱,唯一
+	 * 邮箱
 	 */
 	private String email;
 
@@ -109,9 +110,10 @@ public class UserEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserEntity(String username, String password, String mobile, Date createTime, Date updateTime) {
+	public UserEntity(String username, String password, RoleEntity role, String mobile, Date createTime, Date updateTime) {
 		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.mobile = mobile;
 		this.createTime = createTime;
 		this.updateTime = updateTime;

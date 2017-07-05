@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
@@ -92,7 +93,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/overview")
 	String overview(ModelMap modelMap) {
-		UserEntity user = userService.findOne(Long.parseLong("9"));
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		return "pages/overview";
 	}
@@ -460,7 +461,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/personalInfo")
 	String personalInfo(ModelMap modelMap) {
-		UserEntity user = userService.findOne(Long.parseLong("9"));
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
 	}

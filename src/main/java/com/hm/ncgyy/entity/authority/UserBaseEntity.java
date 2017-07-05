@@ -34,9 +34,8 @@ public class UserBaseEntity extends BaseEntity {
 	private String mobile;
 	
 	/**
-	 * 邮箱,唯一
+	 * 邮箱
 	 */
-	@Column(unique = true)
 	private String email;
 	
 	/**

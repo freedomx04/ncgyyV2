@@ -48,7 +48,7 @@
 	<div class="row border-bottom white-bg">
          <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
              <div class="navbar-header">
-                 <a href="#" style="font-size: 20px; line-height: 75px; margin-left: 30px;">南城县工业园区综合信息服务平台</a>
+                 <a href="index" style="font-size: 20px; line-height: 75px; margin-left: 30px;">南城县工业园区综合信息服务平台</a>
              </div>
              <div class="navbar-collapse collapse" id="navbar">
                  <ul class="nav navbar-top-links navbar-right">
@@ -62,7 +62,7 @@
          </nav>
      </div>
             
-	<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="animated fadeInRight" style="padding: 60px;">
 	    <div class="container" style="width: 650px;">
 	        <div class="pearls row">
 	            <div class="pearl current col-xs-4" pearl="pearl-1">
@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label for="password" class="col-sm-3 control-label"><i class="form-required">*</i>密码</label>
                             <div class="col-sm-7">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="" required>
+                                <input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -110,7 +110,6 @@
 									<div class="pw-txt">
 										<span>弱</span><span>中</span><span>强</span>
 									</div>
-									<div style="color: #999; padding: 4px;">6-16个字符,请使用字母加数字或者符号的组合密码</div>
 								</div>
 							</div>
 						</div>
@@ -122,7 +121,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-7 col-sm-offset-3">
-                                <button type="button" class="btn btn-primary btn-next-step">下一步</button>
+                                <button type="button" class="btn btn-primary btn-next-step">立即注册</button>
                             </div>
                         </div>
                     </form>
@@ -142,9 +141,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label">姓名</label>
+                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>姓名</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -273,17 +272,7 @@
 			}
 		});
 		
-		$k.util.bsValidator($formInfo, {
-			fields: {
-				email: {
-	                 validators: {
-	                	 emailAddress: {
-	                         message: '请输入正确邮箱地址'
-	                     }
-	                 }
-	             }
-			}
-		});
+		$k.util.bsValidator($formInfo);
 		
 		$page
 		.on('click', '.btn-next-step', function() {
@@ -351,7 +340,6 @@
 			} else {
 				pearl($pearl);
 			}
-			
 		})
 		.on("click", "#btn-login", function() {
 			$.ajax({

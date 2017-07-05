@@ -36,4 +36,9 @@ public class BaseController {
 		return "register";
 	}
 	
+	@RequestMapping(value = "/init")
+	String init() {
+		return "init";
+	}
+	
 }

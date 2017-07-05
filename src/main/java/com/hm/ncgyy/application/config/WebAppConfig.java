@@ -1,12 +1,18 @@
 package com.hm.ncgyy.application.config;
 
+import javax.servlet.Filter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.hm.ncgyy.application.filter.FilterAuth;
 
 /**
  * 网页端配置类
@@ -22,6 +28,20 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
+	}
+	
+	@Bean
+	public FilterRegistrationBean filterRegistration() {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(authFilter());
+		registration.addUrlPatterns("/home");
+		registration.setName("authFilter");
+		return registration;
+	}
+	
+	@Bean(name = "authFilter")
+	public Filter authFilter() {
+		return new FilterAuth();
 	}
 	
 	/**

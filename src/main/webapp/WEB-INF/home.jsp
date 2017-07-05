@@ -33,18 +33,18 @@
 				<ul class="nav" id="side-menu">
 					<li class="nav-header">
 						<div class="dropdown profile-element">
-							<span><img alt="image" class="img-circle" src="img/kakaxi.jpg" width="64" height="64"/></span>
+							<span><img alt="image" class="img-circle" src="${ctx}/api/avatar/${user.avatar}" width="64" height="64"/></span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
-									<span class="block m-t-xs"><strong class="font-bold">孙某某</strong></span>
-									<span class="block text-muted text-xs">超级管理员<b class="caret"></b></span>
+									<span class="block m-t-xs"><strong class="font-bold">${user.name}</strong></span>
+									<span class="block text-muted text-xs">${user.role.name}<b class="caret"></b></span>
 								</span>
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
 								<li><a class="J_menuItem" href="#">信箱</a></li>
 								<li class="divider"></li>
-								<li><a href="#">安全退出</a></li>
+								<li><a class="btn-logout" href="javascript:;">安全退出</a></li>
 							</ul>
 						</div>
 					</li> 
@@ -140,7 +140,7 @@
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
                         <div style="padding: 16px; font-size: 18px; font-weight: 400;">南城县工业园区综合信息服务平台后台管理页面</div>
                     </div>
-                    <ul class="nav navbar-top-links navbar-right">
+                    <!-- <ul class="nav navbar-top-links navbar-right">
                     	<li class="dropdown">
                     		<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     			 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -217,8 +217,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
-                    </ul>
+                    </ul> -->
 				</nav>
 			</div>
 			
@@ -283,13 +282,9 @@
 		$page
 		.on('click', '.btn-logout', function() {
 			$.ajax({
-				url: '',
-				type: 'post',
-				data: {
-					
-				},
+				url: '${ctx}/api/user/logout',
 				success: function() {
-					
+					window.location.href = "./login";
 				},
 				error: function() {}
 			});
