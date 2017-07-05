@@ -21,7 +21,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
-	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/pearls.css">
 	
 	<style type="text/css">
