@@ -25,7 +25,7 @@ public class EnterpriseBaseEntity extends BaseEntity {
 	/**
 	 * 企业图片
 	 */
-	private String avatar;
+	private String avatar = "default_enterprise";
 	
 	/**
 	 * 园区

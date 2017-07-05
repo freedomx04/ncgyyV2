@@ -3,6 +3,8 @@ package com.hm.ncgyy.controller.authority;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +18,18 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
+import com.hm.ncgyy.common.utils.IpUtils;
+import com.hm.ncgyy.common.utils.IpUtils.LocationEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.LoginEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.authority.LoginEntity.LoginMode;
 import com.hm.ncgyy.entity.authority.UserEntity.UserStatus;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.LoginService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
 
@@ -42,6 +49,12 @@ public class UserController {
 
 	@Autowired
 	DepartmentService departmentService;
+	
+	@Autowired
+	LoginService loginService;
+	
+	@Autowired
+	HttpServletRequest request;
 
 	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
 	public Result create(String avatar, String username, String name, Long roleId, Integer gender, String mobile,
@@ -222,13 +235,24 @@ public class UserController {
 			}
 
 			CurrentUserUtils.getInstance().serUser(user);
+			
+			// 登录信息
+//			String ip = IpUtils.getInstance().getIpAddr(request);
+//			LocationEntity ipInfo = IpUtils.getInstance().getIpInfo(ip);
+//			if (ipInfo != null) {
+//				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
+//				Date now = new Date();
+//				LoginEntity login = new LoginEntity(user, ip, location, ipInfo.getIsp(), LoginMode.MODE_USERNAME, now, now);
+//				loginService.save(login);
+//			}
+			
 			return new Result(Code.SUCCESS.value(), "login success");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
 	@RequestMapping(value = "/api/user/logout")
 	public Result logout() {
 		try {

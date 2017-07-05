@@ -38,6 +38,11 @@ public class LoginEntity extends BaseEntity {
 	private String location;
 	
 	/**
+	 * 运营商
+	 */
+	private String isp;
+	
+	/**
 	 * 登录方式
 	 */
 	private Integer mode = LoginMode.MODE_USERNAME;
@@ -46,11 +51,12 @@ public class LoginEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LoginEntity(UserEntity user, String ip, String location, Integer mode, Date createTime, Date updateTime) {
+	public LoginEntity(UserEntity user, String ip, String location, String isp, Integer mode, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
 		this.ip = ip;
 		this.location = location;
+		this.isp = isp;
 		this.mode = mode;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -78,6 +84,14 @@ public class LoginEntity extends BaseEntity {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public String getIsp() {
+		return isp;
+	}
+
+	public void setIsp(String isp) {
+		this.isp = isp;
 	}
 
 	public Integer getMode() {

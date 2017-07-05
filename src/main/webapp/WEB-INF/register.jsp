@@ -78,7 +78,7 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane" id="pearl-1">
 	            <div class="ibox-content">
-	                <form class="form-horizontal" role="form" id="form-basic" autocomplete="off">
+	                <form class="form-horizontal" role="form" id="form-basic" autocomplete="off" onsubmit="return false;">
 	                	<div class="msg-wrap">
                     		<div class="msg-error hide"></div>
                     	</div>
@@ -119,10 +119,8 @@
                                 <input type="password" class="form-control" name="confirmPassword" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-7 col-sm-offset-3">
-                                <button type="button" class="btn btn-primary btn-next-step">立即注册</button>
-                            </div>
+                        <div class="form-group" style="text-align: center; padding-top: 10px;">
+                        	<button type="button" class="btn btn-primary btn-next-step">立即注册</button>
                         </div>
                     </form>
                     
@@ -131,7 +129,7 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-2">   
 	            <div class="ibox-content">
-	            	<form class="form-horizontal" role="form" id="form-info" autocomplete="off">
+	            	<form class="form-horizontal" role="form" id="form-info" autocomplete="off" onsubmit="return false;">
 	            		<div class="form-group">
                             <label for="password" class="col-sm-3 control-label">头像</label>
                             <div id="crop-avatar" class="col-sm-7">

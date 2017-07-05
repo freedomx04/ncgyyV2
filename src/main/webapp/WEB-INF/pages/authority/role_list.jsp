@@ -29,12 +29,16 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="role-list-table-toolbar" role="group">
+					<c:if test="${fn:contains(role.resource, 'authority-role-add')}">
                     <button type="button" class="btn btn-white btn-role-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
+                    </c:if>
+                    <c:if test="${fn:contains(role.resource, 'authority-role-delete-batch')}">
                     <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
                     </button>
+                    </c:if>
                 </div>
                 <table id="role-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -78,15 +82,27 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var $detail = '<a class="btn-role-detail a-operate">详情</a>';
-            		var $edit = '<a class="btn-role-edit a-operate">编辑</a>';
-            		var $delete = '<a class="btn-role-delete a-operate">删除</a>';
-            		return $detail + $edit + $delete;
+            		var resource = '${role.resource}'.split(',');
+                    var $operate = '';
+                    if ($.inArray('authority-role-detail', resource) != -1) {
+                        $operate += '<a class="btn-role-detail a-operate">详情</a>';
+                    }
+                    if ($.inArray('authority-role-edit', resource) != -1) {
+                        $operate += '<a class="btn-role-edit a-operate">编辑</a>';
+                    }
+                    if ($.inArray('authority-role-delete', resource) != -1) {
+                        $operate += '<a class="btn-role-delete a-operate">删除</a>';
+                    }
+                    if ($operate == '') {
+                        $operate = '-';
+                    }
+                    return $operate;
+            		
             	},
             	events: window.operateEvents = {
             		'click .btn-role-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('detail');
+            			window.location.href = './roleAdd?method=detail&roleId=' + row.id;
             		},
             		'click .btn-role-edit': function(e, value, row, index) {
             			e.stopPropagation();

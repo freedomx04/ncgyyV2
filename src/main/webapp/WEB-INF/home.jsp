@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@ include file="/WEB-INF/include/preload.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -58,10 +57,18 @@
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
+							<c:if test="${fn:contains(user.role.resource, 'authority-role')}">
 							<li><a class="J_menuItem" href="roleList">角色管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-user')}">
 							<li><a class="J_menuItem" href="userList">用户管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-enterprise')}">
 							<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
 							<li><a class="J_menuItem" href="department">部门管理</a></li>
+							</c:if>
 						</ul>
 					</li>
 					<li>
@@ -69,9 +76,15 @@
 							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
+							<c:if test="${fn:contains(user.role.resource, 'authority-area')}">
 							<li><a class="J_menuItem" href="area">园区管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-industry')}">
 							<li><a class="J_menuItem" href="industry">行业管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-appealType')}">
 							<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
+							</c:if>
 						</ul>
 					</li>
 					<li>

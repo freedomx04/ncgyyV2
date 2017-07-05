@@ -30,12 +30,16 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="department-list-table-toolbar" role="group">
+					<c:if test="${fn:contains(role.resource, 'authority-department-add')}">
                     <button type="button" class="btn btn-white btn-department-add" data-toggle="modal" data-target="#modal-department-dialog">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
+                    </c:if>
+                    <c:if test="${fn:contains(role.resource, 'authority-department-delete-batch')}">
                     <button type="button" class="btn btn-white btn-department-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
                     </button>
+                    </c:if>
                 </div>
                 <table id="department-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -131,7 +135,18 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-department-edit a-operate">编辑</a><a class="btn-department-delete a-operate">删除</a>';
+            		var resource = '${role.resource}'.split(',');
+            		var $operate = '';
+            		if ($.inArray('authority-department-edit', resource) != -1) {
+            			$operate += '<a class="btn-department-edit a-operate">编辑</a>';
+            		}
+            		if ($.inArray('authority-department-delete', resource) != -1) {
+            			$operate += '<a class="btn-department-delete a-operate">删除</a>';
+            		}
+            		if ($operate == '') {
+            			$operate = '-';
+            		}
+                    return $operate;
                 },
             	events: window.operateEvents = {
             		'click .btn-department-edit': function(e, value, row, index) {

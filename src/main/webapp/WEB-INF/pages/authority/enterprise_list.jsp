@@ -29,9 +29,11 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="enterprise-list-table-toolbar" role="group">
+					<c:if test="${fn:contains(role.resource, 'authority-enterprise-add')}">
                     <button type="button" class="btn btn-white btn-enterprise-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
+                    </c:if>
                     <!-- <button type="button" class="btn btn-white btn-enterprise-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
                     </button> -->
@@ -89,7 +91,18 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-enterprise-detail a-operate">详情</a><a class="btn-enterprise-edit a-operate">编辑</a>';
+            		var resource = '${role.resource}'.split(',');
+            		var $operate = '';
+            		if ($.inArray('authority-enterprise-detail', resource) != -1) {
+            			$operate += '<a class="btn-enterprise-detail a-operate">详情</a>';
+            		}
+            		if ($.inArray('authority-enterprise-edit', resource) != -1) {
+            			$operate += '<a class="btn-enterprise-edit a-operate">编辑</a>';
+            		}
+            		if ($operate == '') {
+            			$operate = '-';
+            		}
+                    return $operate;
             	},
             	events: window.operateEvents = {
             		'click .btn-enterprise-detail': function(e, value, row, index) {

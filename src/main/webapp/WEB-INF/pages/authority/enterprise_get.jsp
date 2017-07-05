@@ -61,7 +61,9 @@
 										<dt>企业负责人</dt><dd>${enterprise.principal}</dd>
 										<dt>联系电话</dt><dd>${enterprise.telephone}</dd>
 										<dt>企业地址</dt><dd>${enterprise.address}</dd>
-										<dt>企业状态</dt><dd>重点</dd>
+										<dt>企业状态</dt>
+										<c:if test="${enterprise.pointStatus == 0}"><dd>非重点</dd></c:if>
+										<c:if test="${enterprise.pointStatus == 1}"><dd>重点</dd></c:if>
 										<dt>投产时间</dt><dd>${enterprise.productionTime}</dd>
 										<dt>企业法人</dt><dd>${enterprise.representative}</dd>
 										<dt>主要股东</dt><dd>${enterprise.shareholder}</dd>
