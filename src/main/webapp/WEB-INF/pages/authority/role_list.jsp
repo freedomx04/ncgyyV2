@@ -29,8 +29,11 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="role-list-table-toolbar" role="group">
-                    <button type="button" class="btn btn-white btn-user-add">
+                    <button type="button" class="btn btn-white btn-role-add">
                         <i class="fa fa-plus fa-fw"></i>新增
+                    </button>
+                    <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
+                        <i class="fa fa-trash-o fa-fw"></i>批量删除
                     </button>
                 </div>
                 <table id="role-list-table" class="table-hm" data-mobile-responsive="true"> </table>
@@ -64,21 +67,103 @@
             	field: 'state',
             	checkbox: true
             }, {
+            	field: 'name',
+            	title: '角色名称',
+            	align: 'center'
+            }, {
+            	field: 'description',
+            	title: '角色描述',
+            	align: 'center'
+            }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '';
+            		var $detail = '<a class="btn-role-detail a-operate">详情</a>';
+            		var $edit = '<a class="btn-role-edit a-operate">编辑</a>';
+            		var $delete = '<a class="btn-role-delete a-operate">删除</a>';
+            		return $detail + $edit + $delete;
             	},
             	events: window.operateEvents = {
-            		
+            		'click .btn-role-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			alert('detail');
+            		},
+            		'click .btn-role-edit': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href = './roleAdd?method=edit&roleId=' + row.id;
+            		},
+            		'click .btn-role-delete': function(e, value, row, index) {
+            			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定删除选中记录?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+                            closeOnConfirm: false
+            			}, function() {
+            				$.ajax({
+            					url: '${ctx}/api/role/delete',
+            					data: {
+            						roleId: row.id
+            					},
+            					success: function(ret) {
+            						if (ret.code == 0) {
+            							swal('', '删除成功!', 'success');
+            						} else {
+            							swal('', ret.msg, 'error');
+            						}
+            						$table.bootstrapTable('refresh'); 
+            					},
+            					error: function(err) {}
+            				});
+            			});
+            		},
             	}
             }]
 		});
 		
+		$table.on('all.bs.table', function(e, row) {
+            var selNum = $table.bootstrapTable('getSelections').length;
+            selNum > 0 ? $page.find('.btn-role-delete-batch').removeAttr('disabled') : $page.find('.btn-role-delete-batch').attr('disabled', 'disabled');
+        });
+		
 		$page
-		.on('click', '.btn-user-add', function() {
-			window.location.href = './userAdd?method=add';
-		});
+		.on('click', '.btn-role-add', function() {
+			window.location.href = './roleAdd?method=add';
+		})
+		.on('click', '.btn-role-delete-batch', function() {
+            swal({
+                title: '',
+                text: '确定批量删除选中记录',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $table.bootstrapTable('getSelections');
+                
+                $.ajax({
+                    url: '${ctx}/api/role/batchDelete',
+                    data: { 
+                        roleIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+        });
 		
 	})( jQuery );
 	</script>

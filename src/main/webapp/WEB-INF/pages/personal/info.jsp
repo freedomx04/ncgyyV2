@@ -20,6 +20,13 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
+	<style type="text/css">
+	.body-personal-info dt,
+	.body-personal-info dd {
+		line-height: 2;
+	}
+	</style>
+	
 </head>
 
 <body class="gray-bg body-personal-info">
@@ -28,19 +35,40 @@
 			<div class="ibox-content">
 				<div class="tabs-container">
 					<ul class="nav nav-tabs nav-tabs-line">
-						<li>
+						<li class="active">
 							<a data-toggle="tab" href="#personal-tab-info" aria-expanded="true"><i class="fa fa-info-circle"></i>基本信息</a>
 						</li>
-						<li class="active">
+						<li>
 							<a data-toggle="tab" href="#personal-tab-password" aria-expanded="true"><i class="fa fa-key"></i>修改密码</a>
 						</li>
 					</ul>
 					<div class="tab-content">
-						<div id="personal-tab-info" class="tab-pane">
-							
+						<div id="personal-tab-info" class="tab-pane active">
+							<div class="panel-body">
+								<div class="col-sm-7">
+									<dl class="dl-horizontal">
+										<dt>用户名</dt><dd>${user.username}</dd>
+										<dt>姓名</dt><dd>${user.name}</dd>
+										<dt>手机号</dt><dd>${user.mobile}</dd>
+										<dt>角色</dt><dd>${user.role.name}</dd>
+										<dt>性别</dt><dd>${user.name}</dd>
+										<dt>邮箱</dt><dd>${user.email}</dd>
+										<dt>个人描述</dt><dd>${user.introduction}</dd>
+										<dt></dt>
+										<dd style="margin-top: 15px;">
+											<button type="button" class="btn btn-primary btn-user-edit">
+				                                <i class="fa fa-check fa-fw"></i>编辑
+				                            </button>
+										</dd>
+									</dl>
+								</div>
+								<div class="col-sm-5 text-right">
+									<img src="${ctx}/api/avatar/${user.avatar}" style="max-width: 200px; padding: 20px;">
+								</div>
+							</div>
 						</div>
 						
-						<div id="personal-tab-password" class="tab-pane active">
+						<div id="personal-tab-password" class="tab-pane">
 							<form class="form-horizontal" role="form" autocomplete="off" id="form-password" onkeydown="if(event.keyCode==13){return false;}">
 								<div class="panel-body">
 									<div class="form-group">

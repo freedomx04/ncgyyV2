@@ -200,7 +200,7 @@
 	                        		<button type="submit" class="btn btn-primary btn-block">登 录</button>
 	                        	</div>
 	                        	<div class="col-sm-6">
-	                        		<a class="btn btn-outline btn-success btn-block" href="" target="_blank">注册</a>
+	                        		<a class="btn btn-outline btn-success btn-block" href="register">注册</a>
 	                        	</div>
 	                        </div>
 	                    </form>

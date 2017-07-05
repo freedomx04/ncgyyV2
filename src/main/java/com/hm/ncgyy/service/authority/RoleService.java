@@ -14,6 +14,8 @@ public interface RoleService {
 	
 	void delete(Long roleId);
 	
+	void delete(List<Long> roleIdList);
+	
 	List<RoleEntity> list();
 	
 }

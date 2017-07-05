@@ -61,9 +61,6 @@
                 return res.data;
             },
             columns: [{
-            	field: 'state',
-            	checkbox: true
-            }, {
             	field: 'avatar',
             	title: '头像',
             	align: 'center',
@@ -108,7 +105,7 @@
             			$operate = '<a class="btn-user-enable a-operate">启用</a>';
             		}
             		
-            		return '<a class="btn-user-detail a-operate">查看</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>' + $operate;
+            		return '<a class="btn-user-detail a-operate">详情</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>' + $operate;
             	},
             	events: window.operateEvents = {
             		'click .btn-user-detail': function(e, value, row, index) {

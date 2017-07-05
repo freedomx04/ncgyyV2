@@ -26,11 +26,6 @@ public class BaseController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/overview")
-	String overview() {
-		return "overview";
-	}
-	
 	@RequestMapping(value = "/login")
 	String login() {
 		return "login";
@@ -41,9 +36,9 @@ public class BaseController {
 		return "register";
 	}
 	
-	/**
-	 * 权限管理接口
-	 */
-	
+	@RequestMapping(value = "/init")
+	String init() {
+		return "init";
+	}
 	
 }

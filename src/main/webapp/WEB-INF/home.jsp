@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden">
+<body class="fixed-sidebar full-height-layout gray-bg body-home" style="overflow: hidden">
 	<div id="wrapper">
 		<!--左侧导航开始-->
 		<nav class="navbar-default navbar-static-side" role="navigation">
@@ -33,18 +33,18 @@
 				<ul class="nav" id="side-menu">
 					<li class="nav-header">
 						<div class="dropdown profile-element">
-							<span><img alt="image" class="img-circle" src="img/kakaxi.jpg" width="64" height="64"/></span>
+							<span><img alt="image" class="img-circle" src="${ctx}/api/avatar/${user.avatar}" width="64" height="64"/></span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
-									<span class="block m-t-xs"><strong class="font-bold">孙某某</strong></span>
-									<span class="block text-muted text-xs">超级管理员<b class="caret"></b></span>
+									<span class="block m-t-xs"><strong class="font-bold">${user.name}</strong></span>
+									<span class="block text-muted text-xs">${user.role.name}<b class="caret"></b></span>
 								</span>
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
 								<li><a class="J_menuItem" href="#">信箱</a></li>
 								<li class="divider"></li>
-								<li><a href="#">安全退出</a></li>
+								<li><a class="btn-logout" href="javascript:;">安全退出</a></li>
 							</ul>
 						</div>
 					</li> 
@@ -55,7 +55,7 @@
 					</li>
 					<li>
 						<a href="#">
-							<i class="fa fa-cog fa-fw"></i><span class="nav-label">权限管理</span><span class="fa arrow"></span>
+							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="roleList">角色管理</a></li>
@@ -138,13 +138,9 @@
 				<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
 					<div class="navbar-header">
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
-                        <form role="search" class="navbar-form-custom" method="post" action="http://www.zi-han.net/theme/hplus/search_results.html">
-                            <div class="form-group">
-                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
+                        <div style="padding: 16px; font-size: 18px; font-weight: 400;">南城县工业园区综合信息服务平台后台管理页面</div>
                     </div>
-                    <ul class="nav navbar-top-links navbar-right">
+                    <!-- <ul class="nav navbar-top-links navbar-right">
                     	<li class="dropdown">
                     		<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     			 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
@@ -221,8 +217,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
-                    </ul>
+                    </ul> -->
 				</nav>
 			</div>
 			
@@ -249,7 +244,7 @@
 						</li>
 					</ul>
 				</div>
-				 <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+				 <a href="javascript:;" class="roll-nav roll-right J_tabExit btn-logout"><i class="fa fa fa-sign-out"></i> 退出</a>
 			</div>
 			
 			<!-- 主窗口 -->
@@ -282,6 +277,18 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 	
+		var $page = $('.body-home');
+		
+		$page
+		.on('click', '.btn-logout', function() {
+			$.ajax({
+				url: '${ctx}/api/user/logout',
+				success: function() {
+					window.location.href = "./login";
+				},
+				error: function() {}
+			});
+		});
 	
 	})( jQuery );
 	</script>

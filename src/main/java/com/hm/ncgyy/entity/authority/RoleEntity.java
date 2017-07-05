@@ -26,7 +26,7 @@ public class RoleEntity extends BaseEntity {
 	/**
 	 * 关联资源, 以','隔开
 	 */
-	@Column(length = 500)
+	@Column(length = 1000)
 	private String resource;
 
 	public RoleEntity() {

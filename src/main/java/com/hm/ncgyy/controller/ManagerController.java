@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
@@ -88,6 +89,16 @@ public class ManagerController {
 	AppealTypeService appealTypeService;
 	
 	/**
+	 * 总览
+	 */
+	@RequestMapping(value = "/overview")
+	String overview(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		return "pages/overview";
+	}
+	
+	/**
 	 * 角色管理接口
 	 */
 	@RequestMapping(value = "/roleList")
@@ -96,7 +107,16 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/roleAdd")
-	String roleAdd() {
+	String roleAdd(ModelMap modelMap, String method, Long roleId) {
+		String title = method.equals("add") ? "角色新增" : "角色编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		if (roleId != null) {
+			RoleEntity role = roleService.findOne(roleId);
+			modelMap.addAttribute("role", role);
+		}
+		
 		return "pages/authority/role_add";
 	}
 	
@@ -232,7 +252,9 @@ public class ManagerController {
 	 * 基础数据接口
 	 */
 	@RequestMapping(value = "/area")
-	String area() {
+	String area(ModelMap modelMap) {
+		RoleEntity role = roleService.findByName("test1");
+		modelMap.addAttribute("role", role);
 		return "pages/base/area";
 	}
 	
@@ -439,7 +461,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/personalInfo")
 	String personalInfo(ModelMap modelMap) {
-		UserEntity user = userService.findOne(Long.parseLong("9"));
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
 	}

@@ -175,8 +175,9 @@ public class UserController {
 				}
 			}
 			
+			RoleEntity role = roleService.findByName("普通用户");
 			Date now = new Date();
-			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), mobile, now, now);
+			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), role, mobile, now, now);
 			userService.save(user);
 			
 			return new ResultInfo(Code.SUCCESS.value(), "ok", user.getId());
@@ -229,13 +230,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/api/user/logout")
-	public Result logout(Long userId) {
+	public Result logout() {
 		try {
-			UserEntity user = userService.findOne(userId);
-			if (user == null) {
-				return new Result(Code.NULL.value(), "用户不存在"); 
-			}
-			
 			CurrentUserUtils.getInstance().removeUser();
 			return new Result(Code.SUCCESS.value(), "logout success");
 		} catch (Exception e) {

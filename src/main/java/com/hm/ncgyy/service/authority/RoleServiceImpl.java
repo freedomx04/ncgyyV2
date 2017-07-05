@@ -33,6 +33,12 @@ public class RoleServiceImpl implements RoleService {
 	public void delete(Long roleId) {
 		roleRepository.delete(roleId);
 	}
+	
+	@Override
+	public void delete(List<Long> roleIdList) {
+		Iterable<RoleEntity> it = roleRepository.findByIdIn(roleIdList);
+		roleRepository.delete(it);
+	}
 
 	@Override
 	public List<RoleEntity> list() {

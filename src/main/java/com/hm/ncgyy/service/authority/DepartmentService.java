@@ -14,6 +14,8 @@ public interface DepartmentService {
 	
 	void delete(Long departmentId);
 	
+	void delete(List<Long> departmentIdList);
+	
 	List<DepartmentEntity> list();
 
 }

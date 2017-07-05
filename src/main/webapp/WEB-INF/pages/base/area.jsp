@@ -30,12 +30,16 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="area-list-table-toolbar" role="group">
+					<c:if test="${fn:contains(role.resource, 'authority-area-add')}">
                     <button type="button" class="btn btn-white btn-area-add" data-toggle="modal" data-target="#modal-area-dialog">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
+                    </c:if>
+                    <c:if test="${fn:contains(role.resource, 'authority-area-delete-batch')}">
                     <button type="button" class="btn btn-white btn-area-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>批量删除
                     </button>
+                    </c:if>
                 </div>
                 <table id="area-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -119,7 +123,18 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-area-edit a-operate">编辑</a><a class="btn-area-delete a-operate">删除</a>';
+            		var resource = '${role.resource}'.split(',');
+            		var $operate = '';
+            		if ($.inArray('authority-area-edit', resource) != -1) {
+            			$operate += '<a class="btn-area-edit a-operate">编辑</a>';
+            		}
+            		if ($.inArray('authority-area-delete', resource) != -1) {
+            			$operate += '<a class="btn-area-delete a-operate">删除</a>';
+            		}
+            		if ($operate == '') {
+            			$operate = '-';
+            		}
+                    return $operate;
                 },
             	events: window.operateEvents = {
             		'click .btn-area-edit': function(e, value, row, index) {

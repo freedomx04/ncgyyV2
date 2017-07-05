@@ -181,7 +181,7 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var $detail = '<a class="btn-appeal-detail a-operate">查看</a>';
+            		var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
             		var $edit = '<a class="btn-appeal-edit a-operate">编辑</a>';
             		var $delete = '<a class="btn-appeal-delete a-operate">删除</a>';
             		var $send = '<a class="btn-appeal-send a-operate">发送</a>';

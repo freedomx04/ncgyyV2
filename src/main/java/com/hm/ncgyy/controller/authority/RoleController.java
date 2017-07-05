@@ -1,9 +1,7 @@
 package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
@@ -33,8 +28,13 @@ public class RoleController {
 	@RequestMapping(value = "/api/role/create", method = RequestMethod.POST)
 	public Result create(String name, String description, String resource) {
 		try {
+			RoleEntity role = roleService.findByName(name);
+			if (role != null) {
+				return new Result(Code.EXISTED.value(), "角色已存在");
+			}
+			
 			Date now = new Date();
-			RoleEntity role = new RoleEntity(name, description, resource, now, now);
+			role = new RoleEntity(name, description, resource, now, now);
 			roleService.save(role);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -44,14 +44,20 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value = "/api/role/update", method = RequestMethod.POST)
-	public Result update(Long roleId, String description, String resource) {
+	public Result update(Long roleId, String name, String description, String resource) {
 		try {
 			RoleEntity role = roleService.findOne(roleId);
-			role.setDescription(description);
-			role.setResource(resource);
-			role.setUpdateTime(new Date());
 			
-			roleService.save(role);
+			RoleEntity updateRole = roleService.findByName(name);
+			if (updateRole == null || role.getId() == updateRole.getId()) {
+				role.setName(name);
+				role.setDescription(description);
+				role.setResource(resource);
+				role.setUpdateTime(new Date());
+				roleService.save(role);
+			} else {
+				return new Result(Code.EXISTED.value(), "角色已存在");
+			}
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -66,7 +72,7 @@ public class RoleController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -76,13 +82,11 @@ public class RoleController {
 	@RequestMapping(value = "/api/role/batchDelete")
 	public Result batchDelete(@RequestParam("roleIdList[]") List<Long> roleIdList) {
 		try {
-			for (Long roleId: roleIdList) {
-				delete(roleId);
-			}
+			roleService.delete(roleIdList);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -111,21 +115,4 @@ public class RoleController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/role/exist")
-	public @ResponseBody String exist(String name) throws JsonProcessingException {
-		boolean result = true;
-
-		RoleEntity role = roleService.findByName(name);
-		if (role != null) {
-			result = false;
-		}
-
-		Map<String, Boolean> map = new HashMap<>();
-		map.put("valid", result);
-		ObjectMapper mapper = new ObjectMapper();
-		String resultString = mapper.writeValueAsString(map);
-
-		return resultString;
-	}
-
 }
