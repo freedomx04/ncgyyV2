@@ -138,6 +138,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
+							<li><a class="J_menuItem" href="personalInfo">我的企业</a></li>
 						</ul>
 					</li>					
 				</ul>

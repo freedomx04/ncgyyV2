@@ -326,22 +326,22 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">新闻发布</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-appealType-add">
 								<input type="checkbox"> 图片新闻
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
 								<input type="checkbox"> 批量删除
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
 								<input type="checkbox"> 详情
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
 								<input type="checkbox"> 删除
 							</label>
 						</div>

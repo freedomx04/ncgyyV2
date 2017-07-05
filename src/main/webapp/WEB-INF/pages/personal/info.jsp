@@ -45,26 +45,91 @@
 					<div class="tab-content">
 						<div id="personal-tab-info" class="tab-pane active">
 							<div class="panel-body">
-								<div class="col-sm-7">
-									<dl class="dl-horizontal">
-										<dt>用户名</dt><dd>${user.username}</dd>
-										<dt>姓名</dt><dd>${user.name}</dd>
-										<dt>手机号</dt><dd>${user.mobile}</dd>
-										<dt>角色</dt><dd>${user.role.name}</dd>
-										<dt>性别</dt><dd>${user.name}</dd>
-										<dt>邮箱</dt><dd>${user.email}</dd>
-										<dt>个人描述</dt><dd>${user.introduction}</dd>
-										<dt></dt>
-										<dd style="margin-top: 15px;">
-											<button type="button" class="btn btn-primary btn-user-edit">
-				                                <i class="fa fa-check fa-fw"></i>编辑
+								<form class="form-horizontal" role="form" autocomplete="off" id="form-info" onsubmit="return false;">
+									<div class="form-group">
+										<label for="username" class="col-sm-3 control-label">用户名</label>
+										<div class="col-sm-5">
+											<input type="text" class="form-control" name="username" value="${user.username}" required disabled>
+										</div>								
+									</div>
+
+									<div class="form-group">
+										<label for="name" class="col-sm-3 control-label">姓名</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="name" value="${user.name}" required disabled>
+				                        </div>
+									</div>
+									
+									<div class="form-group">
+				                        <label for="mobile" class="col-sm-3 control-label">手机号</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control" name="mobile" value="${user.mobile}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="role" class="col-sm-3 control-label">角色</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control" name="role" value="${user.role.name}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="name" class="col-sm-3 control-label">性别</label>
+				                        <div class="col-sm-5">
+				                            <select class="form-control editable" name="gender" disabled>
+				                                <option value="0">请选择性别</option>
+				                                <option value="1">男</option>
+				                                <option value="2">女</option>
+				                            </select>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="email" class="col-sm-3 control-label">邮箱</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="email" value="${user.email}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="enterpriseId" class="col-sm-3 control-label">所属企业</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control" name="email" value="${user.enterprise.name}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="departmentId" class="col-sm-3 control-label">所属部门</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control" name="email" value="${user.department.name}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="introduction" class="col-sm-3 control-label">个人描述</label>
+				                        <div class="col-sm-5">
+				                            <textarea class="form-control editable" name="introduction" style="resize:none; height: 150px;" disabled>${user.introduction}</textarea>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="hr-line-dashed"></div>
+                    
+				                    <div class="form-group">
+				                        <div class="col-sm-4 col-sm-offset-3">
+				                        	<button type="button" class="btn btn-primary btn-info-edit">
+				                                <i class="fa fa-edit fa-fw"></i>编辑
 				                            </button>
-										</dd>
-									</dl>
-								</div>
-								<div class="col-sm-5 text-right">
-									<img src="${ctx}/api/avatar/${user.avatar}" style="max-width: 200px; padding: 20px;">
-								</div>
+				                            <button type="button" class="btn btn-primary btn-info-save hide">
+				                                <i class="fa fa-save fa-fw"></i>保存
+				                            </button>
+				                            <button type="button" class="btn btn-white btn-info-cancel hide">
+				                                <i class="fa fa-close fa-fw"></i>取消
+				                            </button>
+				                        
+				                        </div>
+				                    </div>
+								</form>
 							</div>
 						</div>
 						
@@ -118,8 +183,6 @@
 						</div>
 					</div>
 				</div>
-			
-               
 			</div>
 		</div>
 	</div>
@@ -139,8 +202,28 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-personal-info');
+		var $formInfo = $page.find('#form-info');
 		
 		var userId = ${user.id};
+		
+		// info
+		$formInfo.find('select[name="gender"]').val(${user.gender});
+		
+		$formInfo
+		.on('click', '.btn-info-edit', function() {
+			$formInfo.find('.editable').removeAttr('disabled');
+			
+			$formInfo.find('.btn-info-edit').addClass('hide');
+			$formInfo.find('.btn-info-save, .btn-info-cancel').removeClass('hide');
+		})
+		.on('click', '.btn-info-save', function() {
+			
+		})
+		.on('click', '.btn-info-cancel', function() {
+			$formInfo.find('.editable').attr('disabled', 'disabled');
+			$formInfo.find('.btn-info-save, .btn-info-cancel').addClass('hide');
+			$formInfo.find('.btn-info-edit').removeClass('hide');
+		});
 		
 		// password
 		strength($page.find('#newPassword'), $page.find('#level'));
