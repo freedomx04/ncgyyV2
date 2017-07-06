@@ -34,38 +34,38 @@
 			<div class="ibox-content">
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-declare">
 					<div class="form-group">
-						<label for="name" class="col-sm-2 control-label"><i class="form-required">*</i>申报项目名称</label>
-                        <div class="col-sm-9">
+						<label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>申报项目名称</label>
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" name="title" value="${declare.title}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="startTime" class="col-sm-2 control-label">申报开始时间</label>
-                        <div class="col-sm-9 input-group" style="padding-left: 15px; padding-right: 15px;">
+						<label for="startTime" class="col-sm-3 control-label"><i class="form-required">*</i>申报开始时间</label>
+                        <div class="col-sm-5 input-group" style="padding-left: 15px; padding-right: 15px;">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" class="form-control layer-date" name="startTime" id="startTime" value="${declare.startTime}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="endTime" class="col-sm-2 control-label">申报结束时间</label>
-                        <div class="col-sm-9 input-group" style="padding-left: 15px; padding-right: 15px;">
+						<label for="endTime" class="col-sm-3 control-label"><i class="form-required">*</i>申报结束时间</label>
+                        <div class="col-sm-5 input-group" style="padding-left: 15px; padding-right: 15px;">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             <input type="text" class="form-control layer-date" name="endTime" id="endTime" value="${declare.endTime}">
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="description" class="col-sm-2 control-label">申报详细描述</label>
-                        <div class="col-sm-9">
+						<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>申报详细描述</label>
+                        <div class="col-sm-5">
                             <textarea class="form-control" name="description" style="resize:none; height: 150px;">${declare.description}</textarea>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="attachment" class="col-sm-2 control-label">附件</label>
-						<div class="col-sm-9 declare-attachment">
+						<label for="attachment" class="col-sm-3 control-label">附件</label>
+						<div class="col-sm-5 declare-attachment">
 							<button type="button" class="btn btn-white btn-attachment-dialog" data-toggle="modal" data-target="#modal-attachment-dialog">
 		                        <i class="fa fa-paperclip fa-fw"></i>添加附件
 		                    </button>

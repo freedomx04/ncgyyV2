@@ -61,6 +61,20 @@
                                 <input type="text" class="form-control" name="name" required>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="acceptDays" class="col-sm-3 control-label"><i class="form-required">*</i>最大受理天数</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="acceptDays" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="handleDays" class="col-sm-3 control-label"><i class="form-required">*</i>最大处理天数</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="handleDays" required>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -93,7 +107,24 @@
 		var $dialog = $page.find('#modal-appealType-dialog');
 		var $form = $dialog.find('form');
 		
-		$k.util.bsValidator($form);
+		$k.util.bsValidator($form, {
+			fields: {
+				acceptDays: {
+					validators: {
+						digits: {
+							message: '必须为整数' 
+						}
+					}
+				},
+				handleDays: {
+					validators: {
+						digits: {
+							message: '必须为整数' 
+						}
+					}
+				}
+			}
+		});
 		
 		var $table = $k.util.bsTable($page.find('#appealType-list-table'), {
 			url: '${ctx}/api/appealType/list',
@@ -108,6 +139,14 @@
             }, {
             	field: 'name',
             	title: '诉求类别',
+            	align: 'center'
+            }, {
+            	field: 'acceptDays',
+            	title: '最大受理天数',
+            	align: 'center'
+            }, {
+            	field: 'handleDays',
+            	title: '最大处理天数',
             	align: 'center'
             }, {
             	title: '操作',
@@ -131,6 +170,8 @@
             			e.stopPropagation();
             			$dialog.find('.modal-title strong').text('编辑');
             			$dialog.find('input[name="name"]').val(row.name);
+            			$dialog.find('input[name="acceptDays"]').val(row.acceptDays);
+            			$dialog.find('input[name="handleDays"]').val(row.handleDays);
             			$dialog.data('method', 'edit');
             			$dialog.data('appealTypeId', row.id);
             			$dialog.modal('show');
@@ -184,7 +225,9 @@
  						url: '${ctx}/api/appealType/create',
                  		type: 'POST',
                  		data: {
-                 			name: $dialog.find('input[name = "name"]').val()
+                 			name: $dialog.find('input[name = "name"]').val(),
+                 			acceptDays: $dialog.find('input[name = "acceptDays"]').val(),
+                 			handleDays: $dialog.find('input[name = "handleDays"]').val()
                  		},
                  		success: function(ret) {
                  			if (ret.code == 0) {
@@ -203,7 +246,9 @@
                 		type: 'POST',
                 		data: {
                 			appealTypeId: $dialog.data('appealTypeId'),
-                			name: $dialog.find('input[name="name"]').val()
+                			name: $dialog.find('input[name="name"]').val(),
+                			acceptDays: $dialog.find('input[name = "acceptDays"]').val(),
+                 			handleDays: $dialog.find('input[name = "handleDays"]').val()
                 		},
                 		success: function(ret) {
                 			if (ret.code == 0) {

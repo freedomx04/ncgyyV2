@@ -24,31 +24,35 @@
 
 <body class="gray-bg body-declare-list">
 	<div class="wrapper wrapper-content animated fadeInRight">
-		<div class="tabs-container">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 申报项目</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">我的申报</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane active">
-                    <div class="panel-body">
-		                <table id="declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-                <div id="tab-2" class="tab-pane">
-                    <div class="panel-body">
-                    	<div class="btn-group hidden-xs" id="my-declare-list-table-toolbar" role="group">
-		                    <button type="button" class="btn btn-white btn-declare-apply-delete-batch" disabled='disabled'>
-		                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-		                    </button>
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<div class="tabs-container">
+		            <ul class="nav nav-tabs">
+		                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 申报项目</a>
+		                </li>
+		                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">我的申报</a>
+		                </li>
+		            </ul>
+		            <div class="tab-content">
+		                <div id="tab-1" class="tab-pane active">
+		                    <div class="panel-body">
+				                <table id="declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+		                    </div>
 		                </div>
-		                <table id="my-declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-             </div>
-        </div>
+		                <div id="tab-2" class="tab-pane">
+		                    <div class="panel-body">
+		                    	<div class="btn-group hidden-xs" id="my-declare-list-table-toolbar" role="group">
+				                    <button type="button" class="btn btn-white btn-declare-apply-delete-batch" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+				                    </button>
+				                </div>
+				                <table id="my-declare-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+		                    </div>
+		                </div>
+		             </div>
+		        </div>
+			</div>
+		</div>		
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>

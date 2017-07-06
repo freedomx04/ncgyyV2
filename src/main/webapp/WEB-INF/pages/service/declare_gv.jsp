@@ -97,7 +97,12 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return '<a class="btn-declare-detail a-operate">详情</a><a class="btn-declare-edit a-operate">编辑</a><a class="btn-declare-edit a-operate">删除</a><a class="btn-declare-display a-operate">发布/结束</a><a class="btn-declare-enterprise a-operate">查看申报企业</a>';
+            		var $detail = '<a class="btn-declare-detail a-operate">详情</a>';
+            		var $edit = '<a class="btn-declare-edit a-operate">编辑</a>';
+            		var $delete = '<a class="btn-declare-delete a-operate">删除</a>';
+            		var $display = '<a class="btn-declare-display a-operate">发布/结束</a>';
+            		var $enterprise = '<a class="btn-declare-enterprise a-operate">查看申报企业</a>';
+            		return $detail + $edit + $delete + $display + $enterprise;
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
