@@ -207,6 +207,12 @@ public class ManagerController {
 		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
 		modelMap.addAttribute("enterprise", enterprise);
 		
+		List<AreaEntity> areaList = areaService.list();
+		modelMap.addAttribute("areaList", areaList);
+		
+		List<IndustryEntity> industryList = industryService.list();
+		modelMap.addAttribute("industryList", industryList);
+		
 		return "pages/authority/enterprise_get";
 	}
 	
@@ -506,7 +512,8 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/personalInfo")
 	String personalInfo(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
 	}

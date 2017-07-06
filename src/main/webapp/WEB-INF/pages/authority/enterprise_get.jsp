@@ -12,19 +12,17 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
-	
-	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/iCheck/custom.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/cropper/cropper.min.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/sitelogo/sitelogo.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-	
-	<style type="text/css">
-	.body-enterprise-detail dt,
-	.body-enterprise-detail dd {
-		line-height: 2;
-	}
-	</style>
 	
 </head>
 
@@ -52,35 +50,158 @@
 					<div class="tab-content">
 						<div id="enterprise-tab-info" class="tab-pane active">
 							<div class="panel-body">
-								<div class="col-sm-7">
-									<dl class="dl-horizontal">
-										<dt>企业名称</dt><dd>${enterprise.name}</dd>
-										<dt>所属园区</dt><dd>${enterprise.area.name}</dd>
-										<dt>行业类别</dt><dd>${enterprise.industry.name}</dd>
-										<dt>主要产品</dt><dd>${enterprise.mainProduct}</dd>
-										<dt>企业负责人</dt><dd>${enterprise.principal}</dd>
-										<dt>联系电话</dt><dd>${enterprise.telephone}</dd>
-										<dt>企业地址</dt><dd>${enterprise.address}</dd>
-										<dt>企业状态</dt>
-										<c:if test="${enterprise.pointStatus == 0}"><dd>非重点</dd></c:if>
-										<c:if test="${enterprise.pointStatus == 1}"><dd>重点</dd></c:if>
-										<dt>投产时间</dt><dd>${enterprise.productionTime}</dd>
-										<dt>企业法人</dt><dd>${enterprise.representative}</dd>
-										<dt>主要股东</dt><dd>${enterprise.shareholder}</dd>
-										<dt>注册资金</dt><dd>${enterprise.registeredCapital}</dd>
-										<dt>变更记录</dt><dd>${enterprise.alterRecording}</dd>
-										<dt>国税识别码</dt><dd>${enterprise.nationalTax}</dd>
-										<dt>地税识别码</dt><dd>${enterprise.localTax}</dd>
-									</dl>
-								</div>
-								<div class="col-sm-5 text-right">
-									<img src="${ctx}/api/avatar/${enterprise.avatar}" style="max-width: 300px; padding: 20px;">
-								</div>
-								<div class="col-sm-12">
-									<dl class="dl-horizontal">
-										<dt>企业简介:</dt><dd>${enterprise.introduction}</dd>
-									</dl>
-								</div>
+								<form class="form-horizontal" role="form" autocomplete="off" id="form-enterprise">
+									<div class="form-group">
+				                        <label for="avatar" class="col-sm-3 control-label">企业图标</label>
+				                        <div id="crop-avatar" class="col-md-5">
+				                            <div class="avatar-view disabled" title="点击修改企业图标" style="width: 160px; height: 160px;" disabled>
+				                                <img src="${ctx}/api/avatar/${enterprise.avatar}" alt="企业图标">
+				                            </div>
+				                        </div>
+				                    </div>
+				                
+				                    <div class="form-group">
+				                        <label for="name" class="col-sm-3 control-label"><i class="form-required hide">*</i>企业名称</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="name" value="${enterprise.name}" required disabled>
+				                        </div>
+				                    </div>
+			                    
+				                    <div class="form-group">
+				                        <label for="areaId" class="col-sm-3 control-label"><i class="form-required hide">*</i>所属园区</label>
+				                        <div class="col-sm-5">
+				                            <select class="form-control editable" name="areaId" required disabled> 
+				                                <option value="">请选择</option>
+				                                <c:forEach var="area" items="${areaList}">
+				                                    <option value="${area.id}">${area.name}</option>
+				                                </c:forEach> 
+				                            </select>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="industryId" class="col-sm-3 control-label"><i class="form-required hide">*</i>行业类别</label>
+				                        <div class="col-sm-5">
+				                            <select class="form-control editable" name="industryId" required disabled> 
+				                                <option value="">请选择</option>
+				                                <c:forEach var="industry" items="${industryList}">
+				                                    <option value="${industry.id}">${industry.name}</option>
+				                                </c:forEach> 
+				                            </select>
+				                        </div>
+				                    </div>
+			                        
+				                    <div class="form-group">
+				                        <label for="mainProduct" class="col-sm-3 control-label"><i class="form-required hide">*</i>主要产品</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="mainProduct" value="${enterprise.mainProduct}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="principal" class="col-sm-3 control-label"><i class="form-required hide">*</i>企业负责人</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="principal" value="${enterprise.principal}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="telephone" class="col-sm-3 control-label"><i class="form-required hide">*</i>联系电话</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="telephone" value="${enterprise.telephone}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="address" class="col-sm-3 control-label"><i class="form-required hide">*</i>企业地址</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="address" value="${enterprise.address}" required disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="pointStatus" class="col-sm-3 control-label">重点企业</label>
+				                        <div class="col-sm-5">
+				                            <label class="checkbox-inline i-checks pointStatus">
+				                                <input type="checkbox" disabled>
+				                            </label>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="productionTime" class="col-sm-3 control-label">投产时间</label>
+				                        <div class="col-sm-5 input-group date productTime" style="padding-left: 15px; padding-right: 15px;">
+				                            <span class="input-group-addon editable disabled"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" class="form-control editable" name="productionTime" value="${enterprise.productionTime}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="representative" class="col-sm-3 control-label">企业法人</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="representative" value="${enterprise.representative}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="shareholder" class="col-sm-3 control-label">主要股东</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="shareholder" value="${enterprise.shareholder}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="registeredCapital" class="col-sm-3 control-label">注册资金</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="registeredCapital" value="${enterprise.registeredCapital}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="alterRecording" class="col-sm-3 control-label">变更记录</label>
+				                        <div class="col-sm-5">
+				                            <textarea class="form-control editable" name="alterRecording" style="resize:none; height: 100px;" disabled>${enterprise.alterRecording}</textarea>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="nationalTax" class="col-sm-3 control-label">国税识别码</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="nationalTax" value="${enterprise.nationalTax}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="localTax" class="col-sm-3 control-label">地税识别码</label>
+				                        <div class="col-sm-5">
+				                            <input type="text" class="form-control editable" name="localTax" value="${enterprise.localTax}" disabled>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="form-group">
+				                        <label for="introduction" class="col-sm-3 control-label">企业简介</label>
+				                        <div class="col-sm-5">
+				                            <textarea class="form-control editable" name="introduction" style="resize:none; height: 150px;" disabled>${enterprise.introduction}</textarea>
+				                        </div>
+				                    </div>
+				                    
+				                    <div class="hr-line-dashed"></div>
+				                    
+				                    <div class="form-group">
+				                        <div class="col-sm-4 col-sm-offset-3">
+				                        	<button type="button" class="btn btn-primary btn-enterprise-edit">
+				                                <i class="fa fa-edit fa-fw"></i>编辑
+				                            </button>
+				                            <button type="button" class="btn btn-primary btn-enterprise-save hide">
+				                                <i class="fa fa-save fa-fw"></i>保存
+				                            </button>
+				                            <button type="button" class="btn btn-white btn-enterprise-cancel hide">
+				                                <i class="fa fa-close fa-fw"></i>取消
+				                            </button>
+				                        
+				                        </div>
+				                    </div>
+								</form>
 							</div>
 						</div>
 						
@@ -116,6 +237,57 @@
 	 		</div>
 	 	</div>
 	
+		<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<form class="avatar-form" action="${ctx}/api/avatarUpload" enctype="multipart/form-data" method="post">
+						<div class="modal-header">
+							<button class="close" data-dismiss="modal" type="button">&times;</button>
+							<h4 class="modal-title" id="avatar-modal-label">头像上传</h4>
+						</div>
+						<div class="modal-body">
+							<div class="avatar-body">
+								<div class="avatar-upload">
+									<input class="avatar-src" name="avatar_src" type="hidden">
+									<input class="avatar-data" name="avatar_data" type="hidden">
+									<label for="avatarInput">图片上传</label> <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+								</div>
+								<div class="row">
+									<div class="col-md-9">
+										<div class="avatar-wrapper"></div>
+									</div>
+									<div class="col-md-3">
+										<div class="avatar-preview preview-lg"></div>
+										<div class="avatar-preview preview-md"></div>
+										<div class="avatar-preview preview-sm"></div>
+									</div>
+								</div>
+								<div class="row avatar-btns">
+									<div class="col-md-9">
+										<div class="btn-group">
+											<button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">
+												<i class="fa fa-undo"></i> 向左旋转
+											</button>
+										</div>
+										<div class="btn-group">
+											<button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">
+												<i class="fa fa-repeat"></i> 向右旋转
+											</button>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<button class="btn btn-primary btn-block avatar-save" type="submit">
+											<i class="fa fa-save"></i> 保存修改
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -126,11 +298,18 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/cropper/cropper.min.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/sitelogo/sitelogo.js"></script>
 
 	<script type="text/javascript">
 	
 		var $page = $('.body-enterprise-detail');
 		
+		// product
 		var $productTable = $k.util.bsTable($page.find('#product-list-table'), {
 			url: '${ctx}/api/product/list?enterpriseId=${enterprise.id}',
 			toolbar: '#product-list-table-toolbar',
@@ -211,6 +390,7 @@
             selNum > 0 ? $page.find('.btn-product-delete-batch').removeAttr('disabled') : $page.find('.btn-product-delete-batch').attr('disabled', 'disabled');
         });
 		
+		// news
 		var $newsTable = $k.util.bsTable($page.find('#news-list-table'), {
 			url: '${ctx}/api/news/list?enterpriseId=${enterprise.id}',
 			toolbar: '#news-list-table-toolbar',
@@ -283,9 +463,78 @@
             selNum > 0 ? $page.find('.btn-news-delete-batch').removeAttr('disabled') : $page.find('.btn-news-delete-batch').attr('disabled', 'disabled');
         });
 		
+		// enterprise
+		var $form = $page.find('#form-enterprise');
+		$k.util.bsValidator($form);
+        
+        $form.find(".i-checks").iCheck({
+            checkboxClass: "icheckbox_square-green", 
+            radioClass: "iradio_square-green"
+        });
+        
+        $form.find(".productTime").datepicker({
+            autoclose: true
+        });
+		
+		$form.find('select[name="areaId"]').val(${enterprise.area.id});
+        $form.find('select[name="industryId"]').val(${enterprise.industry.id});
+        var pointStatus = '${enterprise.pointStatus}';
+        if (pointStatus == 1) {
+            $form.find('.pointStatus').iCheck('check');
+        }
+		
 		$page
 		.on('click', '.btn-enterprise-back', function() {
 			window.location.href = './enterpriseList';
+		})
+		.on('click', '.btn-enterprise-edit', function() {
+			$form.find('.editable').removeAttr('disabled').removeClass('disabled');
+			$form.find('.form-required').removeClass('hide');
+			$form.find('.avatar-view').removeClass('disabled').removeAttr('disabled');
+			
+			$form.find('.btn-enterprise-edit').addClass('hide');
+			$form.find('.btn-enterprise-save, .btn-enterprise-cancel').removeClass('hide');
+		})
+		.on('click', '.btn-enterprise-save', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var formData = new FormData($form[0]);
+				formData.append('enterpriseId', '${enterprise.id}');
+				formData.append('avatar', $k.util.getAvatar($form.find('.avatar-view > img')));
+				var pointStatus = 0;
+                if ($(".pointStatus input").is(':checked')) {
+                    pointStatus = 1;
+                }
+                formData.append('pointStatus', pointStatus);
+				
+				$.ajax({
+					url: '${ctx}/api/enterprise/update',
+					type: 'post',
+					data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false, 
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal({
+                                title: '',
+                                text: '编辑成功',
+                                type: 'success'
+                            }, function() {
+                            	window.location.reload();
+                            });
+                        } else {
+                            swal('', ret.msg, 'error');
+                        }
+                    },
+                    error: function(err) {}
+				});
+			}
+		})
+		.on('click', '.btn-enterprise-cancel', function() {
+			window.location.reload();
 		})
 		.on('click', '.btn-product-add', function() {
 			window.location.href = './productAdd?method=add&enterpriseId=${enterprise.id}';
@@ -302,7 +551,6 @@
 				closeOnConfirm: false
 			}, function() {
 				var rows = $productTable.bootstrapTable('getSelections');
-				
 				$.ajax({
 					url: '${ctx}/api/product/batchDelete',
 					data: {
@@ -335,7 +583,6 @@
 				closeOnConfirm: false
 			}, function() {
 				var rows = $newsTable.bootstrapTable('getSelections');
-				
 				$.ajax({
 					url: '${ctx}/api/news/batchDelete',
 					data: {

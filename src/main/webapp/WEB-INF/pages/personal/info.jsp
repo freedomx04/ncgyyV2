@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
 <%@ include file="/WEB-INF/include/password.jsp"%>
+<%@ include file="/WEB-INF/include/avatar.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,16 +17,11 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/cropper/cropper.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sitelogo/sitelogo.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-	
-	<style type="text/css">
-	.body-personal-info dt,
-	.body-personal-info dd {
-		line-height: 2;
-	}
-	</style>
 	
 </head>
 
@@ -47,6 +43,15 @@
 							<div class="panel-body">
 								<form class="form-horizontal" role="form" autocomplete="off" id="form-info" onsubmit="return false;">
 									<div class="form-group">
+										<label for="avatar" class="col-sm-3 control-label">头像</label>
+										<div id="crop-avatar" class="col-md-5">
+											<div class="avatar-view disabled" title="点击修改头像" style="width: 160px; height: 160px;" disabled>
+												<img src="${ctx}/api/avatar/${user.avatar}" alt="头像">
+										    </div>
+										</div>
+									</div>
+								
+									<div class="form-group">
 										<label for="username" class="col-sm-3 control-label">用户名</label>
 										<div class="col-sm-5">
 											<input type="text" class="form-control" name="username" value="${user.username}" required disabled>
@@ -54,7 +59,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="name" class="col-sm-3 control-label">姓名</label>
+										<label for="name" class="col-sm-3 control-label"><i class="form-required hide">*</i>姓名</label>
 				                        <div class="col-sm-5">
 				                            <input type="text" class="form-control editable" name="name" value="${user.name}" required disabled>
 				                        </div>
@@ -197,6 +202,8 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/cropper/cropper.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/sitelogo/sitelogo.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -208,21 +215,52 @@
 		
 		// info
 		$formInfo.find('select[name="gender"]').val(${user.gender});
+		$k.util.bsValidator($formInfo);
 		
 		$formInfo
 		.on('click', '.btn-info-edit', function() {
 			$formInfo.find('.editable').removeAttr('disabled');
+			$formInfo.find('.form-required').removeClass('hide');
+			$formInfo.find('.avatar-view').removeClass('disabled').removeAttr('disabled');
 			
 			$formInfo.find('.btn-info-edit').addClass('hide');
 			$formInfo.find('.btn-info-save, .btn-info-cancel').removeClass('hide');
 		})
 		.on('click', '.btn-info-save', function() {
+			var validator = $formInfo.data('bootstrapValidator');
+			validator.validate();
 			
+			if (validator.isValid()) {
+				$.ajax({
+					url: '${ctx}/api/user/infoEdit',
+					type: 'post',
+					data: {
+						userId: userId,
+						avatar: $k.util.getAvatar($page.find('.avatar-view > img')),
+						name: $formInfo.find('input[name="name"]').val(),
+						gender: $formInfo.find('select[name="gender"]').val(),
+						email: $formInfo.find('input[name="email"]').val(),
+						introduction: $formInfo.find('textarea[name="introduction"]').val()
+					},
+					success: function(ret) {
+						if (ret.code == 0) {
+							swal({
+                                title: '',
+                                text: '编辑成功',
+                                type: 'success'
+                            }, function() {
+                            	window.location.reload();
+                            });
+						} else {
+							swal('', ret.msg, 'error');
+						}
+					},
+					error: function(err) {}
+				});
+			}
 		})
 		.on('click', '.btn-info-cancel', function() {
-			$formInfo.find('.editable').attr('disabled', 'disabled');
-			$formInfo.find('.btn-info-save, .btn-info-cancel').addClass('hide');
-			$formInfo.find('.btn-info-edit').removeClass('hide');
+			window.location.reload();
 		});
 		
 		// password
@@ -279,6 +317,8 @@
                                 title: '',
                                 text: '密码修改成功',
                                 type: 'success'
+                            }, function() {
+                            	window.location.reload();
                             });
                     	} else {
                     		swal('', ret.msg, 'error');
@@ -289,7 +329,6 @@
 			}
 			return false;
 		});
-	
 		
 	})( jQuery );
 	</script>

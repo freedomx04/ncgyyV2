@@ -18,14 +18,10 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
-import com.hm.ncgyy.common.utils.IpUtils;
-import com.hm.ncgyy.common.utils.IpUtils.LocationEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
-import com.hm.ncgyy.entity.authority.LoginEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
-import com.hm.ncgyy.entity.authority.LoginEntity.LoginMode;
 import com.hm.ncgyy.entity.authority.UserEntity.UserStatus;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
@@ -286,6 +282,24 @@ public class UserController {
 		try {
 			UserEntity user = userService.findOne(userId);
 			user.setStatus(status);
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/infoEdit")
+	public Result infoEdit(Long userId, String avatar, String name, Integer gender, String email, String introduction) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setAvatar(avatar);
+			user.setName(name);
+			user.setGender(gender);
+			user.setEmail(email);
+			user.setIntroduction(introduction);
+			user.setUpdateTime(new Date());
 			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
