@@ -20,9 +20,8 @@
 	
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
-			<a href="/index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="">产品宣传</a>&nbsp;&gt;&nbsp;
-			<a href=""></a>
+			<a href="index">首页</a>&nbsp;&gt;&nbsp;
+			<a href="index_product">产品宣传</a>
 	    </span>
 	</div>
 	

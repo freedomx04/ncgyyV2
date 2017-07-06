@@ -56,8 +56,8 @@
 			<div class="con_two_right">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="" target="_blank" class="ct_curr">企业宣传</a></dt>
-                        <dd><a href="" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="index_enterprise" target="_blank" class="ct_curr">企业宣传</a></dt>
+                        <dd><a href="index_enterprise" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="enterprise">
@@ -73,15 +73,15 @@
 				<div class="monitor" style="margin-top: 30px;">
 					<dl>
 	                 	<dt>
-	                 		<a href="n1146295/index.html" target="_blank">
+	                 		<a href="javascript: void(0)" target="_blank">
 	                 			<img src="img/monitor.jpg" width="96" height="39">
 	                 		</a>
 	                 	</dt>
 	                    <dd>
-							<a target="_blank" href="#" id="target-4" onmouseover="getChart('target-4')" class="">实现税金总额</a>
-							<a target="_blank" href="#" id="target-3" onmouseover="getChart('target-3')" class="">利润总额</a>
-							<a target="_blank" href="#" id="target-2" onmouseover="getChart('target-2')" class="">用电量</a>
-							<a target="_blank" href="#" id="target-1" onmouseover="getChart('target-1')" class="curr">主营业务收入</a>
+							<a target="_blank" href="javascript: void(0);" id="target-4" onmouseover="getChart('target-4')" class="">实现税金总额</a>
+							<a target="_blank" href="javascript: void(0);" id="target-3" onmouseover="getChart('target-3')" class="">利润总额</a>
+							<a target="_blank" href="javascript: void(0);" id="target-2" onmouseover="getChart('target-2')" class="">用电量</a>
+							<a target="_blank" href="javascript: void(0);" id="target-1" onmouseover="getChart('target-1')" class="curr">主营业务收入</a>
 	                    </dd>
 		                <div style="clear: both;"></div>
 	                </dl>
@@ -102,8 +102,8 @@
 			<div class="con_three_right" style="margin-top: 30px;">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="" target="_blank" class="ct_curr">产品宣传</a></dt>
-                        <dd><a href="" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="index_product" target="_blank" class="ct_curr">产品宣传</a></dt>
+                        <dd><a href="index_product" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="product">
@@ -146,7 +146,7 @@
 						var val = ret.data[i];
 						var ht = '<li style="width: 655px;height: 295px;">'+
 									'<a href="index_articleContent/'+ val.path +'" title="'+ val.title +'" target="_blank">'+
-										'<img src="${ctx}'+ val.imagePath +'">'+
+										'<img src="${ctx}'+ val.imagePath +'" style="width: 100%;height: 100%;">'+
 									'</a>'+
 								'</li>';
 						$(ht).appendTo($page.find(".slideBox .items"));
@@ -194,7 +194,7 @@
 					var len = ret.data.length >= 10 ? 10 : ret.data.length;
 					for (var i = 0; i < len; i++){
 						var val = ret.data[i];
-						var ht = '<li style="background: #366eab;">'+
+						var ht = '<li style="background: #b9b7b7;">'+
 									'<div class="enterprise_logo"><img src="${ctx}/api/avatar/'+ val.avatar +'" alt="企业logo" width="100%"></div>'+
 									'<div class="enterprise_name"><div>'+ val.name +'</div><div>'+ val.industry.name +'</div></div>'+
 								'</li>';

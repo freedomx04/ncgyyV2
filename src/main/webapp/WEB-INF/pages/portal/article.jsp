@@ -21,8 +21,8 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="index_article?type=1">新闻动态</a>&nbsp;&gt;&nbsp;
-			<a href=""></a>
+			<a href="index_article?type=1">新闻动态</a>
+			&nbsp;&gt;&nbsp;
 	    </span>
 	</div>
 	
@@ -86,15 +86,19 @@
 		switch (type) {
 		case '1':
 			$page.find(".clist_r_title span").html("图片新闻");
+			$page.find(".mnav span").append('<a href="index_article?type=1">图片新闻</a>');
 			break;
 		case '2':
 			$page.find(".clist_r_title span").html("公示公告");
+			$page.find(".mnav span").append('<a href="index_article?type=2">公示公告</a>');
 			break;
 		case '3':
 			$page.find(".clist_r_title span").html("政策法规");
+			$page.find(".mnav span").append('<a href="index_article?type=3">政策法规</a>');
 			break;
 		case '4':
 			$page.find(".clist_r_title span").html("工业信息");
+			$page.find(".mnav span").append('<a href="index_article?type=4">工业信息</a>');
 			break;
 		}
 		$page.find('#pageTool').Paging({
@@ -128,7 +132,7 @@
 								ht = '<div class="pnews">'+
 										'<div class="pnews_ul">'+ 
 											'<a href="index_articleContent/'+ val.path +'" target="_blank">'+
-												'<img border="0" src="'+ (val.imagePath || "") +'" width="180" height="122">'+
+												'<img border="0" src="${ctx}'+ (val.imagePath || "") +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
 										'<div class="pnews_wz"> <a href="index_articleContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+

@@ -14,6 +14,13 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
+	
+	<style>
+	.dl-horizontal dt {
+		line-height: 2em;
+	}
+	</style>
+	
 </head>
 <body class="body-enterpriseinfo">
 	<div class="header">
@@ -23,7 +30,7 @@
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
 			<a href="index_enterprise">企业宣传</a>&nbsp;&gt;&nbsp;
-			<a href=""></a>
+			<a href="javascript: void(0);">${enterprise.name}</a>
 	    </span>
 	</div>
 	
@@ -93,7 +100,7 @@
 								</c:forEach>
 	                     	</ul>
                      	</div>
-                     	<div class="pageTool" style="margin-bottom: 20px;"></div>
+                     	<div class="pageTool" style="margin-top: 30px;"></div>
                      </div>
                  </div>
              </div>
