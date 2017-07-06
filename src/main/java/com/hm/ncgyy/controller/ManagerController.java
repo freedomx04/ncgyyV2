@@ -102,13 +102,26 @@ public class ManagerController {
 	 * 角色管理接口
 	 */
 	@RequestMapping(value = "/roleList")
-	String roleList() {
+	String roleList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/role_list";
 	}
 	
 	@RequestMapping(value = "/roleAdd")
 	String roleAdd(ModelMap modelMap, String method, Long roleId) {
-		String title = method.equals("add") ? "角色新增" : "角色编辑";
+		String title = "";
+		switch (method) {
+		case "add":
+			title = "角色新增";
+			break;
+		case "edit":
+			title = "角色编辑";
+			break;
+		case "detail":
+			title = "角色详情";
+			break;
+		}
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
 		
@@ -124,7 +137,9 @@ public class ManagerController {
 	 * 用户接口
 	 */
 	@RequestMapping(value = "/userList")
-	String userList() {
+	String userList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/user_list";
 	}
 	
@@ -161,7 +176,9 @@ public class ManagerController {
 	 * 企业接口
 	 */
 	@RequestMapping(value = "/enterpriseList")
-	String enterpriseList() {
+	String enterpriseList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/enterprise_list";
 	}
 	
@@ -189,6 +206,12 @@ public class ManagerController {
 	String enterpriseGet(ModelMap modelMap, Long enterpriseId) {
 		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
 		modelMap.addAttribute("enterprise", enterprise);
+		
+		List<AreaEntity> areaList = areaService.list();
+		modelMap.addAttribute("areaList", areaList);
+		
+		List<IndustryEntity> industryList = industryService.list();
+		modelMap.addAttribute("industryList", industryList);
 		
 		return "pages/authority/enterprise_get";
 	}
@@ -280,7 +303,9 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/department")
-	String department() {
+	String department(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/department";
 	}
 	
@@ -289,18 +314,22 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/area")
 	String area(ModelMap modelMap) {
-		RoleEntity role = roleService.findByName("test1");
-		modelMap.addAttribute("role", role);
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/base/area";
 	}
 	
 	@RequestMapping(value = "/industry")
-	String industry() {
+	String industry(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/base/industry";
 	}
 	
 	@RequestMapping(value = "/appealType")
-	String appealType() {
+	String appealType(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
 		return "pages/base/appealType";
 	}
 	
@@ -519,7 +548,8 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/personalInfo")
 	String personalInfo(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
 	}

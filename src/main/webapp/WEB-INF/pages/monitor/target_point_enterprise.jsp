@@ -21,174 +21,175 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
 	<style>
-		.chosen-container {
-			width: 100%!important;
-		}	
+	.chosen-container {
+		width: 100%!important;
+	}	
 	</style>
 </head>
 
 
 <body class="gray-bg body-target">
 	<div class="wrapper wrapper-content animated fadeInRight">
-		<div class="tabs-container">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 主营业务收入</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">用电量</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">利润总额</a>
-                </li>
-                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">实现税金总额</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div id="tab-1" class="tab-pane active">
-                    <div class="panel-body">
-						<form role="form" class="form-inline row">
-							<div class="form-group col-sm-4">
-								<div class="input-group" style="width: 100%;">
-			                        <select data-placeholder="选择企业" class="chosen-select">
-			                        	<option value="0">企业总览</option>
-			                        </select>
-								</div>
-							</div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyStart" class="form-control">
-		                        </div>
+		<div class="ibox float-e-margin">
+			<div class="ibox-content">
+				<div class="tabs-container">
+		            <ul class="nav nav-tabs">
+		                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 主营业务收入</a>
+		                </li>
+		                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">用电量</a>
+		                </li>
+		                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">利润总额</a>
+		                </li>
+		                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">实现税金总额</a>
+		                </li>
+		            </ul>
+		            <div class="tab-content">
+		                <div id="tab-1" class="tab-pane active">
+		                    <div class="panel-body">
+								<form role="form" class="form-inline row">
+									<div class="form-group col-sm-4">
+										<div class="input-group" style="width: 100%;">
+					                        <select data-placeholder="选择企业" class="chosen-select">
+					                        	<option value="0">企业总览</option>
+					                        </select>
+										</div>
+									</div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyStart" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyEnd" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-2">
+					                    <button type="button" class="btn btn-primary search">
+					                    	<strong>查询</strong>
+					                   	</button>
+					                </div>
+				                </form>
+				                
+				                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+				                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+				                
+				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 		                    </div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyEnd" class="form-control">
-		                        </div>
+		                </div>
+		                
+		                <div id="tab-2" class="tab-pane">
+		                    <div class="panel-body">
+								<form role="form" class="form-inline row">
+									<div class="form-group col-sm-4">
+										<div class="input-group" style="width: 100%;">
+					                        <select data-placeholder="选择企业" class="chosen-select">
+					                        	<option value="0">企业总览</option>
+					                        </select>
+										</div>
+									</div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyStart" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyEnd" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-2">
+					                    <button type="button" class="btn btn-primary search">
+					                    	<strong>查询</strong>
+					                   	</button>
+					                </div>
+				                </form>
+				                
+				                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+				                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+				                
+				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 		                    </div>
-		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-primary search">
-			                    	<strong>查询</strong>
-			                   	</button>
-			                </div>
-		                </form>
+		                </div>
 		                
-		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
-		                
-		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-                
-                <div id="tab-2" class="tab-pane">
-                    <div class="panel-body">
-						<form role="form" class="form-inline row">
-							<div class="form-group col-sm-4">
-								<div class="input-group" style="width: 100%;">
-			                        <select data-placeholder="选择企业" class="chosen-select">
-			                        	<option value="0">企业总览</option>
-			                        </select>
-								</div>
-							</div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyStart" class="form-control">
-		                        </div>
+		                <div id="tab-3" class="tab-pane">
+		                    <div class="panel-body">
+		                    	<form role="form" class="form-inline row">
+									<div class="form-group col-sm-4">
+										<div class="input-group" style="width: 100%;">
+					                        <select data-placeholder="选择企业" class="chosen-select">
+					                        	<option value="0">企业总览</option>
+					                        </select>
+										</div>
+									</div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyStart" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyEnd" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-2">
+					                    <button type="button" class="btn btn-primary search">
+					                    	<strong>查询</strong>
+					                   	</button>
+					                </div>
+				                </form>
+				                
+				                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+				                
+				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 		                    </div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyEnd" class="form-control">
-		                        </div>
+		                </div>
+		                
+		                <div id="tab-4" class="tab-pane">
+		                    <div class="panel-body">
+		                    	<form role="form" class="form-inline row">
+									<div class="form-group col-sm-4">
+										<div class="input-group" style="width: 100%;">
+					                        <select data-placeholder="选择企业" class="chosen-select">
+					                        	<option value="0">企业总览</option>
+					                        </select>
+										</div>
+									</div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyStart" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-3">
+				                        <div class="input-group date">
+				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                            <input type="text" id="monthlyEnd" class="form-control">
+				                        </div>
+				                    </div>
+				                    <div class="form-group col-sm-2">
+					                    <button type="button" class="btn btn-primary search">
+					                    	<strong>查询</strong>
+					                   	</button>
+					                </div>
+				                </form>
+				                
+				                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
+				                
+				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 		                    </div>
-		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-primary search">
-			                    	<strong>查询</strong>
-			                   	</button>
-			                </div>
-		                </form>
-		                
-		                <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
-		                
-		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-                
-                <div id="tab-3" class="tab-pane">
-                    <div class="panel-body">
-                    	<form role="form" class="form-inline row">
-							<div class="form-group col-sm-4">
-								<div class="input-group" style="width: 100%;">
-			                        <select data-placeholder="选择企业" class="chosen-select">
-			                        	<option value="0">企业总览</option>
-			                        </select>
-								</div>
-							</div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyStart" class="form-control">
-		                        </div>
-		                    </div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyEnd" class="form-control">
-		                        </div>
-		                    </div>
-		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-primary search">
-			                    	<strong>查询</strong>
-			                   	</button>
-			                </div>
-		                </form>
-		                
-		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
-		                
-		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-                
-                <div id="tab-4" class="tab-pane">
-                    <div class="panel-body">
-                    	<form role="form" class="form-inline row">
-							<div class="form-group col-sm-4">
-								<div class="input-group" style="width: 100%;">
-			                        <select data-placeholder="选择企业" class="chosen-select">
-			                        	<option value="0">企业总览</option>
-			                        </select>
-								</div>
-							</div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyStart" class="form-control">
-		                        </div>
-		                    </div>
-		                    <div class="form-group col-sm-3">
-		                        <div class="input-group date">
-		                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-		                            <input type="text" id="monthlyEnd" class="form-control">
-		                        </div>
-		                    </div>
-		                    <div class="form-group col-sm-2">
-			                    <button type="button" class="btn btn-primary search">
-			                    	<strong>查询</strong>
-			                   	</button>
-			                </div>
-		                </form>
-		                
-		                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
-		                
-		                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-                
+		                </div>
+		            </div>
+		        </div>
+			</div>
+		</div>
 	</div>
-	
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -286,9 +287,7 @@
 	            },
 	            columns: getColumns()
 			});
-			
 		}
-		
 		
 		function getChart(data) {
 			// 基于准备好的dom，初始化echarts图表

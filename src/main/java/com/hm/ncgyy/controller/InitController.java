@@ -1,7 +1,14 @@
 package com.hm.ncgyy.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +20,7 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
+import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
@@ -52,6 +60,9 @@ public class InitController {
 	@Autowired
 	DepartmentService departmentService;
 	
+	@Autowired
+	HttpServletRequest request;
+	
 	@RequestMapping(value = "/api/init/role")
 	public Result role() {
 		try {
@@ -80,7 +91,7 @@ public class InitController {
 
 	@Value("${customize.admin.password}")
 	private String adminPassword;
-	
+
 	@RequestMapping(value = "/api/init/admin")
 	public Result admin() {
 		try {
@@ -157,9 +168,36 @@ public class InitController {
 		}
 	}
 	
+	private HSSFWorkbook workbook;
+	
 	@RequestMapping(value = "/api/init/enterprise")
 	public Result enterprise() {
 		try {
+			String root = request.getSession().getServletContext().getRealPath("/");
+			File file = new File(root + "/file/enterpriseName.xls");
+			
+			workbook = new HSSFWorkbook(new FileInputStream(file));
+			HSSFSheet sheet = workbook.getSheetAt(0);
+			
+			for (int i = 1; i < sheet.getLastRowNum(); i++) {
+				HSSFRow row = sheet.getRow(i);
+				if (null == row) {
+					continue;
+				}
+				
+				String name = row.getCell(1).getStringCellValue();
+				
+				EnterpriseEntity enterprise = new EnterpriseEntity();
+				enterprise.setName(name);
+				
+				AreaEntity area = areaService.findByName("南城工业园");
+				enterprise.setArea(area);
+				
+				IndustryEntity industry = industryService.findByName("机械制造");
+				enterprise.setIndustry(industry);
+				
+				enterpriseService.save(enterprise);
+			}
 			
 			return new Result(Code.SUCCESS.value(), "成功");
 		} catch (Exception e) {

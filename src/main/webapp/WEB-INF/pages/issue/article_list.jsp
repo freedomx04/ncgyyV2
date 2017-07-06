@@ -35,7 +35,7 @@
  						<i class="fa fa-trash-o fa-fw"></i>批量删除
  					</button>
  				</div>
- 				<table id="article-list-table" data-mobile-responsive="true"></table>
+ 				<table id="article-list-table" class="table-hm" data-mobile-responsive="true"></table>
 	 		</div>
 	 	</div>	
 	</div>

@@ -3,6 +3,8 @@ package com.hm.ncgyy.controller.authority;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.authority.UserEntity.UserStatus;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.LoginService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
 
@@ -42,6 +45,12 @@ public class UserController {
 
 	@Autowired
 	DepartmentService departmentService;
+	
+	@Autowired
+	LoginService loginService;
+	
+	@Autowired
+	HttpServletRequest request;
 
 	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
 	public Result create(String avatar, String username, String name, Long roleId, Integer gender, String mobile,
@@ -222,13 +231,24 @@ public class UserController {
 			}
 
 			CurrentUserUtils.getInstance().serUser(user);
+			
+			// 登录信息
+//			String ip = IpUtils.getInstance().getIpAddr(request);
+//			LocationEntity ipInfo = IpUtils.getInstance().getIpInfo(ip);
+//			if (ipInfo != null) {
+//				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
+//				Date now = new Date();
+//				LoginEntity login = new LoginEntity(user, ip, location, ipInfo.getIsp(), LoginMode.MODE_USERNAME, now, now);
+//				loginService.save(login);
+//			}
+			
 			return new Result(Code.SUCCESS.value(), "login success");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
 	@RequestMapping(value = "/api/user/logout")
 	public Result logout() {
 		try {
@@ -262,6 +282,24 @@ public class UserController {
 		try {
 			UserEntity user = userService.findOne(userId);
 			user.setStatus(status);
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/infoEdit")
+	public Result infoEdit(Long userId, String avatar, String name, Integer gender, String email, String introduction) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setAvatar(avatar);
+			user.setName(name);
+			user.setGender(gender);
+			user.setEmail(email);
+			user.setIntroduction(introduction);
+			user.setUpdateTime(new Date());
 			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
