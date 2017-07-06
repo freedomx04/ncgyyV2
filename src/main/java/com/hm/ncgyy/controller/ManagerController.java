@@ -193,6 +193,26 @@ public class ManagerController {
 		return "pages/authority/enterprise_get";
 	}
 	
+	@RequestMapping(value = "/index_enterprise")
+	String enterprise(ModelMap modelMap) {
+		List<EnterpriseEntity> list = enterpriseService.list();
+		modelMap.addAttribute("count", list.size());
+		return "pages/portal/enterprise";
+	}
+	
+	@RequestMapping(value = "/index_enterpriseinfo")
+	String enterpriseInfo(ModelMap modelMap, Long enterpriseId) {
+		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+		List<ProductEntity> productList = productService.listByEnterpriseId(enterpriseId);
+		List<NewsEntity> newsList = newsService.listByEnterpriseId(enterpriseId);
+		
+		modelMap.addAttribute("enterprise", enterprise);
+		modelMap.addAttribute("productList", productList);
+		modelMap.addAttribute("newsList", newsList);
+		
+		return "pages/portal/enterpriseinfo";
+	}
+	
 	@RequestMapping(value = "/productAdd")
 	String productAdd(ModelMap modelMap, String method, Long productId, Long enterpriseId) {
 		String title = method.equals("add") ? "产品新增" : "产品编辑";
@@ -214,6 +234,22 @@ public class ManagerController {
 		modelMap.addAttribute("product", product);
 		
 		return "pages/authority/product_get";
+	}
+	
+	@RequestMapping(value = "/index_product")
+	String index_product(ModelMap modelMap, Integer type) {
+		List<ProductEntity> list = productService.list();
+		modelMap.addAttribute("count", list.size());
+		return "pages/portal/product";
+	}
+	
+	@RequestMapping(value = "/index_productinfo")
+	String productInfo(ModelMap modelMap, Long productId) {
+		ProductEntity product = productService.findOne(productId);
+		
+		modelMap.addAttribute("product", product);
+		
+		return "pages/portal/productinfo";
 	}
 	
 	@RequestMapping(value = "/newsAdd")
@@ -456,14 +492,14 @@ public class ManagerController {
 		return "pages/issue/article_get";
 	}
 	
-	@RequestMapping(value = "/article")
+	@RequestMapping(value = "/index_article")
 	String article(ModelMap modelMap, Integer type) {
 		List<ArticleEntity> list = articleService.listByType(type);
 		modelMap.addAttribute("count", list.size());
 		return "pages/portal/article";
 	}
 	
-	@RequestMapping(value = "/articleContent/{path}")
+	@RequestMapping(value = "/index_articleContent/{path}")
 	String articleContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
 		ArticleEntity article = articleService.findByPath(path);
 		if (article != null) {

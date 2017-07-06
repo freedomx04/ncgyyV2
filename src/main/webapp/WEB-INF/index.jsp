@@ -26,7 +26,7 @@
 			</div>
 			
 			<div class="announce">
-				<a href="#" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
+				<a href="${ctx}/index_article?type=2" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
 				<div class="article_con" id="con_xw" style="overflow: hidden; display: block;">
 					<ul style="padding-top:5px;">
 					</ul>
@@ -38,14 +38,14 @@
 		<div class="con_two">
 			<div class="con_two_left">
 				<div class="policy border_top">
-					<a href="#" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
+					<a href="${ctx}/index_article?type=3" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul style="padding-top:5px;">
 						</ul>
 					</div>
 				</div>
 				<div class="industry border_top" style="margin-top: 30px;">
-					<a href="#" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
+					<a href="${ctx}/index_article?type=4" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul style="padding-top:5px;">
 						</ul>
@@ -56,8 +56,8 @@
 			<div class="con_two_right">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="n1146290/n1718621/index.html" target="_blank" class="ct_curr">企业宣传</a></dt>
-                        <dd><a href="n1146290/n1718621/index.html" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="" target="_blank" class="ct_curr">企业宣传</a></dt>
+                        <dd><a href="" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="enterprise">
@@ -102,8 +102,8 @@
 			<div class="con_three_right" style="margin-top: 30px;">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="n1146290/n1718621/index.html" target="_blank" class="ct_curr">产品宣传</a></dt>
-                        <dd><a href="n1146290/n1718621/index.html" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="" target="_blank" class="ct_curr">产品宣传</a></dt>
+                        <dd><a href="" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="product">
@@ -145,7 +145,7 @@
 					for (var i = 0; i < len; i++){
 						var val = ret.data[i];
 						var ht = '<li style="width: 655px;height: 295px;">'+
-									'<a href="" title="'+ val.title +'" target="_blank">'+
+									'<a href="index_articleContent/'+ val.path +'" title="'+ val.title +'" target="_blank">'+
 										'<img src="${ctx}'+ val.imagePath +'">'+
 									'</a>'+
 								'</li>';
@@ -234,9 +234,11 @@
 				success: function(ret) {
 					if (ret.code == 0 && ret.data != null) {
 						var len = ret.data.length >= 5 ? 5 : ret.data.length;
+						
 						for (var i = 0; i < len; i++){
 							var val = ret.data[i];
-							var ht = '<li style="position:static;"><a href="${ctx}/'+ val.path +'" target="_blank">'+ val.title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
+							var title = val.title.length > 40 ? (val.title.substr(0, 40) + "...") : val.title;
+							var ht = '<li style="position:static;"><a href="index_articleContent/'+ val.path +'" target="_blank">'+ title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
 							$(ht).appendTo($obj);
 						}
 					}

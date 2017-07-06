@@ -20,8 +20,8 @@
 	
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
-			<a href="/index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="/article?type=1">新闻动态</a>&nbsp;&gt;&nbsp;
+			<a href="index">首页</a>&nbsp;&gt;&nbsp;
+			<a href="index_article?type=1">新闻动态</a>&nbsp;&gt;&nbsp;
 			<a href=""></a>
 	    </span>
 	</div>
@@ -34,10 +34,10 @@
 						<div class="ctree">
 							<div class="ctree_title"><h1>新闻动态</h1></div>
 								<dl>
-									<dt><a href="article?type=1" type="1">图片新闻</a></dt>
-									<dt><a href="article?type=2" type="2">公示公告</a></dt>
-									<dt><a href="article?type=3" type="3">政策法规</a></dt>
-									<dt><a href="article?type=4" type="4">工业信息</a></dt>
+									<dt><a href="index_article?type=1" type="1">图片新闻</a></dt>
+									<dt><a href="index_article?type=2" type="2">公示公告</a></dt>
+									<dt><a href="index_article?type=3" type="3">政策法规</a></dt>
+									<dt><a href="index_article?type=4" type="4">工业信息</a></dt>
 								</dl>
 							<div style="height:30px;">&nbsp;</div>
 
@@ -78,7 +78,11 @@
 		$page.find(".footer").append($(".template.Footer").doT());
 		
 		$page.find(".ctree").removeClass("ctree_curr");
-		$page.find("[type='"+ type +"']").addClass("ctree_curr");
+		$page.find(".ctree").find("[type='"+ type +"']").addClass("ctree_curr");
+		
+		$page.find(".menu a").removeClass("nav_curr");
+		$page.find(".menu").find("a[type='"+ type +"']").addClass("nav_curr");
+		
 		switch (type) {
 		case '1':
 			$page.find(".clist_r_title span").html("图片新闻");
@@ -100,7 +104,7 @@
 				getData(type, page, size);
 			}
 		});
-		getData(type, 1, 1);
+		getData(type, 1, 2);
 		
 		function getData(type, page, size) {
 			$.ajax({
@@ -114,19 +118,20 @@
 					if (ret.code == 0) {
 						$page.find(".clist_con ul").html("");
 						$.each(ret.data.content, function(key, val) {
+							var title = val.title.length > 45 ? (val.title.substr(0, 45) + "...") : val.title;
 							var ht = '<li>'+
-							'<a href="articleContent/'+ val.path +'" target="_blank">'+ val.title +'</a>'+
-							'<span><a href="articleContent/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+							'<a href="index_articleContent/'+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+							'<span><a href="index_articleContent/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 							'</li>';
 							var $obj = $page.find(".clist_con ul");
 							if (type == 1) {
 								ht = '<div class="pnews">'+
 										'<div class="pnews_ul">'+ 
-											'<a href="" target="_blank">'+
+											'<a href="index_articleContent/'+ val.path +'" target="_blank">'+
 												'<img border="0" src="'+ (val.imagePath || "") +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
-										'<div class="pnews_wz"> <a href="articleContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
+										'<div class="pnews_wz"> <a href="index_articleContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
 									'</div>';
 								$obj.hide();
 								$obj = $page.find(".clist_con .pnews_con");
