@@ -3,6 +3,8 @@ package com.hm.ncgyy.service.authority;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
@@ -60,6 +62,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		return (List<EnterpriseBaseEntity>) baseRepository.findAll();
 	}
 
+	@Override
+	public Page<EnterpriseBaseEntity> listBase(int page, int size) {
+		return baseRepository.findAll(new PageRequest(page, size));
+	}
+	
 	@Override
 	public List<EnterpriseBaseEntity> listByAreaId(Long areaId) {
 		return baseRepository.findByAreaId(areaId);

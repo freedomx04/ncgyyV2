@@ -48,6 +48,8 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterprise");
+		var pageSize = 2;
+		
 		$page.find(".header").html($(".template.Top").doT());
 		$page.find(".footer").append($(".template.Footer").doT());
 		
@@ -55,35 +57,42 @@
 		$page.find(".menu .m_product").addClass("nav_curr");
 		
 		$page.find('#pageTool').Paging({
-			pagesize: 1, 
+			pagesize: pageSize, 
 			count: '${count}', 
 			callback: function(page, size, count) {
+				getData(page-1, size);
 			}
 		});
 		
-		$.ajax({
-			url: "${ctx}/api/product/listAll",
-			data: {
-			},
-			success: function(ret) {
-				if (ret.code == 0) {
-					$page.find(".clist_con").html("");
-					$.each(ret.data, function(key, val) {
-						
-						var ht = '<div class="product_con">'+ 
-									'<div class="product_ul">'+
-										'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
-											'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
-										'</a>'+
-									'</div>'+
-									'<div class="product_wz"> <a href="" target="_blank">'+ val.name +'</a></div></div>';
-						
-						$(ht).appendTo($page.find(".clist_con"));
-					});
-				}
-			},
-			error: function(err) {}
-		});
+		getData(0, pageSize);
+		
+		function getData(page, size) {
+			$.ajax({
+				url: "${ctx}/api/product/listAllPage",
+				data: {
+					page: page,
+					size: size
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$page.find(".clist_con").html("");
+						$.each(ret.data, function(key, val) {
+							
+							var ht = '<div class="product_con">'+ 
+										'<div class="product_ul">'+
+											'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
+												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
+											'</a>'+
+										'</div>'+
+										'<div class="product_wz"> <a href="" target="_blank">'+ val.name +'</a></div></div>';
+							
+							$(ht).appendTo($page.find(".clist_con"));
+						});
+					}
+				},
+				error: function(err) {}
+			});
+		}
 	})();
 	
 	</script>

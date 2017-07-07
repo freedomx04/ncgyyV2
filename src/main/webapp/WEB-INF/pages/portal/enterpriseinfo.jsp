@@ -73,16 +73,7 @@
                  
                  <div id="tab-2" class="tab-pane">
                      <div class="panel-body">
-                     	<c:forEach var="product" items="${productList}">
-	                     	<div class="product_con">
-								<div class="product_ul">
-									<a href="" target="_blank">
-										<img border="0" src="${ctx}${product.imagePath}" width="180" height="122">
-									</a>
-								</div>
-								<div class="product_wz"> <a href="" target="_blank">${product.name}</a></div>
-							</div>
-	 					</c:forEach>
+                     	<div class="product_list"></div>
 	 					<div style="clear: both;"></div>
 	 					<div class="pageTool" style="margin-bottom: 20px;"></div>
                      </div>
@@ -92,12 +83,6 @@
                      <div class="panel-body">
                      	<div class="clist_con">
 	                     	<ul>
-	                     		<c:forEach var="news" items="${newsList}">
-		                     		<li>
-										<a href="" target="_blank" style="width: 600px;">${news.title}</a>
-										<span><a href="" target="_blank"></a></span>
-									</li>
-								</c:forEach>
 	                     	</ul>
                      	</div>
                      	<div class="pageTool" style="margin-top: 30px;"></div>
@@ -120,8 +105,9 @@
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script>
-	var $page = $(".body-enterpriseinfo");
 	;(function() {
+		var $page = $(".body-enterpriseinfo");
+		var pageSize = 2;
 		
 		$page.find(".header").html($(".template.Top").doT());
 		$page.find(".footer").append($(".template.Footer").doT());
@@ -130,20 +116,81 @@
 		$page.find(".menu .m_enterprise").addClass("nav_curr");
 		
 		$page.find('#tab-3 .pageTool').Paging({
-			pagesize: 1, 
+			pagesize: pageSize, 
 			count: '${newsList.size()}', 
 			callback: function(page, size, count) {
-				//getData(type, page, size);
+				getProductData(page-1, size);
 			}
 		});
+		getProductData(0, pageSize);
 		
 		$page.find('#tab-2 .pageTool').Paging({
-			pagesize: 1, 
+			pagesize: pageSize, 
 			count: '${productList.size()}', 
 			callback: function(page, size, count) {
-				//getData(type, page, size);
+				getNewsData(page-1, size);
 			}
 		});
+		getNewsData(0, pageSize);
+		
+		function getProductData(page, size) {
+			$.ajax({
+				url: "${ctx}/api/product/listPage",
+				data: {
+					enterpriseId: '${enterprise.id}',
+					page: page,
+					size: size
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$page.find("#tab-2 .product_list").html("");
+						
+						$.each(ret.data, function(key, val) {
+							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
+							
+							var ht = '<div class="product_con">'+
+												'<div class="product_ul">'+
+											'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
+												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
+											'</a>'+
+										'</div>'+
+										'<div class="product_wz"> <a href="index+productinfo?productId='+ val.id +'" target="_blank">'+ val.name +'</a></div>'+
+									'</div>';
+							
+							$(ht).appendTo($page.find("#tab-2 .product_list"));
+						});
+					}
+				},
+				error: function(err) {}
+			});
+		}
+		
+		function getNewsData(page, size) {
+			$.ajax({
+				url: "${ctx}/api/news/listPage",
+				data: {
+					enterpriseId: '${enterprise.id}',
+					page: page,
+					size: size
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$page.find("#tab-3 .clist_con ul").html("");
+						$.each(ret.data, function(key, val) {
+							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
+							
+							var ht = '<li>'+
+										'<a href="index_articleContent?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+										'<span><a href="index_articleContent?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+									'</li>';
+							
+							$(ht).appendTo($page.find("#tab-3 .clist_con ul"));
+						});
+					}
+				},
+				error: function(err) {}
+			});
+		}
 		
 	})();
 	

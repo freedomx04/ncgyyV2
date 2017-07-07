@@ -2,6 +2,8 @@ package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 
@@ -25,6 +27,8 @@ public interface EnterpriseService {
 	EnterpriseBaseEntity findByNameBase(String name);
 	
 	List<EnterpriseBaseEntity> listBase();
+	
+	Page<EnterpriseBaseEntity> listBase(int page, int size);
 	
 	List<EnterpriseBaseEntity> listByAreaId(Long areaId);
 	

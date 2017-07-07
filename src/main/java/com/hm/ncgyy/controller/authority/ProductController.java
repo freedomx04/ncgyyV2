@@ -157,4 +157,14 @@ public class ProductController {
 		}
 	}
 
+	@RequestMapping(value = "/api/product/listAllPage")
+	public Result list(int page, int size) {
+		try {
+			List<ProductEntity> list = productService.listPaging(page, size);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 }

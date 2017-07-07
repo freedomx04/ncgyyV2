@@ -50,6 +50,8 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterprise");
+		var pageSize = 2;
+		
 		$page.find(".header").html($(".template.Top").doT());
 		$page.find(".footer").append($(".template.Footer").doT());
 		
@@ -57,35 +59,42 @@
 		$page.find(".menu .m_enterprise").addClass("nav_curr");
 		
 		$page.find('#pageTool').Paging({
-			pagesize: 1, 
+			pagesize: pageSize, 
 			count: '${count}', 
 			callback: function(page, size, count) {
+				getData(page -1 , size);
 			}
 		});
 		
-		$.ajax({
-			url: "${ctx}/api/enterprise/listBase",
-			data: {
-			},
-			success: function(ret) {
-				if (ret.code == 0) {
-					$page.find(".clist_con ul").html("");
-					
-					$.each(ret.data, function(key, val) {
-						var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
+		getData(0, pageSize);
+		
+		function getData(page, size) {
+			$.ajax({
+				url: "${ctx}/api/enterprise/listPage",
+				data: {
+					page: page,
+					size: size
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$page.find(".clist_con ul").html("");
 						
-						var ht = '<li style="height: 45px;">'+
-									'<img src="api/avatar/'+ val.avatar +'" width="35" height="35" style="margin: 5px 0;">'+
-									'<a href="index_enterpriseinfo?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
-									'<span><a href="" target="_blank">'+ val.industry.name +'</a></span>'+
-								'</li>';
-						
-						$(ht).appendTo($page.find(".clist_con ul"));
-					});
-				}
-			},
-			error: function(err) {}
-		});
+						$.each(ret.data.content, function(key, val) {
+							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
+							
+							var ht = '<li style="height: 45px;">'+
+										'<img src="api/avatar/'+ val.avatar +'" width="35" height="35" style="margin: 5px 0;">'+
+										'<a href="index_enterpriseinfo?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
+										'<span><a href="" target="_blank">'+ val.industry.name +'</a></span>'+
+									'</li>';
+							
+							$(ht).appendTo($page.find(".clist_con ul"));
+						});
+					}
+				},
+				error: function(err) {}
+			});
+		}
 	})();
 	
 	</script>

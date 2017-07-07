@@ -226,12 +226,7 @@ public class ManagerController {
 	@RequestMapping(value = "/index_enterpriseinfo")
 	String enterpriseInfo(ModelMap modelMap, Long enterpriseId) {
 		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
-		List<ProductEntity> productList = productService.listByEnterpriseId(enterpriseId);
-		List<NewsEntity> newsList = newsService.listByEnterpriseId(enterpriseId);
-		
 		modelMap.addAttribute("enterprise", enterprise);
-		modelMap.addAttribute("productList", productList);
-		modelMap.addAttribute("newsList", newsList);
 		
 		return "pages/portal/enterpriseinfo";
 	}

@@ -73,6 +73,7 @@
 	var $page = $(".body-article");
 	;(function() {
 		var type = $k.util.getRequestParam("type");
+		var pageSize = 2;
 		
 		$page.find(".header").html($(".template.Top").doT());
 		$page.find(".footer").append($(".template.Footer").doT());
@@ -102,13 +103,13 @@
 			break;
 		}
 		$page.find('#pageTool').Paging({
-			pagesize: 1, 
+			pagesize: pagesize, 
 			count: '${count}', 
 			callback: function(page, size, count) {
-				getData(type, page, size);
+				getData(type, page-1, size);
 			}
 		});
-		getData(type, 1, 2);
+		getData(type, 0, pagesize);
 		
 		function getData(type, page, size) {
 			$.ajax({

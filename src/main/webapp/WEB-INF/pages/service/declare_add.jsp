@@ -42,22 +42,20 @@
 					
 					<div class="form-group">
 						<label for="startTime" class="col-sm-3 control-label"><i class="form-required">*</i>申报开始时间</label>
-                        <div class="col-sm-5 input-group" style="padding-left: 15px; padding-right: 15px;">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" class="form-control layer-date" name="startTime" id="startTime" value="${declare.startTime}">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control layer-date" name="startTime" id="startTime" style="max-width: none;" value="${declare.startTime}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
 						<label for="endTime" class="col-sm-3 control-label"><i class="form-required">*</i>申报结束时间</label>
-                        <div class="col-sm-5 input-group" style="padding-left: 15px; padding-right: 15px;">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" class="form-control layer-date" name="endTime" id="endTime" value="${declare.endTime}">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control layer-date" name="endTime" id="endTime" style="max-width: none;" value="${declare.endTime}" required>
                         </div>
 					</div>
 					
 					<div class="form-group">
-						<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>申报详细描述</label>
+						<label for="description" class="col-sm-3 control-label">申报详细描述</label>
                         <div class="col-sm-5">
                             <textarea class="form-control" name="description" style="resize:none; height: 150px;">${declare.description}</textarea>
                         </div>
@@ -124,11 +122,42 @@
         var $declareFile = $page.find('.declare-attachment');
         var method = '${method}';
         
-        $k.util.bsValidator($form);
 		attachment($declareFile);
         
-		laydate({elem:"#startTime", event:"focus", format: "YYYY/MM/DD hh:mm:ss", istime:true});
-		laydate({elem:"#endTime", event:"focus", format:"YYYY/MM/DD hh:mm:ss", istime:true});
+		laydate({
+			elem:"#startTime", 
+			event:"focus", 
+			format: "YYYY/MM/DD hh:mm:ss", 
+			istime: true,
+			choose: function(dates){ //选择好日期的回调
+				var end = $form.find("input[name='endTime']").val();
+				
+				if (new Date(dates) <=  new Date(end)) {
+					$form.bootstrapValidator('updateStatus', 'startTime', 'VALID', null);
+				} else {
+					$form.bootstrapValidator('updateStatus', 'startTime', 'INVALID', null);
+					$form.find("input[name='startTime']").parent().find("small").text("开始时间不能大于结束时间");
+				}
+			}
+		});
+		laydate({
+			elem:"#endTime", 
+			event:"focus", 
+			format:"YYYY/MM/DD hh:mm:ss", 
+			istime: true,
+			choose: function(dates){ //选择好日期的回调
+				var begin = $form.find("input[name='startTime']").val();
+				
+				if (new Date(dates) >=  new Date(begin)) {
+					$form.bootstrapValidator('updateStatus', 'endTime', 'VALID');
+					$form.bootstrapValidator('updateStatus', 'startTime', 'VALID');
+				} else {
+					$form.bootstrapValidator('updateStatus', 'endTime', 'INVALID');
+					$form.find("input[name='endTime']").parent().find("small").text("开始时间不能大于结束时间");
+				}
+			
+			}
+		});
         
         if (method == 'edit') {
 			$k.util.attachmentIcon($declareFile.find('.attachment-list'));
@@ -256,6 +285,32 @@
 			});
 		});
         
+     // 添加验证器
+        $form.bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            excluded: [':disabled'],
+            fields: {
+            	startTime: {
+            		 validators: {  
+           	            notEmpty: {  
+           	            message: '开始时间不能为空'  
+           	            }  
+           	         }  
+				},
+				endTime: {
+           		 validators: {  
+          	            notEmpty: {  
+          	            message: '结束时间不能为空'  
+          	            }  
+          	         }  
+				}
+            }
+        });
 	})( jQuery );
 	</script>
 	

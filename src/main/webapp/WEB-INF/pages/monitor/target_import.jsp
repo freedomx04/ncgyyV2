@@ -50,9 +50,6 @@
 	                    <button type="button" class="btn btn-white btn-target-add" data-toggle="modal" data-target="#modal-target-dialog">
 	                        <i class="fa fa-plus fa-fw"></i>新增
 	                    </button>
-	                    <button type="button" class="btn btn-white btn-target-delete-batch" disabled='disabled'>
-	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-	                    </button>
 	                    <button type="button" class="btn btn-white btn-target-export">
 	                        <i class="fa fa-save fa-fw"></i>导出到excel
 	                    </button>
@@ -207,38 +204,6 @@
                  }
  			});
 		})
-		.on('click', '.btn-target-delete-batch', function() {
-            swal({
-                title: '',
-                text: '确定批量删除选中记录',
-                type: 'warning',
-                showCancelButton: true,
-                cancelButtonText: '取消',
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: '确定',
-                closeOnConfirm: false
-            }, function() {
-                var rows = $table.bootstrapTable('getSelections');
-                
-                $.ajax({
-                    url: '${ctx}/api/target/batchDelete',
-                    data: { 
-                        targetIdList: $k.util.getIdList(rows) 
-                    },
-                    success: function(ret) {
-                        if (ret.code == 0) {
-                            swal('', '删除成功!', 'success');
-                        } else if (ret.code == 1004) {
-							swal('', '该数据存在关联, 无法删除', 'error');
-						} else {
-                            swal('', ret.msg, 'error');
-                        }
-                        $table.bootstrapTable('refresh'); 
-                    },
-                    error: function(err) {}
-                });
-            });
-        })
         .on("change", "#importTarget-file-input", function() {
         	var oMyForm = new FormData();
 			oMyForm.append("uploadfile",this.files[0]);
@@ -257,6 +222,7 @@
 					} else {
 						initTable();
 						$page.find('#importTarget-file-input').val("");
+						swal('', '上传成功!', 'success');
 					}
 				},
 				error: function(data) {
@@ -392,7 +358,7 @@
 	            	align: 'center',
 	            	formatter: function(value, row, index) {
 	            		if (row.target_current == null) {
-	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
+	            			return '<a class="text-muted a-operate">编辑</a><a class="a-operate text-muted">删除</a>';	
 	            		} else {
 	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
 	            		}
@@ -400,10 +366,9 @@
 	            	events: window.operateEvents = {
 	           			'click .btn-target-edit': function(e, value, row, index) {
 	               			e.stopPropagation();
-	               			if (row.targetCurrent == null) {
+	               			if (row.target_current == null) {
 	               				return;
 	               			}
-	               			
 	               			$targetDialog.find('.modal-title strong').text('编辑');
 	                        $targetForm.find('input[name = "monthly"]').attr('disabled', 'disabled');
 	                        $targetForm.find('input[name = "enterpriseId"]').attr('disabled', 'disabled');
@@ -411,8 +376,12 @@
 	               			$.each(row, function(key, val) {
 	               				if (key == 'enterprise') {
 	               					getSelectList(function() {$targetForm.find('select[name = "enterpriseId"]').val(val.id);});
+	                            } else if (key == 'target_current') {
+	                            	$targetForm.find('input[name="mainBusiness"]').val(val.mainBusiness);
+	                            	$targetForm.find('input[name="electricity"]').val(val.electricity);
+	                            	$targetForm.find('input[name="profit"]').val(val.profit);
+	                            	$targetForm.find('input[name="tax"]').val(val.tax);
 	                            }
-	               				$targetForm.find('input[name="' + key + '"]').val(val);
 	               			});
 	               			$targetDialog.modal('show');
 	               			
@@ -481,10 +450,6 @@
 	            }]
 			});
 			
-			$table.on('all.bs.table', function(e, row) {
-	            var selNum = $table.bootstrapTable('getSelections').length;
-	            selNum > 0 ? $page.find('.btn-target-delete-batch').removeAttr('disabled') : $page.find('.btn-target-delete-batch').attr('disabled', 'disabled');
-	        });
 			return $table;
 		}
 	})( jQuery );

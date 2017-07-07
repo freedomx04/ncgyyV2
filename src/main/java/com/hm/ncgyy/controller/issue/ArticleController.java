@@ -163,7 +163,7 @@ public class ArticleController {
 	@RequestMapping(value = "/api/article/listPage")
 	public Result listPaging(Integer type, int page, int size) {
 		try {
-			Page<ArticleEntity> list = articleService.listByType(type, (page - 1), size);
+			Page<ArticleEntity> list = articleService.listByType(type, page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
