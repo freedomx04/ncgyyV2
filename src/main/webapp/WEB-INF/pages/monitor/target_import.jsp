@@ -358,7 +358,7 @@
 	            	align: 'center',
 	            	formatter: function(value, row, index) {
 	            		if (row.target_current == null) {
-	            			return '<a class="text-muted a-operate">编辑</a><a class="a-operate text-muted">删除</a>';	
+	            			return '<a class="a-operate disabled">编辑</a><a class="a-operate disabled">删除</a>';	
 	            		} else {
 	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
 	            		}

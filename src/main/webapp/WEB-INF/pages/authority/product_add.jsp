@@ -185,7 +185,7 @@
             }
 		})
 		.on('click', '.btn-product-cancel', function() {
-			window.location.href = './enterpriseGet?enterpriseId=' + enterpriseId;
+			window.history.back();
 		});
 		
 	})( jQuery );

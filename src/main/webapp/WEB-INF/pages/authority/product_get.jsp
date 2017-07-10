@@ -61,7 +61,8 @@
 		var $page = $('.body-product-detail');
 		
 		$page.on('click', '.btn-product-back', function() {
-			window.location.href = './enterpriseGet?enterpriseId=${product.enterprise.id}';
+			//window.location.href = './enterpriseGet?enterpriseId=${product.enterprise.id}';
+			window.history.back();
 		});
 		
 	})( jQuery );

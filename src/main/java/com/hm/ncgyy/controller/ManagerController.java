@@ -145,7 +145,18 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/userAdd")
 	String userAdd(ModelMap modelMap, String method, Long userId) {
-		String title = method.equals("add") ? "用户新增" : "用户编辑";
+		String title = "";
+		switch (method) {
+		case "add":
+			title = "用户新增";
+			break;
+		case "edit":
+			title = "用户编辑";
+			break;
+		case "detail":
+			title = "用户详情";
+			break;
+		}
 		List<RoleEntity> roleList = roleService.list();
 		List<EnterpriseBaseEntity> enterpriseList = enterpriseService.listBase();
 		List<DepartmentEntity> departmentList = departmentService.list();
@@ -203,7 +214,9 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/enterpriseGet")
-	String enterpriseGet(ModelMap modelMap, Long enterpriseId) {
+	String enterpriseGet(ModelMap modelMap, String source, Long enterpriseId) {
+		modelMap.addAttribute("source", source);
+		
 		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
 		modelMap.addAttribute("enterprise", enterprise);
 		

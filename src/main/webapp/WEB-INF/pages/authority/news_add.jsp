@@ -162,7 +162,7 @@
             }
 		})
 		.on('click', '.btn-news-cancel', function() {
-			window.location.href = './enterpriseGet?enterpriseId=' + enterpriseId;
+			window.history.back();
 		});
 		
 	})( jQuery );

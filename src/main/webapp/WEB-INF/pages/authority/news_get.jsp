@@ -49,7 +49,7 @@
 		var $page = $('.body-news-detail');
 		
 		$page.on('click', '.btn-news-back', function() {
-			window.location.href = './enterpriseGet?enterpriseId=${news.enterprise.id}';
+			window.history.back();
 		});
 		
 	})( jQuery );

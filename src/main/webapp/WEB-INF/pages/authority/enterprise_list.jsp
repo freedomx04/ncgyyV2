@@ -107,7 +107,7 @@
             	events: window.operateEvents = {
             		'click .btn-enterprise-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './enterpriseGet?enterpriseId=' + row.id;
+            			window.location.href= './enterpriseGet?source=admin&enterpriseId=' + row.id;
             		},
             		'click .btn-enterprise-edit': function(e, value, row, index) {
             			e.stopPropagation();

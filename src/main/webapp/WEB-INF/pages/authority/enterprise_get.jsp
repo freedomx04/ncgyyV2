@@ -29,10 +29,12 @@
 <body class="gray-bg body-enterprise-detail">
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox float-e-margins">
+	 		<c:if test="${source == 'admin'}">
 	 		<div class="ibox-title">
 	 			<button type="button" class="btn btn-white btn-enterprise-back btn-sm"><i class="fa fa-chevron-left fa-fw"></i>企业列表</button>
 	 			<span style="padding-left: 15px; font-size: 16px;">${enterprise.name}</span>
 	 		</div>
+	 		</c:if>
 	 		
 	 		<div class="ibox-content">
  				<div class="tabs-container">
@@ -308,6 +310,7 @@
 	<script type="text/javascript">
 	
 		var $page = $('.body-enterprise-detail');
+		var source = '${source}';
 		
 		// product
 		var $productTable = $k.util.bsTable($page.find('#product-list-table'), {
@@ -491,6 +494,12 @@
 			$form.find('.editable').removeAttr('disabled').removeClass('disabled');
 			$form.find('.form-required').removeClass('hide');
 			$form.find('.avatar-view').removeClass('disabled').removeAttr('disabled');
+			
+			if (source == 'admin') {
+				var $icheck = $form.find('.i-checks');
+				$icheck.find('div').removeClass('disabled');
+				$icheck.find('input').removeAttr('disabled');
+			}
 			
 			$form.find('.btn-enterprise-edit').addClass('hide');
 			$form.find('.btn-enterprise-save, .btn-enterprise-cancel').removeClass('hide');

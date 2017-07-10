@@ -39,7 +39,7 @@
 								<c:if test="${method=='add'}">
 									<img src="${ctx}/api/avatar/default_user" alt="头像">
 								</c:if>
-								<c:if test="${method=='edit'}">
+								<c:if test="${method=='edit' || method=='detail'}">
 									<img src="${ctx}/api/avatar/${user.avatar}" alt="头像">
 								</c:if>
 						    </div>
@@ -185,7 +185,16 @@
 			}
 		});
 		
-		if (method == 'edit') {
+		if (method == 'detail') {
+			$page.find('.form-required').remove();
+			$page.find('select[name="roleId"]').val(${user.role.id});
+			$page.find('select[name="gender"]').val(${user.gender});
+			$page.find('select[name="enterpriseId"]').val(${user.enterprise.id});
+			$page.find('select[name="departmentId"]').val(${user.department.id});
+			$page.find('select').addClass('disabled');
+			$page.find('input, select, textarea').addClass('disabled');
+			$page.find('.avatar-view').addClass('disabled').attr('disabled', 'disabled');
+		} else if (method == 'edit') {
 			$page.find('input[name="username"]').attr('disabled', 'disabled');
 			$page.find('select[name="roleId"]').val(${user.role.id});
 			$page.find('select[name="gender"]').val(${user.gender});
@@ -258,8 +267,6 @@
 		.on('click', '.btn-user-cancel', function() {
 			window.location.href = './userList';
 		});
-		
-		
 		
 	})( jQuery );
 	</script>

@@ -277,6 +277,20 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/user/password2", method = RequestMethod.POST)
+	public Result password2(Long userId, String password) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setPassword(CiphersUtils.getInstance().MD5Password(password));
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	
 	@RequestMapping(value = "/api/user/status") 
 	public Result status(Long userId, Integer status) {
 		try {

@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
@@ -38,6 +39,42 @@
 		</div>
 	</div>
 	
+	<div class="modal" id="modal-password-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title"><strong>修改密码</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" id="form-password" autocomplete="off">
+                        <div class="form-group">
+							<label for="newPassword" class="col-sm-3 control-label"><i class="form-required">*</i>新密码</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" name="newPassword" id="newPassword" required data-bv-notempty-message="请输入新密码">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="confirmPassword" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
+							<div class="col-sm-7">
+								<input type="password" class="form-control" name="confirmPassword" required data-bv-notempty-message="请输入确认密码">
+							</div>
+						</div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">
+                        <i class="fa fa-close fa-fw"></i>关闭
+                    </button>
+                    <button type="button" class="btn btn-primary btn-confirm">
+                        <i class="fa fa-check fa-fw"></i>确定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
@@ -46,11 +83,46 @@
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
 		
 		var $page = $('.body-user-list');
+		
+		var $dialog = $page.find('#modal-password-dialog');
+		var $form = $dialog.find('form');
+		$k.util.bsValidator($form, {
+			fields: {
+				newPassword: {
+					validators: {
+						identical: {
+							field: 'confirmPassword',
+							message: '输入的两次密码不一致'
+						}, 
+						stringLength: {
+							min: 6,
+							max: 16,
+							message: '密码长度必须在6到16之间'
+						}
+					}
+				},
+				confirmPassword: {
+					validators: {
+						identical: {
+							field: 'newPassword',
+							message: '输入的两次密码不一致'
+						}, 
+						stringLength: {
+							min: 6,
+							max: 16,
+							message: '密码长度必须在6到16之间'
+						}
+					}
+				}
+			}
+		});
 		
 		var $table = $k.util.bsTable($page.find('#user-list-table'), {
 			url: '${ctx}/api/user/list',
@@ -107,13 +179,12 @@
             		} else {
             			$operate = '<a class="btn-user-enable a-operate">启用</a>';
             		}
-            		
             		return '<a class="btn-user-detail a-operate">详情</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>' + $operate;
             	},
             	events: window.operateEvents = {
             		'click .btn-user-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('get');
+            			window.location.href = './userAdd?method=detail&userId=' + row.id;
             		},
             		'click .btn-user-edit': function(e, value, row, index) {
             			e.stopPropagation();
@@ -121,7 +192,8 @@
             		},
             		'click .btn-user-password': function(e, value, row, index) {
             			e.stopPropagation();
-            			alert('password');
+            			$dialog.data('userId', row.id);
+            			$dialog.modal('show');
             		},
             		'click .btn-user-enable': function(e, value, row, index) {
             			e.stopPropagation();
@@ -198,8 +270,37 @@
 		});
 		
 		$page
+		.on('hidden.bs.modal', '#modal-password-dialog', function() {
+			$form.bootstrapValidator('resetForm', true);
+			$(this).removeData('bs.modal');
+		})
 		.on('click', '.btn-user-add', function() {
 			window.location.href = './userAdd?method=add';
+		});
+		
+		$dialog.on('click', '.btn-confirm', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				$.ajax({
+					url: '${ctx}/api/user/password2',
+					type: 'post',
+					data: {
+						userId: $dialog.data('userId'),
+						password: $form.find('input[name="newPassword"]').val()
+					},
+					success: function(ret) {
+						if (ret.code == 0) {
+							$dialog.modal('hide');
+							swal('', '密码修改成功', 'success');
+                    	} else {
+                    		swal('', ret.msg, 'error');
+                    	}
+					},
+					error: function(err) {}
+				});
+			}
 		});
 		
 	})( jQuery );
