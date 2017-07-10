@@ -80,9 +80,12 @@
             	title: '手机号',
             	align: 'center'
             }, {
-            	field: 'role.name',
+            	field: 'role',
             	title: '角色',
-            	align: 'center'
+            	align: 'center',
+            	formatter: function (value, row, index) {
+                    return value != null ? value.name : "";
+               	}
             }, {
             	field: 'status',
             	title: '状态',
