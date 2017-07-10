@@ -8,11 +8,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>南城县工业园区综合信息服务平台</title>
-	<meta name="keywords" content="">
-    <meta name="description" content="">
     
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
+	
 </head>
 <body class="body-article">
 	<div class="header">
@@ -21,7 +20,7 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="index_article?type=1">新闻动态</a>
+			<a href="newsList?type=1">新闻动态</a>
 			&nbsp;&gt;&nbsp;
 	    </span>
 	</div>
@@ -34,10 +33,10 @@
 						<div class="ctree">
 							<div class="ctree_title"><h1>新闻动态</h1></div>
 								<dl>
-									<dt><a href="index_article?type=1" type="1">图片新闻</a></dt>
-									<dt><a href="index_article?type=2" type="2">公示公告</a></dt>
-									<dt><a href="index_article?type=3" type="3">政策法规</a></dt>
-									<dt><a href="index_article?type=4" type="4">工业信息</a></dt>
+									<dt><a href="newsList?type=1" type="1">图片新闻</a></dt>
+									<dt><a href="newsList?type=2" type="2">公示公告</a></dt>
+									<dt><a href="newsList?type=3" type="3">政策法规</a></dt>
+									<dt><a href="newsList?type=4" type="4">工业信息</a></dt>
 								</dl>
 							<div style="height:30px;">&nbsp;</div>
 
@@ -72,8 +71,9 @@
 	<script>
 	var $page = $(".body-article");
 	;(function() {
+		
 		var type = $k.util.getRequestParam("type");
-		var pageSize = 2;
+		var pagesize = 2;
 		
 		$page.find(".header").html($(".template.Top").doT());
 		$page.find(".footer").append($(".template.Footer").doT());
@@ -87,21 +87,22 @@
 		switch (type) {
 		case '1':
 			$page.find(".clist_r_title span").html("图片新闻");
-			$page.find(".mnav span").append('<a href="index_article?type=1">图片新闻</a>');
+			$page.find(".mnav span").append('<a href="newsList?type=1">图片新闻</a>');
 			break;
 		case '2':
 			$page.find(".clist_r_title span").html("公示公告");
-			$page.find(".mnav span").append('<a href="index_article?type=2">公示公告</a>');
+			$page.find(".mnav span").append('<a href="newsList?type=2">公示公告</a>');
 			break;
 		case '3':
 			$page.find(".clist_r_title span").html("政策法规");
-			$page.find(".mnav span").append('<a href="index_article?type=3">政策法规</a>');
+			$page.find(".mnav span").append('<a href="newsList?type=3">政策法规</a>');
 			break;
 		case '4':
 			$page.find(".clist_r_title span").html("工业信息");
-			$page.find(".mnav span").append('<a href="index_article?type=4">工业信息</a>');
+			$page.find(".mnav span").append('<a href="newsList?type=4">工业信息</a>');
 			break;
 		}
+		
 		$page.find('#pageTool').Paging({
 			pagesize: pagesize, 
 			count: '${count}', 
@@ -125,18 +126,18 @@
 						$.each(ret.data.content, function(key, val) {
 							var title = val.title.length > 45 ? (val.title.substr(0, 45) + "...") : val.title;
 							var ht = '<li>'+
-							'<a href="index_articleContent/'+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
-							'<span><a href="index_articleContent/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+							'<a href="newsListContent/'+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+							'<span><a href="newsListContent/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 							'</li>';
 							var $obj = $page.find(".clist_con ul");
 							if (type == 1) {
 								ht = '<div class="pnews">'+
 										'<div class="pnews_ul">'+ 
-											'<a href="index_articleContent/'+ val.path +'" target="_blank">'+
+											'<a href="newsListContent/'+ val.path +'" target="_blank">'+
 												'<img border="0" src="${ctx}'+ (val.imagePath || "") +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
-										'<div class="pnews_wz"> <a href="index_articleContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
+										'<div class="pnews_wz"> <a href="newsListContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
 									'</div>';
 								$obj.hide();
 								$obj = $page.find(".clist_con .pnews_con");

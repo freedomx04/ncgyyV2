@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/template/top_footer.jsp"%>
+<%@ include file="/WEB-INF/include/preload.jsp"%>
 
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,24 +9,48 @@
 	<meta name="keywords" content="">
     <meta name="description" content="">
     
+    <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/slideBox/jquery.slideBox.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
+	
 </head>
+
 <body class="body-portal">
-	<div class="header">
+	<div>
+		<%@ include file="/WEB-INF/template/top.jsp"%>
 	</div>
 	
-	<div class="main">
+	<div class="main" style="padding-bottom: 15px;">
 		<div class="con_one">
 			<div class="slideBox news">
 				<ul class="items">
+					<c:forEach var="photonews" items="${photonewsList}">
+						<li style="width: 655px; height: 295px;">
+							<a href="${ctx}/news/${photonews.path}" title="${photonews.title}" target="_blank">
+								<img src="${ctx}${photonews.imagePath}" style="width: 100%; height: 100%:">
+							</a>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 			
 			<div class="announce">
-				<a href="${ctx}/index_article?type=2" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
+				<a href="${ctx}/newsList?type=2" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
 				<div class="article_con" id="con_xw" style="overflow: hidden; display: block;">
-					<ul style="padding-top:5px;">
+					<ul>
+						<c:forEach var="announce" items="${announceList}">
+							<li>
+								<a href="${ctx}/news/${announce.path}" target="_blank">
+								<c:if test="${fn:length(announce.title) > 32}">
+										${fn:substring(announce.title, 0, 32)}...
+									</c:if>
+									<c:if test="${fn:length(announce.title) <= 32}">
+										${announce.title}
+									</c:if>
+								</a>
+								[<fmt:formatDate value="${announce.updateTime}" pattern="MM-dd"/>]
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -38,16 +60,42 @@
 		<div class="con_two">
 			<div class="con_two_left">
 				<div class="policy border_top">
-					<a href="${ctx}/index_article?type=3" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
+					<a href="${ctx}/newsList?type=3" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
-						<ul style="padding-top:5px;">
+						<ul>
+							<c:forEach var="policy" items="${policyList}">
+								<li>
+									<a href="${ctx}/news/${policy.path}" target="_blank">
+										<c:if test="${fn:length(policy.title) > 38}">
+											${fn:substring(policy.title, 0, 38)}...
+										</c:if>
+										<c:if test="${fn:length(policy.title) <= 38}">
+											${policy.title}
+										</c:if>
+									</a>
+									<span>[<fmt:formatDate value="${policy.updateTime}" pattern="MM-dd"/>]</span>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
 				<div class="industry border_top" style="margin-top: 30px;">
-					<a href="${ctx}/index_article?type=4" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
+					<a href="${ctx}/newsList?type=4" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
-						<ul style="padding-top:5px;">
+						<ul>
+							<c:forEach var="overview" items="${overviewList}">
+								<li>
+									<a href="${ctx}/news/${overview.path}" target="_blank">
+										<c:if test="${fn:length(overview.title) > 38}">
+											${fn:substring(overview.title, 0, 38)}...
+										</c:if>
+										<c:if test="${fn:length(overview.title) <= 38}">
+											${overview.title}
+										</c:if>
+									</a>
+									<span>[<fmt:formatDate value="${overview.updateTime}" pattern="MM-dd"/>]</span>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
@@ -62,6 +110,26 @@
                 </div>
 				<div class="enterprise">
 					<ul id="list">
+						<c:forEach var="enterprise" items="${enterpriseList}">
+						<li>
+							<button type="button" class="btn btn-outline btn-default" style="width: 100%;">
+								<div style="display: table-cell; vertical-align: middle;">
+									<img src="${ctx}/api/avatar/${enterprise.avatar}" alt="" width="48" height="48">
+								</div>
+								<div style="display: table-cell; vertical-align: middle; padding-left: 15px; text-align: left;">
+									<div>
+										<c:if test="${fn:length(enterprise.name) > 11}">
+											${fn:substring(enterprise.name, 0, 11)}...
+										</c:if>
+										<c:if test="${fn:length(enterprise.name) <= 11}">
+											${enterprise.name}
+										</c:if>
+									</div>
+									<div style="font-size: 12px;">${enterprise.industry.name}</div>
+								</div>
+							</button>
+						</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -116,9 +184,8 @@
 		
 	</div>
 	
-	<div class="footer">
-		<script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/33/000/0000/60406093/CA330000000604060930001.js' type='text/javascript'%3E%3C/script%3E"));</script>
-		
+	<div>
+		<%@ include file="/WEB-INF/template/footer.jsp"%>
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -128,46 +195,17 @@
 	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
-	<script>
+	<script type="text/javascript">
 	var $page = $(".body-portal");
 	;(function() {
 		
-		$page.find(".header").html($(".template.Top").doT());
-		$page.find(".footer").append($(".template.Footer").doT());
-		
-		//图片新闻
-		$.ajax({
-			url: "${ctx}/api/article/list",
-			data: {type: 1},
-			success: function(ret) {
-				if (ret.code == 0) {
-					var len = ret.data.length >= 5 ? 5 : ret.data.length;
-					for (var i = 0; i < len; i++){
-						var val = ret.data[i];
-						var ht = '<li style="width: 655px;height: 295px;">'+
-									'<a href="index_articleContent/'+ val.path +'" title="'+ val.title +'" target="_blank">'+
-										'<img src="${ctx}'+ val.imagePath +'" style="width: 100%;height: 100%;">'+
-									'</a>'+
-								'</li>';
-						$(ht).appendTo($page.find(".slideBox .items"));
-					}
-					$page.find(".slideBox").slideBox({
-						duration: 1,	//滚动持续时间，单位：秒
-						easing: 'linear',	//swing,linear//滚动特效
-						delay: 3,	//滚动延迟时间，单位：秒
-						clickBarRadius: 1
-					});
-				}
-			},
-			error: function(err) {}
+		// 图片新闻
+		$page.find(".slideBox").slideBox({
+			duration: 1,		//滚动持续时间，单位：秒
+			easing: 'linear',	//swing,linear//滚动特效
+			delay: 3,			//滚动延迟时间，单位：秒
+			clickBarRadius: 1
 		});
-		
-		//公示公告
-		articleList(2, $page.find(".announce ul"));
-		//政策法规
-		articleList(3, $page.find(".policy ul"));
-		//工业信息
-		articleList(4, $page.find(".industry ul"));
 		
 		//帮扶平台
 		$.ajax({
@@ -185,25 +223,6 @@
 			error: function(err) {}
 		});
 		
-		
-		//企业宣传
-		$.ajax({
-			url: "${ctx}/api/enterprise/listBase",
-			success: function(ret) {
-				if (ret.code == 0 && ret.data != null) {
-					var len = ret.data.length >= 10 ? 10 : ret.data.length;
-					for (var i = 0; i < len; i++){
-						var val = ret.data[i];
-						var ht = '<li style="background: #b9b7b7;">'+
-									'<div class="enterprise_logo"><img src="${ctx}/api/avatar/'+ val.avatar +'" alt="企业logo" width="100%"></div>'+
-									'<div class="enterprise_name"><div>'+ val.name +'</div><div>'+ val.industry.name +'</div></div>'+
-								'</li>';
-						$(ht).appendTo($page.find(".enterprise ul"));
-					}
-				}
-			},
-			error: function(err) {}
-		});
 		//产品宣传
 		$.ajax({
 			url: "${ctx}/api/product/listAll",
@@ -225,27 +244,6 @@
 		
 		//监测平台
 		getChart('target-1');
-		
-		
-		function articleList(type, $obj) {
-			$.ajax({
-				url: "${ctx}/api/article/list",
-				data: {type: type},
-				success: function(ret) {
-					if (ret.code == 0 && ret.data != null) {
-						var len = ret.data.length >= 5 ? 5 : ret.data.length;
-						
-						for (var i = 0; i < len; i++){
-							var val = ret.data[i];
-							var title = val.title.length > 40 ? (val.title.substr(0, 40) + "...") : val.title;
-							var ht = '<li style="position:static;"><a href="index_articleContent/'+ val.path +'" target="_blank">'+ title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
-							$(ht).appendTo($obj);
-						}
-					}
-				},
-				error: function(err) {}
-			});
-		}
 		
 	})();
 	

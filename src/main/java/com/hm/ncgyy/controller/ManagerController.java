@@ -541,25 +541,6 @@ public class ManagerController {
 		return "pages/issue/article_get";
 	}
 	
-	@RequestMapping(value = "/index_article")
-	String article(ModelMap modelMap, Integer type) {
-		List<ArticleEntity> list = articleService.listByType(type);
-		modelMap.addAttribute("count", list.size());
-		return "pages/portal/article";
-	}
-	
-	@RequestMapping(value = "/index_articleContent/{path}")
-	String articleContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		ArticleEntity article = articleService.findByPath(path);
-		if (article != null) {
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
-			modelMap.addAttribute("article", article);
-		}
-		
-		return "pages/portal/content";
-	}
-	
 	/**
 	 * 个人中心
 	 */
