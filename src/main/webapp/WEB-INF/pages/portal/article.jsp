@@ -74,7 +74,7 @@
 	;(function() {
 		
 		var type = $k.util.getRequestParam("type");
-		var pagesize = 2;
+		var pagesize = 20;
 		
 		$page.find(".ctree").removeClass("ctree_curr");
 		$page.find(".ctree").find("[type='"+ type +"']").addClass("ctree_curr");
@@ -124,18 +124,18 @@
 						$.each(ret.data.content, function(key, val) {
 							var title = val.title.length > 45 ? (val.title.substr(0, 45) + "...") : val.title;
 							var ht = '<li>'+
-							'<a href="newsListContent/'+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
-							'<span><a href="newsListContent/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+							'<a href="news/'+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+							'<span><a href="news/'+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 							'</li>';
 							var $obj = $page.find(".clist_con ul");
 							if (type == 1) {
 								ht = '<div class="pnews">'+
 										'<div class="pnews_ul">'+ 
-											'<a href="newsListContent/'+ val.path +'" target="_blank">'+
+											'<a href="news/'+ val.path +'" target="_blank">'+
 												'<img border="0" src="${ctx}'+ (val.imagePath || "") +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
-										'<div class="pnews_wz"> <a href="newsListContent/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
+										'<div class="pnews_wz"> <a href="news/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
 									'</div>';
 								$obj.hide();
 								$obj = $page.find(".clist_con .pnews_con");
