@@ -6,13 +6,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>南城县工业园区综合信息服务平台</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="">
 
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 </head>
 <body class="body-article-content">
-	<div class="header"></div>
+	<div>
+		<%@ include file="/WEB-INF/template/top.jsp"%>
+	</div>
 
 	<div class="mnav" style="border-bottom: 1px #ccc solid;">
 		<span> 
@@ -30,7 +30,7 @@
 			<span id="con_time">发布时间：<fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm" /></span>&nbsp; 
 			<span>来源：${article.source}</span>&nbsp;
 		</div>
-		<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 30px 20px; color: #070707; line-height: 26px;">
+		<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 40px; color: #070707; line-height: 26px; min-height: 400px;">
 			${article.content}
 			
 			<c:if test="${not empty article.fileList}">
@@ -48,7 +48,9 @@
 		</div>
 	</div>
 
-	<div class="footer"></div>
+	<div>
+		<%@ include file="/WEB-INF/template/footer.jsp"%>
+	</div>
 
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
@@ -57,11 +59,6 @@
 	<script type="text/javascript">
 	;(function() {
 		
-		var $page = $(".body-article-content");
-		
-		$page.find(".header").html($(".template.Top").doT());
-		$page.find(".footer").append($(".template.Footer").doT());
-
 	})();
 	</script>
 	

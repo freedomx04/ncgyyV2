@@ -138,7 +138,7 @@
 		
 		<div class="con_three">
 			<div class="con_three_left">
-				<div class="monitor" style="margin-top: 30px;">
+				<div class="monitor">
 					<dl>
 	                 	<dt>
 	                 		<a href="javascript: void(0)" target="_blank">
@@ -158,7 +158,7 @@
 					</div>
 				</div>
 				
-				<div class="assist border_top" style="margin-top: 30px;">
+				<div class="assist border_top">
 					<a href="#" target="_blank"><img src="img/assist.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul style="padding-top:5px;">
@@ -167,15 +167,24 @@
 				</div>
 			</div>
 			
-			<div class="con_three_right" style="margin-top: 30px;">
+			<div class="con_three_right">
 				<div class="common_title">
                     <dl>
                         <dt><a href="index_product" target="_blank" class="ct_curr">产品宣传</a></dt>
                         <dd><a href="index_product" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
-				<div class="product">
+				<div class="product" style="height: 600px;">
 					<ul id="list">
+						<c:forEach var="product" items="${productList}">
+							<li>
+								<a href="" target="_blank">
+									<img src="${ctx}${product.imagePath}" style="width: 100%; height: 200px;">
+									<div style="background-color: #e8e8e8; height: 28px; padding: 5px;">${product.name}</div>
+								</a>
+								
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -202,7 +211,7 @@
 		// 图片新闻
 		$page.find(".slideBox").slideBox({
 			duration: 1,		//滚动持续时间，单位：秒
-			easing: 'linear',	//swing,linear//滚动特效
+			easing: 'linear',	//swing,linear滚动特效
 			delay: 3,			//滚动延迟时间，单位：秒
 			clickBarRadius: 1
 		});
@@ -216,26 +225,7 @@
 					for (var i = 0; i < len; i++){
 						var val = ret.data[i];
 						var ht = '<li style="position:static;"><a href="${ctx}/'+ val.path +'" target="_blank">'+ val.title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
-						$(ht).appendTo($obj);
-					}
-				}
-			},
-			error: function(err) {}
-		});
-		
-		//产品宣传
-		$.ajax({
-			url: "${ctx}/api/product/listAll",
-			success: function(ret) {
-				if (ret.code == 0 && ret.data != null) {
-					var len = ret.data.length >= 10 ? 10 : ret.data.length;
-					for (var i = 0; i < len; i++){
-						var val = ret.data[i];
-						var ht = '<li style="background: #366eab;">'+
-									'<div class="product_logo"><img src="${ctx}/'+ val.imagePath +'" alt="产品图片" width="100%"></div>'+
-									'<div class="product_name"><div>'+ val.name +'</div><div>'+ val.enterprise.industry.name +'</div></div>'+
-								'</li>';
-						$(ht).appendTo($page.find(".product ul"));
+						$(ht).appendTo($page.find('.assist ul'));
 					}
 				}
 			},
@@ -349,21 +339,18 @@
 						    legend: {
 						        data: ['本月止' +　legendName, '同比增幅', '环比增幅']
 						    },
-						    xAxis : [
-						        {
+						    xAxis : [{
 						            type : 'category',
 						            data : xAxisArr
 						        }
 						    ],
-						    yAxis : [
-						        {
+						    yAxis : [{
 						            type : 'value',
 						            name : legendName,
 						            axisLabel : {
 						                formatter: '{value} ' + unit
 						            }
-						        },
-						        {
+						        }, {
 						            type : 'value',
 						            name : '增幅',
 						            axisLabel : {
@@ -371,20 +358,16 @@
 						            }
 						        }
 						    ],
-						    series : [
-
-						        {
+						    series : [{
 						            name: '本月止' + legendName,  //这里的name要和legend里的data一致
 						            type: 'bar',
 						            data: arr1
-						        },
-						        {
+						        }, {
 						            name: '同比增幅',
 						            type: 'line',
 						            yAxisIndex: 1,
 						            data: arr2
-						        },
-						        {
+						        }, {
 						            name: '环比增幅',
 						            type: 'line',
 						            yAxisIndex: 1,
@@ -398,8 +381,8 @@
 			},
 			error: function(err) {}
 		});
-		
 	}
 	</script>
+	
 </body>
 </html>
