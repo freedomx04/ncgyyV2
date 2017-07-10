@@ -8,6 +8,8 @@ public interface NewsService {
 	
 	NewsEntity findOne(Long newsId);
 	
+	NewsEntity findByPath(String path);
+	
 	void save(NewsEntity news);
 	
 	void delete(Long newsId);

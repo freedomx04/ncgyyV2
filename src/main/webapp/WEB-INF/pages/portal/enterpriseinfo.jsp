@@ -180,8 +180,8 @@
 							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
 							
 							var ht = '<li>'+
-										'<a href="index_articleContent?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
-										'<span><a href="index_articleContent?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+										'<a href="index_newsContent?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+										'<span><a href="index_newsContent?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 									'</li>';
 							
 							$(ht).appendTo($page.find("#tab-3 .clist_con ul"));

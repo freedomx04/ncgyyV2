@@ -1,6 +1,8 @@
 package com.hm.ncgyy.controller.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -107,13 +109,24 @@ public class DeclareController {
 	@RequestMapping(value = "/api/declare/listOnline")
 	public Result listOnlineUnapply(@RequestParam Long enterpriseId) {
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss"); 
+			
 			List<DeclareEntity> list = declareService.listOnline();
-			for (DeclareEntity declare : list) {
+			Iterator<DeclareEntity> iter = list.iterator();
+			
+			while(iter.hasNext()){
+				DeclareEntity declare = iter.next();
 				ApplyEntity apply = applyService.findOne(declare.getId(), enterpriseId);
+				Date endTime = sdf.parse(declare.getEndTime());
+				Date now = new Date();
+				
 				if (apply != null) {
 					declare.setApplyStatus(ApplyStatus.APPLY);
 				}
-			}
+	            if (endTime.getTime() < now.getTime()) {
+	            	iter.remove();
+				}
+	        }
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

@@ -297,6 +297,18 @@ public class ManagerController {
 		return "pages/authority/news_get";
 	}
 	
+	@RequestMapping(value = "/index_newsContent/{path}")
+	String newsContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
+		NewsEntity news = newsService.findByPath(path);
+		if (news != null) {
+			String content = commonService.getArticleContent(news.getPath());
+			news.setContent(content);
+			modelMap.addAttribute("news", news);
+		}
+		
+		return "pages/portal/content";
+	}
+	
 	@RequestMapping(value = "/department")
 	String department(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
@@ -530,9 +542,6 @@ public class ManagerController {
 			String content = commonService.getArticleContent(article.getPath());
 			article.setContent(content);
 			modelMap.addAttribute("article", article);
-			
-			String title = articleService.getArticleTitle(article.getType());
-			modelMap.addAttribute("title", title);
 		}
 		
 		return "pages/portal/content";

@@ -33,7 +33,7 @@
  					<span><fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm"/></span>
  				</div>
  				
- 				<div style="padding: 20px;">${article.content}</div>
+ 				<div style="padding: 20px;word-break: break-all;">${article.content}</div>
  				
  				<c:if test="${not empty article.fileList}">
  				<div class="article-file" style="padding: 20px;">

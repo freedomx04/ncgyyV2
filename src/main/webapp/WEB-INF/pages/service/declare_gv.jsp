@@ -83,6 +83,10 @@
             			status = '下架';
            			break;
             		}
+            		
+            		if (new Date(row.endTime) < new Date()) {
+            			status = '逾期';
+            		}
             		return status;
             	},
             }, {
@@ -102,6 +106,12 @@
             		var $delete = '<a class="btn-declare-delete a-operate">删除</a>';
             		var $display = '<a class="btn-declare-display a-operate">发布/结束</a>';
             		var $enterprise = '<a class="btn-declare-enterprise a-operate">查看申报企业</a>';
+
+            		if (new Date(row.endTime) < new Date()) {
+            			var $edit = '<a class="text-muted a-operate">编辑</a>';
+            			var $display = '<a class="text-muted a-operate">发布/结束</a>';
+            		}
+            		
             		return $detail + $edit + $delete + $display + $enterprise;
             	},
             	events: window.operateEvents = {

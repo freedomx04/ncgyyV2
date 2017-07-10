@@ -9,6 +9,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 
 public interface NewsRepository extends PagingAndSortingRepository<NewsEntity, Long> {
+	
+	NewsEntity findByPath(String path); 
 
 	List<NewsEntity> findByEnterpriseIdOrderByUpdateTime(Long enterpriseId);
 	
