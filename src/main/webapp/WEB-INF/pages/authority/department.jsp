@@ -256,6 +256,7 @@
 		.on('hidden.bs.modal', '#modal-department-dialog', function() {
             $form.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
+            $form.find('input').val('');
         }) 
 		.on('click', '.btn-department-add', function() {
 			$dialog.find('.modal-title strong').text('新增');

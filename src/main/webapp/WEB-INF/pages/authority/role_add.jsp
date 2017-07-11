@@ -448,9 +448,12 @@
 			var resource = '${role.resource}';
 			var arr = resource.split(',');
 			$.each(arr, function(k, val) {
-				var $label = $page.find('.i-checks[data-authority=' + val + ']');
-				$label.iCheck('check');
+				if (val != '') {
+					var $label = $page.find('.i-checks[data-authority=' + val + ']');
+					$label.iCheck('check');
+				}
 			});
+			
 			$page.find('.form-required').remove();
 			$page.find('input').addClass('disabled');
 			$page.find('textarea').addClass('disabled');
@@ -459,15 +462,17 @@
 			var resource = '${role.resource}';
 			var arr = resource.split(',');
 			$.each(arr, function(k, val) {
-				var $label = $page.find('.i-checks[data-authority=' + val + ']');
-				$label.iCheck('check');
-				if ($label.hasClass('authority-classify')) {
-					$label.closest('div').find('.authority-classify-function').removeClass('disabled');
+				if (val != '') {
+					var $label = $page.find('.i-checks[data-authority=' + val + ']');
+					$label.iCheck('check');
+					if ($label.hasClass('authority-classify')) {
+						$label.closest('div').find('.authority-classify-function').removeClass('disabled');
+					}
 				}
 			});
 		}
 		
-		$('.authority-classify')
+		$page.find('.authority-classify')
 		.on('ifChecked', function(e) {
 			var $this = $(this);
 			$this.closest('div').find('.authority-classify-function').removeClass('disabled').iCheck('check');

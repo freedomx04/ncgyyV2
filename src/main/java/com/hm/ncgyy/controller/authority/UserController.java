@@ -108,6 +108,7 @@ public class UserController {
 			user.setGender(gender);
 			user.setMobile(mobile);
 			user.setEmail(email);
+			user.setIntroduction(introduction);
 			
 			if (enterpriseId != null) {
 				EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);

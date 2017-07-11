@@ -64,7 +64,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		// target
 		put("mainBusiness", 	new ExcelCell("mainBusiness",		4500, 	"本月止主营业务收入(万元)"));
-		put("electricity", 		new ExcelCell("electricity", 		4500, 	"用电量(万度)"));
+		put("electricity", 		new ExcelCell("electricity", 		4500, 	"本月止用电量(万度)"));
 		put("profit", 			new ExcelCell("profit", 			4500, 	"本月止利润总额(万元)"));
 		put("tax", 				new ExcelCell("tax", 				4500, 	"本月止实现税金总额(万元)"));
 	}};
