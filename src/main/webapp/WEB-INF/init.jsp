@@ -39,6 +39,12 @@
 							</div>
 							
 							<div class="form-group">
+								<label class="col-sm-4 control-label">默认头像</label>
+								<div class="col-sm-2"><button type="button" class="btn btn-primary" data-type="avatar">初始化</button></div>
+								<label class="col-sm-2 control-label init-result"></label>
+							</div>
+							
+							<div class="form-group">
 								<label class="col-sm-4 control-label">园区</label>
 								<div class="col-sm-2"><button type="button" class="btn btn-primary" data-type="area">初始化</button></div>
 								<label class="col-sm-2 control-label init-result"></label>

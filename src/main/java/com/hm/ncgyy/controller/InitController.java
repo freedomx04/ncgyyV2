@@ -2,10 +2,13 @@ package com.hm.ncgyy.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.utils.CiphersUtils;
+import com.hm.ncgyy.common.utils.FileUtil;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
@@ -63,13 +67,26 @@ public class InitController {
 	@Autowired
 	HttpServletRequest request;
 	
+	@Value("${customize.admin.username}")
+	private String adminUsername;
+
+	@Value("${customize.admin.password}")
+	private String adminPassword;
+	
+	@Value("${customize.path.upload}")
+	private String uploadPath;
+	
+	@Value("${customize.path.avatar}")
+	private String avatarPath;
+	
 	@RequestMapping(value = "/api/init/role")
 	public Result role() {
 		try {
 			Date now = new Date();
 			RoleEntity role = roleService.findByName("管理员");
 			if (role == null) {
-				role = new RoleEntity("管理员", "管理员", "", now, now);
+				String resource = "authority-role,authority-role-add,authority-role-delete-batch,authority-role-detail,authority-role-edit";
+				role = new RoleEntity("管理员", "管理员", resource, now, now);
 				roleService.save(role);
 			}
 			
@@ -86,12 +103,6 @@ public class InitController {
 		}
 	}
 	
-	@Value("${customize.admin.username}")
-	private String adminUsername;
-
-	@Value("${customize.admin.password}")
-	private String adminPassword;
-
 	@RequestMapping(value = "/api/init/admin")
 	public Result admin() {
 		try {
@@ -101,7 +112,33 @@ public class InitController {
 				RoleEntity role = roleService.findByName("管理员");
 				user = new UserEntity(adminUsername, CiphersUtils.getInstance().MD5Password(adminPassword), 
 					role, "", now, now);
+				user.setName(adminUsername);
 				userService.save(user);
+			}
+			return new Result(Code.SUCCESS.value(), "成功");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/init/avatar")
+	public Result avatar() {
+		try {
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String[] pics = new String[] { "default_user.png", "default_enterprise.png" };
+			for (String name: pics) {
+				File file = Paths.get(uploadPath, avatarPath, name).toFile();
+				if (file.exists()) {
+					continue;
+				}
+				
+				FileInputStream in = new FileInputStream(new File(root + "/init/" + name));
+				FileUtil.sureDirExists(file, true);
+				
+				FileOutputStream out = new FileOutputStream(file);
+	            IOUtils.copy(in, out);
+	            out.close();
 			}
 			return new Result(Code.SUCCESS.value(), "成功");
 		} catch (Exception e) {
@@ -174,7 +211,7 @@ public class InitController {
 	public Result enterprise() {
 		try {
 			String root = request.getSession().getServletContext().getRealPath("/");
-			File file = new File(root + "/file/enterpriseName.xls");
+			File file = new File(root + "/init/enterpriseName.xls");
 			
 			workbook = new HSSFWorkbook(new FileInputStream(file));
 			HSSFSheet sheet = workbook.getSheetAt(0);
