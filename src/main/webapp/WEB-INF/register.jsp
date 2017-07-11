@@ -22,6 +22,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/pearls.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
 	<style type="text/css">
 	.body-register .msg-wrap {

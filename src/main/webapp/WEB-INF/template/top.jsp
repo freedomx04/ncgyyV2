@@ -3,7 +3,7 @@
 <body>
 	<div class="header">
 		<div class="header_item">
-			<div class="header_item_fr">
+			<div class="header_item_fr" style="font-size: 14px;">
 				<a href="${ctx}/login">登录</a>
 				<a href="${ctx}/register" style="padding-left: 5px;">注册</a>
 			</div>
