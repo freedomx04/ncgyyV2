@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
@@ -35,6 +37,9 @@ public class PageController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	NewsService newsService;
 	
 	/**
 	 * 新闻页面
@@ -57,6 +62,17 @@ public class PageController {
 		return "pages/portal/content";
 	}
 	
+	@RequestMapping(value = "/epnews/{path}")
+	String newsContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
+		NewsEntity news = newsService.findByPath(path);
+		if (news != null) {
+			String content = commonService.getArticleContent(news.getPath());
+			news.setContent(content);
+			modelMap.addAttribute("news", news);
+		}
+		
+		return "pages/portal/content";
+	}
 	
 	@RequestMapping(value = "/enterpriselist")
 	String enterprise(ModelMap modelMap) {

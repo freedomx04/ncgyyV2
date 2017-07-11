@@ -19,7 +19,7 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="index_enterprise">企业宣传</a>
+			<a href="enterpriselist">企业宣传</a>
 	    </span>
 	</div>
 	

@@ -28,7 +28,7 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="index_enterprise">企业宣传</a>&nbsp;&gt;&nbsp;
+			<a href="enterpriselist">企业宣传</a>&nbsp;&gt;&nbsp;
 			<a href="javascript: void(0);">${enterprise.name}</a>
 	    </span>
 	</div>
@@ -138,7 +138,7 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data.length != 0) {
 						$page.find("#tab-2 .product_list").html("");
 						
 						$.each(ret.data, function(key, val) {
@@ -150,7 +150,7 @@
 												'<img border="0" data-original="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
-										'<div class="product_wz"> <a href="index+productinfo?productId='+ val.id +'" target="_blank">'+ val.name +'</a></div>'+
+										'<div class="product_wz"> <a href="product?productId='+ val.id +'" target="_blank">'+ val.name +'</a></div>'+
 									'</div>';
 							
 							$(ht).appendTo($page.find("#tab-2 .product_list"));
@@ -158,6 +158,9 @@
 						$('img').lazyload({
 						    effect: 'fadeIn'
 						}); 
+					} else {
+						$page.find(".product_list").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
+						$page.find('#tab-2 .pageTool').html("");
 					}
 				},
 				error: function(err) {}
@@ -173,18 +176,21 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data.length != 0) {
 						$page.find("#tab-3 .clist_con ul").html("");
 						$.each(ret.data, function(key, val) {
 							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
 							
 							var ht = '<li>'+
-										'<a href="index_newsContent?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
-										'<span><a href="index_newsContent?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+										'<a href="epnews?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+										'<span><a href="epnews?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 									'</li>';
 							
 							$(ht).appendTo($page.find("#tab-3 .clist_con ul"));
 						});
+					} else {
+						$page.find(".clist_con").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
+						$page.find('#tab-3 .pageTool').html("");
 					}
 				},
 				error: function(err) {}
