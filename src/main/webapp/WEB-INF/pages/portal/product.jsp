@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/template/top_footer.jsp"%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,8 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 </head>
 <body class="body-enterprise">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<div class="header">
 	</div>
 	
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
@@ -33,16 +33,16 @@
 		</div>
 		
 		
-		<div id="pageTool" style="margin-bottom: 20px;"></div>
+		<div id="pageTool" style="margin-bottom: 20px;clear: both;"></div>
 	</div>
 	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
+	<div class="footer">
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
@@ -50,6 +50,9 @@
 	;(function() {
 		var $page = $(".body-enterprise");
 		var pageSize = 20;
+		
+		$page.find(".header").html($(".template.Top").doT());
+		$page.find(".footer").append($(".template.Footer").doT());
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_product").addClass("nav_curr");
@@ -72,20 +75,25 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data != null) {
 						$page.find(".clist_con").html("");
 						$.each(ret.data, function(key, val) {
 							
 							var ht = '<div class="product_con">'+ 
 										'<div class="product_ul">'+
-											'<a href="product?productId='+ val.id +'" target="_blank">'+
-												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
+											'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
+												'<img border="0" data-src="${ctx}'+ val.imagePath +'" src="${ctx}/img/kakaxi.jpg" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
 										'<div class="product_wz"> <a href="" target="_blank">'+ val.name +'</a></div></div>';
 							
 							$(ht).appendTo($page.find(".clist_con"));
 						});
+						$("img").lazyload({
+				            effect : "fadeIn"
+				        });
+					} else {
+						$page.find(".clist_con").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
 					}
 				},
 				error: function(err) {}

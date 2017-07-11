@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/template/top_footer.jsp"%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,21 +8,21 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>南城县工业园区综合信息服务平台</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
     
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 	
 	<style>
-	.dl-horizontal dt,
-	.dl-horizontal dd {
+	.dl-horizontal dt {
 		line-height: 2em;
 	}
 	</style>
 	
 </head>
 <body class="body-enterprise">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<div class="header">
 	</div>
 	
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
@@ -53,8 +54,7 @@
 	    </div>
 	</div>
 	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
+	<div class="footer">
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -66,6 +66,8 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterprise");
+		$page.find(".header").html($(".template.Top").doT());
+		$page.find(".footer").append($(".template.Footer").doT());
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_product").addClass("nav_curr");

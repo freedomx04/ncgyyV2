@@ -133,9 +133,8 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		//var enterpriseId = ${enterpriseId};
-		var enterpriseId = 2;
-		var userId = 9;
+		var enterpriseId = ${user.enterprise.id};
+		var userId = ${user.id};
 		
 		var $page = $('.body-appeal-enterprise');
 		var $dialogUrge = $page.find('#modal-appeal-urge-dialog');

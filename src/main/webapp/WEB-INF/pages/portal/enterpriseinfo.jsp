@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/template/top_footer.jsp"%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,22 +8,22 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>南城县工业园区综合信息服务平台</title>
+	<meta name="keywords" content="">
+    <meta name="description" content="">
     
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 	
 	<style>
-	.dl-horizontal dt,
-	.dl-horizontal dd {
+	.dl-horizontal dt {
 		line-height: 2em;
 	}
 	</style>
 	
 </head>
 <body class="body-enterpriseinfo">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<div class="header">
 	</div>
 	
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
@@ -33,7 +34,7 @@
 	    </span>
 	</div>
 	
-	<div class="enterpriseinfo-tab" style="margin-top: 20px;">
+	<div class="enterpriseinfo-tab" style="margin-top: 30px;">
 	
 		<div class="tabs-container">
              <ul class="nav nav-tabs">
@@ -60,7 +61,7 @@
 							</dl>
 						</div>
 						<div class="col-sm-5 text-right">
-							<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px; width: 300px; height: 300px;">
+							<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px;">
 						</div>
 						<div class="col-sm-12">
 							<dl class="dl-horizontal">
@@ -84,7 +85,7 @@
 	                     	<ul>
 	                     	</ul>
                      	</div>
-                     	<div class="pageTool" style="margin-top: 30px;"></div>
+                     	<div class="pageTool" style="margin-top: 30px;clear:both;"></div>
                      </div>
                  </div>
              </div>
@@ -93,8 +94,7 @@
 	
 	</div>
 	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
+	<div class="footer">
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -107,7 +107,10 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterpriseinfo");
-		var pageSize = 25;
+		var pageSize = 2;
+		
+		$page.find(".header").html($(".template.Top").doT());
+		$page.find(".footer").append($(".template.Footer").doT());
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_enterprise").addClass("nav_curr");
@@ -139,7 +142,7 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data != null) {
 						$page.find("#tab-2 .product_list").html("");
 						
 						$.each(ret.data, function(key, val) {
@@ -147,7 +150,7 @@
 							
 							var ht = '<div class="product_con">'+
 												'<div class="product_ul">'+
-											'<a href="product?productId='+ val.id +'" target="_blank">'+
+											'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
 												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
@@ -156,6 +159,8 @@
 							
 							$(ht).appendTo($page.find("#tab-2 .product_list"));
 						});
+					} else {
+						$page.find("#tab-2 .product_list").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
 					}
 				},
 				error: function(err) {}
@@ -171,7 +176,7 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data != null) {
 						$page.find("#tab-3 .clist_con ul").html("");
 						$.each(ret.data, function(key, val) {
 							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
@@ -183,6 +188,8 @@
 							
 							$(ht).appendTo($page.find("#tab-3 .clist_con ul"));
 						});
+					} else {
+						$page.find("#tab-3 .clist_con").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
 					}
 				},
 				error: function(err) {}

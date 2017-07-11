@@ -15,16 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
-	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/chosen/chosen.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
-	<style>
-	.chosen-container {
-		width: 100%!important;
-	}	
-	</style>
 </head>
 
 <body class="gray-bg body-target">
@@ -46,14 +40,7 @@
 		                <div id="tab-1" class="tab-pane active">
 		                    <div class="panel-body">
 								<form role="form" class="form-inline row">
-									<div class="form-group col-sm-4">
-										<div class="input-group" style="width: 100%;">
-					                        <select data-placeholder="选择企业" class="chosen-select">
-					                        	<option value="0">企业总览</option>
-					                        </select>
-										</div>
-									</div>
-				                    <div class="form-group col-sm-8 text-right">
+				                    <div class="form-group col-sm-8">
 										<div class="input-daterange input-group">
 			                                <input type="text" class="input-sm form-control" name="monthlyStart" id="monthlyStart"/>
 			                                <span class="input-group-addon">到</span>
@@ -73,14 +60,7 @@
 		                <div id="tab-2" class="tab-pane">
 		                    <div class="panel-body">
 								<form role="form" class="form-inline row">
-									<div class="form-group col-sm-4">
-										<div class="input-group" style="width: 100%;">
-					                        <select data-placeholder="选择企业" class="chosen-select">
-					                        	<option value="0">企业总览</option>
-					                        </select>
-										</div>
-									</div>
-				                    <div class="form-group col-sm-8 text-right">
+				                    <div class="form-group col-sm-8">
 										<div class="input-daterange input-group">
 			                                <input type="text" class="input-sm form-control" name="monthlyStart" id="monthlyStart"/>
 			                                <span class="input-group-addon">到</span>
@@ -100,14 +80,7 @@
 		                <div id="tab-3" class="tab-pane">
 		                    <div class="panel-body">
 		                    	<form role="form" class="form-inline row">
-									<div class="form-group col-sm-4">
-										<div class="input-group" style="width: 100%;">
-					                        <select data-placeholder="选择企业" class="chosen-select">
-					                        	<option value="0">企业总览</option>
-					                        </select>
-										</div>
-									</div>
-				                    <div class="form-group col-sm-8 text-right">
+				                    <div class="form-group col-sm-8">
 										<div class="input-daterange input-group">
 			                                <input type="text" class="input-sm form-control" name="monthlyStart" id="monthlyStart"/>
 			                                <span class="input-group-addon">到</span>
@@ -126,14 +99,7 @@
 		                <div id="tab-4" class="tab-pane">
 		                    <div class="panel-body">
 		                    	<form role="form" class="form-inline row">
-									<div class="form-group col-sm-4">
-										<div class="input-group" style="width: 100%;">
-					                        <select data-placeholder="选择企业" class="chosen-select">
-					                        	<option value="0">企业总览</option>
-					                        </select>
-										</div>
-									</div>
-				                    <div class="form-group col-sm-8 text-right">
+				                    <div class="form-group col-sm-8">
 										<div class="input-daterange input-group">
 			                                <input type="text" class="input-sm form-control" name="monthlyStart" id="monthlyStart"/>
 			                                <span class="input-group-addon">到</span>
@@ -158,7 +124,6 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/chosen/chosen.jquery.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
@@ -181,20 +146,6 @@
 			todayHighlight: !0
 		});
 		initDate();
-		//下拉选框数据获取
-		$.ajax({
-			type: "POST",
-			url: '${ctx}/api/enterprise/listBase',
-			success: function(data) {
-				if (data.code == 0) {
-					$.each(data.data, function(key, val) {
-						$('<option value="'+ val.id +'">'+ val.name +'</option>').appendTo($page.find(".chosen-select"));
-					});
-					$k.util.chosen();
-				}
-			},
-			error: function(err) {}
-		});
 		
 		getData();
 		
@@ -209,40 +160,24 @@
 		});
 		
 		function getData() {
-			var id = $tab.find(".chosen-select").val();
+			var enterpriseId = '${user.enterprise.id}';
 			var monthlyStart = $tab.find("#monthlyStart").val();
 			var monthlyEnd = $tab.find("#monthlyEnd").val();
 			
-			var url, data;
-			
-			var overViewData = {
-				monthlyStart: monthlyStart,
-				monthlyEnd: monthlyEnd
-			};
-			var enterpriseData = {
-				enterpriseId: id,
-				monthlyStart: monthlyStart,
-				monthlyEnd: monthlyEnd
-			};
-			
-			if (id == '0') // 总览
-			{
-				data = overViewData;
-				url = '${ctx}/api/target/listRange';
-			} else {
-				data = enterpriseData;
-				url = '${ctx}/api/target/listByEnterpriseIdRange';
-			}
 			
 			//先销毁表格  
 	        $tab.find('#target-list-table').bootstrapTable('destroy');
 
 			var $table = $k.util.bsTable($tab.find('#target-list-table'), {
-				url: url,
+				url: '${ctx}/api/target/listByEnterpriseIdRange',
 				method: "post",
 				contentType : "application/x-www-form-urlencoded",
 				idField: 'id',
-				queryParams: data,
+				queryParams: {
+					enterpriseId: enterpriseId,
+					monthlyStart: monthlyStart,
+					monthlyEnd: monthlyEnd
+				},
 				responseHandler: function(res) {
 					getChart(res.data);
 	                return res.data;

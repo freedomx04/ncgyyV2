@@ -330,6 +330,20 @@ public class ManagerController {
 		return "pages/monitor/target_import";
 	}
 	
+	@RequestMapping(value = "/targetEP")
+	String targetEP(ModelMap modelMap) {
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
+		
+		if (user.getEnterprise() == null) {
+			modelMap.addAttribute("type", new String("ep"));
+			return "pages/warning";
+		} else {
+			modelMap.addAttribute("user", user);
+			return "pages/monitor/target_ep";
+		}
+	}
+	
 	@RequestMapping(value = "/targetEnterprise")
 	String targetEnterprise() {
 		return "pages/monitor/target_enterprise";
@@ -362,13 +376,30 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/appealEnterprise")
 	String appealEnterprise(ModelMap modelMap) {
-		modelMap.addAttribute("enterpriseId", 2);
-		return "pages/assist/appeal_enterprise";
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
+		
+		if (user.getEnterprise() == null) {
+			modelMap.addAttribute("type", new String("ep"));
+			return "pages/warning";
+		} else {
+			modelMap.addAttribute("user", user);
+			return "pages/assist/appeal_enterprise";
+		}
 	}
 	
 	@RequestMapping(value = "/appealDepartment")
-	String appealDepartment() {
-		return "pages/assist/appeal_department";
+	String appealDepartment(ModelMap modelMap) {
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
+		
+		if (user.getEnterprise() == null) {
+			modelMap.addAttribute("type", new String("gv"));
+			return "pages/warning";
+		} else {
+			modelMap.addAttribute("user", user);
+			return "pages/assist/appeal_department";
+		}
 	}
 	
 	@RequestMapping(value = "/appealList")
@@ -406,13 +437,26 @@ public class ManagerController {
 	 * 服务平台接口
 	 */
 	@RequestMapping(value = "/declareGV")
-	String declareGV() {
+	String declareGV(ModelMap modelMap) {
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
+		modelMap.addAttribute("user", user);
+		
 		return "pages/service/declare_gv";
 	}
 	
 	@RequestMapping(value = "/declareEP")
-	String declareEP() {
-		return "pages/service/declare_ep";
+	String declareEP(ModelMap modelMap) {
+		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
+		UserEntity user = userService.findOne(currentUser.getId());
+		
+		if (user.getEnterprise() == null) {
+			modelMap.addAttribute("type", new String("ep"));
+			return "pages/warning";
+		} else {
+			modelMap.addAttribute("user", user);
+			return "pages/service/declare_ep";
+		}
 	}
 	
 	@RequestMapping(value = "/declareAdd")
