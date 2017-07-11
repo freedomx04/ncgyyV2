@@ -31,14 +31,14 @@
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="area-list-table-toolbar" role="group">
 					<c:if test="${fn:contains(role.resource, 'authority-area-add')}">
-                    <button type="button" class="btn btn-white btn-area-add" data-toggle="modal" data-target="#modal-area-dialog">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
+	                    <button type="button" class="btn btn-white btn-area-add" data-toggle="modal" data-target="#modal-area-dialog">
+	                        <i class="fa fa-plus fa-fw"></i>新增
+	                    </button>
                     </c:if>
                     <c:if test="${fn:contains(role.resource, 'authority-area-delete-batch')}">
-                    <button type="button" class="btn btn-white btn-area-delete-batch" disabled='disabled'>
-                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button>
+	                    <button type="button" class="btn btn-white btn-area-delete-batch" disabled='disabled'>
+	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+	                    </button>
                     </c:if>
                 </div>
                 <table id="area-list-table" class="table-hm" data-mobile-responsive="true"> </table>

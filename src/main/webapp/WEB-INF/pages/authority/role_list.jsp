@@ -30,14 +30,14 @@
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="role-list-table-toolbar" role="group">
 					<c:if test="${fn:contains(role.resource, 'authority-role-add')}">
-                    <button type="button" class="btn btn-white btn-role-add">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
+	                    <button type="button" class="btn btn-white btn-role-add">
+	                        <i class="fa fa-plus fa-fw"></i>新增
+	                    </button>
                     </c:if>
                     <c:if test="${fn:contains(role.resource, 'authority-role-delete-batch')}">
-                    <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
-                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button>
+	                    <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
+	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+	                    </button>
                     </c:if>
                 </div>
                 <table id="role-list-table" class="table-hm" data-mobile-responsive="true"> </table>
@@ -83,10 +83,7 @@
             	align: 'center',
             	formatter: function(value, row, index) {
             		var resource = '${role.resource}'.split(',');
-                    var $operate = '';
-                    if ($.inArray('authority-role-detail', resource) != -1) {
-                        $operate += '<a class="btn-role-detail a-operate">详情</a>';
-                    }
+                    var $operate = '<a class="btn-role-detail a-operate">详情</a>';
                     if ($.inArray('authority-role-edit', resource) != -1) {
                         $operate += '<a class="btn-role-edit a-operate">编辑</a>';
                     }

@@ -14,9 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.hm.ncgyy.application.filter.FilterAuth;
 
-/**
- * 网页端配置类
- */
 @Configuration
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 

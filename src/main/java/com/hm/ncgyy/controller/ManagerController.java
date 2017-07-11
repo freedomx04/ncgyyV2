@@ -473,6 +473,9 @@ public class ManagerController {
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("type", type);
 		
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		
 		return "pages/issue/article_list";
 	}
 	

@@ -31,14 +31,14 @@
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="department-list-table-toolbar" role="group">
 					<c:if test="${fn:contains(role.resource, 'authority-department-add')}">
-                    <button type="button" class="btn btn-white btn-department-add" data-toggle="modal" data-target="#modal-department-dialog">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
+	                    <button type="button" class="btn btn-white btn-department-add" data-toggle="modal" data-target="#modal-department-dialog">
+	                        <i class="fa fa-plus fa-fw"></i>新增
+	                    </button>
                     </c:if>
                     <c:if test="${fn:contains(role.resource, 'authority-department-delete-batch')}">
-                    <button type="button" class="btn btn-white btn-department-delete-batch" disabled='disabled'>
-                        <i class="fa fa-trash-o fa-fw"></i>批量删除
-                    </button>
+	                    <button type="button" class="btn btn-white btn-department-delete-batch" disabled='disabled'>
+	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+	                    </button>
                     </c:if>
                 </div>
                 <table id="department-list-table" class="table-hm" data-mobile-responsive="true"> </table>

@@ -28,12 +28,38 @@
 	 		</div>
 	 		<div class="ibox-content">
  				<div class="btn-group hidden-xs" id="article-list-table-toolbar" role="group">
- 					<button type="button" class="btn btn-white btn-article-add">
- 						<i class="fa fa-plus fa-fw"></i>新增
- 					</button>
- 					<button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'>
- 						<i class="fa fa-trash-o fa-fw"></i>批量删除
- 					</button>
+ 					<c:if test="${type==1}">
+ 						<c:if test="${fn:contains(role.resource, 'authority-photonews-add')}">
+	 						<button type="button" class="btn btn-white btn-article-add"><i class="fa fa-plus fa-fw"></i>新增</button>
+ 						</c:if>
+ 						<c:if test="${fn:contains(role.resource, 'authority-photonews-delete-batch')}">
+                          <button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>批量删除</button>
+                    	</c:if>
+ 					</c:if>
+ 					<c:if test="${type==2}">
+ 						<c:if test="${fn:contains(role.resource, 'authority-announce-add')}">
+	 						<button type="button" class="btn btn-white btn-article-add"><i class="fa fa-plus fa-fw"></i>新增</button>
+ 						</c:if>
+ 						<c:if test="${fn:contains(role.resource, 'authority-announce-delete-batch')}">
+                          <button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>批量删除</button>
+                    	</c:if>
+ 					</c:if>
+ 					<c:if test="${type==3}">
+ 						<c:if test="${fn:contains(role.resource, 'authority-policy-add')}">
+	 						<button type="button" class="btn btn-white btn-article-add"><i class="fa fa-plus fa-fw"></i>新增</button>
+ 						</c:if>
+ 						<c:if test="${fn:contains(role.resource, 'authority-policy-delete-batch')}">
+                          <button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>批量删除</button>
+                    	</c:if>
+ 					</c:if>
+ 					<c:if test="${type==4}">
+ 						<c:if test="${fn:contains(role.resource, 'authority-overview-add')}">
+	 						<button type="button" class="btn btn-white btn-article-add"><i class="fa fa-plus fa-fw"></i>新增</button>
+ 						</c:if>
+ 						<c:if test="${fn:contains(role.resource, 'authority-overview-delete-batch')}">
+                          <button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>批量删除</button>
+                    	</c:if>
+ 					</c:if> 					
  				</div>
  				<table id="article-list-table" class="table-hm" data-mobile-responsive="true"></table>
 	 		</div>
@@ -53,6 +79,7 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-article-list');
+		var type = ${type};
 		
 		var $table = $k.util.bsTable($page.find('#article-list-table'), {
 			url: '${ctx}/api/article/list?type=${type}',
@@ -77,7 +104,46 @@
 				title: '操作',
 				align: 'center',
 				formatter: function(value, row, index) {
-					return '<a class="btn-article-detail a-operate">详情</a><a class="btn-article-edit a-operate">编辑</a><a class="btn-article-delete a-operate">删除</a>';
+					var resource = '${role.resource}'.split(',');
+					var $operate = '<a class="btn-article-detail a-operate">详情</a>';
+					var $edit = '<a class="btn-article-edit a-operate">编辑</a>';
+					var $delete = '<a class="btn-article-delete a-operate">删除</a>';
+					
+                    switch (type) {
+                    case 1:
+                    	if ($.inArray('authority-photonews-edit', resource) != -1) {
+                    		$operate += $edit;
+                    	}
+                    	if ($.inArray('authority-photonews-delete', resource) != -1) {
+                    		$operate += $delete;
+                    	}
+                    	break;
+                    case 2:
+                    	if ($.inArray('authority-announce-edit', resource) != -1) {
+                    		$operate += $edit;
+                    	}
+                    	if ($.inArray('authority-announce-delete', resource) != -1) {
+                    		$operate += $delete;
+                    	}
+                    	break;
+                    case 3:
+                    	if ($.inArray('authority-policy-edit', resource) != -1) {
+                    		$operate += $edit;
+                    	}
+                    	if ($.inArray('authority-policy-delete', resource) != -1) {
+                    		$operate += $delete;
+                    	}
+                    	break;
+                    case 4:
+                    	if ($.inArray('authority-overview-edit', resource) != -1) {
+                    		$operate += $edit;
+                    	}
+                    	if ($.inArray('authority-overview-delete', resource) != -1) {
+                    		$operate += $delete;
+                    	}
+                    	break;
+                    }
+					return $operate;
 				},
 				events: window.operateEvents = {
 					'click .btn-article-detail': function(e, value, row, index) {

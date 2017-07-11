@@ -30,9 +30,11 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="user-list-table-toolbar" role="group">
-                    <button type="button" class="btn btn-white btn-user-add">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
+					<c:if test="${fn:contains(role.resource, 'authority-user-add')}">
+	                    <button type="button" class="btn btn-white btn-user-add">
+	                        <i class="fa fa-plus fa-fw"></i>新增
+	                    </button>
+                    </c:if>
                 </div>
                 <table id="user-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
@@ -173,13 +175,22 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var $operate;
-            		if (row.status == 0) {
-            			$operate = '<a class="btn-user-disable a-operate">禁用</a>';
-            		} else {
-            			$operate = '<a class="btn-user-enable a-operate">启用</a>';
+            		var resource = '${role.resource}'.split(',');
+            		var $operate = '<a class="btn-user-detail a-operate">详情</a>';
+            		if ($.inArray('authority-user-edit', resource) != -1) {
+            			$operate += '<a class="btn-user-edit a-operate">编辑</a>';
             		}
-            		return '<a class="btn-user-detail a-operate">详情</a><a class="btn-user-edit a-operate">编辑</a><a class="btn-user-password a-operate">修改密码</a>' + $operate;
+            		if ($.inArray('authority-user-password', resource) != -1) {
+            			$operate += '<a class="btn-user-password a-operate">修改密码</a>';
+            		}
+            		if ($.inArray('authority-user-status', resource) != -1) {
+            			if (row.status == 0) {
+                			$operate += '<a class="btn-user-disable a-operate">禁用</a>';
+                		} else {
+                			$operate += '<a class="btn-user-enable a-operate">启用</a>';
+                		}
+            		}
+            		return $operate;
             	},
             	events: window.operateEvents = {
             		'click .btn-user-detail': function(e, value, row, index) {

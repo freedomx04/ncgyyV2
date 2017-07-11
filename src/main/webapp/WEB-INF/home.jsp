@@ -58,16 +58,16 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'authority-role')}">
-							<li><a class="J_menuItem" href="roleList">角色管理</a></li>
+								<li><a class="J_menuItem" href="roleList">角色管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-user')}">
-							<li><a class="J_menuItem" href="userList">用户管理</a></li>
+								<li><a class="J_menuItem" href="userList">用户管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-enterprise')}">
-							<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
+								<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
-							<li><a class="J_menuItem" href="department">部门管理</a></li>
+								<li><a class="J_menuItem" href="department">部门管理</a></li>
 							</c:if>
 						</ul>
 					</li>
@@ -77,13 +77,13 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'authority-area')}">
-							<li><a class="J_menuItem" href="area">园区管理</a></li>
+								<li><a class="J_menuItem" href="area">园区管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-industry')}">
-							<li><a class="J_menuItem" href="industry">行业管理</a></li>
+								<li><a class="J_menuItem" href="industry">行业管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-appealType')}">
-							<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
+								<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
 							</c:if>
 						</ul>
 					</li>
@@ -125,11 +125,18 @@
 							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">新闻发布</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							
-							<li><a class="J_menuItem" href="articleList?type=1">图片新闻</a></li>
-							<li><a class="J_menuItem" href="articleList?type=2">公示公告</a></li>
-							<li><a class="J_menuItem" href="articleList?type=3">政策法规</a></li>
-							<li><a class="J_menuItem" href="articleList?type=4">工业信息</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-photonews')}">
+								<li><a class="J_menuItem" href="articleList?type=1">图片新闻</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-announce')}">
+								<li><a class="J_menuItem" href="articleList?type=2">公示公告</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-policy')}">
+								<li><a class="J_menuItem" href="articleList?type=3">政策法规</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-overview')}">
+								<li><a class="J_menuItem" href="articleList?type=4">工业信息</a></li>
+							</c:if>
 						</ul>
 					</li>
 					<li>
