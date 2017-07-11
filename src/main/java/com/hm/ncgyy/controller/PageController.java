@@ -64,11 +64,11 @@ public class PageController {
 	
 	@RequestMapping(value = "/epnews/{path}")
 	String newsContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		NewsEntity news = newsService.findByPath(path);
-		if (news != null) {
-			String content = commonService.getArticleContent(news.getPath());
-			news.setContent(content);
-			modelMap.addAttribute("news", news);
+		NewsEntity article = newsService.findByPath(path);
+		if (article != null) {
+			String content = commonService.getArticleContent(article.getPath());
+			article.setContent(content);
+			modelMap.addAttribute("article", article);
 		}
 		
 		return "pages/portal/content";

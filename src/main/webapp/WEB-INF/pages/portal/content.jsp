@@ -16,9 +16,24 @@
 
 	<div class="mnav" style="border-bottom: 1px #ccc solid;">
 		<span> 
-			<a href="/index">首页</a>&nbsp;&gt;&nbsp; <a
-				href="/article">新闻动态</a>&nbsp;&gt;&nbsp; <a href="">时政要闻</a>
-				&gt;&nbsp;正文
+			<a href="/index">首页</a>&nbsp;&gt;&nbsp; 
+			<a href="newslist">新闻动态</a>&nbsp;&gt;&nbsp;
+			<a href="${ctx}/newslist?type=${article.type}">
+				<c:choose>
+				    <c:when test="${article.type == 1}">
+				       	 图片新闻
+				    </c:when>
+				    <c:when test="${article.type == 2}">
+			        	公示公告
+				    </c:when>
+				    <c:when test="${article.type == 3}">
+			        	政策法规
+				    </c:when>
+				    <c:otherwise>
+				       	工业信息
+				    </c:otherwise>
+				</c:choose>
+			</a>   &gt;&nbsp;正文
 		</span>
 	</div>
 
