@@ -106,6 +106,7 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterpriseinfo");
+		var enterpriseId = ${enterprise.id};
 		var pageSize = 25;
 		
 		$page.find(".menu a").removeClass("nav_curr");
@@ -133,7 +134,7 @@
 			$.ajax({
 				url: "${ctx}/api/product/listPage",
 				data: {
-					enterpriseId: '${enterprise.id}',
+					enterpriseId: enterpriseId,
 					page: page,
 					size: size
 				},
@@ -171,7 +172,7 @@
 			$.ajax({
 				url: "${ctx}/api/news/listPage",
 				data: {
-					enterpriseId: '${enterprise.id}',
+					enterpriseId: enterpriseId,
 					page: page,
 					size: size
 				},
@@ -182,8 +183,8 @@
 							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
 							
 							var ht = '<li>'+
-										'<a href="epnews?path='+ val.path +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
-										'<span><a href="epnews?path='+ val.path +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+										'<a href="epnews?newsId='+ val.id +'&enterpriseId='+ enterpriseId +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
+										'<span><a href="epnews?newsId='+ val.id +'&enterpriseId='+ enterpriseId +'" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 									'</li>';
 							
 							$(ht).appendTo($page.find("#tab-3 .clist_con ul"));

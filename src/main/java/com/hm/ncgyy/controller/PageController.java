@@ -62,16 +62,17 @@ public class PageController {
 		return "pages/portal/content";
 	}
 	
-	@RequestMapping(value = "/epnews/{path}")
-	String newsContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		NewsEntity article = newsService.findByPath(path);
-		if (article != null) {
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
-			modelMap.addAttribute("article", article);
+	@RequestMapping(value = "/epnews")
+	String newsContent(ModelMap modelMap, Long newsId, Long enterpriseId) throws IOException {
+		NewsEntity news = newsService.findOne(newsId);
+		if (news != null) {
+			String content = commonService.getArticleContent(news.getPath());
+			news.setContent(content);
+			modelMap.addAttribute("news", news);
+			modelMap.addAttribute("enterpriseId", enterpriseId);
 		}
 		
-		return "pages/portal/content";
+		return "pages/portal/epnews";
 	}
 	
 	@RequestMapping(value = "/enterpriselist")
