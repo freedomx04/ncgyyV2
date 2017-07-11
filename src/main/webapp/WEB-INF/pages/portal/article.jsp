@@ -20,7 +20,7 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="newsList?type=1">新闻动态</a>
+			<a href="newslist?type=1">新闻动态</a>
 			&nbsp;&gt;&nbsp;
 	    </span>
 	</div>
@@ -33,10 +33,10 @@
 						<div class="ctree">
 							<div class="ctree_title"><h1>新闻动态</h1></div>
 								<dl>
-									<dt><a href="newsList?type=1" type="1">图片新闻</a></dt>
-									<dt><a href="newsList?type=2" type="2">公示公告</a></dt>
-									<dt><a href="newsList?type=3" type="3">政策法规</a></dt>
-									<dt><a href="newsList?type=4" type="4">工业信息</a></dt>
+									<dt><a href="newslist?type=1" type="1">图片新闻</a></dt>
+									<dt><a href="newslist?type=2" type="2">公示公告</a></dt>
+									<dt><a href="newslist?type=3" type="3">政策法规</a></dt>
+									<dt><a href="newslist?type=4" type="4">工业信息</a></dt>
 								</dl>
 							<div style="height:30px;">&nbsp;</div>
 
@@ -85,19 +85,19 @@
 		switch (type) {
 		case '1':
 			$page.find(".clist_r_title span").html("图片新闻");
-			$page.find(".mnav span").append('<a href="newsList?type=1">图片新闻</a>');
+			$page.find(".mnav span").append('<a href="newslist?type=1">图片新闻</a>');
 			break;
 		case '2':
 			$page.find(".clist_r_title span").html("公示公告");
-			$page.find(".mnav span").append('<a href="newsList?type=2">公示公告</a>');
+			$page.find(".mnav span").append('<a href="newslist?type=2">公示公告</a>');
 			break;
 		case '3':
 			$page.find(".clist_r_title span").html("政策法规");
-			$page.find(".mnav span").append('<a href="newsList?type=3">政策法规</a>');
+			$page.find(".mnav span").append('<a href="newslist?type=3">政策法规</a>');
 			break;
 		case '4':
 			$page.find(".clist_r_title span").html("工业信息");
-			$page.find(".mnav span").append('<a href="newsList?type=4">工业信息</a>');
+			$page.find(".mnav span").append('<a href="newslist?type=4">工业信息</a>');
 			break;
 		}
 		

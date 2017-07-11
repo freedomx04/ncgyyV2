@@ -46,10 +46,10 @@
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
-	<script>
+	<script type="text/javascript">
 	;(function() {
 		var $page = $(".body-enterprise");
-		var pageSize = 2;
+		var pageSize = 25;
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_enterprise").addClass("nav_curr");
@@ -80,7 +80,7 @@
 							
 							var ht = '<li style="height: 45px;">'+
 										'<img src="api/avatar/'+ val.avatar +'" width="35" height="35" style="margin: 5px 0;">'+
-										'<a href="index_enterpriseinfo?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
+										'<a href="enterprise?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
 										'<span><a href="" target="_blank">'+ val.industry.name +'</a></span>'+
 									'</li>';
 							

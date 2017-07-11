@@ -9,12 +9,12 @@
 			</div>
 			<a href="index.html" class="logo">工信部</a>
 			<div class="menu">
-				<a href="${ctx}/newsList?type=1" type="1">图片新闻</a>
-				<a href="${ctx}/newsList?type=2" type="2">公示公告</a>
-				<a href="${ctx}/newsList?type=3" type="3">政策法规</a>
-				<a href="${ctx}/newsList?type=4" type="4">工业信息</a>
-				<a href="${ctx}/index_enterprise" class="m_enterprise">企业宣传</a>
-				<a href="${ctx}/index_product" class="m_product">产品宣传</a>
+				<a href="${ctx}/newslist?type=1" type="1">图片新闻</a>
+				<a href="${ctx}/newslist?type=2" type="2">公示公告</a>
+				<a href="${ctx}/newslist?type=3" type="3">政策法规</a>
+				<a href="${ctx}/newslist?type=4" type="4">工业信息</a>
+				<a href="${ctx}/enterpriselist" class="m_enterprise">企业宣传</a>
+				<a href="${ctx}/productlist" class="m_product">产品宣传</a>
 				<a href="">帮扶平台</a>
 			</div>
 		</div>

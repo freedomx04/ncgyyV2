@@ -11,8 +11,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
 @Controller
@@ -26,10 +30,16 @@ public class PageController {
 	@Autowired
 	CommonService commonService;
 	
+	@Autowired
+	EnterpriseService enterpriseService;
+	
+	@Autowired
+	ProductService productService;
+	
 	/**
 	 * 新闻页面
 	 */
-	@RequestMapping(value = "/newsList")
+	@RequestMapping(value = "/newslist")
 	String article(ModelMap modelMap, Integer type) {
 		List<ArticleEntity> list = articleService.listByType(type);
 		modelMap.addAttribute("count", list.size());
@@ -47,5 +57,33 @@ public class PageController {
 		return "pages/portal/content";
 	}
 	
+	
+	@RequestMapping(value = "/enterpriselist")
+	String enterprise(ModelMap modelMap) {
+		List<EnterpriseEntity> list = enterpriseService.list();
+		modelMap.addAttribute("count", list.size());
+		return "pages/portal/enterprise";
+	}
+	
+	@RequestMapping(value = "/enterprise")
+	String enterpriseInfo(ModelMap modelMap, Long enterpriseId) {
+		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+		modelMap.addAttribute("enterprise", enterprise);
+		return "pages/portal/enterpriseinfo";
+	}
+	
+	@RequestMapping(value = "/productlist")
+	String index_product(ModelMap modelMap, Integer type) {
+		List<ProductEntity> list = productService.list();
+		modelMap.addAttribute("count", list.size());
+		return "pages/portal/product";
+	}
+	
+	@RequestMapping(value = "/product")
+	String productInfo(ModelMap modelMap, Long productId) {
+		ProductEntity product = productService.findOne(productId);
+		modelMap.addAttribute("product", product);
+		return "pages/portal/productinfo";
+	}
 
 }

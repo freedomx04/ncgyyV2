@@ -35,7 +35,7 @@
 			</div>
 			
 			<div class="announce">
-				<a href="${ctx}/newsList?type=2" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
+				<a href="${ctx}/newslist?type=2" target="_blank"><img src="img/announce.jpg" width="96" height="39"></a>
 				<div class="article_con" id="con_xw" style="overflow: hidden; display: block;">
 					<ul>
 						<c:forEach var="announce" items="${announceList}">
@@ -60,7 +60,7 @@
 		<div class="con_two">
 			<div class="con_two_left">
 				<div class="policy border_top">
-					<a href="${ctx}/newsList?type=3" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
+					<a href="${ctx}/newslist?type=3" target="_blank"><img src="img/policy.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul>
 							<c:forEach var="policy" items="${policyList}">
@@ -80,7 +80,7 @@
 					</div>
 				</div>
 				<div class="industry border_top" style="margin-top: 30px;">
-					<a href="${ctx}/newsList?type=4" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
+					<a href="${ctx}/newslist?type=4" target="_blank"><img src="img/industry.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul>
 							<c:forEach var="overview" items="${overviewList}">

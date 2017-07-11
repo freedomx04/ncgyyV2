@@ -49,7 +49,7 @@
 	<script>
 	;(function() {
 		var $page = $(".body-enterprise");
-		var pageSize = 2;
+		var pageSize = 20;
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_product").addClass("nav_curr");
@@ -78,7 +78,7 @@
 							
 							var ht = '<div class="product_con">'+ 
 										'<div class="product_ul">'+
-											'<a href="index_productinfo?productId='+ val.id +'" target="_blank">'+
+											'<a href="product?productId='+ val.id +'" target="_blank">'+
 												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
