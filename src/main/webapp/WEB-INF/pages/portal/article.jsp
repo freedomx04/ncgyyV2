@@ -65,6 +65,7 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script>
@@ -117,7 +118,7 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data.length != 0) {
 						$page.find(".clist_con ul").html("");
 						$.each(ret.data.content, function(key, val) {
 							var title = val.title.length > 40 ? (val.title.substr(0, 40) + "...") : val.title;
@@ -131,7 +132,7 @@
 								ht = '<div class="pnews">'+
 										'<div class="pnews_ul">'+ 
 										'<a href="news/'+ val.path +'" target="_blank">'+
-										'<img border="0" src="${ctx}'+ (val.imagePath || "") +'" width="180" height="122">'+
+										'<img border="0" data-original="${ctx}'+ (val.imagePath || "") +'" width="180" height="122">'+
 										'</a>'+
 										'</div>'+
 										'<div class="pnews_wz"> <a href="news/'+ val.path +'" target="_blank"> '+ val.title +'</a></div>'+
@@ -142,6 +143,12 @@
 							
 							$(ht).appendTo($obj);
 						});
+						$('img').lazyload({
+						    effect: 'fadeIn'
+						});
+					} else {
+						$page.find(".clist_con").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
+						$page.find('#pageTool').html("");
 					}
 				},
 				error: function(err) {}

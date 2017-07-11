@@ -21,7 +21,7 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="index_product">产品宣传</a>
+			<a href="productlist">产品宣传</a>
 	    </span>
 	</div>
 	
@@ -71,7 +71,7 @@
 					size: size
 				},
 				success: function(ret) {
-					if (ret.code == 0) {
+					if (ret.code == 0 && ret.data.length != 0) {
 						$page.find(".clist_con").html("");
 						$.each(ret.data, function(key, val) {
 							
@@ -88,6 +88,9 @@
 						$('img').lazyload({
 						    effect: 'fadeIn'
 						}); 
+					} else {
+						$page.find(".clist_con").html("<div style='text-align: center; font-size: 16px;margin-top: 20px;'>暂无数据！</div>");
+						$page.find('#pageTool').html("");
 					}
 				},
 				error: function(err) {}

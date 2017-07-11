@@ -41,9 +41,7 @@
 						<div class="input-group date">
 	                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	                        <input type="text" id="search-monthly" class="form-control">
-	                        <span id="search" class="input-group-addon btn btn-primary">
-	                    		查询
-	                   		</span>
+	                        <span id="search" class="btn btn-primary" style="cursor: pointer; display: table-cell;">查询</span>
 	                    </div>
 	                </div>
 					<div class="col-sm-8 text-right">

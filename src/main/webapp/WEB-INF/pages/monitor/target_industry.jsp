@@ -56,10 +56,10 @@
 									</div>
 				                    <div class="form-group col-sm-8 text-right">
 										<div class="input-daterange input-group">
-			                                <input type="text" class="input-sm form-control" name="monthlyStart" id="monthlyStart"/>
+			                                <input type="text" class="form-control" name="monthlyStart" id="monthlyStart"/>
 			                                <span class="input-group-addon">到</span>
-			                                <input type="text" class="input-sm form-control" name="monthlyEnd" id="monthlyEnd"/>
-		                                    <span class="btn btn-primary btn-sm search" style="cursor: pointer; display: table-cell;">查询</span>
+			                                <input type="text" class="form-control" name="monthlyEnd" id="monthlyEnd"/>
+		                                    <span class="btn btn-primary search" style="cursor: pointer; display: table-cell;">查询</span>
 			                            </div>
 					                </div>
 				                </form>
@@ -81,22 +81,13 @@
 					                        </select>
 										</div>
 									</div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyStart" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyEnd" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-2">
-					                    <button type="button" class="btn btn-primary search">
-					                    	<strong>查询</strong>
-					                   	</button>
+				                    <div class="form-group col-sm-8 text-right">
+										<div class="input-daterange input-group">
+			                                <input type="text" class="form-control" name="monthlyStart" id="monthlyStart"/>
+			                                <span class="input-group-addon">到</span>
+			                                <input type="text" class="form-control" name="monthlyEnd" id="monthlyEnd"/>
+		                                    <span class="btn btn-primary search" style="cursor: pointer; display: table-cell;">查询</span>
+			                            </div>
 					                </div>
 				                </form>
 				                
@@ -117,22 +108,13 @@
 					                        </select>
 										</div>
 									</div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyStart" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyEnd" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-2">
-					                    <button type="button" class="btn btn-primary search">
-					                    	<strong>查询</strong>
-					                   	</button>
+				                    <div class="form-group col-sm-8 text-right">
+										<div class="input-daterange input-group">
+			                                <input type="text" class="form-control" name="monthlyStart" id="monthlyStart"/>
+			                                <span class="input-group-addon">到</span>
+			                                <input type="text" class="form-control" name="monthlyEnd" id="monthlyEnd"/>
+		                                    <span class="btn btn-primary search" style="cursor: pointer; display: table-cell;">查询</span>
+			                            </div>
 					                </div>
 				                </form>
 				                
@@ -152,22 +134,13 @@
 					                        </select>
 										</div>
 									</div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyStart" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-3">
-				                        <div class="input-group date">
-				                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-				                            <input type="text" id="monthlyEnd" class="form-control">
-				                        </div>
-				                    </div>
-				                    <div class="form-group col-sm-2">
-					                    <button type="button" class="btn btn-primary search">
-					                    	<strong>查询</strong>
-					                   	</button>
+				                    <div class="form-group col-sm-8 text-right">
+										<div class="input-daterange input-group">
+			                                <input type="text" class="form-control" name="monthlyStart" id="monthlyStart"/>
+			                                <span class="input-group-addon">到</span>
+			                                <input type="text" class="form-control" name="monthlyEnd" id="monthlyEnd"/>
+		                                    <span class="btn btn-primary search" style="cursor: pointer; display: table-cell;">查询</span>
+			                            </div>
 					                </div>
 				                </form>
 				                
