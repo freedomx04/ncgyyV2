@@ -1,13 +1,18 @@
 package com.hm.ncgyy.controller.assist;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hm.ncgyy.common.result.Code;
@@ -273,6 +278,84 @@ public class AppealController {
 			UrgeEntity urge = new UrgeEntity(appealId, user, content, now, now);
 			urgeService.save(urge);
 			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/getAppealCountByType", method = RequestMethod.POST)
+	public Result getAppealCountByType(@RequestParam(required = false) Long departmentId) {
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+		List<Object[]> list = appealService.getAppealCountByType(departmentId);
+		
+		for (int y = 0; y < list.size(); y++) {
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("appealTypeId", list.get(y)[0]);
+			resultMap.put("appealTypeName", list.get(y)[1]);
+			resultMap.put("count", list.get(y)[2]);
+			resultList.add(resultMap);
+		}
+		try {
+			return new ResultInfo(Code.SUCCESS.value(), "ok", resultList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/appealStatusCount", method = RequestMethod.POST)
+	public Result getStatusCount(@RequestParam(required = false) Long departmentId) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<AppealTypeEntity> aptList = appealTypeService.list();
+		
+		try {
+			for (int x = 0; x < aptList.size(); x++) {
+				Map<String, List<AppealEntity>> map = new HashMap<String, List<AppealEntity>>();
+				for (int i = 0; i < 7; i++) {
+					List<AppealEntity> list = appealService.findByAppealTypeIdAndStatus(aptList.get(x).getId(), i,
+							departmentId);
+					map.put(String.valueOf(i), list);
+				}
+				resultMap.put(aptList.get(x).getName(), map);
+			}
+			
+			return new ResultInfo(Code.SUCCESS.value(), "ok", resultMap);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/appeal/overAppealDays", method = RequestMethod.POST)
+	public Result getAppealDays(@RequestParam(required = false) Long enterpriseId,
+			@RequestParam(required = false) Long departmentId) {
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+		List<AppealTypeEntity> aptList = appealTypeService.list();
+		if (aptList.size() == 0) {
+			return new ResultInfo(Code.SUCCESS.value(), "ok", null);
+		}
+		try {
+			for (int i = 0; i < aptList.size(); i++) {
+				List<AppealEntity> acceptDays = new ArrayList<AppealEntity>();
+				List<AppealEntity> handleDays = new ArrayList<AppealEntity>();
+				Map<String, Object> resultMap = new HashMap<String, Object>();
+				resultMap.put("appealTypeName", aptList.get(i).getName());
+				List<BigInteger> acceptDaysData = appealService.getOverAcceptDays(departmentId, enterpriseId,
+						aptList.get(i).getId());
+				for (int x = 0; x < acceptDaysData.size(); x++) {
+					acceptDays.add(appealService.findOne(((BigInteger) acceptDaysData.get(x)).longValue()));
+				}
+				List<BigInteger> handleDaysData = appealService.getOverHandleDays(departmentId, enterpriseId,
+						aptList.get(i).getId());
+				for (int x = 0; x < handleDaysData.size(); x++) {
+					handleDays.add(appealService.findOne(((BigInteger) handleDaysData.get(x)).longValue()));
+				}
+				resultMap.put("acceptDays", acceptDays);
+				resultMap.put("handleDays", handleDays);
+				resultList.add(resultMap);
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", resultList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

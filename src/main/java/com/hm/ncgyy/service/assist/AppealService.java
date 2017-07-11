@@ -1,5 +1,6 @@
 package com.hm.ncgyy.service.assist;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.hm.ncgyy.entity.assist.AppealEntity;
@@ -38,6 +39,15 @@ public interface AppealService {
 	List<AppealEntity> findByDepartmentIdConfirmed(Long departmentId);
 	
 
+	/**
+	 * others(chart)
+	 */
+	List<Object[]> getAppealCountByType(Long departmentId);
 	
+	List<AppealEntity> findByAppealTypeIdAndStatus(Long appealTypeId, Integer status, Long departmentId);
+	
+	List<BigInteger> getOverAcceptDays(Long departmentId, Long enterpriseId, Long appealTypeId);
+	
+	List<BigInteger> getOverHandleDays(Long departmentId, Long enterpriseId, Long appealTypeId);
 	
 }
