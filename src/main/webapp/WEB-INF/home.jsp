@@ -138,7 +138,9 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
-							<li><a class="J_menuItem" href="enterpriseGet?source=personal&enterpriseId=${user.enterprise.id}">我的企业</a></li>
+							<c:if test="${not empty user.enterprise}">
+								<li><a class="J_menuItem" href="enterpriseGet?source=personal&enterpriseId=${user.enterprise.id}">我的企业</a></li>
+							</c:if>
 						</ul>
 					</li>					
 				</ul>
