@@ -32,7 +32,7 @@
 		<div class="clist_con" style="min-height: 600px;">
 		</div>
 		
-		
+		<div style="clear:both;"></div>
 		<div id="pageTool" style="margin-bottom: 20px;"></div>
 	</div>
 	
@@ -41,8 +41,7 @@
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
@@ -79,13 +78,16 @@
 							var ht = '<div class="product_con">'+ 
 										'<div class="product_ul">'+
 											'<a href="product?productId='+ val.id +'" target="_blank">'+
-												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
+												'<img border="0" data-original="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
 										'<div class="product_wz"> <a href="" target="_blank">'+ val.name +'</a></div></div>';
 							
 							$(ht).appendTo($page.find(".clist_con"));
 						});
+						$('img').lazyload({
+						    effect: 'fadeIn'
+						}); 
 					}
 				},
 				error: function(err) {}

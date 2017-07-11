@@ -56,7 +56,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<div id="pageTool" style="margin-bottom: 20px;"></div>
+		<div id="pageTool" style="margin-bottom: 20px;clear:both;"></div>
 	</div>
 	
 	<div>
@@ -64,8 +64,6 @@
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	

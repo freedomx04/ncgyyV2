@@ -1,5 +1,6 @@
 package com.hm.ncgyy.service.assist;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,4 +79,44 @@ public class AppealServiceImpl implements AppealService {
 		return null;
 	}
 
+	@Override
+	public List<Object[]> getAppealCountByType(Long departmentId) {
+		if (departmentId == null || "".equals(departmentId)) {
+			return appealRepository.getAppealCountByType();
+		} else {
+			return appealRepository.getAppealCountByType(departmentId);
+		}
+	}
+	
+	@Override
+	public List<AppealEntity> findByAppealTypeIdAndStatus(Long appealTypeId, Integer status, Long departmentId) {
+		if (departmentId == null || "".equals(departmentId)) {
+			return appealRepository.findByAppealTypeIdAndStatusOrderByCreateTimeDesc(appealTypeId, status);
+		} else {
+			return appealRepository.findByAppealTypeIdAndStatusAndDepartmentIdOrderByCreateTimeDesc(appealTypeId,
+					status, departmentId);
+		}
+	}
+	
+	@Override
+	public List<BigInteger> getOverAcceptDays(Long departmentId, Long enterpriseId, Long appealTypeId) {
+		if ((departmentId == null || "".equals(departmentId)) && enterpriseId == null || "".equals(enterpriseId)) {
+			return appealRepository.getOverAcceptDays(appealTypeId);
+		} else if (departmentId != null && !"".equals(departmentId)) {
+			return appealRepository.getOverAcceptDaysByDepartmentId(departmentId, appealTypeId);
+		} else {
+			return appealRepository.getOverAcceptDaysByEnterpriseId(enterpriseId, appealTypeId);
+		}
+	}
+
+	@Override
+	public List<BigInteger> getOverHandleDays(Long departmentId, Long enterpriseId, Long appealTypeId) {
+		if ((departmentId == null || "".equals(departmentId)) && enterpriseId == null || "".equals(enterpriseId)) {
+			return appealRepository.getOverHandleDays(appealTypeId);
+		} else if (departmentId != null && !"".equals(departmentId)) {
+			return appealRepository.getOverHandleDaysByDepartmentId(departmentId, appealTypeId);
+		} else {
+			return appealRepository.getOverHandleDaysByEnterpriseId(enterpriseId, appealTypeId);
+		}
+	}
 }

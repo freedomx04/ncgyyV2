@@ -42,11 +42,12 @@
 						</div>
 						
 						<div id="appeal-tab-type" class="tab-pane">
-							aa
+	                    	<div class="type-chart-container" style="height: 400px;margin-top: 40px;display:inline-block;"></div>
+							<div class="status-chart-container" style="height: 400px;display:inline-block;"></div>
 						</div>
 						
 						<div id="appeal-tab-warning" class="tab-pane">
-							bb
+							<div class="warning-chart-container" style="height: 400px;margin-top: 40px;"></div>
 						</div>
 					</div>
 				</div>
@@ -58,6 +59,7 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
@@ -125,6 +127,204 @@
             }]
 		});
 		
+		$page.on('click', '.nav-tabs li', function() {
+			var tab = $(this).find("a").attr("href");
+			var $tab = $(tab);
+			if (tab == '#appeal-tab-type') {
+				apTypeChart();
+				apStatusChart();
+			} else {
+				apWarnChart();
+			}
+		});
+		$page.find('.warning-chart-container').css( 'width', $("#appeal-tab-list").width());
+		$page.find('.type-chart-container').css( 'width', $("#appeal-tab-list").width()/2 - 10);
+		$page.find('.status-chart-container').css( 'width', $("#appeal-tab-list").width()/2 - 10 );
+		
+		function apTypeChart() {
+			var myChart = echarts.init($page.find('.type-chart-container')[0]); 
+			
+			$.ajax({
+				url: "${ctx}/api/appeal/getAppealCountByType",
+				type: "POST",
+				success: function(ret) {
+					if (ret.code == 0) {
+						var seriesData = [];
+						var legendData = [];
+						
+						$.each(ret.data, function(key, val) {
+							seriesData.push({name: val.appealTypeName, type: 'pie', value: val.count});
+							legendData.push(val.appealTypeName);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求分类分布图',
+							        x: 'center'
+							    },
+							    tooltip : {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b} : {c} ({d}%)"
+							    },
+							    legend: {
+							        orient : 'vertical',
+							        x : 'left',
+							        data: legendData
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : true,
+							    series : [
+					               {
+					                   name:'诉求分类',
+					                   type:'pie',
+					                   radius : '55%',
+					                   center: ['50%', '60%'],
+					                   data: seriesData
+					               }
+					           ]
+							};
+						myChart.setOption(option);
+					}
+				},
+				error: function(err) {}
+			});
+		}
+		
+		function apStatusChart() {
+			var myChart = echarts.init($page.find('.status-chart-container')[0]); 
+			
+			$.ajax({
+				url: "${ctx}/api/appeal/appealStatusCount",
+				type: "POST",
+				success: function(ret) {
+					if (ret.code == 0) {
+						var seriesData = [];
+						var legendData = [];
+						
+						$.each(ret.data, function(key, val) {
+							var statusData = [];
+							$.each(val, function(ky, vl) {
+								if(ky != 0 && ky != 1) {
+									statusData.push(vl.length);
+								}
+							})
+							seriesData.push({name: key, type: 'bar', data: statusData});
+							legendData.push(key);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求分类状态统计图',
+							        x: 'center'
+							    },
+							    tooltip : {
+							        trigger: 'axis'
+							    },
+							    legend: {
+							    	orient : 'vertical',
+							    	x : 'right',
+							        data: legendData
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : true,
+							    grid: {y: 70, y2:30, x2:20},
+							    xAxis : [
+							        {
+							            type : 'category',
+							            data : ['待处理', '处理中', '待确认', '办结', '驳回']
+							        },
+							        {
+							            type : 'category',
+							            axisLine: {show:false},
+							            axisTick: {show:false},
+							            axisLabel: {show:false},
+							            splitArea: {show:false},
+							            splitLine: {show:false},
+							            data : ['待处理', '处理中', '待确认', '办结', '驳回']
+							        }
+							    ],
+							    yAxis : [
+							        {
+							            type : 'value',
+							            axisLabel:{formatter:'{value} 条'}
+							        }
+							    ],
+							    series : seriesData
+							};
+						myChart.setOption(option);
+					}
+				},
+				error: function(err) {}
+			});
+		}
+		
+		function apWarnChart() {
+			var myChart = echarts.init($page.find('.warning-chart-container')[0]); 
+			
+			$.ajax({
+				url: "${ctx}/api/appeal/overAppealDays",
+				type: "POST",
+				success: function(ret) {
+					if (ret.code == 0) {
+						
+						var appealTypeName = [];
+						var acceptDays = [];
+						var handleDays = [];
+						
+						$.each(ret.data, function(key, val) {
+							appealTypeName.push(val.appealTypeName);
+							acceptDays.push(val.acceptDays.length);
+							handleDays.push(val.handleDays.length);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求预警提醒'
+							    },
+							    tooltip : {
+							        trigger: 'axis'
+							    },
+							    legend: {
+							        data:['超过受理天数','超过处理天数']
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : true,
+							    xAxis : [
+							        {
+							            type : 'category',
+							            data : appealTypeName
+							        }
+							    ],
+							    yAxis : [
+							        {
+							            type : 'value'
+							        }
+							    ],
+							    series : [
+							        {
+							            name: '超过受理天数',
+							            type: 'bar',
+							            data: acceptDays
+							        },
+							        {
+							            name: '超过处理天数',
+							            type: 'bar',
+							            data: handleDays
+							        }
+							    ]
+							};
+						myChart.setOption(option);
+					}
+				},
+				error: function(err) {}
+			});
+		}
 		
 	})( jQuery );
 	</script>

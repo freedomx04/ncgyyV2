@@ -84,7 +84,7 @@
 	                     	<ul>
 	                     	</ul>
                      	</div>
-                     	<div class="pageTool" style="margin-top: 30px;"></div>
+                     	<div class="pageTool" style="margin-top: 30px; clear: both;"></div>
                      </div>
                  </div>
              </div>
@@ -99,8 +99,7 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
@@ -148,7 +147,7 @@
 							var ht = '<div class="product_con">'+
 												'<div class="product_ul">'+
 											'<a href="product?productId='+ val.id +'" target="_blank">'+
-												'<img border="0" src="${ctx}'+ val.imagePath +'" width="180" height="122">'+
+												'<img border="0" data-original="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
 										'<div class="product_wz"> <a href="index+productinfo?productId='+ val.id +'" target="_blank">'+ val.name +'</a></div>'+
@@ -156,6 +155,9 @@
 							
 							$(ht).appendTo($page.find("#tab-2 .product_list"));
 						});
+						$('img').lazyload({
+						    effect: 'fadeIn'
+						}); 
 					}
 				},
 				error: function(err) {}

@@ -70,9 +70,10 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-declare-list');
+		var enterpriseId = ${user.enterprise.id};
 		
 		var $eclareTable = $k.util.bsTable($page.find('#declare-list-table'), {
-			url: '${ctx}/api/declare/listOnline?enterpriseId=1',
+			url: '${ctx}/api/declare/listOnline?enterpriseId=' + enterpriseId,
 			idField: 'id',
 			responseHandler: function(res) {
                 return res.data;
@@ -96,22 +97,26 @@
             	title: '是否申报',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		return row.applyStatus == 0 ? '未申报' : '已申报';
+            		return row.applyStatus == 0 ? '<span class="label label-warning">未申报</span>' : '<span class="label label-success">已申报</span>';
             	}
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		if (row.applyStatus == 0) {
-	            		return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-add a-operate">申报</a>';
-            		} else {
-            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate">申报</a>';
+            		var $detail = '<a class="btn-declare-apply-detail a-operate">详情</a>';
+            		var $apply = '<a class="btn-declare-apply-add a-operate">申报</a>';
+            		
+            		switch (row.applyStatus) {
+            		case 0:
+            			return $detail + $apply;
+            		case 1:
+            			return $detail;
             		}
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-apply-add': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './applyAdd?method=add&declareId=' + row.id + '&enterpriseId=1';
+            			window.location.href= './applyAdd?method=add&declareId=' + row.id + '&enterpriseId=' + enterpriseId;
             		},
             		'click .btn-declare-apply-detail': function(e, value, row, index) {
             			e.stopPropagation();
@@ -122,7 +127,7 @@
 		});
 		
 		var $myDeclareTable = $k.util.bsTable($page.find('#my-declare-list-table'), {
-			url: '${ctx}/api/apply/listByEnterpriseId?enterpriseId=1',
+			url: '${ctx}/api/apply/listByEnterpriseId?enterpriseId=' + enterpriseId,
 			toolbar: '#my-declare-list-table-toolbar',
 			idField: 'id',
 			responseHandler: function(res) {
@@ -176,16 +181,16 @@
             		var status = '';
             		switch(row.status) {
             		case 0:
-            			status = '新增';
+            			status = '<span class="label label-warning">新增</span>';
             			break;
             		case 1:
-            			status = '未审批';
+            			status = '<span class="label label-warning">未审批</span>';
             			break;
             		case 2:
-            			status = '审批通过';
+            			status = '<span class="label label-success">审批通过</span>';
             			break;
             		case 3:
-            			status = '审批未通过';
+            			status = '<span class="label label-danger">审批未通过</span>';
             			break;
             		}
             		return status;
@@ -195,7 +200,7 @@
             	align: 'center',
             	formatter: function(value, row, index) {
             		if (row.status == 2 || row.status == 3 || (new Date(row.declare.endTime) < new Date())) {
-            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
+            			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-delete a-operate">删除</a>';
             		} else {
             			return '<a class="btn-declare-apply-detail a-operate">详情</a><a class="btn-declare-apply-edit a-operate">编辑</a><a class="btn-declare-apply-delete a-operate">删除</a>';
             		}

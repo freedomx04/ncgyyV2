@@ -74,18 +74,18 @@
             		var status = '';
             		switch (row.status) {
            			case 0:
-            			status = '新增';
+            			status = '<span class="label label-info">新增</span>';
            			break;
            			case 1:
-            			status = '上架';
+            			status = '<span class="label label-primary">上架</span>';
            			break;
            			case 2:
-            			status = '下架';
+            			status = '<span class="label label-warning">下架</span>';
            			break;
             		}
             		
             		if (new Date(row.endTime) < new Date()) {
-            			status = '逾期';
+            			status = '<span class="label label-warning">逾期</span>';
             		}
             		return status;
             	},
@@ -108,11 +108,11 @@
             		var $enterprise = '<a class="btn-declare-enterprise a-operate">查看申报企业</a>';
 
             		if (new Date(row.endTime) < new Date()) {
-            			var $edit = '<a class="a-operate">编辑</a>';
-            			var $display = '<a class="a-operate">发布/结束</a>';
+	            		return $detail + $edit + $enterprise;
+            		} else {
+            			return $detail + $edit + $delete + $display + $enterprise;
             		}
             		
-            		return $detail + $edit + $delete + $display + $enterprise;
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
