@@ -58,8 +58,6 @@
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	

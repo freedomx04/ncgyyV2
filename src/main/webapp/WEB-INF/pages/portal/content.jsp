@@ -30,7 +30,7 @@
 			<span id="con_time">发布时间：<fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm" /></span>&nbsp; 
 			<span>来源：${article.source}</span>&nbsp;
 		</div>
-		<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 40px; color: #070707; line-height: 26px; min-height: 400px;">
+		<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 40px; color: #070707; line-height: 26px; min-height: 400px;word-break: break-all;">
 			${article.content}
 			
 			<c:if test="${not empty article.fileList}">
@@ -53,8 +53,6 @@
 	</div>
 
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
 
 	<script type="text/javascript">
 	;(function() {
