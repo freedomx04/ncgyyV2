@@ -64,7 +64,7 @@ li {
     color: #fff;
     display: block;
     text-align: center;
-    width: 14%;
+    width: 12%;
     float: left;
     font-size: 16px;
     font-weight: bold;
@@ -243,7 +243,7 @@ li {
 .clist {
 	width: 980px;
 	margin: 0 auto;
-	margin-top: 30px;
+	margin-top: 20px;
 }
 .ctree_title {
     background: url(../img/ctree_bg.png) no-repeat;
@@ -273,7 +273,7 @@ li {
     border-left: 5px #2ca1f6 solid;
 }
 .clist_r_title {
-    height: 50px;
+    height: 40px;
     border-bottom: 1px #ccc solid;
 }
 .clist_r_title span {

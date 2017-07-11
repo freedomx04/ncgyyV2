@@ -13,7 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 	
 	<style>
-	.dl-horizontal dt {
+	.dl-horizontal dt,
+	.dl-horizontal dd {
 		line-height: 2em;
 	}
 	</style>
@@ -32,7 +33,7 @@
 	    </span>
 	</div>
 	
-	<div class="enterpriseinfo-tab" style="margin-top: 30px;">
+	<div class="enterpriseinfo-tab" style="margin-top: 20px;">
 	
 		<div class="tabs-container">
              <ul class="nav nav-tabs">
@@ -59,7 +60,7 @@
 							</dl>
 						</div>
 						<div class="col-sm-5 text-right">
-							<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px;">
+							<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px; width: 300px; height: 300px;">
 						</div>
 						<div class="col-sm-12">
 							<dl class="dl-horizontal">
