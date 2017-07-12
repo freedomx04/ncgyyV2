@@ -102,8 +102,8 @@
 			<div class="con_two_right">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="index_enterprise" target="_blank" class="ct_curr">企业宣传</a></dt>
-                        <dd><a href="index_enterprise" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="enterpriselist" target="_blank" class="ct_curr">企业宣传</a></dt>
+                        <dd><a href="enterpriselist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="enterprise">
@@ -139,7 +139,7 @@
 				<div class="monitor">
 					<dl>
 	                 	<dt>
-	                 		<a href="javascript: void(0)" target="_blank">
+	                 		<a href="monitorlist" target="_blank">
 	                 			<img src="img/monitor.jpg" width="96" height="39">
 	                 		</a>
 	                 	</dt>
@@ -157,9 +157,22 @@
 				</div>
 				
 				<div class="assist border_top">
-					<a href="#" target="_blank"><img src="img/assist.jpg" width="96" height="39"></a>
+					<a href="assistlist" target="_blank"><img src="img/assist.jpg" width="96" height="39"></a>
 					<div class="article_con" style="overflow: hidden; display: block;">
 						<ul style="padding-top:5px;">
+							<c:forEach var="appeal" items="${appealList}">
+								<li>
+									<a href="assistinfo?appealId='+ val.id +'" target="_blank">
+										<c:if test="${fn:length(appeal.title) > 38}">
+											${fn:substring(appeal.title, 0, 38)}...
+										</c:if>
+										<c:if test="${fn:length(appeal.title) <= 38}">
+											${appeal.title}
+										</c:if>
+									</a>
+									<span>[<fmt:formatDate value="${appeal.createTime}" pattern="MM-dd"/>]</span>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
@@ -168,15 +181,15 @@
 			<div class="con_three_right">
 				<div class="common_title">
                     <dl>
-                        <dt><a href="index_product" target="_blank" class="ct_curr">产品宣传</a></dt>
-                        <dd><a href="index_product" target="_blank">更多&gt;&gt;</a></dd>
+                        <dt><a href="productlist" target="_blank" class="ct_curr">产品宣传</a></dt>
+                        <dd><a href="productlist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
 				<div class="product" style="height: 600px;">
 					<ul id="list">
 						<c:forEach var="product" items="${productList}">
 							<li>
-								<a href="product?productId='+ product.id +'" target="_blank">
+								<a href="product?productId=${product.id}" target="_blank">
 									<img src="${ctx}${product.imagePath}" style="width: 100%; height: 200px;">
 									<div style="background-color: #e8e8e8; height: 28px; padding: 5px;">${product.name}</div>
 								</a>
@@ -211,21 +224,6 @@
 			clickBarRadius: 1
 		});
 		
-		//帮扶平台
-		$.ajax({
-			url: "${ctx}/api/appeal/list",
-			success: function(ret) {
-				if (ret.code == 0 && ret.data != null) {
-					var len = ret.data.length >= 5 ? 5 : ret.data.length;
-					for (var i = 0; i < len; i++){
-						var val = ret.data[i];
-						var ht = '<li style="position:static;"><a href="assistinfo?appealId='+ val.id +'" target="_blank">'+ val.title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
-						$(ht).appendTo($page.find('.assist ul'));
-					}
-				}
-			},
-			error: function(err) {}
-		});
 		
 		//监测平台
 		getChart('target-1');
