@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 </head>
-<body class="body-enterprise">
+<body class="body-assist">
 	<div>
 		<%@ include file="/WEB-INF/template/top.jsp"%>
 	</div>
@@ -19,13 +19,13 @@
 	<div class="mnav" style="border-bottom:1px #ccc solid;">
 		<span>
 			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="enterpriselist">企业宣传</a>
+			<a href="assistlist">帮扶平台</a>
 	    </span>
 	</div>
 	
 	<div class="clist">
 		<div class="clist_r_title">
-			<span>企业宣传</span>
+			<span>帮扶平台</span>
 		</div>
 		<div class="clist_con" style="min-height: 450px;">
 			<ul>
@@ -48,11 +48,11 @@
 	
 	<script type="text/javascript">
 	;(function() {
-		var $page = $(".body-enterprise");
+		var $page = $(".body-assist");
 		var pageSize = 25;
 		
 		$page.find(".menu a").removeClass("nav_curr");
-		$page.find(".menu .m_enterprise").addClass("nav_curr");
+		$page.find(".menu .m_assist").addClass("nav_curr");
 		
 		$page.find('#pageTool').Paging({
 			pagesize: pageSize, 
@@ -66,23 +66,23 @@
 		
 		function getData(page, size) {
 			$.ajax({
-				url: "${ctx}/api/enterprise/listPage",
+				url: "${ctx}/api/appeal/listPage",
 				data: {
 					page: page,
 					size: size
 				},
 				success: function(ret) {
 					if (ret.code == 0) {
+						console.info(ret.data)
 						$page.find(".clist_con ul").html("");
 						
 						$.each(ret.data.content, function(key, val) {
-							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
+							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
 							
-							var ht = '<li style="height: 45px;">'+
-										'<img src="api/avatar/'+ val.avatar +'" width="35" height="35" style="margin: 5px 0;">'+
-										'<a href="enterprise?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
-										'<span><a href="" target="_blank">'+ val.industry.name +'</a></span>'+
-									'</li>';
+							var ht = '<li>'+
+								'<a href="" target="_blank" style="width: 600px;">'+ title +'</a>'+
+								'<span><a href="" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
+								'</li>';
 							
 							$(ht).appendTo($page.find(".clist_con ul"));
 						});

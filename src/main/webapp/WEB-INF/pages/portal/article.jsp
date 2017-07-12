@@ -47,7 +47,7 @@
 						<div class="clist_r_title">
 							<span></span>
 						</div>
-						<div class="clist_con" style="min-height: 600px;">
+						<div class="clist_con" style="min-height: 450px;">
 							<ul></ul>
                        		<div class="pnews_con">
                        		</div>

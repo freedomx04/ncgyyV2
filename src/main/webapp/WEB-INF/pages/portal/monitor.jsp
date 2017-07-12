@@ -81,6 +81,9 @@
 		var item = $k.util.getRequestParam("item");
 		var pagesize = 20;
 		
+		$page.find(".menu a").removeClass("nav_curr");
+		$page.find(".menu .m_monitor").addClass("nav_curr");
+		
 		$page.find(".ctree").removeClass("ctree_curr");
 		$page.find(".ctree").find("[item='"+ item +"']").addClass("ctree_curr");
 		

@@ -110,4 +110,12 @@ public class PageController {
 	String monitor() {
 		return "pages/portal/monitor";
 	}
+	
+	/**
+	 * 监测平台页面
+	 */
+	@RequestMapping(value = "/assistlist")
+	String assist() {
+		return "pages/portal/assist";
+	}
 }

@@ -3,6 +3,8 @@ package com.hm.ncgyy.service.assist;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hm.ncgyy.entity.assist.AppealEntity;
 
 public interface AppealService {
@@ -15,7 +17,7 @@ public interface AppealService {
 	
 	List<AppealEntity> list();
 	
-	List<AppealEntity> listPaging(int page, int size);
+	Page<AppealEntity> listPaging(int page, int size);
 	
 	List<AppealEntity> findByStatus(Integer status);
 	
