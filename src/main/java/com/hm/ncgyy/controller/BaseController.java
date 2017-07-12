@@ -11,10 +11,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
+import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.issue.ArticleService;
@@ -32,6 +34,9 @@ public class BaseController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	AppealService appealService;
 	
 	@RequestMapping(value = { "/", "/index" })
 	String index(ModelMap modelMap) {
@@ -60,6 +65,10 @@ public class BaseController {
 		// 产品信息
 		List<ProductEntity> productList = productService.listPaging(0, 20);
 		modelMap.addAttribute("productList", productList);
+		
+		// 帮扶平台
+		Page<AppealEntity> appealPage = appealService.listPaging(0, 5);
+		modelMap.addAttribute("appealList", appealPage.getContent());
 		
 		return "index";
 	}

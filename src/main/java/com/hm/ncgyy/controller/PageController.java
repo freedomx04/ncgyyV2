@@ -95,7 +95,7 @@ public class PageController {
 	}
 	
 	@RequestMapping(value = "/productlist")
-	String index_product(ModelMap modelMap, Integer type) {
+	String product(ModelMap modelMap, Integer type) {
 		List<ProductEntity> list = productService.list();
 		modelMap.addAttribute("count", list.size());
 		return "pages/portal/product";
