@@ -103,4 +103,11 @@ public class PageController {
 		return "pages/portal/productinfo";
 	}
 
+	/**
+	 * 监测平台页面
+	 */
+	@RequestMapping(value = "/monitorlist")
+	String monitor() {
+		return "pages/portal/monitor";
+	}
 }
