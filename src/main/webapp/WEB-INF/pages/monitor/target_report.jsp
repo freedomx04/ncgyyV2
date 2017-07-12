@@ -96,7 +96,7 @@
                             <div class="col-sm-8">
                             	<div class="input-group" style="width: 100%;">
 	                            	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	                                <input type="text" name="monthly" id="monthly" readonly="readonly" class="form-control">
+	                                <input type="text" name="monthly" id="monthly" class="form-control">
 	                            </div> 
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止主营业务收入</label>
                             <div class="col-sm-8">
                                 <div class="input-group m-b">
-                                    <input type="text" class="form-control"> <span class="input-group-addon" name="mainBusiness" required>万元</span>
+                                    <input type="text" class="form-control" name="mainBusiness" required> <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止用电量</label>
                             <div class="col-sm-8">
                             	<div class="input-group m-b">
-                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="electricity" required>万度</span>
+                            	    <input type="text" class="form-control" name="electricity" required> <span class="input-group-addon">万度</span>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止利润总额</label>
                             <div class="col-sm-8">
                             	<div class="input-group m-b">
-                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="profit" required>万元</span>
+                            	    <input type="text" class="form-control" name="profit" required> <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止实现税金总额</label>
                             <div class="col-sm-8">
                             	<div class="input-group m-b">
-                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="tax" required>万元</span>
+                            	    <input type="text" class="form-control" name="tax" required> <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>

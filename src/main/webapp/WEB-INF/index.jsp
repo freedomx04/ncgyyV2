@@ -162,7 +162,7 @@
 						<ul style="padding-top:5px;">
 							<c:forEach var="appeal" items="${appealList}">
 								<li>
-									<a href="assistinfo?appealId=${appeal.id}" target="_blank">
+									<a href="assist?appealId=${appeal.id}" target="_blank">
 										<c:if test="${fn:length(appeal.title) > 38}">
 											${fn:substring(appeal.title, 0, 38)}...
 										</c:if>
