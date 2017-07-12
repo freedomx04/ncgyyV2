@@ -72,7 +72,7 @@
                  
                  <div id="tab-2" class="tab-pane">
                      <div class="panel-body">
-                     	<div class="product_list"></div>
+                     	<div class="product_list" style="min-height: 450px;"></div>
 	 					<div style="clear: both;"></div>
 	 					<div class="pageTool" style="margin-bottom: 20px;"></div>
                      </div>
@@ -80,7 +80,7 @@
                  
                  <div id="tab-3" class="tab-pane">
                      <div class="panel-body">
-                     	<div class="clist_con">
+                     	<div class="clist_con" style="min-height: 450px;">
 	                     	<ul>
 	                     	</ul>
                      	</div>

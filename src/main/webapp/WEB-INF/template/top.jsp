@@ -15,7 +15,8 @@
 				<a href="${ctx}/newslist?type=4" type="4">工业信息</a>
 				<a href="${ctx}/enterpriselist" class="m_enterprise">企业宣传</a>
 				<a href="${ctx}/productlist" class="m_product">产品宣传</a>
-				<a href="">帮扶平台</a>
+				<a href="${ctx}/monitorlist?item=mainBusiness" class="m_monitor">监测平台</a>
+				<a href="${ctx}/assistlist" class="m_assist">帮扶平台</a>
 			</div>
 		</div>
 	</div>

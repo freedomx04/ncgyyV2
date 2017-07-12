@@ -47,7 +47,7 @@
 						<div class="clist_r_title">
 							<span></span>
 						</div>
-						<div class="clist_con" style="min-height: 600px;">
+						<div class="clist_con" style="min-height: 450px;">
 							<ul></ul>
                        		<div class="pnews_con">
                        		</div>
@@ -81,24 +81,10 @@
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu").find("a[type='"+ type +"']").addClass("nav_curr");
 		
-		switch (type) {
-		case '1':
-			$page.find(".clist_r_title span").html("图片新闻");
-			$page.find(".mnav span").append('<a href="newslist?type=1">图片新闻</a>');
-			break;
-		case '2':
-			$page.find(".clist_r_title span").html("公示公告");
-			$page.find(".mnav span").append('<a href="newslist?type=2">公示公告</a>');
-			break;
-		case '3':
-			$page.find(".clist_r_title span").html("政策法规");
-			$page.find(".mnav span").append('<a href="newslist?type=3">政策法规</a>');
-			break;
-		case '4':
-			$page.find(".clist_r_title span").html("工业信息");
-			$page.find(".mnav span").append('<a href="newslist?type=4">工业信息</a>');
-			break;
-		}
+		var typeName = getTypeName(type);
+		$page.find(".clist_r_title span").html(typeName);
+		$page.find(".mnav span").append('<a href="newslist?type=1">'+ typeName +'</a>');
+		
 		
 		$page.find('#pageTool').Paging({
 			pagesize: pagesize, 
@@ -153,6 +139,25 @@
 				},
 				error: function(err) {}
 			});
+		}
+		
+		function getTypeName(type) {
+			var typeName = '';
+			switch (type) {
+			case '1':
+				typeName = '图片新闻';
+				break;
+			case '2':
+				typeName = '公示公告';
+				break;
+			case '3':
+				typeName = '政策法规';
+				break;
+			case '4':
+				typeName = '工业信息';
+				break;
+			}
+			return typeName;
 		}
 	})();
 	

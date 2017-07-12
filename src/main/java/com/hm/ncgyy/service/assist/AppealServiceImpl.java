@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.assist.AppealEntity;
@@ -36,8 +38,8 @@ public class AppealServiceImpl implements AppealService {
 	}
 
 	@Override
-	public List<AppealEntity> listPaging(int page, int size) {
-		return null;
+	public Page<AppealEntity> listPaging(int page, int size) {
+		return appealRepository.findAll(new PageRequest(page, size));
 	}
 	
 	@Override

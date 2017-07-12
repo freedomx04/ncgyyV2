@@ -29,7 +29,7 @@
 		<div class="clist_r_title">
 			<span>产品宣传</span>
 		</div>
-		<div class="clist_con" style="min-height: 600px;">
+		<div class="clist_con" style="min-height: 450px;">
 		</div>
 		
 		<div style="clear:both;"></div>
