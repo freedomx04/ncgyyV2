@@ -96,19 +96,38 @@
 						</ul>
 					</li>
 					</c:if>
+					<c:if test="${fn:contains(user.role.resource, 'authority-target-import')
+						|| fn:contains(user.role.resource, 'authority-target-enterprise')
+						|| fn:contains(user.role.resource, 'authority-target-industry')
+						|| fn:contains(user.role.resource, 'authority-target-area')
+						|| fn:contains(user.role.resource, 'authority-target-point-enterprise')
+						|| fn:contains(user.role.resource, 'authority-target-ep')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">监测平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="targetImport">主要指标上报</a></li>
-							<li><a class="J_menuItem" href="targetEnterprise">企业主要指标</a></li>
-							<li><a class="J_menuItem" href="targetEP">企业主要指标(企业)</a></li>
-							<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
-							<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
-							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-report')}">
+								<li><a class="J_menuItem" href="targetReport">主要指标上报</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-enterprise')}">
+								<li><a class="J_menuItem" href="targetEnterprise">企业主要指标</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-industry')}">
+								<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-area')}">
+								<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-point-enterprise')}">
+								<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-target-ep')}">
+								<li><a class="J_menuItem" href="targetEP">主要指标(企业)</a></li>
+							</c:if>
 						</ul>
 					</li>
+					</c:if>
 					<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center') 
 						|| fn:contains(user.role.resource, 'authority-appeal-enterprise')
 						|| fn:contains(user.role.resource, 'authority-appeal-department') 

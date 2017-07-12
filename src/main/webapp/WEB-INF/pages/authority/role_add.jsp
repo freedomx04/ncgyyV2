@@ -194,28 +194,25 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">监测平台</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-report">
 								<input type="checkbox"> 主要指标上报
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-add">
 								<input type="checkbox"> 新增
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-export">
 								<input type="checkbox"> 导出到excel
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-import">
 								<input type="checkbox"> 导入excel
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-template">
 								<input type="checkbox"> 下载模板
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-edit">
 								<input type="checkbox"> 编辑
 							</label>
-							<label class="checkbox-inline i-checks authority-classify-function">
+							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-target-report-delete">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
@@ -224,7 +221,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-enterprise">
 								<input type="checkbox"> 企业主要指标
 							</label>
 						</div>
@@ -233,7 +230,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-industry">
 								<input type="checkbox"> 行业主要指标
 							</label>
 						</div>
@@ -242,7 +239,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-area">
 								<input type="checkbox"> 园区主要指标
 							</label>
 						</div>
@@ -251,8 +248,17 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-point-enterprise">
 								<input type="checkbox"> 重点企业主要指标
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-ep">
+								<input type="checkbox"> 主要指标(企业)
 							</label>
 						</div>
 					</div>

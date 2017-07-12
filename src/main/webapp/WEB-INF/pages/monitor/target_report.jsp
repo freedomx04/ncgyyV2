@@ -45,19 +45,27 @@
 	                    </div>
 	                </div>
 					<div class="col-sm-9 text-right">
-	                    <button type="button" class="btn btn-white btn-target-add" data-toggle="modal" data-target="#modal-target-dialog">
-	                        <i class="fa fa-plus fa-fw"></i>新增
-	                    </button>
-	                    <button type="button" class="btn btn-white btn-target-export">
-	                        <i class="fa fa-save fa-fw"></i>导出到excel
-	                    </button>
-					    <input id="importTarget-file-input" type="file" style="display:none">
-					    <button class="btn btn-white btn-target-import">
-					    	<i class="fa fa-save fa-fw"></i>导入excel
-					    </button>
-	                    <button type="button" class="btn btn-white btn-target-download">
-	                        <i class="fa fa-download fa-fw"></i>下载模板
-	                    </button>
+						<c:if test="${fn:contains(role.resource, 'authority-target-report-add')}">
+		                    <button type="button" class="btn btn-white btn-target-add" data-toggle="modal" data-target="#modal-target-dialog">
+		                        <i class="fa fa-plus fa-fw"></i>新增
+		                    </button>
+	                    </c:if>
+	                    <c:if test="${fn:contains(role.resource, 'authority-target-report-export')}">
+		                    <button type="button" class="btn btn-white btn-target-export">
+		                        <i class="fa fa-save fa-fw"></i>导出到excel
+		                    </button>
+	                    </c:if>
+	                    <c:if test="${fn:contains(role.resource, 'authority-target-report-import')}">
+						    <input id="importTarget-file-input" type="file" style="display:none">
+						    <button class="btn btn-white btn-target-import">
+						    	<i class="fa fa-save fa-fw"></i>导入excel
+						    </button>
+					    </c:if>
+					    <c:if test="${fn:contains(role.resource, 'authority-target-report-template')}">
+		                    <button type="button" class="btn btn-white btn-target-download">
+		                        <i class="fa fa-download fa-fw"></i>下载模板
+		                    </button>
+	                    </c:if>
 	                </div>
                 </div>
                 <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
@@ -365,9 +373,21 @@
 	            	align: 'center',
 	            	formatter: function(value, row, index) {
 	            		if (row.target_current == null) {
-	            			return '-';	
+	            			return '-'
 	            		} else {
-	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
+	            			var resource = '${role.resource}'.split(',');
+	                        var $operate = '';
+	            			
+	            			if ($.inArray('authority-target-report-edit', resource) != -1) {
+	            				$operate += '<a class="btn-target-edit a-operate">编辑</a>';
+	            			}
+	            			if ($.inArray('authority-target-report-delete', resource) != -1) {
+	            				$operate += '<a class="btn-target-delete a-operate">删除</a>';
+	            			}
+	            			if ($operate == '') {
+	            				$operate = '-';
+	            			}
+	            			return $operate;	
 	            		}
 	                },
 	            	events: window.operateEvents = {

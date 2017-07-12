@@ -325,9 +325,12 @@ public class ManagerController {
 	/**
 	 * 监测平台接口
 	 */
-	@RequestMapping(value = "/targetImport")
-	String targetImport() {
-		return "pages/monitor/target_import";
+	@RequestMapping(value = "/targetReport")
+	String targetImport(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		
+		return "pages/monitor/target_report";
 	}
 	
 	@RequestMapping(value = "/targetEP")
