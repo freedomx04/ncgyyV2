@@ -191,34 +191,6 @@
 			 $targetForm.find('input[name = "monthly"]').val("");
 			 $targetForm.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
 			 
-			 $targetDialog.on('click', '.btn-confirm', function() {
- 				var validator = $targetForm.data('bootstrapValidator');
- 				validator.validate();
- 				if (validator.isValid()) {
- 					$.ajax({
- 						url: '${ctx}/api/target/create',
-                 		type: 'POST',
-                 		data: {
-                 			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
-                 			monthly: $targetForm.find('input[name = "monthly"]').val(),
-                 			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
-                 			electricity: $targetForm.find('input[name = "electricity"]').val(),
-                 			profit: $targetForm.find('input[name = "profit"]').val(),
-                 			tax: $targetForm.find('input[name = "tax"]').val()
-                 		},
-                 		success: function(ret) {
-                 			if (ret.code == 0) {
-	                 			$targetDialog.modal('hide');
-	                 			swal('', '添加成功!', 'success');
-	                 			$table.bootstrapTable('refresh'); 
-                 			} else if (ret.code == 1003) {
-                 				swal('', '添加失败，该月份记录已存在!', 'warning');
-                 			}
-                 		},
-                 		error: function(err) {}
-                 	});
-                 }
- 			});
 		})
         .on("change", "#importTarget-file-input", function() {
         	var oMyForm = new FormData();
@@ -259,6 +231,35 @@
 		.on("click", "#search", function() {
 			initTable();
 		});
+		
+		$targetDialog.on('click', '.btn-confirm', function() {
+				var validator = $targetForm.data('bootstrapValidator');
+				validator.validate();
+				if (validator.isValid()) {
+					$.ajax({
+						url: '${ctx}/api/target/create',
+             		type: 'POST',
+             		data: {
+             			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
+             			monthly: $targetForm.find('input[name = "monthly"]').val(),
+             			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
+             			electricity: $targetForm.find('input[name = "electricity"]').val(),
+             			profit: $targetForm.find('input[name = "profit"]').val(),
+             			tax: $targetForm.find('input[name = "tax"]').val()
+             		},
+             		success: function(ret) {
+             			if (ret.code == 0) {
+                 			$targetDialog.modal('hide');
+                 			swal('', '添加成功!', 'success');
+                 			$table.bootstrapTable('refresh'); 
+             			} else if (ret.code == 1003) {
+             				swal('', '添加失败，该月份记录已存在!', 'warning');
+             			}
+             		},
+             		error: function(err) {}
+             	});
+             }
+	});
 		
 		// 添加验证器
         $targetDialog.find('form').bootstrapValidator({
