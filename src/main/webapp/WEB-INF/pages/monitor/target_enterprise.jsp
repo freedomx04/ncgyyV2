@@ -260,7 +260,7 @@
 			var arr1 = [];
 			var arr2 = [];
 			var arr3 = [];
-			
+
 			var legendName = "";
 			var unit = "";
 			

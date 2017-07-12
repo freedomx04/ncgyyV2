@@ -37,14 +37,14 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs row" id="target-list-table-toolbar" role="group">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="input-group date">
 	                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	                        <input type="text" id="search-monthly" class="form-control">
 	                        <span id="search" class="btn btn-primary" style="cursor: pointer; display: table-cell;">查询</span>
 	                    </div>
 	                </div>
-					<div class="col-sm-8 text-right">
+					<div class="col-sm-9 text-right">
 	                    <button type="button" class="btn btn-white btn-target-add" data-toggle="modal" data-target="#modal-target-dialog">
 	                        <i class="fa fa-plus fa-fw"></i>新增
 	                    </button>
@@ -76,16 +76,16 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="form-target" autocomplete="off">
                     	<div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>企业名称</label>
-                            <div class="col-sm-7">
+                            <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>企业名称</label>
+                            <div class="col-sm-8">
                                 <select data-placeholder="选择企业" class="chosen-select form-control" name="enterpriseId">
                                 	<option value="">请选择</option>
 		                        </select>
                             </div>
                         </div>
                         <div class="form-group">
-	                        <label for="monthly" class="col-sm-3 control-label"><i class="form-required">*</i>月份</label>
-                            <div class="col-sm-7">
+	                        <label for="monthly" class="col-sm-4 control-label"><i class="form-required">*</i>月份</label>
+                            <div class="col-sm-8">
                             	<div class="input-group" style="width: 100%;">
 	                            	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	                                <input type="text" name="monthly" id="monthly" readonly="readonly" class="form-control">
@@ -94,27 +94,35 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>本月止主营业务收入(万元)</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="mainBusiness" required>
+                            <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止主营业务收入</label>
+                            <div class="col-sm-8">
+                                <div class="input-group m-b">
+                                    <input type="text" class="form-control"> <span class="input-group-addon" name="mainBusiness" required>万元</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>本月止用电量(万度)</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="electricity" required>
+                            <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止用电量</label>
+                            <div class="col-sm-8">
+                            	<div class="input-group m-b">
+                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="electricity" required>万度</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>本月止利润总额(万元)</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="profit" required>
+                            <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止利润总额</label>
+                            <div class="col-sm-8">
+                            	<div class="input-group m-b">
+                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="profit" required>万元</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name" class="col-sm-3 control-label"><i class="form-required">*</i>本月止实现税金总额(万元)</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="tax" required>
+                            <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止实现税金总额</label>
+                            <div class="col-sm-8">
+                            	<div class="input-group m-b">
+                            	    <input type="text" class="form-control"> <span class="input-group-addon" name="tax" required>万元</span>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -172,6 +180,7 @@
 			 
 			 $targetDialog.find('.modal-title strong').text('新增');
 			 $targetForm.find('input').removeAttr('disabled');
+			 $targetForm.find('input[name = "monthly"]').val("");
 			 
 			 $targetDialog.on('click', '.btn-confirm', function() {
  				var validator = $targetForm.data('bootstrapValidator');
@@ -356,7 +365,7 @@
 	            	align: 'center',
 	            	formatter: function(value, row, index) {
 	            		if (row.target_current == null) {
-	            			return '<a class="a-operate disabled">编辑</a><a class="a-operate disabled">删除</a>';	
+	            			return '-';	
 	            		} else {
 	            			return '<a class="btn-target-edit a-operate">编辑</a><a class="btn-target-delete a-operate">删除</a>';	
 	            		}
@@ -368,12 +377,13 @@
 	               				return;
 	               			}
 	               			$targetDialog.find('.modal-title strong').text('编辑');
+	               			$targetForm.find('input[name = "monthly"]').val(row.monthly);
 	                        $targetForm.find('input[name = "monthly"]').attr('disabled', 'disabled');
-	                        $targetForm.find('input[name = "enterpriseId"]').attr('disabled', 'disabled');
 	                        
 	               			$.each(row, function(key, val) {
 	               				if (key == 'enterprise') {
 	               					getSelectList(function() {$targetForm.find('select[name = "enterpriseId"]').val(val.id);});
+	               					$targetForm.find('select[name = "enterpriseId"]').prop('disabled', true).trigger("chosen:updated");
 	                            } else if (key == 'target_current') {
 	                            	$targetForm.find('input[name="mainBusiness"]').val(val.mainBusiness);
 	                            	$targetForm.find('input[name="electricity"]').val(val.electricity);
@@ -423,12 +433,11 @@
 	                            confirmButtonText: '确定',
 	                            closeOnConfirm: false
 	            			}, function() {
-	            				var targetId = row['id'];
 	            				
 	            				$.ajax({
 	            					url: '${ctx}/api/target/delete',
 	            					data: {
-	            						targetId: targetId
+	            						targetId: row.target_current.id
 	            					},
 	            					success: function(ret) {
 	            						if (ret.code == 0) {

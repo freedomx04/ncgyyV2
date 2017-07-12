@@ -230,10 +230,10 @@
 			if (id == '0') // 总览
 			{
 				data = overViewData;
-				url = '${ctx}/api/target/listRange';
+				url = '${ctx}/api/target/listPointEnterpriseRange';
 			} else {
 				data = enterpriseData;
-				url = '${ctx}/api/target/listPointEnterpriseRange';
+				url = '${ctx}/api/target/listByEnterpriseIdRange';
 			}
 			
 			//先销毁表格  
