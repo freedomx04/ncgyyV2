@@ -189,6 +189,7 @@
 			 $targetDialog.find('.modal-title strong').text('新增');
 			 $targetForm.find('input').removeAttr('disabled');
 			 $targetForm.find('input[name = "monthly"]').val("");
+			 $targetForm.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
 			 
 			 $targetDialog.on('click', '.btn-confirm', function() {
  				var validator = $targetForm.data('bootstrapValidator');
