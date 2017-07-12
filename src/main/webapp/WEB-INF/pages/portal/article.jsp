@@ -13,55 +13,51 @@
 	
 </head>
 <body class="body-article">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<%@ include file="/WEB-INF/template/top.jsp"%>
+	
+	<div class="main">
+		<div class="mnav" style="border-bottom:1px #ccc solid;">
+			<span>
+				<a href="index">首页</a>&nbsp;&gt;&nbsp;
+				<a href="newslist?type=1">新闻动态</a>
+				&nbsp;&gt;&nbsp;
+		    </span>
+		</div>
+		
+		<div class="clist">
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td width="217" bgcolor="fafafa" valign="top">
+							<div class="ctree">
+								<div class="ctree_title"><h1>新闻动态</h1></div>
+									<dl>
+										<dt><a href="newslist?type=1" type="1">图片新闻</a></dt>
+										<dt><a href="newslist?type=2" type="2">公示公告</a></dt>
+										<dt><a href="newslist?type=3" type="3">政策法规</a></dt>
+										<dt><a href="newslist?type=4" type="4">工业信息</a></dt>
+									</dl>
+								<div style="height:30px;">&nbsp;</div>
+							</div>
+						</td>
+						<td width="40">&nbsp;</td>
+						<td valign="top">
+							<div class="clist_r_title">
+								<span></span>
+							</div>
+							<div class="clist_con" style="min-height: 450px;">
+								<ul></ul>
+		                      	<div class="pnews_con"></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="pageTool" style="margin-bottom: 20px;clear:both;"></div>
+		</div>
 	</div>
 	
-	<div class="mnav" style="border-bottom:1px #ccc solid;">
-		<span>
-			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="newslist?type=1">新闻动态</a>
-			&nbsp;&gt;&nbsp;
-	    </span>
-	</div>
-	
-	<div class="clist">
-		<table width="100%" cellpadding="0" cellspacing="0">
-			<tbody>
-				<tr>
-					<td width="217" bgcolor="fafafa" valign="top">
-						<div class="ctree">
-							<div class="ctree_title"><h1>新闻动态</h1></div>
-								<dl>
-									<dt><a href="newslist?type=1" type="1">图片新闻</a></dt>
-									<dt><a href="newslist?type=2" type="2">公示公告</a></dt>
-									<dt><a href="newslist?type=3" type="3">政策法规</a></dt>
-									<dt><a href="newslist?type=4" type="4">工业信息</a></dt>
-								</dl>
-							<div style="height:30px;">&nbsp;</div>
-
-						</div>
-					</td>
-					<td width="40">&nbsp;</td>
-					<td valign="top">
-						<div class="clist_r_title">
-							<span></span>
-						</div>
-						<div class="clist_con" style="min-height: 450px;">
-							<ul></ul>
-                       		<div class="pnews_con">
-                       		</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div id="pageTool" style="margin-bottom: 20px;clear:both;"></div>
-	</div>
-	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>

@@ -11,34 +11,33 @@
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
 </head>
+
 <body class="body-enterprise">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/top.jsp"%>
 	
-	<div class="mnav" style="border-bottom:1px #ccc solid;">
-		<span>
-			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="enterpriselist">企业宣传</a>
-	    </span>
-	</div>
-	
-	<div class="clist">
-		<div class="clist_r_title">
-			<span>企业宣传</span>
-		</div>
-		<div class="clist_con" style="min-height: 450px;">
-			<ul>
-			</ul>
+	<div class="main">
+		<div class="mnav" style="border-bottom:1px #ccc solid;">
+			<span>
+				<a href="index">首页</a>&nbsp;&gt;&nbsp;
+				<a href="enterpriselist">企业宣传</a>
+		    </span>
 		</div>
 		
-		<div style="clear:both;"></div>
-		<div id="pageTool" style="margin-bottom: 20px;"></div>
+		<div class="clist">
+			<div class="clist_r_title">
+				<span>企业宣传</span>
+			</div>
+			<div class="clist_con" style="min-height: 450px;">
+				<ul>
+				</ul>
+			</div>
+			
+			<div style="clear:both;"></div>
+			<div id="pageTool" style="margin-bottom: 20px;"></div>
+		</div>
 	</div>
 	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>

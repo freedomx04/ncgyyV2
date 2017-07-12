@@ -20,53 +20,51 @@
 	
 </head>
 <body class="body-article">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<%@ include file="/WEB-INF/template/top.jsp"%>
+	
+	<div class="main">
+		<div class="mnav" style="border-bottom:1px #ccc solid;">
+			<span>
+				<a href="index">首页</a>&nbsp;&gt;&nbsp;
+				<a href="monitorlist?item=mainBusiness">监测平台</a>
+				&nbsp;&gt;&nbsp;
+		    </span>
+		</div>
+		
+		<div class="clist">
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td width="217" bgcolor="fafafa" valign="top">
+							<div class="ctree">
+								<div class="ctree_title"><h1>监测平台</h1></div>
+									<dl>
+										<dt><a href="monitorlist?item=mainBusiness" item="mainBusiness">主营业务收入</a></dt>
+										<dt><a href="monitorlist?item=electricity" item="electricity">用电量</a></dt>
+										<dt><a href="monitorlist?item=profit" item="profit">利润总额</a></dt>
+										<dt><a href="monitorlist?item=tax" item="tax">实现税金总额</a></dt>
+									</dl>
+								<div style="height:30px;">&nbsp;</div>
+		
+							</div>
+						</td>
+						<td width="40">&nbsp;</td>
+						<td valign="top">
+							<div class="clist_r_title">
+								<span></span>
+							</div>
+							<div class="clist_con" style="min-height: 600px; margin: 30px 0;">
+								<div class="chart-container" style="width: 723px; height: 400px;"></div>
+								<table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	
-	<div class="mnav" style="border-bottom:1px #ccc solid;">
-		<span>
-			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="monitorlist?item=mainBusiness">监测平台</a>
-			&nbsp;&gt;&nbsp;
-	    </span>
-	</div>
-	
-	<div class="clist">
-		<table width="100%" cellpadding="0" cellspacing="0">
-			<tbody>
-				<tr>
-					<td width="217" bgcolor="fafafa" valign="top">
-						<div class="ctree">
-							<div class="ctree_title"><h1>监测平台</h1></div>
-								<dl>
-									<dt><a href="monitorlist?item=mainBusiness" item="mainBusiness">主营业务收入</a></dt>
-									<dt><a href="monitorlist?item=electricity" item="electricity">用电量</a></dt>
-									<dt><a href="monitorlist?item=profit" item="profit">利润总额</a></dt>
-									<dt><a href="monitorlist?item=tax" item="tax">实现税金总额</a></dt>
-								</dl>
-							<div style="height:30px;">&nbsp;</div>
-
-						</div>
-					</td>
-					<td width="40">&nbsp;</td>
-					<td valign="top">
-						<div class="clist_r_title">
-							<span></span>
-						</div>
-						<div class="clist_con" style="min-height: 600px; margin: 30px 0;">
-							<div class="chart-container" style="width: 723px; height: 400px;"></div>
-							<table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>

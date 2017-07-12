@@ -16,11 +16,9 @@
 </head>
 
 <body class="body-portal">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/top.jsp"%>
 	
-	<div class="main" style="padding-bottom: 15px;">
+	<div class="main">
 		<div class="con_one">
 			<div class="slideBox news">
 				<ul class="items">
@@ -190,12 +188,9 @@
 			</div>
 			<div style="clear: both;"></div>
 		</div>
-		
 	</div>
 	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>

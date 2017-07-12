@@ -21,81 +21,77 @@
 	
 </head>
 <body class="body-enterpriseinfo">
-	<div>
-		<%@ include file="/WEB-INF/template/top.jsp"%>
+	<%@ include file="/WEB-INF/template/top.jsp"%>
+	
+	<div class="main">
+		<div class="mnav" style="border-bottom:1px #ccc solid;">
+			<span>
+				<a href="index">首页</a>&nbsp;&gt;&nbsp;
+				<a href="enterpriselist">企业宣传</a>&nbsp;&gt;&nbsp;
+				<a href="javascript: void(0);">${enterprise.name}</a>
+		    </span>
+		</div>
+		
+		<div class="enterpriseinfo-tab" style="margin-top: 20px;">
+			<div class="tabs-container">
+	             <ul class="nav nav-tabs">
+	                 <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 企业信息</a>
+	                 </li>
+	                 <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">企业产品</a>
+	                 </li>
+	                 <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">企业新闻</a>
+	                 </li>
+	             </ul>
+	             <div class="tab-content">
+	                 <div id="tab-1" class="tab-pane active">
+	                     <div class="panel-body" style="font-size: 14px;">
+	                         <div class="col-sm-7">
+								<dl class="dl-horizontal">
+									<dt>企业名称</dt><dd>${enterprise.name}</dd>
+									<dt>所属园区</dt><dd>${enterprise.area.name}</dd>
+									<dt>行业类别</dt><dd>${enterprise.industry.name}</dd>
+									<dt>主要产品</dt><dd>${enterprise.mainProduct}</dd>
+									<dt>企业负责人</dt><dd>${enterprise.principal}</dd>
+									<dt>联系电话</dt><dd>${enterprise.telephone}</dd>
+									<dt>企业地址</dt><dd>${enterprise.address}</dd>
+									<dt>企业状态</dt><dd>重点</dd>
+								</dl>
+							</div>
+							<div class="col-sm-5 text-right">
+								<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px; width: 300px; height: 300px;">
+							</div>
+							<div class="col-sm-12">
+								<dl class="dl-horizontal">
+									<dt>企业简介:</dt><dd>${enterprise.introduction}</dd>
+								</dl>
+							</div>
+	                     </div>
+	                 </div>
+	                 
+	                 <div id="tab-2" class="tab-pane">
+	                     <div class="panel-body">
+	                     	<div class="product_list" style="min-height: 450px;"></div>
+		 					<div style="clear: both;"></div>
+		 					<div class="pageTool" style="margin-bottom: 20px;"></div>
+	                     </div>
+	                 </div>
+	                 
+	                 <div id="tab-3" class="tab-pane">
+	                     <div class="panel-body">
+	                     	<div class="clist_con" style="min-height: 450px;">
+		                     	<ul>
+		                     	</ul>
+	                     	</div>
+	                     	<div class="pageTool" style="margin-top: 30px; clear: both;"></div>
+	                     </div>
+	                 </div>
+	             </div>
+	
+	         </div>
+		</div>
 	</div>
 	
-	<div class="mnav" style="border-bottom:1px #ccc solid;">
-		<span>
-			<a href="index">首页</a>&nbsp;&gt;&nbsp;
-			<a href="enterpriselist">企业宣传</a>&nbsp;&gt;&nbsp;
-			<a href="javascript: void(0);">${enterprise.name}</a>
-	    </span>
-	</div>
-	
-	<div class="enterpriseinfo-tab" style="margin-top: 20px;">
-	
-		<div class="tabs-container">
-             <ul class="nav nav-tabs">
-                 <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 企业信息</a>
-                 </li>
-                 <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">企业产品</a>
-                 </li>
-                 <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">企业新闻</a>
-                 </li>
-             </ul>
-             <div class="tab-content">
-                 <div id="tab-1" class="tab-pane active">
-                     <div class="panel-body" style="font-size: 14px;">
-                         <div class="col-sm-7">
-							<dl class="dl-horizontal">
-								<dt>企业名称</dt><dd>${enterprise.name}</dd>
-								<dt>所属园区</dt><dd>${enterprise.area.name}</dd>
-								<dt>行业类别</dt><dd>${enterprise.industry.name}</dd>
-								<dt>主要产品</dt><dd>${enterprise.mainProduct}</dd>
-								<dt>企业负责人</dt><dd>${enterprise.principal}</dd>
-								<dt>联系电话</dt><dd>${enterprise.telephone}</dd>
-								<dt>企业地址</dt><dd>${enterprise.address}</dd>
-								<dt>企业状态</dt><dd>重点</dd>
-							</dl>
-						</div>
-						<div class="col-sm-5 text-right">
-							<img src="${ctx}/api/avatar/${enterprise.avatar}" style="padding: 20px; width: 300px; height: 300px;">
-						</div>
-						<div class="col-sm-12">
-							<dl class="dl-horizontal">
-								<dt>企业简介:</dt><dd>${enterprise.introduction}</dd>
-							</dl>
-						</div>
-                     </div>
-                 </div>
-                 
-                 <div id="tab-2" class="tab-pane">
-                     <div class="panel-body">
-                     	<div class="product_list" style="min-height: 450px;"></div>
-	 					<div style="clear: both;"></div>
-	 					<div class="pageTool" style="margin-bottom: 20px;"></div>
-                     </div>
-                 </div>
-                 
-                 <div id="tab-3" class="tab-pane">
-                     <div class="panel-body">
-                     	<div class="clist_con" style="min-height: 450px;">
-	                     	<ul>
-	                     	</ul>
-                     	</div>
-                     	<div class="pageTool" style="margin-top: 30px; clear: both;"></div>
-                     </div>
-                 </div>
-             </div>
-
-         </div>
-	
-	</div>
-	
-	<div>
-		<%@ include file="/WEB-INF/template/footer.jsp"%>
-	</div>
+	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
