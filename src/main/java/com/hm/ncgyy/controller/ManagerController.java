@@ -323,8 +323,7 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/targetEP")
 	String targetEP(ModelMap modelMap) {
-		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
-		UserEntity user = userService.findOne(currentUser.getId());
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
 		if (user.getEnterprise() == null) {
 			modelMap.addAttribute("type", new String("ep"));
@@ -367,8 +366,7 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/appealEnterprise")
 	String appealEnterprise(ModelMap modelMap) {
-		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
-		UserEntity user = userService.findOne(currentUser.getId());
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
 		if (user.getEnterprise() == null) {
 			modelMap.addAttribute("type", new String("ep"));
@@ -381,8 +379,7 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/appealDepartment")
 	String appealDepartment(ModelMap modelMap) {
-		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
-		UserEntity user = userService.findOne(currentUser.getId());
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
 		if (user.getEnterprise() == null) {
 			modelMap.addAttribute("type", new String("gv"));
@@ -421,7 +418,6 @@ public class ManagerController {
 		modelMap.addAttribute("appeal", appeal);
 		
 		return "pages/assist/appeal_get";
-		
 	}
 	
 	/**
@@ -557,6 +553,13 @@ public class ManagerController {
 		UserEntity user = userService.findOne(currentUser.getId());
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
+	}
+	
+	@RequestMapping(value = "/personalEnterprise")
+	String personalEnterprise(ModelMap modelMap) {
+		
+		
+		return "pages/authority/enterprise_get";
 	}
 
 }

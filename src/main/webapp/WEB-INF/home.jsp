@@ -96,7 +96,7 @@
 						</ul>
 					</li>
 					</c:if>
-					<c:if test="${fn:contains(user.role.resource, 'authority-target-import')
+					<c:if test="${fn:contains(user.role.resource, 'authority-target-report')
 						|| fn:contains(user.role.resource, 'authority-target-enterprise')
 						|| fn:contains(user.role.resource, 'authority-target-industry')
 						|| fn:contains(user.role.resource, 'authority-target-area')
