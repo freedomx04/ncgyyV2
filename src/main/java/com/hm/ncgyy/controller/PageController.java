@@ -11,11 +11,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
@@ -40,6 +42,9 @@ public class PageController {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@Autowired
+	AppealService appealService;
 	
 	/**
 	 * 新闻页面
@@ -117,5 +122,12 @@ public class PageController {
 	@RequestMapping(value = "/assistlist")
 	String assist() {
 		return "pages/portal/assist";
+	}
+	
+	@RequestMapping(value = "/assist")
+	String assistInfo(ModelMap modelMap, Long appealId) {
+		AppealEntity appeal = appealService.findOne(appealId);
+		modelMap.addAttribute("appeal", appeal);
+		return "pages/portal/assistinfo";
 	}
 }

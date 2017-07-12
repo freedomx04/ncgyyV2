@@ -103,6 +103,7 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="targetImport">主要指标上报</a></li>
 							<li><a class="J_menuItem" href="targetEnterprise">企业主要指标</a></li>
+							<li><a class="J_menuItem" href="targetEP">企业主要指标(企业)</a></li>
 							<li><a class="J_menuItem" href="targetIndustry">行业主要指标</a></li>
 							<li><a class="J_menuItem" href="targetArea">园区主要指标</a></li>
 							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>

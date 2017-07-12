@@ -110,7 +110,7 @@
 					<ul id="list">
 						<c:forEach var="enterprise" items="${enterpriseList}">
 						<li>
-							<button type="button" class="btn btn-outline btn-default" style="width: 100%;">
+							<button type="button" id="${enterprise.id}" class="btn btn-outline btn-default enterprise-btn" style="width: 100%;">
 								<div style="display: table-cell; vertical-align: middle;">
 									<img src="${ctx}/api/avatar/${enterprise.avatar}" alt="" width="48" height="48">
 								</div>
@@ -176,7 +176,7 @@
 					<ul id="list">
 						<c:forEach var="product" items="${productList}">
 							<li>
-								<a href="" target="_blank">
+								<a href="product?productId='+ product.id +'" target="_blank">
 									<img src="${ctx}${product.imagePath}" style="width: 100%; height: 200px;">
 									<div style="background-color: #e8e8e8; height: 28px; padding: 5px;">${product.name}</div>
 								</a>
@@ -219,7 +219,7 @@
 					var len = ret.data.length >= 5 ? 5 : ret.data.length;
 					for (var i = 0; i < len; i++){
 						var val = ret.data[i];
-						var ht = '<li style="position:static;"><a href="${ctx}/'+ val.path +'" target="_blank">'+ val.title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
+						var ht = '<li style="position:static;"><a href="assistinfo?appealId='+ val.id +'" target="_blank">'+ val.title +'</a>['+ new Date(val.createTime).Format("yyyy-MM-dd") +'] </li>';
 						$(ht).appendTo($page.find('.assist ul'));
 					}
 				}
@@ -229,6 +229,10 @@
 		
 		//监测平台
 		getChart('target-1');
+		
+		$page.on('click', '.enterprise-btn', function() {
+			window.open('enterprise?enterpriseId=' + $(this).attr('id'));
+		});
 		
 	})();
 	
@@ -321,14 +325,7 @@
 						        trigger: 'axis'
 						    },
 						    toolbox: {
-						        show : true,
-						        feature : {
-						            mark : {show: true},
-						            dataView : {show: true, readOnly: false},
-						            magicType: {show: true, type: ['line', 'bar']},
-						            restore : {show: true},
-						            saveAsImage : {show: true}
-						        }
+						        show : false
 						    },
 						    calculable : true,
 						    legend: {

@@ -71,14 +71,13 @@
 				},
 				success: function(ret) {
 					if (ret.code == 0) {
-						console.info(ret.data)
 						$page.find(".clist_con ul").html("");
 						
 						$.each(ret.data.content, function(key, val) {
 							var title = val.title.length > 80 ? (val.title.substr(0, 80) + "...") : val.title;
 							
 							var ht = '<li>'+
-								'<a href="" target="_blank" style="width: 600px;">'+ title +'</a>'+
+								'<a href="assist?appealId='+ val.id +'" target="_blank" style="width: 600px;">'+ title +'</a>'+
 								'<span><a href="" target="_blank">'+ new Date(val.createTime).Format("yyyy-MM-dd") +'</a></span>'+
 								'</li>';
 							
