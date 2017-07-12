@@ -41,7 +41,7 @@
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
-								<li><a class="J_menuItem" href="#">信箱</a></li>
+								<!-- <li><a class="J_menuItem" href="#">信箱</a></li> -->
 								<li class="divider"></li>
 								<li><a class="btn-logout" href="javascript:;">安全退出</a></li>
 							</ul>
@@ -52,6 +52,10 @@
 							<i class="fa fa-home fa-fw"></i><span class="nav-label">首页</span>
 						</a>
 					</li>
+					<c:if test="${fn:contains(user.role.resource, 'authority-role')
+						|| fn:contains(user.role.resource, 'authority-user')
+						|| fn:contains(user.role.resource, 'authority-enterprise')
+						|| fn:contains(user.role.resource, 'authority-department')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
@@ -71,6 +75,10 @@
 							</c:if>
 						</ul>
 					</li>
+					</c:if>
+					<c:if test="${fn:contains(user.role.resource, 'authority-area')
+						|| fn:contains(user.role.resource, 'authority-industry')
+						|| fn:contains(user.role.resource, 'authority-appealType')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
@@ -87,6 +95,7 @@
 							</c:if>
 						</ul>
 					</li>
+					</c:if>
 					<li>
 						<a href="#">
 							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">监测平台</span><span class="fa arrow"></span>
@@ -99,18 +108,30 @@
 							<li><a class="J_menuItem" href="targetPointEnterprise">重点企业主要指标</a></li>
 						</ul>
 					</li>
+					<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center') 
+						|| fn:contains(user.role.resource, 'authority-appeal-enterprise')
+						|| fn:contains(user.role.resource, 'authority-appeal-department') 
+						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-hand-paper-o fa-fw"></i><span class="nav-label">帮扶平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="appealList">诉求中心</a></li>
-							<li><a class="J_menuItem" href="appealEnterprise">诉求中心(企业)</a></li>
-							<li><a class="J_menuItem" href="appealDepartment">诉求中心(部门)</a></li>
-							<li><a class="J_menuItem" href="appealDispatcher">诉求中心(派单)</a></li>
-							<li><a class="J_menuItem" href="#">诉求预警</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
+								<li><a class="J_menuItem" href="appealList">诉求中心</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')}">
+								<li><a class="J_menuItem" href="appealEnterprise">诉求中心(企业)</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-department')}">
+								<li><a class="J_menuItem" href="appealDepartment">诉求中心(部门)</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+								<li><a class="J_menuItem" href="appealDispatcher">诉求中心(派单)</a></li>
+							</c:if>
 						</ul>
 					</li>
+					</c:if>
 					<li>
 						<a href="#">
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
@@ -120,6 +141,10 @@
 							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
 						</ul>
 					</li>
+					<c:if test="${fn:contains(user.role.resource, 'authority-photonews')
+						|| fn:contains(user.role.resource, 'authority-announce')
+						|| fn:contains(user.role.resource, 'authority-policy')
+						|| fn:contains(user.role.resource, 'authority-overview')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-newspaper-o fa-fw"></i><span class="nav-label">新闻发布</span><span class="fa arrow"></span>
@@ -139,6 +164,7 @@
 							</c:if>
 						</ul>
 					</li>
+					</c:if>
 					<li>
 						<a href="#">
 							<i class="fa fa-user fa-fw"></i><span class="nav-label">个人中心</span><span class="fa arrow"></span>

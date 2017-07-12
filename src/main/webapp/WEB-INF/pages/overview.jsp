@@ -38,7 +38,6 @@
 				</div>
 			</div>
 		</div>
-	
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>

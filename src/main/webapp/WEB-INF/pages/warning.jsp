@@ -18,28 +18,30 @@
 
 </head>
 
-<body class="gray-bg body-overview">
-	<div class="middle-box text-center animated fadeInDown">
-        <img src="${ctx}/img/warning.png" style="max-width: 250px;">
-        <h3 class="font-bold">
-        	<c:if test="${type == 'ep'}">
-        		您还不是企业用户 &nbsp
-        	</c:if>
-        	<c:if test="${type == 'gv'}">
-        		您还不属于任何部门
-        	</c:if>
-        </h3>
-
-        <div class="error-desc">
-        	<c:if test="${type == 'ep'}">
-        		请联系管理员成为企业用户&nbsp
-        	</c:if>
-        	<c:if test="${type == 'gv'}">
-        		请联系管理员成为部门用户
-        	</c:if>
-        </div>
-    </div>
-	
+<body class="gray-bg body-warning">
+	<div class="wrapper wrapper-content text-center animated fadeInDown">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<img src="${ctx}/img/warning.png" style="max-width: 200px;">
+		        <h3 class="font-bold">
+		        	<c:if test="${type == 'ep'}">
+		        		您还不是企业用户 &nbsp
+		        	</c:if>
+		        	<c:if test="${type == 'gv'}">
+		        		您还不属于任何部门
+		        	</c:if>
+		        </h3>
+		
+		        <div class="error-desc">
+		        	<c:if test="${type == 'ep'}">
+		        		请联系管理员成为企业用户&nbsp
+		        	</c:if>
+		        	<c:if test="${type == 'gv'}">
+		        		请联系管理员成为部门用户
+		        	</c:if>
+		        </div>
+			</div>
+		</div>
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>

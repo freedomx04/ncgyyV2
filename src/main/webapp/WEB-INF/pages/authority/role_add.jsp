@@ -260,7 +260,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">帮扶平台</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-appeal-center">
 								<input type="checkbox"> 诉求中心
 							</label>
 						</div>
@@ -269,7 +269,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-appeal-enterprise">
 								<input type="checkbox"> 诉求中心(企业)
 							</label>
 						</div>
@@ -278,7 +278,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-appeal-department">
 								<input type="checkbox"> 诉求中心(部门)
 							</label>
 						</div>
@@ -287,7 +287,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-appeal-dispatcher">
 								<input type="checkbox"> 诉求中心(派单)
 							</label>
 						</div>
