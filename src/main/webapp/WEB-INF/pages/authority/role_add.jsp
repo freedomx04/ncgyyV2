@@ -302,7 +302,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">服务平台</label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-declare">
 								<input type="checkbox"> 网上申报
 							</label>
 						</div>
@@ -311,7 +311,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks">
+							<label class="checkbox-inline i-checks" data-authority="authority-apply">
 								<input type="checkbox"> 网上申报(企业)
 							</label>
 						</div>

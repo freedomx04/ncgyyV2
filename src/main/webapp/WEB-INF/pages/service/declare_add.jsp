@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
-<%@ include file="/WEB-INF/include/attachment.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@
 </head>
 
 <body class="gray-bg body-declare-add">
-	<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="wrapper wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h5>${title}</h5>
@@ -63,18 +62,20 @@
 					
 					<div class="form-group">
 						<label for="attachment" class="col-sm-3 control-label">附件</label>
-						<div class="col-sm-5 declare-attachment">
-							<button type="button" class="btn btn-white btn-attachment-dialog" data-toggle="modal" data-target="#modal-attachment-dialog">
-		                        <i class="fa fa-paperclip fa-fw"></i>添加附件
-		                    </button>
-		                    <ul class="attachment-list list-unstyled project-files">
-		                   		<c:forEach var="file" items="${declare.fileList}">
-									<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-										<i class="icon-attachment"></i>${file.filename}
-										<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
-									</li>
-								</c:forEach> 
-		                    </ul>
+						<div class="col-sm-5">
+							<div id="attachment">
+								<button type="button" class="btn btn-white btn-attachment-add">
+			                        <i class="fa fa-paperclip fa-fw"></i>添加附件
+			                    </button>
+			                    <ul class="attachment-list list-unstyled project-files">
+			                   		<c:forEach var="file" items="${declare.fileList}">
+										<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+											${file.filename}
+											<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
+										</li>
+									</c:forEach> 
+			                    </ul>
+		                    </div>
 						</div>
 					</div>
 					
@@ -106,6 +107,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/local/attachment.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
@@ -119,10 +121,13 @@
 		
 		var $page = $('.body-declare-add');
         var $form = $page.find('#form-declare');
-        var $declareFile = $page.find('.declare-attachment');
         var method = '${method}';
-        
-		attachment($declareFile);
+        var userId = ${user.id};
+		
+		new Attachment($page.find('#attachment'), {
+			uploadUrl: '${ctx}/api/fileUpload',
+			deleteUrl: '${ctx}/api/fileDelete',
+		});
         
 		laydate({
 			elem:"#startTime", 
@@ -159,10 +164,6 @@
 			}
 		});
         
-        if (method == 'edit') {
-			$k.util.attachmentIcon($declareFile.find('.attachment-list'));
-        }
-        
         $page
         .on('click', '.btn-declare-add', function() {
         	var validator = $form.data('bootstrapValidator');
@@ -170,16 +171,15 @@
             
             if (validator.isValid()) {
             	var formData = new FormData($form[0]); 
-            	var attachmentList = new Array();
             	
+            	var attachmentList = new Array();
 				$form.find('.attachment-list li').each(function(k, elem) {
 					var filename = $(elem).data('filename');
 					var filepath = $(elem).data('filepath');
 					attachmentList.push(filename + '?' + filepath);
 				});
 				formData.append('attachmentList', attachmentList);
-				
-				formData.append('userId', 1);
+				formData.append('userId', userId);
             	
             	$.ajax({
             		url: '${ctx}/api/declare/create',

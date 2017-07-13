@@ -38,40 +38,33 @@
 					<div class="tab-content">
 						<div id="declare-tab-info" class="tab-pane active">
 							<div class="panel-body">
-								<div class="col-sm-7">
-									<dl class="dl-horizontal">
-										<dt>申报名称:</dt><dd>${declare.title}</dd>
-										<dt>申报开始时间:</dt><dd>${declare.startTime}</dd>
-										<dt>申报结束时间:</dt><dd>${declare.endTime}</dd>
-										<dt>状态:</dt><dd>${declare.status == 0 ? '新增' : declare.status == 1 ? '上架' : '下架'}</dd>
-										<dt>已申报企业数:</dt><dd>${declare.applys.size()}</dd>
-										<dt>发布人:</dt><dd>${declare.user.name}</dd>
-										<dt>项目描述:</dt><dd>${declare.description}</dd>
-									</dl>
-								</div>
-								
-				 				
 								<div class="col-sm-12">
 									<dl class="dl-horizontal">
+										<dt>申报名称</dt><dd>${declare.title}</dd>
+										<dt>申报开始时间</dt><dd>${declare.startTime}</dd>
+										<dt>申报结束时间</dt><dd>${declare.endTime}</dd>
+										<dt>状态</dt><dd>${declare.status == 0 ? '新增' : declare.status == 1 ? '上架' : '下架'}</dd>
+										<dt>已申报企业数</dt><dd>${declare.applys.size()}</dd>
+										<dt>发布人</dt><dd>${declare.user.name}</dd>
+										<dt>项目描述</dt><dd>${declare.description}</dd>
 										<dt>相关附件:</dt>
 										<dd>
 											<c:if test="${not empty declare.fileList}">
-							 				<div class="declare-file">
-							 					<ul class="attachment-list list-unstyled">
-							 					<c:forEach var="file" items="${declare.fileList}">
-							 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-														<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
-												</li>
-							 					</c:forEach>
-							 					</ul>
-							 				</div>
+								 				<div class="declare-file">
+								 					<ul class="attachment-list list-unstyled">
+									 					<c:forEach var="file" items="${declare.fileList}">
+									 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+																<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
+															</li>
+									 					</c:forEach>
+								 					</ul>
+								 				</div>
 							 				</c:if>
 										</dd>
 									</dl>
 								</div>
 							</div>
 						</div>
-						
 					</div>
  				</div>
 	 		</div>

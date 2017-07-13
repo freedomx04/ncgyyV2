@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
-<%@ include file="/WEB-INF/include/attachment.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -62,18 +61,20 @@
 					
 					<div class="form-group">
 						<label for="attachment" class="col-sm-1 control-label">附件</label>
-						<div class="col-sm-10 article-attachment">
-							<button type="button" class="btn btn-white btn-attachment-dialog" data-toggle="modal" data-target="#modal-attachment-dialog">
-		                        <i class="fa fa-paperclip fa-fw"></i>添加附件
-		                    </button>
-		                    <ul class="attachment-list list-unstyled project-files">
-		                   		<c:forEach var="file" items="${article.fileList}">
-									<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-										<i class="icon-attachment"></i>${file.filename}
-										<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
-									</li>
-								</c:forEach> 
-		                    </ul>
+						<div class="col-sm-10">
+							<div id="attachment">
+								<button type="button" class="btn btn-white btn-attachment-add">
+			                        <i class="fa fa-paperclip fa-fw"></i>添加附件
+			                    </button>
+								<ul class="attachment-list list-unstyled project-files">
+			                   		<c:forEach var="file" items="${article.fileList}">
+										<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+											${file.filename}
+											<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
+										</li>
+									</c:forEach> 
+			                    </ul>
+							</div>
 						</div>
 					</div>
 					
@@ -106,27 +107,30 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/local/attachment.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/summernote/summernote.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/summernote/lang/summernote-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
-	
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
-
+	
 	<script type="text/javascript">
 	
 		var $page = $('.body-article-add');
 		var $form = $page.find('#form-article');
-		var $articleFile = $page.find('.article-attachment');
 		
 		var type = '${type}';
 		var method = '${method}';
 		
 		$k.util.bsValidator($form);
-		attachment($articleFile);
+		
+		new Attachment($page.find('#attachment'), {
+			uploadUrl: '${ctx}/api/fileUpload',
+			deleteUrl: '${ctx}/api/fileDelete',
+		});
 		
 		if (method == 'add') {
 			$k.util.summernote($page.find('#summernote'));
@@ -142,7 +146,6 @@
 				    initialCaption: '${article.imagePath}',
 				});
 			}
-			$k.util.attachmentIcon($articleFile.find('.attachment-list'));
 		}
 		
 		$page

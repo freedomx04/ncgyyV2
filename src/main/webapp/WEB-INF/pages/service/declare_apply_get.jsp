@@ -22,7 +22,6 @@
 		line-height: 2;
 	}
 	</style>
-	
 </head>
 
 <body class="gray-bg body-declare-detail">
@@ -38,41 +37,33 @@
 					<div class="tab-content">
 						<div id="declare-tab-info" class="tab-pane active">
 							<div class="panel-body">
-								<div class="col-sm-7">
-									<dl class="dl-horizontal">
-										<dt>申报名称:</dt><dd>${apply.declare.title}</dd>
-										<dt>审批状态:</dt><dd>${apply.status == 1 ? '未审批' : apply.status == 2 ? '审批通过' : '审批未通过'}</dd>
-										<dt>审批意见:</dt><dd>${apply.opinion}</dd>
-									</dl>
-								</div>
-								
-				 				
 								<div class="col-sm-12">
 									<dl class="dl-horizontal">
-										<dt>申报文件:</dt>
+										<dt>申报名称</dt><dd>${apply.declare.title}</dd>
+										<dt>审批状态</dt><dd>${apply.status == 1 ? '未审批' : apply.status == 2 ? '审批通过' : '审批未通过'}</dd>
+										<dt>审批意见</dt><dd>${apply.opinion}</dd>
+										<dt>申报文件</dt>
 										<dd>
 											<c:if test="${not empty apply.fileList}">
-							 				<div class="apply-file">
-							 					<ul class="attachment-list list-unstyled">
-							 					<c:forEach var="file" items="${apply.fileList}">
-							 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-														<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
-												</li>
-							 					</c:forEach>
-							 					</ul>
-							 				</div>
+								 				<div class="apply-file">
+								 					<ul class="attachment-list list-unstyled">
+									 					<c:forEach var="file" items="${apply.fileList}">
+									 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
+																<a href="${ctx}${file.filepath}">${file.filename}</a>
+															</li>
+									 					</c:forEach>
+								 					</ul>
+								 				</div>
 							 				</c:if>
 										</dd>
 									</dl>
 								</div>
 							</div>
 						</div>
-						
 					</div>
  				</div>
 	 		</div>
 	 	</div>
-	
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>

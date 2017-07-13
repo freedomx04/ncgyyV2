@@ -48,13 +48,13 @@ public class DeclareServiceImpl implements DeclareService {
 	
 	@Override
 	public List<DeclareEntity> list() {
-		return (List<DeclareEntity>) declareRepository.findAll();
+		return declareRepository.findByOrderByUpdateTimeDesc();
 	}
 
 	@Override
 	public List<DeclareEntity> listByUserId(Long userId) {
-		return null;
 		//return declareRepository.findByUserIdOrderbyUpdateTimeDesc(userId);
+		return null;
 	}
 
 	@Override

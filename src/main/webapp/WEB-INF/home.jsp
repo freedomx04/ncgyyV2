@@ -152,15 +152,22 @@
 						</ul>
 					</li>
 					</c:if>
+					<c:if test="${fn:contains(user.role.resource, 'authority-declare')
+						|| fn:contains(user.role.resource, 'authority-apply')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
-							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-declare')}">
+								<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-apply')}">
+								<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
+							</c:if>
 						</ul>
 					</li>
+					</c:if>
 					<c:if test="${fn:contains(user.role.resource, 'authority-photonews')
 						|| fn:contains(user.role.resource, 'authority-announce')
 						|| fn:contains(user.role.resource, 'authority-policy')
@@ -191,9 +198,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
-							<c:if test="${not empty user.enterprise}">
-								<li><a class="J_menuItem" href="enterpriseGet?source=personal&enterpriseId=${user.enterprise.id}">我的企业</a></li>
-							</c:if>
+							<li><a class="J_menuItem" href="personalEnterprise">我的企业</a></li>
 						</ul>
 					</li>					
 				</ul>

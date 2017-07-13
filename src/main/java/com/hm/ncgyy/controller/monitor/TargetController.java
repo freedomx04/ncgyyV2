@@ -62,7 +62,7 @@ public class TargetController {
 		try {
 			TargetEntity target = targetService.findOne(monthly, enterpriseId);
 			if (target != null) {
-				return new Result(Code.EXISTED.value(), "existed");
+				return new Result(Code.EXISTED.value(), "添加失败，该月份记录已存在!");
 			}
 
 			EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
@@ -101,7 +101,7 @@ public class TargetController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -115,7 +115,7 @@ public class TargetController {
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint"); 
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

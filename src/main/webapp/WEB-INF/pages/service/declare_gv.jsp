@@ -63,6 +63,9 @@
                 return res.data;
             },
             columns: [{
+            	field: 'state',
+            	checkbox: true
+            }, {
             	field: 'title',
             	title: '项目名称',
             	align: 'center',
@@ -112,7 +115,6 @@
             		} else {
             			return $detail + $edit + $delete + $display + $enterprise;
             		}
-            		
             	},
             	events: window.operateEvents = {
             		'click .btn-declare-detail': function(e, value, row, index) {
@@ -211,11 +213,10 @@
                 closeOnConfirm: false
             }, function() {
                 var rows = $table.bootstrapTable('getSelections');
-                
                 $.ajax({
                     url: '${ctx}/api/declare/batchDelete',
                     data: { 
-                        areaIdList: $k.util.getIdList(rows) 
+                    	declareIdList: $k.util.getIdList(rows) 
                     },
                     success: function(ret) {
                         if (ret.code == 0) {

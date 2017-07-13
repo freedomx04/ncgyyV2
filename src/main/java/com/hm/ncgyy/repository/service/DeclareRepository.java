@@ -8,9 +8,9 @@ import com.hm.ncgyy.entity.service.DeclareEntity;
 
 public interface DeclareRepository extends PagingAndSortingRepository<DeclareEntity, Long> {
 	
-/*	List<DeclareEntity> findAllByOrderByUpdateTimeDesc();
+	List<DeclareEntity> findByOrderByUpdateTimeDesc();
 	
-	List<DeclareEntity> findByUserIdOrderbyUpdateTimeDesc(Long userId);*/
+	//List<DeclareEntity> findByUserIdOrderbyUpdateTimeDesc(Long userId);
 	
 	Iterable<DeclareEntity> findByIdIn(List<Long> declareIdList);
 	

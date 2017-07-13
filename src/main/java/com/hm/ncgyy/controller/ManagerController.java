@@ -448,6 +448,9 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/declareAdd")
 	String declareAdd(ModelMap modelMap, String method, Long declareId) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		
 		String title = method.equals("add") ? "网上申报新增" : "网上申报编辑";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
@@ -557,9 +560,24 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/personalEnterprise")
 	String personalEnterprise(ModelMap modelMap) {
-		
-		
-		return "pages/authority/enterprise_get";
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		if (user.getEnterprise() == null) {
+			modelMap.addAttribute("type", "ep");
+			return "pages/warning";
+		} else {
+			modelMap.addAttribute("source", "personal");
+			
+			EnterpriseEntity enterprise = enterpriseService.findOne(user.getEnterprise().getId());
+		    modelMap.addAttribute("enterprise", enterprise);
+		    
+		    List<AreaEntity> areaList = areaService.list();
+		    modelMap.addAttribute("areaList", areaList);
+		    
+		    List<IndustryEntity> industryList = industryService.list();
+		    modelMap.addAttribute("industryList", industryList);
+			
+			return "pages/authority/enterprise_get";
+		}
 	}
 
 }

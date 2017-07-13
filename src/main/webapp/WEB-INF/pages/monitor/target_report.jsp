@@ -86,50 +86,48 @@
                     	<div class="form-group">
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>企业名称</label>
                             <div class="col-sm-8">
-                                <select data-placeholder="选择企业" class="chosen-select form-control" name="enterpriseId">
+                                <select data-placeholder="选择企业" class="chosen-select form-control" name="enterpriseId" required>
                                 	<option value="">请选择</option>
 		                        </select>
                             </div>
                         </div>
                         <div class="form-group">
 	                        <label for="monthly" class="col-sm-4 control-label"><i class="form-required">*</i>月份</label>
-                            <div class="col-sm-8">
-                            	<div class="input-group" style="width: 100%;">
-	                            	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	                                <input type="text" name="monthly" id="monthly" class="form-control">
-	                            </div> 
+                            <div class="col-sm-8 input-group date monthly" style="padding-left: 15px; padding-right: 15px;">
+                            	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" name="monthly" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止主营业务收入</label>
                             <div class="col-sm-8">
-                                <div class="input-group m-b">
-                                    <input type="text" class="form-control" name="mainBusiness" required> <span class="input-group-addon">万元</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="mainBusiness" data-bv-numeric data-bv-numeric-message="请输入整数" required><span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止用电量</label>
                             <div class="col-sm-8">
-                            	<div class="input-group m-b">
-                            	    <input type="text" class="form-control" name="electricity" required> <span class="input-group-addon">万度</span>
+                            	<div class="input-group">
+                            	    <input type="text" class="form-control" name="electricity" data-bv-numeric data-bv-numeric-message="请输入整数" required><span class="input-group-addon">万度</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止利润总额</label>
                             <div class="col-sm-8">
-                            	<div class="input-group m-b">
-                            	    <input type="text" class="form-control" name="profit" required> <span class="input-group-addon">万元</span>
+                            	<div class="input-group">
+                            	    <input type="text" class="form-control" name="profit" data-bv-numeric data-bv-numeric-message="请输入整数" required><span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label"><i class="form-required">*</i>本月止实现税金总额</label>
                             <div class="col-sm-8">
-                            	<div class="input-group m-b">
-                            	    <input type="text" class="form-control" name="tax" required> <span class="input-group-addon">万元</span>
+                            	<div class="input-group">
+                            	    <input type="text" class="form-control" name="tax" data-bv-numeric data-bv-numeric-message="请输入整数" required><span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +144,6 @@
             </div>
         </div>
     </div>
-	
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -165,8 +162,10 @@
 	;(function( $ ) {
 		
 		var $page = $('.body-target');
-		var $targetDialog = $page.find('#modal-target-dialog');
-		var $targetForm = $targetDialog.find('form');
+		var $dialog = $page.find('#modal-target-dialog');
+		var $form = $dialog.find('form');
+		
+		$k.util.bsValidator($form);
 		
 		//日期选择器，只选月份
 		$k.util.initDatePicker($page.find(".date"));
@@ -175,22 +174,21 @@
 		
 		$page
 		.on('hidden.bs.modal', '#modal-target-dialog', function() {
-            $targetForm.bootstrapValidator('resetForm', true);
+            $form.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
         }) 
 		.on('click', '.btn-target-add', function() {
 			 getSelectList();
-			 $('#monthly').datepicker({
-				 format: 'yyyy-mm',
-			     minViewMode: 1,
+			 $dialog.find('.monthly').datepicker({
+				 //format: 'yyyy-mm',
+			     //minViewMode: 1,
 			     autoclose: true
 			 });
 			 
-			 $targetDialog.find('.modal-title strong').text('新增');
-			 $targetForm.find('input').removeAttr('disabled');
-			 $targetForm.find('input[name = "monthly"]').val("");
-			 $targetForm.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
-			 
+			 $dialog.find('.modal-title strong').text('新增');
+			 $form.find('input').removeAttr('disabled');
+			 $form.find('input[name = "monthly"]').val("");
+			 $form.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
 		})
         .on("change", "#importTarget-file-input", function() {
         	var oMyForm = new FormData();
@@ -213,8 +211,7 @@
 						swal('', '上传成功!', 'success');
 					}
 				},
-				error: function(data) {
-				}
+				error: function(data) {}
 			});
 		})
 		.on("click", ".btn-target-import", function() {
@@ -232,75 +229,34 @@
 			initTable();
 		});
 		
-		$targetDialog.on('click', '.btn-confirm', function() {
-				var validator = $targetForm.data('bootstrapValidator');
-				validator.validate();
-				if (validator.isValid()) {
-					$.ajax({
-						url: '${ctx}/api/target/create',
-             		type: 'POST',
-             		data: {
-             			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
-             			monthly: $targetForm.find('input[name = "monthly"]').val(),
-             			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
-             			electricity: $targetForm.find('input[name = "electricity"]').val(),
-             			profit: $targetForm.find('input[name = "profit"]').val(),
-             			tax: $targetForm.find('input[name = "tax"]').val()
-             		},
-             		success: function(ret) {
-             			if (ret.code == 0) {
-                 			$targetDialog.modal('hide');
-                 			swal('', '添加成功!', 'success');
-                 			$table.bootstrapTable('refresh'); 
-             			} else if (ret.code == 1003) {
-             				swal('', '添加失败，该月份记录已存在!', 'warning');
-             			}
-             		},
-             		error: function(err) {}
-             	});
-             }
-	});
-		
-		// 添加验证器
-        $targetDialog.find('form').bootstrapValidator({
-            message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            excluded: [':disabled'],
-            fields: {
-            	mainBusiness: {
-					validators: {
-						digits: {
-							message: '请输入数字'
-						}
-					} 
-				},
-				electricity: {
-					validators: {
-						digits: {
-							message: '请输入数字'
-						}
-					} 
-				},
-				profit: {
-					validators: {
-						digits: {
-							message: '请输入数字'
-						}
-					} 
-				},
-				tax: {
-					validators: {
-						digits: {
-							message: '请输入数字'
-						}
-					} 
-				}
+		$dialog.on('click', '.btn-confirm', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			if (validator.isValid()) {
+				$.ajax({
+					url: '${ctx}/api/target/create',
+            		type: 'POST',
+            		data: {
+            			enterpriseId: $form.find('select[name = "enterpriseId"]').val(),
+            			monthly: $form.find('input[name = "monthly"]').val(),
+            			mainBusiness: $form.find('input[name = "mainBusiness"]').val(),
+            			electricity: $form.find('input[name = "electricity"]').val(),
+            			profit: $form.find('input[name = "profit"]').val(),
+            			tax: $form.find('input[name = "tax"]').val()
+            		},
+            		success: function(ret) {
+            			if (ret.code == 0) {
+                			$dialog.modal('hide');
+                			swal('', '添加成功!', 'success');
+                			$table.bootstrapTable('refresh'); 
+            			} else {
+            				swal('', ret.msg, 'warning');
+            			}
+            		},
+            		error: function(err) {}
+            	});
             }
-        });
+		});
 		
 		function getSelectList(fn) {
 			//下拉选框数据获取
@@ -398,53 +354,52 @@
 	               			if (row.target_current == null) {
 	               				return;
 	               			}
-	               			$targetDialog.find('.modal-title strong').text('编辑');
-	               			$targetForm.find('input[name = "monthly"]').val(row.monthly);
-	                        $targetForm.find('input[name = "monthly"]').attr('disabled', 'disabled');
+	               			$dialog.find('.modal-title strong').text('编辑');
+	               			$form.find('input[name = "monthly"]').val(row.monthly);
+	                        $form.find('input[name = "monthly"]').attr('disabled', 'disabled');
 	                        
 	               			$.each(row, function(key, val) {
 	               				if (key == 'enterprise') {
-	               					getSelectList(function() {$targetForm.find('select[name = "enterpriseId"]').val(val.id);});
-	               					$targetForm.find('select[name = "enterpriseId"]').prop('disabled', true).trigger("chosen:updated");
+	               					getSelectList(function() {$form.find('select[name = "enterpriseId"]').val(val.id);});
+	               					$form.find('select[name = "enterpriseId"]').prop('disabled', true).trigger("chosen:updated");
 	                            } else if (key == 'target_current') {
-	                            	$targetForm.find('input[name="mainBusiness"]').val(val.mainBusiness);
-	                            	$targetForm.find('input[name="electricity"]').val(val.electricity);
-	                            	$targetForm.find('input[name="profit"]').val(val.profit);
-	                            	$targetForm.find('input[name="tax"]').val(val.tax);
+	                            	$form.find('input[name="mainBusiness"]').val(val.mainBusiness);
+	                            	$form.find('input[name="electricity"]').val(val.electricity);
+	                            	$form.find('input[name="profit"]').val(val.profit);
+	                            	$form.find('input[name="tax"]').val(val.tax);
 	                            }
 	               			});
-	               			$targetDialog.modal('show');
+	               			$dialog.modal('show');
 	               			
-	               			$targetDialog.on('click', '.btn-confirm', function() {
-	               				var validator = $targetForm.data('bootstrapValidator');
+	               			$dialog.on('click', '.btn-confirm', function() {
+	               				var validator = $form.data('bootstrapValidator');
 	               				validator.validate();
 	               				
-	                               if (validator.isValid()) {
-	                               	$.ajax({
+	               				if (validator.isValid()) {
+	               					$.ajax({
 	                               		url: '${ctx}/api/target/update',
 	                               		type: 'POST',
 	                               		data: {
 	                               			targetId: row.target_current.id,
-	                               			enterpriseId: $targetForm.find('select[name = "enterpriseId"]').val(),
-	                             			monthly: $targetForm.find('input[name = "monthly"]').val(),
-	                             			mainBusiness: $targetForm.find('input[name = "mainBusiness"]').val(),
-	                             			electricity: $targetForm.find('input[name = "electricity"]').val(),
-	                             			profit: $targetForm.find('input[name = "profit"]').val(),
-	                             			tax: $targetForm.find('input[name = "tax"]').val()
+	                               			enterpriseId: $form.find('select[name = "enterpriseId"]').val(),
+	                             			monthly: $form.find('input[name = "monthly"]').val(),
+	                             			mainBusiness: $form.find('input[name = "mainBusiness"]').val(),
+	                             			electricity: $form.find('input[name = "electricity"]').val(),
+	                             			profit: $form.find('input[name = "profit"]').val(),
+	                             			tax: $form.find('input[name = "tax"]').val()
 	                               		},
 	                               		success: function(ret) {
-	                               			$targetDialog.modal('hide');
+	                               			$dialog.modal('hide');
 	                                         swal('', '编辑成功!', 'success');
 	                                         $table.bootstrapTable('refresh'); 
 	                               		},
 	                               		error: function(err) {}
 	                               	});
-	                               }
+	               				}
 	               			});
 	               		},
 	            		'click .btn-target-delete': function(e, value, row, index) {
 	            			e.stopPropagation();
-	            			
 	            			swal({
 	            				title: '',
 	            				text: '确定删除选中记录?',
@@ -455,7 +410,6 @@
 	                            confirmButtonText: '确定',
 	                            closeOnConfirm: false
 	            			}, function() {
-	            				
 	            				$.ajax({
 	            					url: '${ctx}/api/target/delete',
 	            					data: {
@@ -464,8 +418,6 @@
 	            					success: function(ret) {
 	            						if (ret.code == 0) {
 	            							swal('', '删除成功!', 'success');
-	            						} else if (ret.code == 1004) {
-	            							swal('', '该数据存在关联, 无法删除', 'error');
 	            						} else {
 	            							swal('', ret.msg, 'error');
 	            						}
@@ -478,13 +430,10 @@
 	            	}
 	            }]
 			});
-			
 			return $table;
 		}
 	})( jQuery );
-	
 	</script>
 	
 </body>
-
 </html>
