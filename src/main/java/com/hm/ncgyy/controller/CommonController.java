@@ -117,7 +117,7 @@ public class CommonController {
 			IOUtils.copy(attachment.getInputStream(), bout);
 			bout.close();
 			
-			return new ResultInfo(Code.SUCCESS.value(), "updated", filepath);
+			return new ResultInfo(Code.SUCCESS.value(), "updated", filename + "?" + filepath);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

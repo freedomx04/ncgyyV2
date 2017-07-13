@@ -93,9 +93,9 @@
 		
 		uploaded: function(event, data, previewId, index) {
 			var self = this;
-			var file = data.files[0];
-			var filepath = data.response.data;
-			var filename = file.name;
+			var ret = data.response.data.split('?');
+			var filename = ret[0];
+			var filepath = ret[1];
 			
 			var li = '<li data-filename=' + filename + ' data-filepath=' + filepath + '>' + filename + 
 					'<a class="btn-attachment-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>' +

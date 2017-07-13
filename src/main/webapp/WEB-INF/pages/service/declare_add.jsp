@@ -160,7 +160,6 @@
 					$form.bootstrapValidator('updateStatus', 'endTime', 'INVALID');
 					$form.find("input[name='endTime']").parent().find("small").text("开始时间不能大于结束时间");
 				}
-			
 			}
 		});
         

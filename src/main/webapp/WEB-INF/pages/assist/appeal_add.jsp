@@ -141,7 +141,7 @@
 			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]); 
-				formData.append('appealId', ${appeal.id});
+				formData.append('appealId', '${appeal.id}');
 				
 				$.ajax({
             		url: '${ctx}/api/appeal/update',

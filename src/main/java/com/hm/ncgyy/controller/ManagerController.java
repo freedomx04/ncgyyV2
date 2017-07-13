@@ -311,6 +311,55 @@ public class ManagerController {
 	}
 	
 	/**
+	 * 新闻发布接口
+	 */
+	@RequestMapping(value = "/articleList")
+	String articleList(ModelMap modelMap, Integer type) {
+		String title = articleService.getArticleTitle(type);
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("type", type);
+		
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		
+		return "pages/issue/article_list";
+	}
+	
+	@RequestMapping(value = "/articleAdd")
+	String articleAdd(ModelMap modelMap, Integer type, String method, Long articleId) throws IOException {
+		modelMap.addAttribute("type", type);
+		modelMap.addAttribute("method", method);
+		
+		String title = articleService.getArticleTitle(type);
+		title += method.equals("add") ? " - 新增" : " - 编辑";
+		modelMap.addAttribute("title", title);
+		
+		if (articleId != null) {
+			ArticleEntity article = articleService.findOne(articleId);
+			String content = commonService.getArticleContent(article.getPath());
+			article.setContent(content);
+			modelMap.addAttribute("article", article);
+		}
+		
+		return "pages/issue/article_add";
+	}
+	
+	@RequestMapping(value = "/articleGet/{path}")
+	String articleGet(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
+		ArticleEntity article = articleService.findByPath(path);
+		if (article != null) {
+			String content = commonService.getArticleContent(article.getPath());
+			article.setContent(content);
+			modelMap.addAttribute("article", article);
+			
+			String title = articleService.getArticleTitle(article.getType());
+			modelMap.addAttribute("title", title);
+		}
+		
+		return "pages/issue/article_get";
+	}
+	
+	/**
 	 * 监测平台接口
 	 */
 	@RequestMapping(value = "/targetReport")
@@ -381,7 +430,7 @@ public class ManagerController {
 	String appealDepartment(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
-		if (user.getEnterprise() == null) {
+		if (user.getDepartment() == null) {
 			modelMap.addAttribute("type", new String("gv"));
 			return "pages/warning";
 		} else {
@@ -499,52 +548,11 @@ public class ManagerController {
 	}
 	
 	/**
-	 * 新闻发布接口
+	 * 日常办公
 	 */
-	@RequestMapping(value = "/articleList")
-	String articleList(ModelMap modelMap, Integer type) {
-		String title = articleService.getArticleTitle(type);
-		modelMap.addAttribute("title", title);
-		modelMap.addAttribute("type", type);
-		
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		
-		return "pages/issue/article_list";
-	}
-	
-	@RequestMapping(value = "/articleAdd")
-	String articleAdd(ModelMap modelMap, Integer type, String method, Long articleId) throws IOException {
-		modelMap.addAttribute("type", type);
-		modelMap.addAttribute("method", method);
-		
-		String title = articleService.getArticleTitle(type);
-		title += method.equals("add") ? " - 新增" : " - 编辑";
-		modelMap.addAttribute("title", title);
-		
-		if (articleId != null) {
-			ArticleEntity article = articleService.findOne(articleId);
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
-			modelMap.addAttribute("article", article);
-		}
-		
-		return "pages/issue/article_add";
-	}
-	
-	@RequestMapping(value = "/articleGet/{path}")
-	String articleGet(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		ArticleEntity article = articleService.findByPath(path);
-		if (article != null) {
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
-			modelMap.addAttribute("article", article);
-			
-			String title = articleService.getArticleTitle(article.getType());
-			modelMap.addAttribute("title", title);
-		}
-		
-		return "pages/issue/article_get";
+	@RequestMapping(value = "/email")
+	String email() {
+		return "pages/office/email";
 	}
 	
 	/**
