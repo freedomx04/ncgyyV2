@@ -197,7 +197,7 @@
 							<i class="fa fa-tasks fa-fw"></i><span class="nav-label">日常办公</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="email">邮箱</a></li>
+							<li><a class="J_menuItem" href="emailList">邮箱</a></li>
 						</ul>
 					</li>
 					<li>

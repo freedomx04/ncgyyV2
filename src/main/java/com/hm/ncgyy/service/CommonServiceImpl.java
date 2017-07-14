@@ -27,6 +27,8 @@ public class CommonServiceImpl implements CommonService {
 	
 	private String articlePath = "article";
 	private String imageFormat = "/image/{time}{rand:6}";
+	
+	private String emailFormat = "/email/{time}{rand:6}";
 
 	@Override
 	public String saveArticle(String content) throws IOException {
@@ -115,6 +117,28 @@ public class CommonServiceImpl implements CommonService {
 		File file = Paths.get(uploadPath, path).toFile();
 		if (file.exists()) {
 			file.delete();
+		}
+	}
+
+	@Override
+	public String saveEmail(String content) throws IOException {
+		String path = PathFormat.parse(emailFormat + ".html");
+		
+		File file = Paths.get(uploadPath, path).toFile();
+		FileUtil.sureDirExists(file, true);
+		FileUtils.write(file, content, "UTF-8");
+		
+		return path;
+	}
+
+	@Override
+	public String getEmailContent(String path) throws IOException {
+		File file = Paths.get(uploadPath, path).toFile();
+		if (file.exists()) {
+			String content = FileUtils.readFileToString(file, "UTF-8");
+			return content;
+		} else {
+			throw new IOException("article file not exist!");
 		}
 	}
 

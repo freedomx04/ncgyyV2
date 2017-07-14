@@ -23,7 +23,12 @@ public interface UserService {
 	
 	List<UserEntity> list();
 	
+	// base
 	UserBaseEntity findOneBase(Long userId);
+	
+	UserBaseEntity findByUsernameBase(String username);
+	
+	List<UserBaseEntity> listBase();
 	
 	
 }

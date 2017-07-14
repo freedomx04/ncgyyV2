@@ -32,5 +32,12 @@ public interface CommonService {
 	 */
 	void deleteFile(String path) throws IOException;
 	
+	/**
+	 * 邮件
+	 */
+	String saveEmail(String content) throws IOException;
+	
+	String getEmailContent(String path) throws IOException;
+	
 	
 }

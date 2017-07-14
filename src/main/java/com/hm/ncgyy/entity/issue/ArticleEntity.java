@@ -67,6 +67,7 @@ public class ArticleEntity extends BaseEntity {
 
 	public ArticleEntity() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleEntity(Integer type, String title, String source, String imagePath, String path, Date createTime,

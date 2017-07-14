@@ -19,6 +19,7 @@ import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
+import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
@@ -550,9 +551,27 @@ public class ManagerController {
 	/**
 	 * 日常办公
 	 */
-	@RequestMapping(value = "/email")
-	String email() {
-		return "pages/office/email";
+	@RequestMapping(value = "/emailList")
+	String emailList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		
+		return "pages/office/email_list";
+	}
+	
+	@RequestMapping(value = "/emailAdd")
+	String emailAdd(ModelMap modelMap, String method, Long sendId) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		
+		String title = method.equals("add") ? "写信" : "";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		List<UserBaseEntity> userList = userService.listBase();
+		modelMap.addAttribute("userList", userList);
+		
+		return "pages/office/email_add";
 	}
 	
 	/**

@@ -41,7 +41,7 @@
 					<div class="panel">
 						<div class="panel-body">
 							<div class="m-b">
-								<button type="button" class="btn btn-primary" style="width: 100%;">写&nbsp;&nbsp;&nbsp;&nbsp;信</button>
+								<button type="button" class="btn btn-primary btn-email-add" style="width: 100%;">写&nbsp;&nbsp;&nbsp;&nbsp;信</button>
 							</div>
 						
 							<div class="tabs-left">
@@ -137,6 +137,11 @@
     ;(function( $ ) {
     	
     	var $page = $('.body-email');
+    	
+    	$page
+    	.on('click', '.btn-email-add', function() {
+    		window.location.href = './emailAdd?method=add';
+    	});
     	
     })( jQuery );
     </script>
