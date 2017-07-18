@@ -272,8 +272,8 @@
 					unit = "万元";	
 					
 					var mainBusiness = val.target_current != null ? val.target_current.mainBusiness : '-';
-					var mainBusiness_yearGrowth = val.mainBusiness_yearGrowth != null && val.mainBusiness_yearGrowth != "" ? (parseFloat(val.mainBusiness_yearGrowth)*100).toFixed(2) : "-";
-					var mainBusiness_monthGrowth = val.mainBusiness_monthGrowth != null && val.mainBusiness_monthGrowth != "" ? (parseFloat(val.mainBusiness_monthGrowth)*100).toFixed(2) : "-";
+					var mainBusiness_yearGrowth = val.mainBusiness_yearGrowth != null && val.mainBusiness_yearGrowth != "" ? (parseFloat(val.mainBusiness_yearGrowth)*100).toFixed(2) : '-';
+					var mainBusiness_monthGrowth = val.mainBusiness_monthGrowth != null && val.mainBusiness_monthGrowth != "" ? (parseFloat(val.mainBusiness_monthGrowth)*100).toFixed(2) : '-';
 					arr1.push(mainBusiness);
 					arr2.push(mainBusiness_yearGrowth);
 					arr3.push(mainBusiness_monthGrowth);
@@ -283,36 +283,36 @@
 					legendName = '用电量'; 
 					unit = "万度";		
 					
-					var electricity = val.target_current != null ? val.target_current.electricity : "-";
-					var electricity_yearGrowth = val.electricity_yearGrowth != null && val.electricity_yearGrowth != "" ? (parseFloat(val.electricity_yearGrowth)*100).toFixed(2) : "-";
-					var electricity_monthGrowth = val.electricity_monthGrowth != null && val.electricity_monthGrowth != "" ? (parseFloat(val.electricity_monthGrowth)*100).toFixed(2) : "-";
+					var electricity = val.target_current != null ? val.target_current.electricity : '-';
+					var electricity_yearGrowth = val.electricity_yearGrowth != null && val.electricity_yearGrowth != "" ? (parseFloat(val.electricity_yearGrowth)*100).toFixed(2) : '-';
+					var electricity_monthGrowth = val.electricity_monthGrowth != null && val.electricity_monthGrowth != "" ? (parseFloat(val.electricity_monthGrowth)*100).toFixed(2) : '-';
 					arr1.push(electricity);
-					arr2.push(parseFloat(electricity_yearGrowth));
-					arr3.push(parseFloat(electricity_monthGrowth));
+					arr2.push(electricity_yearGrowth);
+					arr3.push(electricity_monthGrowth);
 					
 					break;
 				case 'tab-3':	
 					legendName = '利润总额'; 
 					unit = "万元";		
 					
-					var profit = val.target_current != null ? val.target_current.profit : "-";
-					var profit_yearGrowth = val.profit_yearGrowth != null && val.profit_yearGrowth != "" ? (parseFloat(val.profit_yearGrowth)*100).toFixed(2) : "-";
-					var profit_monthGrowth = val.profit_monthGrowth != null && val.profit_monthGrowth != "" ? (parseFloat(val.profit_monthGrowth)*100).toFixed(2) : "-";
+					var profit = val.target_current != null ? val.target_current.profit : '-';
+					var profit_yearGrowth = val.profit_yearGrowth != null && val.profit_yearGrowth != "" ? (parseFloat(val.profit_yearGrowth)*100).toFixed(2) : '-';
+					var profit_monthGrowth = val.profit_monthGrowth != null && val.profit_monthGrowth != "" ? (parseFloat(val.profit_monthGrowth)*100).toFixed(2) : '-';
 					arr1.push(profit);
-					arr2.push(parseFloat(profit_yearGrowth));
-					arr3.push(parseFloat(profit_monthGrowth));
+					arr2.push(profit_yearGrowth);
+					arr3.push(profit_monthGrowth);
 					
 					break;
 				case 'tab-4':	
 					legendName = '实现税金总额'; 
 					unit = "万元";	
 					
-					var tax = val.target_current != null ? val.target_current.tax : "-";
-					var tax_yearGrowth = val.tax_yearGrowth != null && val.tax_yearGrowth != "" ? (parseFloat(val.tax_yearGrowth)*100).toFixed(2) : "-";
-					var tax_monthGrowth = val.tax_monthGrowth != null && val.tax_monthGrowth != "" ? (parseFloat(val.tax_monthGrowth)*100).toFixed(2) : "-";
+					var tax = val.target_current != null ? val.target_current.tax : '-';
+					var tax_yearGrowth = val.tax_yearGrowth != null && val.tax_yearGrowth != "" ? (parseFloat(val.tax_yearGrowth)*100).toFixed(2) : '-';
+					var tax_monthGrowth = val.tax_monthGrowth != null && val.tax_monthGrowth != "" ? (parseFloat(val.tax_monthGrowth)*100).toFixed(2) : '-';
 					arr1.push(tax);
-					arr2.push(parseFloat(tax_yearGrowth));
-					arr3.push(parseFloat(tax_monthGrowth));
+					arr2.push(tax_yearGrowth);
+					arr3.push(tax_monthGrowth);
 					
 					break;
 				}
@@ -324,16 +324,9 @@
 				        trigger: 'axis'
 				    },
 				    toolbox: {
-				        show : false,
-				        feature : {
-				            mark : {show: true},
-				            dataView : {show: true, readOnly: false},
-				            magicType: {show: true, type: ['line', 'bar']},
-				            restore : {show: true},
-				            saveAsImage : {show: true}
-				        }
+				        show : false
 				    },
-				    calculable : true,
+				    calculable : false,
 				    legend: {
 				        data: ['本月止' +　legendName, '同比增幅', '环比增幅']
 				    },
@@ -364,19 +357,22 @@
 				        {
 				            name: '本月止' + legendName,  //这里的name要和legend里的data一致
 				            type: 'bar',
-				            data: arr1
+				            data: arr1,
+				            itemStyle : { normal: {label : {show: true}}}
 				        },
 				        {
 				            name: '同比增幅',
 				            type: 'line',
 				            yAxisIndex: 1,
-				            data: arr2
+				            data: arr2,
+				            itemStyle : { normal: {label : {show: true}}}
 				        },
 				        {
 				            name: '环比增幅',
 				            type: 'line',
 				            yAxisIndex: 1,
-				            data: arr3
+				            data: arr3,
+				            itemStyle : { normal: {label : {show: true}}}
 				        }
 				    ]
 				};
@@ -390,13 +386,13 @@
 			// start time
 			now.setYear(now.getFullYear() - 1);
     		var month = now.getMonth();
-			$tab.find("#monthlyStart").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+			$tab.find("#monthlyStart").val(now.getFullYear() + '-' + (month < 10 ? "0" + month : month));
 			// end time 
 			now.setDate(1);
 			now.setMonth(now.getMonth());
 			now.setYear(now.getFullYear() + 1);
 			month = now.getMonth();
-			$tab.find("#monthlyEnd").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+			$tab.find("#monthlyEnd").val(now.getFullYear() + '-' + (month < 10 ? "0" + month : month));
 
 			if (typeof fn === 'function') {
 				fn();
@@ -416,21 +412,21 @@
 		            	title: '主营业务收入(万元)',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? value.mainBusiness : "-";
+	                         return value != null ? value.mainBusiness : '-';
 	                    }
 		            }, {
 		            	field: 'mainBusiness_yearGrowth',
 		            	title: '同比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            }, {
 		            	field: 'mainBusiness_monthGrowth',
 		            	title: '环比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            });
 					break;
@@ -440,21 +436,21 @@
 		            	title: '用电量(万度)',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? value.electricity : "-";
+	                         return value != null ? value.electricity : '-';
 	                    }
 		            }, {
 		            	field: 'electricity_yearGrowth',
 		            	title: '同比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            }, {
 		            	field: 'electricity_monthGrowth',
 		            	title: '环比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            });
 					break;
@@ -464,21 +460,21 @@
 		            	title: '利润总额(万元)',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? value.profit : "-";
+	                         return value != null ? value.profit : '-';
 	                    }
 		            }, {
 		            	field: 'profit_yearGrowth',
 		            	title: '同比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            }, {
 		            	field: 'profit_monthGrowth',
 		            	title: '环比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            });
 					break;
@@ -488,21 +484,21 @@
 		            	title: '实现税金总额(万元)',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? value.tax : "-";
+	                         return value != null ? value.tax : '-';
 	                    }
 		            }, {
 		            	field: 'tax_yearGrowth',
 		            	title: '同比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            }, {
 		            	field: 'tax_monthGrowth',
 		            	title: '环比增幅%',
 		            	align: 'center',
 		            	formatter: function (value, row, index) {
-	                         return value != null ? (value*100).toFixed(2) : "-";
+	                         return value != null ? (value*100).toFixed(2) : '-';
 	                    }
 		            });
 					break;
