@@ -25,6 +25,7 @@ import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.service.CommonService;
@@ -39,6 +40,7 @@ import com.hm.ncgyy.service.base.AppealTypeService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.issue.ArticleService;
+import com.hm.ncgyy.service.office.MailService;
 import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
 
@@ -88,6 +90,9 @@ public class ManagerController {
 	
 	@Autowired
 	AppealTypeService appealTypeService;
+	
+	@Autowired
+	MailService mailService;
 	
 	/**
 	 * 总览
@@ -551,16 +556,16 @@ public class ManagerController {
 	/**
 	 * 日常办公
 	 */
-	@RequestMapping(value = "/emailList")
-	String emailList(ModelMap modelMap) {
+	@RequestMapping(value = "/mailList")
+	String mailList(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		
-		return "pages/office/email_list";
+		return "pages/office/mail_list";
 	}
 	
-	@RequestMapping(value = "/emailAdd")
-	String emailAdd(ModelMap modelMap, String method, Long sendId) {
+	@RequestMapping(value = "/mailAdd")
+	String mailAdd(ModelMap modelMap, String method, Long mailId) throws IOException {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		
@@ -571,7 +576,14 @@ public class ManagerController {
 		List<UserBaseEntity> userList = userService.listBase();
 		modelMap.addAttribute("userList", userList);
 		
-		return "pages/office/email_add";
+		if (mailId != null) {
+			MailEntity mail = mailService.findOne(mailId);
+			String content = commonService.getMailContent(mail.getPath());
+			mail.setContent(content);
+			modelMap.addAttribute("mail", mail);
+		}
+		
+		return "pages/office/mail_add";
 	}
 	
 	/**

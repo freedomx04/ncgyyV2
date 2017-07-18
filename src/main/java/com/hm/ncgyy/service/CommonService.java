@@ -35,9 +35,11 @@ public interface CommonService {
 	/**
 	 * 邮件
 	 */
-	String saveEmail(String content) throws IOException;
+	String saveMail(String content) throws IOException;
 	
-	String getEmailContent(String path) throws IOException;
+	void updateMail(String path, String content) throws IOException;
+	
+	String getMailContent(String path) throws IOException;
 	
 	
 }

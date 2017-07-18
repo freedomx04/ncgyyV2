@@ -25,7 +25,7 @@
 	
 </head>
 
-<body class="gray-bg body-email-add">
+<body class="gray-bg body-mail-add">
 	<div class="wrapper wrapper-content">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
@@ -33,12 +33,11 @@
 			</div>
 			
 			<div class="ibox-content">
-				<form class="form-horizontal" role="form" autocomplete="off" id="form-email">
+				<form class="form-horizontal" role="form" autocomplete="off" id="form-mail">
 					<div class="form-group">
 						<label for="title" class="col-sm-1 control-label"><i class="form-required">*</i>收件人</label>
 						<div class="col-sm-10">
                             <select data-placeholder="选择收件人" class="chosen-select" style="width: 100%;" multiple required>
-                            	<option value="">请选择收件人</option>
                             	<c:forEach var="user" items="${userList}">
                             		<option value="${user.username}">${user.username}</option>
                             	</c:forEach>
@@ -49,7 +48,7 @@
 					<div class="form-group">
 						<label for="title" class="col-sm-1 control-label"><i class="form-required">*</i>主题</label>
 						<div class="col-sm-10">
-                            <input type="text" class="form-control" name="title" required>
+                            <input type="text" class="form-control" name="title" value="${mail.title}" required>
                         </div>
 					</div>
 					
@@ -68,7 +67,7 @@
                                     <i class="fa fa-paperclip fa-fw"></i>添加附件
                                 </button>
                                 <ul class="attachment-list list-unstyled project-files">
-                                    <c:forEach var="file" items="${article.fileList}">
+                                    <c:forEach var="file" items="${mail.fileList}">
                                         <li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
                                             ${file.filename}
                                             <a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
@@ -83,13 +82,20 @@
                     
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-1">
-                            <button type="button" class="btn btn-primary btn-email-send">
+                            <button type="button" class="btn btn-primary btn-mail-send">
                                 <i class="fa fa-send-o fa-fw"></i>发送
                             </button>
-                            <button type="button" class="btn btn-white btn-email-draft">
+                            <c:if test="${method == 'add'}">
+                            <button type="button" class="btn btn-white btn-mail-draft-add">
                                 <i class="fa fa-pencil fa-fw"></i>存草稿
                             </button>
-                            <button type="button" class="btn btn-white btn-email-cancel">
+                            </c:if>
+                            <c:if test="${method == 'edit'}">
+                            <button type="button" class="btn btn-white btn-mail-draft-edit">
+                                <i class="fa fa-pencil fa-fw"></i>存草稿
+                            </button>
+                            </c:if>
+                            <button type="button" class="btn btn-white btn-mail-cancel">
                                 <i class="fa fa-close fa-fw"></i>取消
                             </button>
                         </div>
@@ -117,8 +123,9 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var $page = $('.body-email-add');
-		var $form = $page.find('#form-email');
+		var $page = $('.body-mail-add');
+		var $form = $page.find('#form-mail');
+		var $select = $form.find('.chosen-select');
 		//var userId = '${user.id}';
 		var userId = '9';
 		
@@ -131,18 +138,25 @@
             uploadUrl: '${ctx}/api/fileUpload',
             deleteUrl: '${ctx}/api/fileDelete',
         });
+		$k.util.summernote($page.find('#summernote'));
 		
 		if (method == 'add') {
-			$k.util.summernote($page.find('#summernote'));
-			$page.find('.chosen-select').chosen({
+			$select.chosen({
 				no_results_text: '没有找到结果！',
 			});
 		} else {
-			
+			$('#summernote').summernote('code', '${mail.content}');
+			$select.chosen({
+				no_results_text: '没有找到结果！',
+			});
+			var receivers = '${mail.receivers}';
+			var selectArr = receivers.split(',');
+			$select.val(selectArr);
+			$select.trigger("chosen:updated");
 		}
 		
 		$page
-		.on('click', '.btn-email-send', function() {
+		.on('click', '.btn-mail-send', function() {
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
 			
@@ -162,7 +176,7 @@
                 formData.append('attachmentList', attachmentList);
                 
                 $.ajax({
-                	url: '${ctx}/api/email/send',
+                	url: '${ctx}/api/mail/send',
                 	type: 'post',
                 	data: formData,
                     processData: false,
@@ -175,7 +189,7 @@
                                 text: '发送成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './emailList';
+                                window.location.href = './mailList';
                             });
                         } else {
                             swal('', '发送失败', 'error');
@@ -185,7 +199,7 @@
                 });
 			}
 		})
-		.on('click', '.btn-email-draft', function() {
+		.on('click', '.btn-mail-draft-add', function() {
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
 			
@@ -205,7 +219,7 @@
                 formData.append('attachmentList', attachmentList);
                 
                 $.ajax({
-                	url: '${ctx}/api/email/draft',
+                	url: '${ctx}/api/mail/draftAdd',
                 	type: 'post',
                 	data: formData,
                     processData: false,
@@ -218,7 +232,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './emailList';
+                                window.location.href = './mailList';
                             });
                         } else {
                             swal('', '操作失败', 'error');
@@ -228,8 +242,54 @@
                 });
 			}
 		})
-		.on('click', '.btn-email-cancel', function() {
-			window.location.href = './emailList';
+		.on('click', '.btn-mail-draft-edit', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var formData = new FormData($form[0]);
+				formData.append('mailId', '${mail.id}');
+				var userList = $form.find('.chosen-select').val();
+				formData.append('receivers', userList.join(','));
+				formData.append('content', $('#summernote').summernote('code'));
+				
+				var attachmentList = new Array();
+				$form.find('.attachment-list li').each(function(k, elem) {
+					var fileid = $(elem).data('fileid');
+					if (!fileid) {
+						var filename = $(elem).data('filename');
+						var filepath = $(elem).data('filepath');
+						attachmentList.push(filename + '?' + filepath);
+					}
+				});
+				formData.append('attachmentList', attachmentList);
+				
+				$.ajax({
+                	url: '${ctx}/api/mail/draftUpdate',
+                	type: 'post',
+                	data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false, 
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal({
+                                title: '',
+                                text: '操作成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './mailList';
+                            });
+                        } else {
+                            swal('', '操作失败', 'error');
+                        }
+                    },
+                    error: function(err) {}
+                });
+			}
+		})
+		.on('click', '.btn-mail-cancel', function() {
+			window.location.href = './mailList';
 		});
 		
 	})( jQuery );

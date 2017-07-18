@@ -9,14 +9,14 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "office_email_file")
-public class EmailFileEntity extends BaseEntity {
+@Table(name = "office_mail_file")
+public class MailFileEntity extends BaseEntity {
 	
 	/**
 	 * 关联邮件
 	 */
-	@Column(name = "email_id")
-	private Long emailId;
+	@Column(name = "mail_id")
+	private Long mailId;
 	
 	/**
 	 * 文件名称
@@ -28,25 +28,25 @@ public class EmailFileEntity extends BaseEntity {
 	 */
 	private String filepath;
 	
-	public EmailFileEntity() {
+	public MailFileEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmailFileEntity(Long emailId, String filename, String filepath, Date createTime, Date updateTime) {
+	public MailFileEntity(Long mailId, String filename, String filepath, Date createTime, Date updateTime) {
 		super();
-		this.emailId = emailId;
+		this.mailId = mailId;
 		this.filename = filename;
 		this.filepath = filepath;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
 
-	public Long getEmailId() {
-		return emailId;
+	public Long getMailId() {
+		return mailId;
 	}
 
-	public void setEmailId(Long emailId) {
-		this.emailId = emailId;
+	public void setMailId(Long mailId) {
+		this.mailId = mailId;
 	}
 
 	public String getFilename() {
