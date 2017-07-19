@@ -212,6 +212,13 @@
 	
 })();
 
+function formatDate(val) {
+	if (val) {
+		return new Date(val).Format("yyyy-MM-dd");
+	}
+	return undefined;
+}
+
 function formatDate2(val) {
 	if (val) {
 		return new Date(val).Format("yyyy-MM-dd hh:mm");

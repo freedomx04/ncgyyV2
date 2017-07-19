@@ -29,6 +29,17 @@
 	.nav-tabs>li>a {
 		color: #76838f;
 	}
+	.body-mail .mail-td {
+		cursor: pointer; 
+		border-left: none;
+		border-right: none;
+	}
+	.body-mail .mail-td .mail-point {
+		color: #C7284A;
+	}
+	.body-mail .mail-td .mail-unread {
+		font-weight: 700;
+	}
 	</style>
 	
 </head>
@@ -51,7 +62,7 @@
 										<span class="label label-warning pull-right"></span></a>
 									</li>
 									<li>
-			                            <a data-toggle="tab" href="#mail-point" data-option="point" aria-expanded="true"><i class="fa fa-star-o fa-fw"></i>重要邮件</a>
+			                            <a data-toggle="tab" href="#mail-point" data-option="point" aria-expanded="true"><i class="fa fa-star fa-fw"></i>星标邮件</a>
 			                        </li>
 			                        <li>
 			                            <a data-toggle="tab" href="#mail-draft" data-option="draft" aria-expanded="true"><i class="fa fa-file-text-o fa-fw"></i>草稿箱</a>
@@ -61,7 +72,13 @@
 			                        </li>
 			                        <li>
 			                        	<a data-toggle="tab" href="#mail-delete" data-option="delete" aria-expanded="true"><i class="fa fa-trash-o fa-fw"></i>已删除</a>
-			                        </li>			                        
+			                        </li>	
+			                        <li style="display: none;">
+			                        	<a class="mail-add" data-toggle="tab" href="#mail-add" data-option="add" aria-expanded="true">写信</a>
+			                        </li>
+			                        <li style="display: none;">
+			                        	<a class="mail-add" data-toggle="tab" href="#mail-detail" data-option="detail" aria-expanded="true">详情</a>
+			                        </li>		                        
 								</ul>
 							</div>
 						</div>
@@ -72,48 +89,51 @@
 					<div class="tab-content">
 						<div class="tab-pane active animated fadeInRight" id="mail-inbox">
 							<div class="mail-box-header">
-								<h2>收件箱(16)</h2>
-								
-								<div class="mail-tools m-t-md">
-									<button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="刷新邮件列表">
-			                       		<i class="fa fa-refresh fa-fw"></i>刷新
-			                   		</button>
+								<h2>收件箱</h2>
+								<div class="hidden-xs" id="mail-inbox-table-toolbar" role="group">
+									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
+				                        <i class="fa fa-refresh fa-fw"></i>刷新
+				                    </button>
+				                    <button type="button" class="btn btn-white btn-sm btn-mail-point" disabled='disabled'>
+				                        <i class="fa fa-star fa-fw"></i>标记星标
+				                    </button>
+				                    <button type="button" class="btn btn-white btn-sm btn-mail-unpoint" disabled='disabled'>
+				                        <i class="fa fa-star-o fa-fw"></i>取消星标
+				                    </button>
+									<button type="button" class="btn btn-white btn-sm btn-mail-delete" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>删除
+				                    </button>				                    
 								</div>
-							</div>
-							<div class="mail-box">
-								<table class="table table-hover table-mail">
-									<tbody>
-										<tr>
-											<td class="check-mail"></td>
-											<td>孙某某</td>
-											<td>阿萨德撒大所大撒多</td>
-											<td><i class="fa fa-paperclip"></i></td>
-											<td class="text-right mail-date">昨天 10:20</td>
-										</tr>
-										<tr>
-											<td class="check-mail"></td>
-											<td>孙某某</td>
-											<td>阿萨德撒大所大撒多</td>
-											<td><i class="fa fa-paperclip"></i></td>
-											<td class="text-right mail-date">昨天 10:20</td>
-										</tr>										
-									</tbody>
-								</table>
+								<table id="mail-inbox-table" class="table-hm" data-mobile-responsive="true"></table>
 							</div>
 						</div>
 						
 						<div class="tab-pane animated fadeInRight" id="mail-point">
-							tab2
+							<div class="mail-box-header">
+								<h2>收件箱</h2>
+								<div class="hidden-xs" id="mail-point-table-toolbar" role="group">
+									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
+				                        <i class="fa fa-refresh fa-fw"></i>刷新
+				                    </button>
+				                    <button type="button" class="btn btn-white btn-sm btn-mail-unpoint" disabled='disabled'>
+				                        <i class="fa fa-star-o fa-fw"></i>取消星标
+				                    </button>
+									<button type="button" class="btn btn-white btn-sm btn-mail-delete" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>删除
+				                    </button>				                    
+								</div>
+								<table id="mail-point-table" class="table-hm" data-mobile-responsive="true"></table>
+							</div>
 						</div>
 						
 						<div class="tab-pane animated fadeInRight" id="mail-draft">
 							<div class="mail-box-header">
 								<h2>草稿箱</h2>
 								<div class="hidden-xs" id="mail-draft-table-toolbar" role="group">
-									<button type="button" class="btn btn-white btn-draft-refresh">
+									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
 				                        <i class="fa fa-refresh fa-fw"></i>刷新
 				                    </button>
-									<button type="button" class="btn btn-white btn-draft-delete">
+									<button type="button" class="btn btn-white btn-sm btn-mail-delete" disabled='disabled'>
 				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>				                    
 								</div>
@@ -125,10 +145,10 @@
 							<div class="mail-box-header">
 								<h2>已发送</h2>
 								<div class="hidden-xs" id="mail-send-table-toolbar" role="group">
-									<button type="button" class="btn btn-white btn-draft-refresh">
+									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
 				                        <i class="fa fa-refresh fa-fw"></i>刷新
 				                    </button>
-									<button type="button" class="btn btn-white btn-draft-delete">
+									<button type="button" class="btn btn-white btn-sm btn-mail-delete" disabled='disabled'>
 				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>				                    
 								</div>
@@ -137,7 +157,18 @@
 						</div>
 						
 						<div class="tab-pane animated fadeInRight" id="mail-delete">
-							tab5
+							<div class="mail-box-header">
+								<h2>已删除</h2>
+								<div class="hidden-xs" id="mail-delete-table-toolbar" role="group">
+									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
+				                        <i class="fa fa-refresh fa-fw"></i>刷新
+				                    </button>
+									<button type="button" class="btn btn-white btn-sm btn-mail-deleteCompletely" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>彻底删除
+				                    </button>				                    
+								</div>
+								<table id="mail-delete-table" class="table-hm" data-mobile-responsive="true"></table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -162,22 +193,88 @@
     	//var userId = '${user.id}';
     	var userId = 9;
     	
+    	var $inbox = $page.find('#mail-inbox');
+    	var $point = $page.find('#mail-point');
+    	var $draft = $page.find('#mail-draft');
+    	var $send = $page.find('#mail-send');
+    	var $delete = $page.find('#mail-delete');
     	var $inboxTable, $pointTable, $draftTable, $sendTable, $deleteTable;
+    	
+    	initInbox();
     	
     	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
     		var $this = $(this);
     		var option = $this.data('option');
     		switch (option) {
     		case 'inbox':
-    			
+    			initInbox();
     			break;
     		case 'point':
+    			$pointTable = $k.util.bsTable($page.find('#mail-point-table'), {
+    				url: '${ctx}/api/mail/listPoint?userId=' + userId,
+     				toolbar: '#mail-point-table-toolbar',
+     				idField: 'id',
+     				responseHandler: function(res) {
+     	                return res.data;
+     	            },
+     				columns: [{
+     					field: 'status',
+     					checkbox: true
+	   				}, {
+	   					field: 'sender.username',
+	   					title: '发件人',
+	   					width: '140',
+	   					class: 'mail-td',
+	   				}, {
+	   					field: 'title',
+	   					title: '主题',
+	   					class: 'mail-td',
+	   				}, {
+	   					field: 'sendTime',
+	   					title: '发件时间',
+	   					width: '100',
+	   					formatter: formatDate,
+	   					class: 'mail-td'
+	   				}, {
+	 	            	field: 'fileList',
+	 	            	title: '',
+	 	            	width: '16',
+	 	            	class: 'mail-td',
+	 	            	formatter: function(value, row, index) {
+	 	            		if (value.length > 0) {
+	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
+	 	            		} else {
+	 	            			return '';
+	 	            		}
+	 	            	}
+	 	            }, {
+	 	            	field: 'pointStatus',
+	 	            	title: '',
+	 	            	width: '16',
+	 	            	class: 'mail-td',
+	 	            	formatter: function(value, row, index) {
+	 	            		if (value == 0) {
+	 	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
+	 	            		} else {
+	 	            			return '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
+	 	            		}
+	 	            	}
+	 	            }],
+	   				showRefresh: false,
+     				showColumns: false,
+     				clickToSelect: false
+     			  });
+    			$pointTable.bootstrapTable('refresh');
     			
+    			$pointTable.on('all.bs.table', function(e, row) {
+    	            var selNum = $pointTable.bootstrapTable('getSelections').length;
+    	            selNum > 0 ? $point.find('.btn-mail-unpoint').removeAttr('disabled') : $point.find('.btn-mail-unpoint').attr('disabled', 'disabled');
+    	            selNum > 0 ? $point.find('.btn-mail-delete').removeAttr('disabled') : $point.find('.btn-mail-delete').attr('disabled', 'disabled');
+    	        });
     			break;
     		case 'draft':
     			$draftTable = $k.util.bsTable($page.find('#mail-draft-table'), {
     				url: '${ctx}/api/mail/listDraft?userId=' + userId,
-    				cache: false,
      				toolbar: '#mail-draft-table-toolbar',
      				idField: 'id',
      				responseHandler: function(res) {
@@ -190,37 +287,47 @@
 	   					field: 'sender.username',
 	   					title: '发件人',
 	   					align: 'center',
-	   					width: '160',
+	   					width: '140',
+	   					class: 'mail-td'
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
 	   					align: 'center',
-	   					formatter: function(value, row, index) {
-	   						return '<a class="mail-edit">' + value + '</a>';
-	   					},
-	   					events: window.operateEvents = {
-   							'click .mail-edit': function(e, value, row, index) {
-   								e.stopPropagation();
-   								window.location.href = './mailAdd?method=edit&mailId=' + row.id;
-   							}
-	   					}
+	   					class: 'mail-td'
 	   				}, {
 	   					field: 'updateTime',
 	   					title: '创建时间',
 	   					align: 'center',
-	   					width: '160',
-	   					formatter: formatDate2
-	   				}],
+	   					width: '140',
+	   					formatter: formatDate,
+	   					class: 'mail-td'
+	   				}, {
+	 	            	field: 'fileList',
+	 	            	title: '',
+	 	            	width: '16',
+	 	            	class: 'mail-td',
+	 	            	formatter: function(value, row, index) {
+	 	            		if (value.length > 0) {
+	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
+	 	            		} else {
+	 	            			return '';
+	 	            		}
+	 	            	}
+	 	            }],
 	   				showRefresh: false,
      				showColumns: false,
-     				striped: false
+     				clickToSelect: false
      			  });
     			$draftTable.bootstrapTable('refresh');
+    			
+    			$draftTable.on('all.bs.table', function(e, row) {
+    	            var selNum = $draftTable.bootstrapTable('getSelections').length;
+    	            selNum > 0 ? $draft.find('.btn-mail-delete').removeAttr('disabled') : $draft.find('.btn-mail-delete').attr('disabled', 'disabled');
+    	        });
     			break;
     		case 'send':
     			$sendTable = $k.util.bsTable($page.find('#mail-send-table'), {
     				url: '${ctx}/api/mail/listSend?userId=' + userId,
-    				cache: false,
      				toolbar: '#mail-send-table-toolbar',
      				idField: 'id',
      				responseHandler: function(res) {
@@ -233,47 +340,342 @@
 	   					field: 'sender.username',
 	   					title: '发件人',
 	   					align: 'center',
-	   					width: '160',
+	   					width: '140',
+	   					class: 'mail-td'
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
 	   					align: 'center',
-	   					formatter: function(value, row, index) {
-	   						return '<a class="mail-edit">' + value + '</a>';
-	   					},
-	   					events: window.operateEvents = {
-   							'click .mail-edit': function(e, value, row, index) {
-   								e.stopPropagation();
-   								window.location.href = './mailAdd?method=edit&mailId=' + row.id;
-   							}
-	   					}
+	   					class: 'mail-td'
 	   				}, {
 	   					field: 'sendTime',
-	   					title: '发送时间',
+	   					title: '发件时间',
 	   					align: 'center',
-	   					width: '160',
-	   					formatter: formatDate2
+	   					width: '140',
+	   					formatter: formatDate,
+	   					class: 'mail-td'
+	   				}, {
+	 	            	field: 'fileList',
+	 	            	title: '',
+	 	            	width: '16',
+	 	            	class: 'mail-td',
+	 	            	formatter: function(value, row, index) {
+	 	            		if (value.length > 0) {
+	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
+	 	            		} else {
+	 	            			return '';
+	 	            		}
+	 	            	}
+	 	            }],
+	   				showRefresh: false,
+     				showColumns: false,
+     				clickToSelect: false
+     			  });
+    			$sendTable.bootstrapTable('refresh');
+    			
+    			$sendTable.on('all.bs.table', function(e, row) {
+    	            var selNum = $sendTable.bootstrapTable('getSelections').length;
+    	            selNum > 0 ? $send.find('.btn-mail-delete').removeAttr('disabled') : $send.find('.btn-mail-delete').attr('disabled', 'disabled');
+    	        });
+    			break;
+    		case 'delete':
+    			$deleteTable = $k.util.bsTable($page.find('#mail-delete-table'), {
+    				url: '${ctx}/api/mail/listDelete?userId=' + userId,
+     				toolbar: '#mail-delete-table-toolbar',
+     				idField: 'id',
+     				responseHandler: function(res) {
+     	                return res.data;
+     	            },
+     				columns: [{
+     					field: 'status',
+     					checkbox: true
+	   				}, {
+	   					field: 'sender.username',
+	   					title: '发件人',
+	   					width: '140',
+	   					class: 'mail-td'
+	   				}, {
+	   					field: 'title',
+	   					title: '主题',
+	   					class: 'mail-td'
+	   				}, {
+	   					field: 'updateTime',
+	   					title: '创建时间',
+	   					width: '100',
+	   					formatter: formatDate,
+	   					class: 'mail-td'
+	   				}, {
+	 	            	field: 'fileList',
+	 	            	title: '',
+	 	            	width: '16',
+	 	            	class: 'mail-td',
+	 	            	formatter: function(value, row, index) {
+	 	            		if (value.length > 0) {
+	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
+	 	            		} else {
+	 	            			return '';
+	 	            		}
+	 	            	}
+	 	            }, {
+	   					field: 'mailStatus',
+	   					title: '',
+	   					width: '70',
+	   					class: 'mail-td',
+	   					formatter: function(value, row, index) {
+	   						switch (value) {
+	   						case 1:
+	   							return '<span class="label label-warning">草稿箱</span>';
+	   						case 2: 
+	   							return '<span class="label label-primary">已发送</span>';
+	   						case 3:
+	   							return '<span class="label label-info">收件箱</span>';
+	   						}
+	   					}
 	   				}],
 	   				showRefresh: false,
      				showColumns: false,
-     				striped: false
+     				clickToSelect: false
      			  });
-    			$draftTable.bootstrapTable('refresh');
-    			break;
-    		case 'delete':
+    			$deleteTable.bootstrapTable('refresh');
     			
+    			$deleteTable.on('all.bs.table', function(e, row) {
+    	            var selNum = $deleteTable.bootstrapTable('getSelections').length;
+    	            selNum > 0 ? $delete.find('.btn-mail-deleteCompletely').removeAttr('disabled') : $delete.find('.btn-mail-deleteCompletely').attr('disabled', 'disabled');
+    	        }); 
     			break;
     		}
     	});
     	
+    	function initInbox() {
+    		$inboxTable = $k.util.bsTable($page.find('#mail-inbox-table'), {
+    			url: '${ctx}/api/mail/listInbox?userId=' + userId,
+    			toolbar: '#mail-inbox-table-toolbar',
+    			idField: 'id',
+    			responseHandler: function(res) {
+ 	                return res.data;
+ 	            },
+ 	            columns: [{
+ 	            	field: 'status',
+ 	            	checkbox: true,
+ 	            	width: '36',
+ 	            }, {
+ 	            	field: 'sender.username',
+ 	            	title: '发件人',
+ 	            	width: '140',
+ 	            	class: 'mail-td',
+ 	            }, {
+ 	            	field: 'title',
+ 	            	title: '主题',
+ 	            	class: 'mail-td',
+ 	            }, {
+ 	            	field: 'sendTime',
+ 	            	title: '时间',
+ 	            	width: '100',
+ 	            	class: 'mail-td',
+ 	            	formatter: formatDate,
+ 	            }, {
+ 	            	field: 'fileList',
+ 	            	title: '',
+ 	            	width: '16',
+ 	            	class: 'mail-td',
+ 	            	formatter: function(value, row, index) {
+ 	            		if (value.length > 0) {
+ 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
+ 	            		} else {
+ 	            			return '';
+ 	            		}
+ 	            	}
+ 	            }, {
+ 	            	field: 'pointStatus',
+ 	            	title: '',
+ 	            	width: '16',
+ 	            	class: 'mail-td',
+ 	            	formatter: function(value, row, index) {
+ 	            		if (value == 0) {
+ 	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
+ 	            		} else {
+ 	            			return '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
+ 	            		}
+ 	            	}
+ 	            }],
+ 	            showRefresh: false,
+ 	            showColumns: false,
+ 	            clickToSelect: false
+    		});
+    		$inboxTable.bootstrapTable('refresh');
+    		
+    		$inboxTable.on('all.bs.table', function(e, row) {
+                var selNum = $inboxTable.bootstrapTable('getSelections').length;
+                selNum > 0 ? $inbox.find('.btn-mail-point').removeAttr('disabled') : $inbox.find('.btn-mail-point').attr('disabled', 'disabled');
+                selNum > 0 ? $inbox.find('.btn-mail-unpoint').removeAttr('disabled') : $inbox.find('.btn-mail-unpoint').attr('disabled', 'disabled');
+                selNum > 0 ? $inbox.find('.btn-mail-delete').removeAttr('disabled') : $inbox.find('.btn-mail-delete').attr('disabled', 'disabled');
+            });
+    	}
     	
     	$page
-    	.on('click', '.btn-draft-refresh', function() {
-    		$draftTable.bootstrapTable('refresh');
+    	.on('click', '.btn-mail-refresh', function() {
+    		var $table = $(this).closest('.mail-box-header').find('.table-hm');
+    		$table.bootstrapTable('refresh');
     	})
-    	.on('click', '.btn-draft-delete', function() {
-    		
-    	});
+    	.on('click', '.btn-mail-delete', function() {
+    		var $table = $(this).closest('.mail-box-header').find('.table-hm');
+    		swal({
+                title: '',
+                text: '确定删除邮件吗？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $table.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/mail/delete',
+                    data: { 
+                        mailIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+    	})
+    	.on('click', '.btn-mail-deleteCompletely', function() {
+    		swal({
+                title: '',
+                text: '确定彻底删除邮件吗？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $deleteTable.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/mail/deleteCompletely',
+                    data: { 
+                        mailIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '删除成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $deleteTable.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+    	})
+    	.on('click', '.btn-mail-point', function() {
+    		var $this = $(this);
+    		swal({
+                title: '',
+                text: '标记为重要邮件？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+            	var $table = $this.closest('.mail-box-header').find('.table-hm');
+                var rows = $table.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/mail/point',
+                    data: { 
+                        mailIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '标记成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+    	})
+    	.on('click', '.btn-mail-unpoint', function() {
+    		var $this = $(this);
+    		swal({
+                title: '',
+                text: '取消标记重要邮件？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+            	var $table = $this.closest('.mail-box-header').find('.table-hm');
+                var rows = $table.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/mail/unpoint',
+                    data: { 
+                        mailIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '取消标记成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $table.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
+    	})
+    	.on('click', '.point', function(e) {
+   			e.stopPropagation();
+   			var $this = $(this);
+   			var mailId = $this.closest('tr').find('input').val();
+   			var mailIdList = [mailId];
+   			$.ajax({
+   				url: '${ctx}/api/mail/point',
+   				data: { mailIdList: mailIdList },
+                success: function(ret) {
+                	if (ret.code == 0) {
+                		$this.removeClass('fa-star-o').addClass('fa-star');
+                		$this.removeClass('point').addClass('unpoint');
+                    }
+                },
+                error: function(err) {}
+   			});
+   		})
+   		.on('click', '.unpoint', function(e) {
+   			e.stopPropagation();
+   			var $this = $(this);
+   			var mailId = $this.closest('tr').find('input').val();
+   			var mailIdList = [mailId];
+   			$.ajax({
+   				url: '${ctx}/api/mail/unpoint',
+   				data: { mailIdList: mailIdList },
+   				success: function(ret) {
+   					if (ret.code == 0) {
+   						$this.removeClass('fa-star').addClass('fa-star-o');
+                       	$this.removeClass('unpoint').addClass('point');
+                    }
+                },
+                error: function(err) {}
+   			});
+   		})
+   		.on('click', '.mail-td', function() {
+   			var mailId = $(this).closest('tr').find('input').val();
+   			window.location.href = './mailGet?mailId=' + mailId;
+   		});
     	
     	$page
     	.on('click', '.btn-mail-add', function() {

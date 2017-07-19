@@ -23,7 +23,6 @@
 		padding: 6px 12px;
 	}
 	</style>
-	
 </head>
 
 <body class="gray-bg body-appeal-enterprise">
@@ -32,8 +31,6 @@
 			<div class="ibox-title">
 				<h5>诉求中心(企业)</h5>
 			</div>
-			
-			
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="appeal-enterprise-table-toolbar" role="group">
@@ -135,8 +132,8 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var enterpriseId = ${user.enterprise.id};
-		var userId = ${user.id};
+		var enterpriseId = '${user.enterprise.id}';
+		var userId = '${user.id}';
 		
 		var $page = $('.body-appeal-enterprise');
 		var $dialogUrge = $page.find('#modal-appeal-urge-dialog');

@@ -77,7 +77,7 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var departmentId = ${user.department.id};
+		var departmentId = '${user.department.id}';
 		
 		var $page = $('.body-appeal-department');
 		

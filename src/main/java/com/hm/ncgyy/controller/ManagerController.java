@@ -452,6 +452,9 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/appealAdd")
 	String appealAdd(ModelMap modelMap, String method, Long appealId) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("enterpriseId", user.getEnterprise().getId());
+		
 		String title = method.equals("add") ? "诉求新增" : "诉求编辑";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
@@ -584,6 +587,16 @@ public class ManagerController {
 		}
 		
 		return "pages/office/mail_add";
+	}
+	
+	@RequestMapping(value = "/mailGet")
+	String mailGet(ModelMap modelMap, Long mailId) throws IOException {
+		MailEntity mail = mailService.findOne(mailId);
+		String content = commonService.getMailContent(mail.getPath());
+		mail.setContent(content);
+		modelMap.addAttribute("mail", mail);
+		
+		return "pages/office/mail_get";
 	}
 	
 	/**

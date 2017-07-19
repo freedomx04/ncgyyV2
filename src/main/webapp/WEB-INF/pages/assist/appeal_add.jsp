@@ -94,7 +94,7 @@
 		var $page = $('.body-appeal-add');
 		var $form = $page.find('#form-appeal');
 		var method = '${method}';
-		var enterpriseId = 2;
+		var enterpriseId = '${enterpriseId}';
 		
 		$k.util.bsValidator($form);
 		

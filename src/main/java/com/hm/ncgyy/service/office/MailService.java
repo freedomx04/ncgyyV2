@@ -11,9 +11,7 @@ public interface MailService {
 	
 	void save(MailEntity mail);
 	
-	void saveFile(MailFileEntity mailFile);
-	
-	List<MailFileEntity> getFileList(Long mailId);
+	void delete(MailEntity mail);
 	
 	List<MailEntity> listInbox(Long userId);
 	
@@ -24,5 +22,11 @@ public interface MailService {
 	List<MailEntity> listSend(Long userId);
 	
 	List<MailEntity> listDelete(Long userId);
+	
+	void saveFile(MailFileEntity mailFile);
+	
+	List<MailFileEntity> getFileList(Long mailId);
+	
+	void deleteFile(MailFileEntity file);
 	
 }

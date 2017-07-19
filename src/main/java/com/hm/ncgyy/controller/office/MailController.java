@@ -17,7 +17,9 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
+import com.hm.ncgyy.entity.office.MailEntity.DeleteStatus;
 import com.hm.ncgyy.entity.office.MailEntity.MailStatus;
+import com.hm.ncgyy.entity.office.MailEntity.PointStatus;
 import com.hm.ncgyy.entity.office.MailFileEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.UserService;
@@ -44,9 +46,12 @@ public class MailController {
 			Date now = new Date();
 			UserBaseEntity sender = userService.findOneBase(userId);
 			String path = commonService.saveMail(content);
+			
 			MailEntity mail = new MailEntity(receivers, title, path, sender, now, now);
 			mail.setMailStatus(MailStatus.SEND);
+			mail.setSendTime(now);
 			mailService.save(mail);
+			
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
@@ -70,7 +75,7 @@ public class MailController {
 		}
 	}
 
-	@RequestMapping(value = "/api/mail/draft", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/mail/draftAdd", method = RequestMethod.POST)
 	public Result draftAdd(String receivers, String title, String content,
 			@RequestParam("attachmentList") List<String> attachmentList, Long userId) {
 		try {
@@ -170,6 +175,70 @@ public class MailController {
 		try {
 			List<MailEntity> list = mailService.listDelete(userId);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/delete")
+	public Result delete(@RequestParam("mailIdList[]") List<Long> mailIdList) {
+		try {
+			for (Long mailId: mailIdList) {
+				MailEntity mail = mailService.findOne(mailId);
+				mail.setDeleteStatus(DeleteStatus.DELETED);
+				mailService.save(mail);
+			}
+			return new Result(Code.SUCCESS.value(), "deleted");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/deleteCompletely")
+	public Result deleteCompletely(@RequestParam("mailIdList[]") List<Long> mailIdList) {
+		try {
+			for (Long mailId: mailIdList) {
+				MailEntity mail = mailService.findOne(mailId);
+				List<MailFileEntity> fileList = mail.getFileList();
+				for (MailFileEntity file: fileList) {
+					commonService.deleteFile(file.getFilepath());
+					mailService.deleteFile(file);
+				}
+				mailService.delete(mail);
+			}
+			return new Result(Code.SUCCESS.value(), "deleted");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/point")
+	public Result point(@RequestParam("mailIdList[]") List<Long> mailIdList) {
+		try {
+			for (Long mailId: mailIdList) {
+				MailEntity mail = mailService.findOne(mailId);
+				mail.setPointStatus(PointStatus.POINT);
+				mailService.save(mail);
+			}
+			return new Result(Code.SUCCESS.value(), "point");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/unpoint")
+	public Result unpoint(@RequestParam("mailIdList[]") List<Long> mailIdList) {
+		try {
+			for (Long mailId: mailIdList) {
+				MailEntity mail = mailService.findOne(mailId);
+				mail.setPointStatus(PointStatus.UNPOINT);
+				mailService.save(mail);
+			}
+			return new Result(Code.SUCCESS.value(), "unpoint");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
