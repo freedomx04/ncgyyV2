@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
+import com.hm.ncgyy.common.utils.CommonUtils;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.DeleteStatus;
@@ -55,7 +56,8 @@ public class MailController {
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
-				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, now, now);
+				String fileIcon = CommonUtils.getIcon(filename);
+				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, fileIcon, now, now);
 				mailService.saveFile(mailFile);
 			}
 
@@ -89,7 +91,8 @@ public class MailController {
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
-				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, now, now);
+				String fileIcon = CommonUtils.getIcon(filename);
+				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, fileIcon, now, now);
 				mailService.saveFile(mailFile);
 			}
 
@@ -115,7 +118,8 @@ public class MailController {
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
-				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, now, now);
+				String fileIcon = CommonUtils.getIcon(filename);
+				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, fileIcon, now, now);
 				mailService.saveFile(mailFile);
 			}
 

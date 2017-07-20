@@ -85,7 +85,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'authority-area')}">
-								<li><a class="J_menuItem" href="area">园区管理</a></li>
+								<li><a class="J_menuItem" href="area" data-index="32">园区管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-industry')}">
 								<li><a class="J_menuItem" href="industry">行业管理</a></li>
@@ -326,7 +326,7 @@
 						</li>
 					</ul>
 				</div>
-				 <a href="javascript:;" class="roll-nav roll-right J_tabExit btn-logout"><i class="fa fa fa-sign-out"></i> 退出</a>
+				 <a href="javascript:;" class="roll-nav roll-right J_tabExit btn-logout"><i class="fa fa-sign-out fa-fw"></i>退出</a>
 			</div>
 			
 			<!-- 主窗口 -->

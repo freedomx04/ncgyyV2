@@ -6,6 +6,10 @@
 	font-size: 18px;
 }
 
+.btn-white:hover {
+	background: #fafafa;
+}
+
 .gohome {
 	display: none;
 }
@@ -87,3 +91,4 @@
 .nav-tabs>li>a {
 	font-weight: normal;
 }
+

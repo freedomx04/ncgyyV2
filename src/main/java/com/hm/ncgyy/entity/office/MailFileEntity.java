@@ -28,15 +28,21 @@ public class MailFileEntity extends BaseEntity {
 	 */
 	private String filepath;
 	
+	/**
+	 * 文件图标
+	 */
+	private String fileIcon;
+	
 	public MailFileEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MailFileEntity(Long mailId, String filename, String filepath, Date createTime, Date updateTime) {
+	public MailFileEntity(Long mailId, String filename, String filepath, String fileIcon, Date createTime, Date updateTime) {
 		super();
 		this.mailId = mailId;
 		this.filename = filename;
 		this.filepath = filepath;
+		this.fileIcon = fileIcon;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -63,6 +69,14 @@ public class MailFileEntity extends BaseEntity {
 
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
+	}
+
+	public String getFileIcon() {
+		return fileIcon;
+	}
+
+	public void setFileIcon(String fileIcon) {
+		this.fileIcon = fileIcon;
 	}
 	
 }

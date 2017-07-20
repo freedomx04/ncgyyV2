@@ -42,5 +42,40 @@ public class CommonUtils {
 
 		return stringBuffer.toString();
 	}
+	
+	public static String getIcon(String filename) {
+		String icon = "fa-file";
+		String suffix = filename.substring(filename.lastIndexOf(".") + 1);
+		switch (suffix) {
+		case "doc":case "docx":
+			icon = "fa-file-word-o";
+			break;
+		case "xls":case "xlsx":
+			icon = "fa-file-excel-o";
+			break;
+		case "pdf":
+			icon = "fa-file-pdf-o";
+			break;
+		case "txt":
+			icon = "fa-file-text-o";
+			break;
+		case "ppt":case "pptx":
+			icon = "fa-file-powerpoint-o";
+			break;
+		case "zip":case "rar":case "z":
+			icon = "fa-file-zip-o";
+			break;
+		case "avi":case "mov":case "mp4":case "rmvb":case "rm":case "wma":
+			icon = "fa-file-video-o";
+			break;
+		case "jpg":case "png":case "bmp":case "tiff":case "gif":case "tif":
+			icon = "fa-file-image-o";
+			break;
+		default:
+			break;
+		}
+		
+		return icon;
+	}
 
 }

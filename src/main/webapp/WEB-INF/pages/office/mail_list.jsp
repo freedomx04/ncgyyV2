@@ -29,13 +29,10 @@
 	.nav-tabs>li>a {
 		color: #76838f;
 	}
-	.body-mail .mail-td {
-		cursor: pointer; 
-		border-left: none;
-		border-right: none;
-	}
-	.body-mail .mail-td .mail-point {
-		color: #C7284A;
+	.body-mail th,
+	.body-mail td {
+		border-left: none!important;
+		border-right: none!important;
 	}
 	.body-mail .mail-td .mail-unread {
 		font-weight: 700;
@@ -185,7 +182,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
-    
+	
     <script type="text/javascript">
     ;(function( $ ) {
     	
@@ -224,22 +221,21 @@
 	   					field: 'sender.username',
 	   					title: '发件人',
 	   					width: '140',
-	   					class: 'mail-td',
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
-	   					class: 'mail-td',
+	   					formatter: function(value, row, index) {
+	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	 	            	}
 	   				}, {
 	   					field: 'sendTime',
 	   					title: '发件时间',
 	   					width: '100',
 	   					formatter: formatDate,
-	   					class: 'mail-td'
 	   				}, {
 	 	            	field: 'fileList',
 	 	            	title: '',
 	 	            	width: '16',
-	 	            	class: 'mail-td',
 	 	            	formatter: function(value, row, index) {
 	 	            		if (value.length > 0) {
 	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
@@ -251,7 +247,6 @@
 	 	            	field: 'pointStatus',
 	 	            	title: '',
 	 	            	width: '16',
-	 	            	class: 'mail-td',
 	 	            	formatter: function(value, row, index) {
 	 	            		if (value == 0) {
 	 	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
@@ -286,26 +281,22 @@
 	   				}, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					align: 'center',
 	   					width: '140',
-	   					class: 'mail-td'
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
-	   					align: 'center',
-	   					class: 'mail-td'
+	   					formatter: function(value, row, index) {
+	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	 	            	}
 	   				}, {
 	   					field: 'updateTime',
 	   					title: '创建时间',
-	   					align: 'center',
 	   					width: '140',
 	   					formatter: formatDate,
-	   					class: 'mail-td'
 	   				}, {
 	 	            	field: 'fileList',
 	 	            	title: '',
 	 	            	width: '16',
-	 	            	class: 'mail-td',
 	 	            	formatter: function(value, row, index) {
 	 	            		if (value.length > 0) {
 	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
@@ -339,26 +330,22 @@
 	   				}, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					align: 'center',
 	   					width: '140',
-	   					class: 'mail-td'
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
-	   					align: 'center',
-	   					class: 'mail-td'
+	   					formatter: function(value, row, index) {
+	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	 	            	}
 	   				}, {
 	   					field: 'sendTime',
 	   					title: '发件时间',
-	   					align: 'center',
 	   					width: '140',
 	   					formatter: formatDate,
-	   					class: 'mail-td'
 	   				}, {
 	 	            	field: 'fileList',
 	 	            	title: '',
 	 	            	width: '16',
-	 	            	class: 'mail-td',
 	 	            	formatter: function(value, row, index) {
 	 	            		if (value.length > 0) {
 	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
@@ -393,22 +380,21 @@
 	   					field: 'sender.username',
 	   					title: '发件人',
 	   					width: '140',
-	   					class: 'mail-td'
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
-	   					class: 'mail-td'
+	   					formatter: function(value, row, index) {
+	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	 	            	}
 	   				}, {
 	   					field: 'updateTime',
 	   					title: '创建时间',
 	   					width: '100',
 	   					formatter: formatDate,
-	   					class: 'mail-td'
 	   				}, {
 	 	            	field: 'fileList',
 	 	            	title: '',
 	 	            	width: '16',
-	 	            	class: 'mail-td',
 	 	            	formatter: function(value, row, index) {
 	 	            		if (value.length > 0) {
 	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
@@ -420,7 +406,6 @@
 	   					field: 'mailStatus',
 	   					title: '',
 	   					width: '70',
-	   					class: 'mail-td',
 	   					formatter: function(value, row, index) {
 	   						switch (value) {
 	   						case 1:
@@ -462,22 +447,21 @@
  	            	field: 'sender.username',
  	            	title: '发件人',
  	            	width: '140',
- 	            	class: 'mail-td',
  	            }, {
  	            	field: 'title',
  	            	title: '主题',
- 	            	class: 'mail-td',
+ 	            	formatter: function(value, row, index) {
+ 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+ 	            	}
  	            }, {
  	            	field: 'sendTime',
  	            	title: '时间',
  	            	width: '100',
- 	            	class: 'mail-td',
  	            	formatter: formatDate,
  	            }, {
  	            	field: 'fileList',
  	            	title: '',
  	            	width: '16',
- 	            	class: 'mail-td',
  	            	formatter: function(value, row, index) {
  	            		if (value.length > 0) {
  	            			return '<i class="fa fa-paperclip" title="附件"></i>';
@@ -489,7 +473,6 @@
  	            	field: 'pointStatus',
  	            	title: '',
  	            	width: '16',
- 	            	class: 'mail-td',
  	            	formatter: function(value, row, index) {
  	            		if (value == 0) {
  	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
@@ -513,6 +496,9 @@
     	}
     	
     	$page
+    	.on('click', '.btn-mail-add', function() {
+    		window.location.href = './mailAdd?method=add';
+    	});
     	.on('click', '.btn-mail-refresh', function() {
     		var $table = $(this).closest('.mail-box-header').find('.table-hm');
     		$table.bootstrapTable('refresh');
@@ -671,16 +657,7 @@
                 },
                 error: function(err) {}
    			});
-   		})
-   		.on('click', '.mail-td', function() {
-   			var mailId = $(this).closest('tr').find('input').val();
-   			window.location.href = './mailGet?mailId=' + mailId;
    		});
-    	
-    	$page
-    	.on('click', '.btn-mail-add', function() {
-    		window.location.href = './mailAdd?method=add';
-    	});
     	
     })( jQuery );
     </script>
