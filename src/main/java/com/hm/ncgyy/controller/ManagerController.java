@@ -466,7 +466,6 @@ public class ManagerController {
 			AppealEntity appeal = appealService.findOne(appealId);
 			modelMap.addAttribute("appeal", appeal);
 		}
-		
 		return "pages/assist/appeal_add";
 	}
 	

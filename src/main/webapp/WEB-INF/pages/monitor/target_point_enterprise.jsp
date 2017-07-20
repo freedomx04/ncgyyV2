@@ -382,6 +382,10 @@
 				};
 	    	// 为echarts对象加载数据 
 	        myChart.setOption(option);
+	    	
+	        window.addEventListener("resize",function(){
+	            myChart.resize();
+	        });
 		} 
     	
     	

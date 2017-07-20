@@ -39,7 +39,7 @@ public class AppealServiceImpl implements AppealService {
 
 	@Override
 	public Page<AppealEntity> listPaging(int page, int size) {
-		return appealRepository.findAll(new PageRequest(page, size));
+		return appealRepository.findAllByOrderByUpdateTimeDesc(new PageRequest(page, size));
 	}
 	
 	@Override
