@@ -196,9 +196,8 @@
             			return $detail + $urge;
             		case 4:
             			return $detail + $confirm;
-            		case 5:
+            		case 5:case 6:
             			return $detail;
-            		case 6:
             		}
             	},
             	events: window.operateEvents = {
@@ -278,7 +277,7 @@
             			e.stopPropagation();
             			$dialogEvaluation.data('appealId', row.id);
             			$dialogEvaluation.find('textarea[name="content"]').val('');
-            			$k.util.raty($dialogEvaluation.find('.evaluation-star'));
+            			$k.util.raty($dialogEvaluation.find('.evaluation-star'), 5);
             			$dialogEvaluation.modal('show');
             		}
             	}

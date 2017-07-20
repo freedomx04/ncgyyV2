@@ -452,6 +452,9 @@ public class ManagerController {
 	
 	@RequestMapping(value = "/appealAdd")
 	String appealAdd(ModelMap modelMap, String method, Long appealId) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("enterpriseId", user.getEnterprise().getId());
+		
 		String title = method.equals("add") ? "诉求新增" : "诉求编辑";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
@@ -463,7 +466,6 @@ public class ManagerController {
 			AppealEntity appeal = appealService.findOne(appealId);
 			modelMap.addAttribute("appeal", appeal);
 		}
-		
 		return "pages/assist/appeal_add";
 	}
 	

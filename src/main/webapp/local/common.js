@@ -122,9 +122,9 @@
 	/**
 	 * 评价星级
 	 */
-	$k.util.raty = function($obj, param) {
+	$k.util.raty = function($obj, star, param) {
 		var defaultParam = $.extend({
-			score	: 	5,
+			score	: 	star,
 			path	: 	'plugins/raty/images/'
 		}, param);
 		$obj.raty(defaultParam);

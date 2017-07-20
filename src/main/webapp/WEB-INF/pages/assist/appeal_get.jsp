@@ -49,8 +49,9 @@
             		<dt>企业名称</dt><dd>${appeal.enterprise.name}</dd>
             		<dt>诉求描述</dt><dd>${appeal.description}</dd>
             		<dt>创建时间</dt><dd><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>发送时间</dt><dd><fmt:formatDate value="${appeal.sendTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
             		
-            		<dt>派单时间</dt><dd><fmt:formatDate value="${appeal.sendTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
+            		<dt>派单时间</dt><dd><fmt:formatDate value="${appeal.dispatchTime}" pattern="yyyy-MM-dd HH:mm"/></dd>
             		<dt>派单意见</dt><dd>${appeal.dispatchOpinion}</dd>
             		
             		<dt>处理部门</dt><dd>${appeal.department.name}</dd>
@@ -138,7 +139,7 @@
 		$page.find('.evaluation-star').each(function(k, val) {
 			var $star = $(val);
 			var star = $star.data('star');
-			$k.util.raty($star, {
+			$k.util.raty($star, star, {
 				readOnly: true
 			});
 		});
