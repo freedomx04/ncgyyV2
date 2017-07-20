@@ -206,11 +206,12 @@
 						$.each(ret.data, function(key, val) {
 							var statusData = [];
 							$.each(val, function(ky, vl) {
-								if(ky != 0 && ky != 1) {
+								//去掉新增的状态
+								if(ky != 0) {
 									statusData.push(vl.length);
 								}
 							})
-							seriesData.push({name: key, type: 'bar', data: statusData});
+							seriesData.push({name: key, type: 'bar', stack: '诉求', data: statusData});
 							legendData.push(key);
 			            });
 						
@@ -235,7 +236,7 @@
 							    xAxis : [
 							        {
 							            type : 'category',
-							            data : ['待处理', '处理中', '待确认', '办结', '驳回']
+							            data : ['待派发', '待处理', '处理中', '待确认', '办结', '驳回']
 							        },
 							        {
 							            type : 'category',
@@ -244,7 +245,7 @@
 							            axisLabel: {show:false},
 							            splitArea: {show:false},
 							            splitLine: {show:false},
-							            data : ['待处理', '处理中', '待确认', '办结', '驳回']
+							            data : ['待派发', '待处理', '处理中', '待确认', '办结', '驳回']
 							        }
 							    ],
 							    yAxis : [
@@ -256,6 +257,9 @@
 							    series : seriesData
 							};
 						myChart.setOption(option);
+						window.addEventListener("resize",function(){
+				            myChart.resize();
+				        });
 					}
 				},
 				error: function(err) {}
@@ -320,6 +324,9 @@
 							    ]
 							};
 						myChart.setOption(option);
+						window.addEventListener("resize",function(){
+				            myChart.resize();
+				        });
 					}
 				},
 				error: function(err) {}

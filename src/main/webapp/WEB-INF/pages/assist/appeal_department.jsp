@@ -138,7 +138,7 @@
                     case 2:
                     	return $detail + $accept + $reject;
                     case 3:
-                    	return $detail + $handle + $reject;
+                    	return $detail + $handle;
                     case 4:case 5:case 6:
                     	return $detail;
                     }

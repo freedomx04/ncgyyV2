@@ -270,9 +270,6 @@ public class AppealController {
 			AppealEntity appeal = appealService.findOne(appealId);
 			appeal.setStatus(AppealStatus.REJECT);
 			appeal.setRejectOpinion(rejectOpinion);
-			Date now = new Date();
-			appeal.setAcceptTime(now);
-			appeal.setHandleTime(now);
 			appealService.save(appeal);
 			
 			return new Result(Code.SUCCESS.value(), "ok");
