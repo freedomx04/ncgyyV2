@@ -82,15 +82,18 @@
                     
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-1">
+                        	<c:if test="${method == 'add'}">
                             <button type="button" class="btn btn-primary btn-mail-send">
                                 <i class="fa fa-send-o fa-fw"></i>发送
                             </button>
-                            <c:if test="${method == 'add'}">
                             <button type="button" class="btn btn-white btn-mail-draft-add">
                                 <i class="fa fa-pencil fa-fw"></i>存草稿
                             </button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
+                            <button type="button" class="btn btn-primary btn-mail-draft-send">
+                                <i class="fa fa-send-o fa-fw"></i>发送
+                            </button>
                             <button type="button" class="btn btn-white btn-mail-draft-edit">
                                 <i class="fa fa-pencil fa-fw"></i>存草稿
                             </button>
@@ -229,7 +232,7 @@
                         if (ret.code == 0) {
                             swal({
                                 title: '',
-                                text: '操作成功',
+                                text: '保存成功',
                                 type: 'success'
                             }, function() {
                                 window.location.href = './mailList';
@@ -240,6 +243,52 @@
                     },
                     error: function(err) {}
                 });
+			}
+		})
+		.on('click', '.btn-mail-draft-send', function() {
+			var validator = $form.data('bootstrapValidator');
+			validator.validate();
+			
+			if (validator.isValid()) {
+				var formData = new FormData($form[0]);
+				formData.append('mailId', '${mail.id}');
+				var userList = $form.find('.chosen-select').val();
+				formData.append('receivers', userList.join(','));
+				formData.append('content', $('#summernote').summernote('code'));
+				
+				var attachmentList = new Array();
+				$form.find('.attachment-list li').each(function(k, elem) {
+					var fileid = $(elem).data('fileid');
+					if (!fileid) {
+						var filename = $(elem).data('filename');
+						var filepath = $(elem).data('filepath');
+						attachmentList.push(filename + '?' + filepath);
+					}
+				});
+				formData.append('attachmentList', attachmentList);
+				
+				$.ajax({
+					url: '${ctx}/api/mail/draftSend',
+					type: 'post',
+					data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false, 
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal({
+                                title: '',
+                                text: '发送成功',
+                                type: 'success'
+                            }, function() {
+                                window.location.href = './mailList';
+                            });
+                        } else {
+                            swal('', '操作失败', 'error');
+                        }
+                    },
+                    error: function(err) {}
+				});
 			}
 		})
 		.on('click', '.btn-mail-draft-edit', function() {
@@ -275,7 +324,7 @@
                         if (ret.code == 0) {
                             swal({
                                 title: '',
-                                text: '操作成功',
+                                text: '保存成功',
                                 type: 'success'
                             }, function() {
                                 window.location.href = './mailList';
@@ -289,7 +338,7 @@
 			}
 		})
 		.on('click', '.btn-mail-cancel', function() {
-			window.location.href = './mailList';
+			window.history.back();
 		});
 		
 	})( jQuery );

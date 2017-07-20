@@ -129,6 +129,43 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/mail/draftSend", method = RequestMethod.POST)
+	public Result draftSend(Long mailId, String receivers, String title, String content, @RequestParam("attachmentList") List<String> attachmentList) {
+		try {
+			Date now = new Date();
+			MailEntity mail = mailService.findOne(mailId);
+			mail.setReceivers(receivers);
+			mail.setTitle(title);
+			commonService.updateMail(mail.getPath(), content);
+			mail.setMailStatus(MailStatus.SEND);
+			mail.setUpdateTime(now);
+			mail.setSendTime(now);
+			mailService.save(mail);
+			
+			for (String attachment : attachmentList) {
+				String filename = StringUtils.split(attachment, "?")[0];
+				String filepath = StringUtils.split(attachment, "?")[1];
+				String fileIcon = CommonUtils.getIcon(filename);
+				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, fileIcon, now, now);
+				mailService.saveFile(mailFile);
+			}
+			
+			List<MailFileEntity> fileList = mailService.getFileList(mail.getId());
+			// 发送邮件
+			for (String username: receivers.split(",")) {
+				UserBaseEntity receiver = userService.findByUsernameBase(username);
+				MailEntity receiveMail = new MailEntity(receivers, title, mail.getPath(), fileList, mail.getSender(), receiver, now, now, now);
+				receiveMail.setMailStatus(MailStatus.RECEIVE);
+				mailService.save(receiveMail);
+			}
+			
+			return new Result(Code.SUCCESS.value(), "send success");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 	@RequestMapping(value = "/api/mail/listInbox")
 	public Result listInbox(Long userId) {
@@ -243,6 +280,21 @@ public class MailController {
 				mailService.save(mail);
 			}
 			return new Result(Code.SUCCESS.value(), "unpoint");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/recovery")
+	public Result read(@RequestParam("mailIdList[]") List<Long> mailIdList) {
+		try {
+			for (Long mailId: mailIdList) {
+				MailEntity mail = mailService.findOne(mailId);
+				mail.setDeleteStatus(DeleteStatus.NOT_DELETE);
+				mailService.save(mail);
+			}
+			return new Result(Code.SUCCESS.value(), "ok");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

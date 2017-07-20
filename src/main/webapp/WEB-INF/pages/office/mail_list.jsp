@@ -34,8 +34,12 @@
 		border-left: none!important;
 		border-right: none!important;
 	}
-	.body-mail .mail-td .mail-unread {
+	.body-mail .mail-unread {
 		font-weight: 700;
+	}
+	.body-mail .point,
+	.body-mail .unpoint {
+		cursor: pointer;
 	}
 	</style>
 	
@@ -160,6 +164,9 @@
 									<button type="button" class="btn btn-white btn-sm btn-mail-refresh">
 				                        <i class="fa fa-refresh fa-fw"></i>刷新
 				                    </button>
+				                    <button type="button" class="btn btn-white btn-sm btn-mail-recovery">
+				                        <i class="fa fa-repeat fa-fw"></i>恢复
+				                    </button>
 									<button type="button" class="btn btn-white btn-sm btn-mail-deleteCompletely" disabled='disabled'>
 				                        <i class="fa fa-trash-o fa-fw"></i>彻底删除
 				                    </button>				                    
@@ -182,13 +189,14 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
     <script type="text/javascript">
     ;(function( $ ) {
     	
     	var $page = $('.body-mail');
-    	//var userId = '${user.id}';
-    	var userId = 9;
+    	var userId = '${user.id}';
+    	//var userId = 9;
     	
     	var $inbox = $page.find('#mail-inbox');
     	var $point = $page.find('#mail-point');
@@ -197,14 +205,78 @@
     	var $delete = $page.find('#mail-delete');
     	var $inboxTable, $pointTable, $draftTable, $sendTable, $deleteTable;
     	
-    	initInbox();
+    	var option = Url.queryString("tab");
+    	if (!option) {
+    		option = 'inbox';
+    	}
+    	$page.find('a[data-option="' + option + '"]').tab('show');
+    	initTable(option);
     	
-    	$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-    		var $this = $(this);
-    		var option = $this.data('option');
+    	function initTable(option) {
     		switch (option) {
     		case 'inbox':
-    			initInbox();
+    			$inboxTable = $k.util.bsTable($page.find('#mail-inbox-table'), {
+        			url: '${ctx}/api/mail/listInbox?userId=' + userId,
+        			toolbar: '#mail-inbox-table-toolbar',
+        			idField: 'id',
+        			responseHandler: function(res) {
+     	                return res.data;
+     	            },
+     	            columns: [{
+     	            	field: 'status',
+     	            	checkbox: true,
+     	            	width: '36',
+     	            }, {
+     	            	field: 'readStatus',
+     	            	width: '16',
+     	            	formatter: function(value, row, index) {
+     	            		return value == 0 ? '<i class="fa fa-envelope" title="未读"></i>' : '';
+     	            	}
+     	            }, {
+     	            	field: 'sender.username',
+     	            	title: '发件人',
+     	            	width: '120',
+     	            	formatter: function(value, row, index) {
+     	            		return row.readStatus == 0 ? '<span class="mail-unread">' + value + '</span>' : value; 
+     	            	}
+     	            }, {
+     	            	field: 'pointStatus',
+     	            	width: '16',
+     	            	formatter: function(value, row, index) {
+     	            		return value == 0 ? '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>' : '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
+     	            	}
+     	            }, {
+     	            	field: 'title',
+     	            	title: '主题',
+     	            	formatter: function(value, row, index) {
+     	            		return row.readStatus == 0 
+     	            			? '<a class="mail-unread" href="./mailGet?mailId=' + row.id + '">' + value + '</a>'
+     	            			: '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+     	            	}
+     	            }, {
+     	            	field: 'fileList',
+     	            	width: '16',
+     	            	formatter: function(value, row, index) {
+     	            		return value.length > 0 ? '<i class="fa fa-paperclip" title="附件"></i>' : '';
+     	            	}
+     	            }, {
+     	            	field: 'sendTime',
+     	            	title: '时间',
+     	            	width: '100',
+     	            	formatter: formatDate,
+     	            }],
+     	            showRefresh: false,
+     	            showColumns: false,
+     	            clickToSelect: false
+        		});
+        		$inboxTable.bootstrapTable('refresh');
+        		
+        		$inboxTable.on('all.bs.table', function(e, row) {
+                    var selNum = $inboxTable.bootstrapTable('getSelections').length;
+                    selNum > 0 ? $inbox.find('.btn-mail-point').removeAttr('disabled') : $inbox.find('.btn-mail-point').attr('disabled', 'disabled');
+                    selNum > 0 ? $inbox.find('.btn-mail-unpoint').removeAttr('disabled') : $inbox.find('.btn-mail-unpoint').attr('disabled', 'disabled');
+                    selNum > 0 ? $inbox.find('.btn-mail-delete').removeAttr('disabled') : $inbox.find('.btn-mail-delete').attr('disabled', 'disabled');
+                });
     			break;
     		case 'point':
     			$pointTable = $k.util.bsTable($page.find('#mail-point-table'), {
@@ -218,43 +290,44 @@
      					field: 'status',
      					checkbox: true
 	   				}, {
+     	            	field: 'readStatus',
+     	            	width: '16',
+     	            	formatter: function(value, row, index) {
+     	            		return value == 0 ? '<i class="fa fa-envelope" title="未读"></i>' : '';
+     	            	}
+     	            }, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					width: '140',
+	   					width: '120',
+	   					formatter: function(value, row, index) {
+     	            		return row.readStatus == 0 ? '<span class="mail-unread">' + value + '</span>' : value; 
+     	            	}
 	   				}, {
+	 	            	field: 'pointStatus',
+	 	            	width: '16',
+	 	            	formatter: function(value, row, index) {
+	 	            		return value == 0 ? '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>' : '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
+	 	            	}
+	 	            },{
 	   					field: 'title',
 	   					title: '主题',
 	   					formatter: function(value, row, index) {
-	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	   						return row.readStatus == 0 
+ 	            				? '<a class="mail-unread" href="./mailGet?mailId=' + row.id + '">' + value + '</a>'
+ 	            				: '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
 	 	            	}
-	   				}, {
-	   					field: 'sendTime',
-	   					title: '发件时间',
-	   					width: '100',
-	   					formatter: formatDate,
 	   				}, {
 	 	            	field: 'fileList',
-	 	            	title: '',
 	 	            	width: '16',
 	 	            	formatter: function(value, row, index) {
-	 	            		if (value.length > 0) {
-	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
-	 	            		} else {
-	 	            			return '';
-	 	            		}
+	 	            		return value.length > 0 ? '<i class="fa fa-paperclip" title="附件"></i>' : '';
 	 	            	}
 	 	            }, {
-	 	            	field: 'pointStatus',
-	 	            	title: '',
-	 	            	width: '16',
-	 	            	formatter: function(value, row, index) {
-	 	            		if (value == 0) {
-	 	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
-	 	            		} else {
-	 	            			return '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
-	 	            		}
-	 	            	}
-	 	            }],
+	   					field: 'sendTime',
+	   					title: '时间',
+	   					width: '100',
+	   					formatter: formatDate,
+	   				}],
 	   				showRefresh: false,
      				showColumns: false,
      				clickToSelect: false
@@ -281,30 +354,25 @@
 	   				}, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					width: '140',
+	   					width: '120',
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
 	   					formatter: function(value, row, index) {
-	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
+	 	            		return '<a href="./mailAdd?method=edit&mailId=' + row.id + '">' + value + '</a>';
 	 	            	}
-	   				}, {
-	   					field: 'updateTime',
-	   					title: '创建时间',
-	   					width: '140',
-	   					formatter: formatDate,
 	   				}, {
 	 	            	field: 'fileList',
-	 	            	title: '',
 	 	            	width: '16',
 	 	            	formatter: function(value, row, index) {
-	 	            		if (value.length > 0) {
-	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
-	 	            		} else {
-	 	            			return '';
-	 	            		}
+	 	            		return value.length > 0 ? '<i class="fa fa-paperclip" title="附件"></i>' : '';
 	 	            	}
-	 	            }],
+	 	            }, {
+	   					field: 'updateTime',
+	   					title: '时间',
+	   					width: '120',
+	   					formatter: formatDate,
+	   				}],
 	   				showRefresh: false,
      				showColumns: false,
      				clickToSelect: false
@@ -330,7 +398,7 @@
 	   				}, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					width: '140',
+	   					width: '120',
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
@@ -338,22 +406,17 @@
 	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
 	 	            	}
 	   				}, {
-	   					field: 'sendTime',
-	   					title: '发件时间',
-	   					width: '140',
-	   					formatter: formatDate,
-	   				}, {
 	 	            	field: 'fileList',
-	 	            	title: '',
 	 	            	width: '16',
 	 	            	formatter: function(value, row, index) {
-	 	            		if (value.length > 0) {
-	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
-	 	            		} else {
-	 	            			return '';
-	 	            		}
+	 	            		return value.length > 0 ? '<i class="fa fa-paperclip" title="附件"></i>' : '';
 	 	            	}
-	 	            }],
+	 	            }, {
+	   					field: 'sendTime',
+	   					title: '时间',
+	   					width: '120',
+	   					formatter: formatDate,
+	   				}],
 	   				showRefresh: false,
      				showColumns: false,
      				clickToSelect: false
@@ -377,9 +440,15 @@
      					field: 'status',
      					checkbox: true
 	   				}, {
+     	            	field: 'readStatus',
+     	            	width: '16',
+     	            	formatter: function(value, row, index) {
+     	            		return value == 0 ? '<i class="fa fa-envelope" title="未读"></i>' : '';
+     	            	}
+     	            }, {
 	   					field: 'sender.username',
 	   					title: '发件人',
-	   					width: '140',
+	   					width: '120',
 	   				}, {
 	   					field: 'title',
 	   					title: '主题',
@@ -387,22 +456,17 @@
 	 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
 	 	            	}
 	   				}, {
+	 	            	field: 'fileList',
+	 	            	width: '16',
+	 	            	formatter: function(value, row, index) {
+	 	            		return value.length > 0 ? '<i class="fa fa-paperclip" title="附件"></i>' : '';
+	 	            	}
+	 	            }, {
 	   					field: 'updateTime',
-	   					title: '创建时间',
+	   					title: '时间',
 	   					width: '100',
 	   					formatter: formatDate,
 	   				}, {
-	 	            	field: 'fileList',
-	 	            	title: '',
-	 	            	width: '16',
-	 	            	formatter: function(value, row, index) {
-	 	            		if (value.length > 0) {
-	 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
-	 	            		} else {
-	 	            			return '';
-	 	            		}
-	 	            	}
-	 	            }, {
 	   					field: 'mailStatus',
 	   					title: '',
 	   					width: '70',
@@ -425,80 +489,24 @@
     			
     			$deleteTable.on('all.bs.table', function(e, row) {
     	            var selNum = $deleteTable.bootstrapTable('getSelections').length;
+    			 	selNum > 0 ? $delete.find('.btn-mail-recovery').removeAttr('disabled') : $delete.find('.btn-mail-recovery').attr('disabled', 'disabled');
     	            selNum > 0 ? $delete.find('.btn-mail-deleteCompletely').removeAttr('disabled') : $delete.find('.btn-mail-deleteCompletely').attr('disabled', 'disabled');
     	        }); 
     			break;
+    		default:
+    			break;
     		}
-    	});
-    	
-    	function initInbox() {
-    		$inboxTable = $k.util.bsTable($page.find('#mail-inbox-table'), {
-    			url: '${ctx}/api/mail/listInbox?userId=' + userId,
-    			toolbar: '#mail-inbox-table-toolbar',
-    			idField: 'id',
-    			responseHandler: function(res) {
- 	                return res.data;
- 	            },
- 	            columns: [{
- 	            	field: 'status',
- 	            	checkbox: true,
- 	            	width: '36',
- 	            }, {
- 	            	field: 'sender.username',
- 	            	title: '发件人',
- 	            	width: '140',
- 	            }, {
- 	            	field: 'title',
- 	            	title: '主题',
- 	            	formatter: function(value, row, index) {
- 	            		return '<a href="./mailGet?mailId=' + row.id + '">' + value + '</a>';
- 	            	}
- 	            }, {
- 	            	field: 'sendTime',
- 	            	title: '时间',
- 	            	width: '100',
- 	            	formatter: formatDate,
- 	            }, {
- 	            	field: 'fileList',
- 	            	title: '',
- 	            	width: '16',
- 	            	formatter: function(value, row, index) {
- 	            		if (value.length > 0) {
- 	            			return '<i class="fa fa-paperclip" title="附件"></i>';
- 	            		} else {
- 	            			return '';
- 	            		}
- 	            	}
- 	            }, {
- 	            	field: 'pointStatus',
- 	            	title: '',
- 	            	width: '16',
- 	            	formatter: function(value, row, index) {
- 	            		if (value == 0) {
- 	            			return '<i class="fa fa-star-o fa-fw point" title="标记星标"></i>';
- 	            		} else {
- 	            			return '<i class="fa fa-star fa-fw unpoint" title="取消星标"></i>';
- 	            		}
- 	            	}
- 	            }],
- 	            showRefresh: false,
- 	            showColumns: false,
- 	            clickToSelect: false
-    		});
-    		$inboxTable.bootstrapTable('refresh');
-    		
-    		$inboxTable.on('all.bs.table', function(e, row) {
-                var selNum = $inboxTable.bootstrapTable('getSelections').length;
-                selNum > 0 ? $inbox.find('.btn-mail-point').removeAttr('disabled') : $inbox.find('.btn-mail-point').attr('disabled', 'disabled');
-                selNum > 0 ? $inbox.find('.btn-mail-unpoint').removeAttr('disabled') : $inbox.find('.btn-mail-unpoint').attr('disabled', 'disabled');
-                selNum > 0 ? $inbox.find('.btn-mail-delete').removeAttr('disabled') : $inbox.find('.btn-mail-delete').attr('disabled', 'disabled');
-            });
     	}
     	
     	$page
+    	.on('click', 'a[data-toggle="tab"]', function() {
+    		var option = $(this).data('option');
+    		Url.updateSearchParam("tab", option);
+    		initTable(option);
+    	})
     	.on('click', '.btn-mail-add', function() {
     		window.location.href = './mailAdd?method=add';
-    	});
+    	})
     	.on('click', '.btn-mail-refresh', function() {
     		var $table = $(this).closest('.mail-box-header').find('.table-hm');
     		$table.bootstrapTable('refresh');
@@ -657,6 +665,35 @@
                 },
                 error: function(err) {}
    			});
+   		})
+   		.on('click', '.btn-mail-recovery', function() {
+   			swal({
+                title: '',
+                text: '确定恢复选中的删除邮件吗？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+                var rows = $deleteTable.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/mail/recovery',
+                    data: { 
+                        mailIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                            swal('', '恢复成功!', 'success');
+						} else {
+                            swal('', ret.msg, 'error');
+                        }
+                        $deleteTable.bootstrapTable('refresh'); 
+                    },
+                    error: function(err) {}
+                });
+            });
    		});
     	
     })( jQuery );

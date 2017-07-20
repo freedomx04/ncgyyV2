@@ -26,6 +26,7 @@ import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
+import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.service.CommonService;
@@ -571,7 +572,7 @@ public class ManagerController {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		
-		String title = method.equals("add") ? "写信" : "";
+		String title = method.equals("add") ? "写信" : "草稿";
 		modelMap.addAttribute("title", title);
 		modelMap.addAttribute("method", method);
 		
@@ -591,6 +592,11 @@ public class ManagerController {
 	@RequestMapping(value = "/mailGet")
 	String mailGet(ModelMap modelMap, Long mailId) throws IOException {
 		MailEntity mail = mailService.findOne(mailId);
+		if (mail.getReadStatus() == ReadStatus.UNREAD) {
+			mail.setReadStatus(ReadStatus.READ);
+			mailService.save(mail);
+		}
+		
 		String content = commonService.getMailContent(mail.getPath());
 		mail.setContent(content);
 		modelMap.addAttribute("mail", mail);

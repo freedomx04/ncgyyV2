@@ -28,19 +28,29 @@
 				<button type="button" class="btn btn-white btn-sm btn-mail-back">
 					<i class="fa fa-chevron-left fa-fw"></i>返回
 				</button>
-				<c:if test="${mail.pointStatus == 0}">
-					<button type="button" class="btn btn-white btn-sm btn-mail-point">
-						<i class="fa fa-star-o fa-fw"></i>标记星标
+				<c:if test="${mail.mailStatus == 3}">
+					<c:if test="${mail.pointStatus == 0}">
+						<button type="button" class="btn btn-white btn-sm btn-mail-point">
+							<i class="fa fa-star-o fa-fw"></i>标记星标
+						</button>
+					</c:if>
+					<c:if test="${mail.pointStatus == 1}">
+						<button type="button" class="btn btn-white btn-sm btn-mail-unpoint">
+							<i class="fa fa-star fa-fw"></i>取消星标
+						</button>
+					</c:if>
+				</c:if>
+				
+				<c:if test="${mail.deleteStatus == 0}">
+					<button type="button" class="btn btn-white btn-sm btn-mail-delete">
+						<i class="fa fa-trash-o fa-fw"></i>删除
 					</button>
 				</c:if>
-				<c:if test="${mail.pointStatus == 1}">
-					<button type="button" class="btn btn-white btn-sm btn-mail-unpoint">
-						<i class="fa fa-star fa-fw"></i>取消星标
+				<c:if test="${mail.deleteStatus == 1}">
+					<button type="button" class="btn btn-white btn-sm btn-mail-deleteCompletely">
+						<i class="fa fa-trash-o fa-fw"></i>彻底删除
 					</button>
 				</c:if>
-				<button type="button" class="btn btn-white btn-sm btn-mail-delete">
-					<i class="fa fa-trash-o fa-fw"></i>删除
-				</button>
 			</div>
 			
 			<h2>${mail.title}</h2>
@@ -113,19 +123,29 @@
 				<button type="button" class="btn btn-white btn-sm btn-mail-back">
 					<i class="fa fa-chevron-left fa-fw"></i>返回
 				</button>
-				<c:if test="${mail.pointStatus == 0}">
-					<button type="button" class="btn btn-white btn-sm btn-mail-point">
-						<i class="fa fa-star-o fa-fw"></i>标记星标
+				<c:if test="${mail.mailStatus == 3}">
+					<c:if test="${mail.pointStatus == 0}">
+						<button type="button" class="btn btn-white btn-sm btn-mail-point">
+							<i class="fa fa-star-o fa-fw"></i>标记星标
+						</button>
+					</c:if>
+					<c:if test="${mail.pointStatus == 1}">
+						<button type="button" class="btn btn-white btn-sm btn-mail-unpoint">
+							<i class="fa fa-star fa-fw"></i>取消星标
+						</button>
+					</c:if>
+				</c:if>
+				
+				<c:if test="${mail.deleteStatus == 0}">
+					<button type="button" class="btn btn-white btn-sm btn-mail-delete">
+						<i class="fa fa-trash-o fa-fw"></i>删除
 					</button>
 				</c:if>
-				<c:if test="${mail.pointStatus == 1}">
-					<button type="button" class="btn btn-white btn-sm btn-mail-unpoint">
-						<i class="fa fa-star fa-fw"></i>取消星标
+				<c:if test="${mail.deleteStatus == 1}">
+					<button type="button" class="btn btn-white btn-sm btn-mail-deleteCompletely">
+						<i class="fa fa-trash-o fa-fw"></i>彻底删除
 					</button>
 				</c:if>
-				<button type="button" class="btn btn-white btn-sm btn-mail-delete">
-					<i class="fa fa-trash-o fa-fw"></i>删除
-				</button>
 			</div>
 			
 		</div>
@@ -181,6 +201,36 @@
                 });
             });
 		})
+		.on('click', '.btn-mail-deleteCompletely', function() {
+    		swal({
+                title: '',
+                text: '确定彻底删除该邮件吗？',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+                closeOnConfirm: false
+            }, function() {
+            	var mailIdList = [mailId];
+                $.ajax({
+                    url: '${ctx}/api/mail/deleteCompletely',
+                    data: { mailIdList: mailIdList },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                        	swal({
+                            	title: '',
+                            	text: '删除成功!',
+                            	type: 'success'
+                            }, function() {
+                            	window.history.back();
+                            });
+                        }
+                    },
+                    error: function(err) {}
+                });
+            });
+    	})
 		.on('click', '.btn-mail-point', function() {
 			var $this = $(this);
 			var mailIdList = [mailId];
