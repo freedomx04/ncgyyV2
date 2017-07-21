@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
 <%@ include file="/WEB-INF/include/avatar.jsp"%>
+<%@ include file="/WEB-INF/include/password.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -49,8 +50,33 @@
 					<div class="form-group">
 						<label for="username" class="col-sm-3 control-label"><i class="form-required">*</i>用户名</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="username" value="${user.username}" required>
+                            <input type="text" class="form-control" name="username" placeholder="只能包含英文、数字、下划线等字符" value="${user.username}" required>
                         </div>
+					</div>
+					
+					<div class="form-group form-hide">
+						<label for="password" class="col-sm-3 control-label"><i class="form-required">*</i>密码</label>
+						<div class="col-sm-5">
+							<input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" required>
+						</div>
+					</div>
+					<div class="form-group form-hide">
+						<label for="" class="col-sm-3 control-label" style="font-weight: normal; color: #999;">密码强度</label>
+						<div class="col-sm-5">
+							<div id="level" class="pw-strength">
+								<div class="pw-bar"></div>
+								<div class="pw-bar-on"></div>
+								<div class="pw-txt">
+									<span>弱</span><span>中</span><span>强</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group form-hide">
+						<label for="confirm-password" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
+						<div class="col-sm-5">
+							<input type="password" class="form-control" name="confirmPassword" required>
+						</div>
 					</div>
 					
 					<div class="form-group">
@@ -172,6 +198,9 @@
 		var $form = $page.find('#form-user');
 		var method = '${method}';
 		
+		// password
+		strength($page.find('#password'), $page.find('#level'));
+		
 		$k.util.bsValidator($form, {
 			fields: {
 				mobile: {
@@ -182,10 +211,45 @@
 	                     }
 	                 }
 	             },
+	             username: {
+	            	 validators: {
+	           	 		regexp: {
+	           	 			regexp: /^[a-zA-Z0-9_\.]+$/,
+	     	                message: '用户名只能包含英文、数字、下划线等字符'
+   	                    }
+   	                 }
+   	             },
+  	             password: {
+  	                 validators: {
+  	                     identical: {
+  	                         field: 'confirmPassword',
+  	                         message: '两次输入密码不一致'
+  	                     },
+  	                 	 stringLength: {
+  	                         min: 6,
+  	                         max: 16,
+  	                         message: '密码长度必须在6到16之间'
+  	                     }
+  	                 }
+  	             },
+  	             confirmPassword: {
+  	             	validators: {
+  	                	identical: {
+  	                    	field: 'password',
+  	                        message: '两次输入密码不一致'
+  	                    },
+  	                  	stringLength: {
+							min: 6,
+							max: 16,
+							message: '密码长度必须在6到16之间'
+						}
+  	                }
+  	            }
 			}
 		});
 		
 		if (method == 'detail') {
+			$page.find('.form-hide').remove();
 			$page.find('.form-required').remove();
 			$page.find('select[name="roleId"]').val(${user.role.id});
 			$page.find('select[name="gender"]').val(${user.gender});
@@ -195,6 +259,7 @@
 			$page.find('input, select, textarea').addClass('disabled');
 			$page.find('.avatar-view').addClass('disabled').attr('disabled', 'disabled');
 		} else if (method == 'edit') {
+			$page.find('.form-hide').remove();
 			$page.find('input[name="username"]').attr('disabled', 'disabled');
 			$page.find('select[name="roleId"]').val(${user.role.id});
 			$page.find('select[name="gender"]').val(${user.gender});

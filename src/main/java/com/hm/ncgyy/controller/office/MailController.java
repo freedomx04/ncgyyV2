@@ -52,6 +52,7 @@ public class MailController {
 			
 			MailEntity mail = new MailEntity(receivers, title, path, sender, now, now);
 			mail.setMailStatus(MailStatus.SEND);
+			mail.setReadStatus(ReadStatus.READ);
 			mail.setSendTime(now);
 			mailService.save(mail);
 			
@@ -88,6 +89,7 @@ public class MailController {
 			String path = commonService.saveMail(content);
 			MailEntity mail = new MailEntity(receivers, title, path, sender, now, now);
 			mail.setMailStatus(MailStatus.DRAFT);
+			mail.setReadStatus(ReadStatus.READ);
 			mailService.save(mail);
 
 			for (String attachment : attachmentList) {

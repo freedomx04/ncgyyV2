@@ -65,7 +65,12 @@
 					</tr>
 					<tr>
 						<td>收件人：</td>
-						<td style="color: #0F6099;">${mail.receiver.username}</td>
+						<c:if test="${mail.mailStatus == 2}">
+							<td style="color: #0F6099;">${mail.receivers}</td>
+						</c:if>
+						<c:if test="${mail.mailStatus == 3}">
+							<td style="color: #0F6099;">${mail.receiver.username}</td>
+						</c:if>
 					</tr>
 				</table>
 			</div>

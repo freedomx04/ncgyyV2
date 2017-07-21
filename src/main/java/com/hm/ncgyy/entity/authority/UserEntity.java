@@ -119,10 +119,11 @@ public class UserEntity extends BaseEntity {
 		this.updateTime = updateTime;
 	}
 
-	public UserEntity(String username, String name, String avatar, String mobile, String email, Integer gender,
+	public UserEntity(String username, String password, String name, String avatar, String mobile, String email, Integer gender,
 			RoleEntity role, String introduction, Date createTime, Date updateTime) {
 		super();
 		this.username = username;
+		this.password = password;
 		this.name = name;
 		this.avatar = avatar;
 		this.mobile = mobile;

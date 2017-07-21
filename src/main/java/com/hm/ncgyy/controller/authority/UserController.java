@@ -53,7 +53,7 @@ public class UserController {
 	HttpServletRequest request;
 
 	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
-	public Result create(String avatar, String username, String name, Long roleId, Integer gender, String mobile,
+	public Result create(String avatar, String username, String password, String name, Long roleId, Integer gender, String mobile,
 			String email, Long enterpriseId, Long departmentId, String introduction) {
 		try {
 			UserEntity user = userService.findByUsername(username);
@@ -70,7 +70,7 @@ public class UserController {
 
 			RoleEntity role = roleService.findOne(roleId);
 			Date now = new Date();
-			user = new UserEntity(username, name, avatar, mobile, email, gender, role, introduction, now, now);
+			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), name, avatar, mobile, email, gender, role, introduction, now, now);
 
 			if (enterpriseId != null) {
 				EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);

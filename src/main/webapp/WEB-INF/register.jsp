@@ -226,10 +226,6 @@
 	           	 		regexp: {
 	           	 			regexp: /^[a-zA-Z0-9_\.]+$/,
 	     	                message: '用户名只能包含英文、数字、下划线等字符'
-   	                    },
-   	                    different: {
-  	                    	field: 'password',
-  	                        message: '用户名不能与密码相同'
    	                    }
    	                 }
    	             },
@@ -243,10 +239,6 @@
   	                         min: 6,
   	                         max: 16,
   	                         message: '密码长度必须在6到16之间'
-  	                     },
-  	                     different: {
-  	                        field: 'username',
-  	                        message: '密码不能与用户名相同'
   	                     }
   	                 }
   	             },
@@ -256,17 +248,13 @@
   	                    	field: 'password',
   	                        message: '两次输入密码不一致'
   	                    },
-  	                    different: {
-  	                        field: 'username',
-  	                        message: '密码不能与用户名相同'
-  	                    },
   	                  	stringLength: {
 							min: 6,
 							max: 16,
 							message: '密码长度必须在6到16之间'
 						}
   	                }
-  	             }
+  	            }
 			}
 		});
 		
