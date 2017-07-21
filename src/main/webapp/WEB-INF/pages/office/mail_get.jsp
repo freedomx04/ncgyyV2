@@ -16,7 +16,6 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	
 </head>
@@ -58,7 +57,7 @@
 				<table style="color: #999;">
 					<tr>
 						<td>发件人：</td>
-						<td style="color: #3d882d;">孙某某 </td>
+						<td style="color: #3d882d;">${mail.sender.username}</td>
 					</tr>
 					<tr>
 						<td>时&nbsp;&nbsp;&nbsp;间：</td>
@@ -66,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>收件人：</td>
-						<td style="color: #0F6099;">梅赛德斯的</td>
+						<td style="color: #0F6099;">${mail.receiver.username}</td>
 					</tr>
 				</table>
 			</div>

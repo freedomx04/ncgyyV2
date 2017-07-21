@@ -1,6 +1,7 @@
 package com.hm.ncgyy.controller.office;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +22,7 @@ import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.DeleteStatus;
 import com.hm.ncgyy.entity.office.MailEntity.MailStatus;
 import com.hm.ncgyy.entity.office.MailEntity.PointStatus;
+import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.office.MailFileEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.authority.UserService;
@@ -295,6 +297,48 @@ public class MailController {
 				mailService.save(mail);
 			}
 			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/mail/unread")
+	public Result unread(Long userId) {
+		try {
+			Integer unread_inbox = 0;
+			Integer unread_point = 0;
+			Integer unread_delete = 0;
+			
+			// 收件箱未读
+			List<MailEntity> inboxList = mailService.listInbox(userId);
+			for (MailEntity mail: inboxList) {
+				if (mail.getReadStatus() == ReadStatus.UNREAD) {
+					unread_inbox ++;
+				}
+			}
+			
+			// 星标邮件未读
+			List<MailEntity> pointList = mailService.listPoint(userId);
+			for (MailEntity mail: pointList) {
+				if (mail.getReadStatus() == ReadStatus.UNREAD) {
+					unread_point ++;
+				}
+			}
+			
+			// 已删除未读
+			List<MailEntity> deleteList = mailService.listDelete(userId);
+			for (MailEntity mail: deleteList) {
+				if (mail.getReadStatus() == ReadStatus.UNREAD) {
+					unread_delete ++;
+				}
+			}
+			
+			List<Integer> ret = new LinkedList<>();
+			ret.add(unread_inbox);
+			ret.add(unread_point);
+			ret.add(unread_delete);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", ret);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

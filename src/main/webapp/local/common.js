@@ -171,8 +171,7 @@
 		var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
 		var paraObj = {};
 		for ( var i = 0; j = paraString[i]; i++) {
-			paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j
-					.indexOf("=") + 1, j.length);
+			paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
 		}
 		var returnValue = paraObj[paras.toLowerCase()];
 		if (typeof (returnValue) == "undefined") {
@@ -189,6 +188,17 @@
 		var url = $obj.attr('src');
 		var avatar = url.substring(url.lastIndexOf('/') + 1);
 		return avatar;
+	}
+	
+	/**
+	 * toast
+	 */
+	$k.util.toast = function(param) {
+		toastr.options = $.extend(toastr.options, param);
+		if (!param.type) {
+			param.type = 'success';
+		}
+		toastr[param.type](param.msg);
 	}
 	
 	/**

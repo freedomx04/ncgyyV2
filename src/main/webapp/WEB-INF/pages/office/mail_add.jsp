@@ -22,6 +22,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	
 </head>
 
@@ -37,11 +38,12 @@
 					<div class="form-group">
 						<label for="title" class="col-sm-1 control-label"><i class="form-required">*</i>收件人</label>
 						<div class="col-sm-10">
-                            <select data-placeholder="选择收件人" class="chosen-select" style="width: 100%;" multiple required>
+                            <select data-placeholder="请输入或选择收件人" class="chosen-select" style="width: 100%;" multiple>
                             	<c:forEach var="user" items="${userList}">
                             		<option value="${user.username}">${user.username}</option>
                             	</c:forEach>
                             </select>
+                            <small class="help-block" data-bv-validator="notEmpty" data-bv-for="title" data-bv-result="INVALID" style="display: none;">请填写必填项目</small>
                         </div>
 					</div>
 					
@@ -122,6 +124,7 @@
     <script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -160,16 +163,23 @@
 		
 		$page
 		.on('click', '.btn-mail-send', function() {
+			var userList = $form.find('.chosen-select').val();
+			if (userList == null) {
+				$k.util.toast({
+					type: 'error',
+					msg: '请输入或者选择收件人',
+					positionClass: 'toast-top-full-width'
+				});
+				return;
+			}
+			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
-			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]);
-				var userList = $form.find('.chosen-select').val();
 				formData.append('receivers', userList.join(','));
 				formData.append('userId', userId);
                 formData.append('content', $('#summernote').summernote('code'));
-
 				var attachmentList = new Array();
                 $form.find('.attachment-list li').each(function(k, elem) {
                     var filename = $(elem).data('filename');
@@ -203,12 +213,20 @@
 			}
 		})
 		.on('click', '.btn-mail-draft-add', function() {
+			var userList = $form.find('.chosen-select').val();
+			if (userList == null) {
+				$k.util.toast({
+					type: 'error',
+					msg: '请输入或者选择收件人',
+					positionClass: 'toast-top-full-width'
+				});
+				return;
+			}
+			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
-			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]);
-				var userList = $form.find('.chosen-select').val();
 				formData.append('receivers', userList.join(','));
 				formData.append('userId', userId);
                 formData.append('content', $('#summernote').summernote('code'));
@@ -246,13 +264,21 @@
 			}
 		})
 		.on('click', '.btn-mail-draft-send', function() {
+			var userList = $form.find('.chosen-select').val();
+			if (userList == null) {
+				$k.util.toast({
+					type: 'error',
+					msg: '请输入或者选择收件人',
+					positionClass: 'toast-top-full-width'
+				});
+				return;
+			}
+			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
-			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]);
 				formData.append('mailId', '${mail.id}');
-				var userList = $form.find('.chosen-select').val();
 				formData.append('receivers', userList.join(','));
 				formData.append('content', $('#summernote').summernote('code'));
 				
@@ -292,9 +318,18 @@
 			}
 		})
 		.on('click', '.btn-mail-draft-edit', function() {
+			var userList = $form.find('.chosen-select').val();
+			if (userList == null) {
+				$k.util.toast({
+					type: 'error',
+					msg: '请输入或者选择收件人',
+					positionClass: 'toast-top-full-width'
+				});
+				return;
+			}
+			
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
-			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]);
 				formData.append('mailId', '${mail.id}');
@@ -345,5 +380,4 @@
 	</script>
 	
 </body>
-
 </html>

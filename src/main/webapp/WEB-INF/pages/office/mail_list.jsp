@@ -59,11 +59,16 @@
 							<div class="tabs-left">
 								<ul class="nav nav-tabs" style="width: 100%;">
 									<li class="active">
-										<a data-toggle="tab" href="#mail-inbox" data-option="inbox" aria-expanded="true"><i class="fa fa-inbox fa-fw"></i>收件箱
-										<span class="label label-warning pull-right"></span></a>
+										<a data-toggle="tab" href="#mail-inbox" data-option="inbox" aria-expanded="true">
+											<i class="fa fa-inbox fa-fw"></i>收件箱
+											<span class="label label-warning pull-right mail-inbox-unread"></span>
+										</a>
 									</li>
 									<li>
-			                            <a data-toggle="tab" href="#mail-point" data-option="point" aria-expanded="true"><i class="fa fa-star fa-fw"></i>星标邮件</a>
+			                            <a data-toggle="tab" href="#mail-point" data-option="point" aria-expanded="true">
+			                            	<i class="fa fa-star fa-fw"></i>星标邮件
+			                            	<span class="label label-warning pull-right mail-point-unread"></span>
+			                            </a>
 			                        </li>
 			                        <li>
 			                            <a data-toggle="tab" href="#mail-draft" data-option="draft" aria-expanded="true"><i class="fa fa-file-text-o fa-fw"></i>草稿箱</a>
@@ -72,14 +77,11 @@
 			                        	<a data-toggle="tab" href="#mail-send" data-option="send" aria-expanded="true"><i class="fa fa-send-o fa-fw"></i>已发送</a>
 			                        </li>
 			                        <li>
-			                        	<a data-toggle="tab" href="#mail-delete" data-option="delete" aria-expanded="true"><i class="fa fa-trash-o fa-fw"></i>已删除</a>
+			                        	<a data-toggle="tab" href="#mail-delete" data-option="delete" aria-expanded="true">
+			                        		<i class="fa fa-trash-o fa-fw"></i>已删除
+			                        		<span class="label label-warning pull-right mail-delete-unread"></span>
+			                        	</a>
 			                        </li>	
-			                        <li style="display: none;">
-			                        	<a class="mail-add" data-toggle="tab" href="#mail-add" data-option="add" aria-expanded="true">写信</a>
-			                        </li>
-			                        <li style="display: none;">
-			                        	<a class="mail-add" data-toggle="tab" href="#mail-detail" data-option="detail" aria-expanded="true">详情</a>
-			                        </li>		                        
 								</ul>
 							</div>
 						</div>
@@ -211,6 +213,7 @@
     	}
     	$page.find('a[data-option="' + option + '"]').tab('show');
     	initTable(option);
+    	refreshUnread();
     	
     	function initTable(option) {
     		switch (option) {
@@ -498,6 +501,23 @@
     		}
     	}
     	
+    	function refreshUnread() {
+    		$.ajax({
+    			url: '${ctx}/api/mail/unread',
+    			data: {
+    				userId: userId
+    			},
+    			cache: false,
+    			success: function(ret) {
+    				var arr = ret.data;
+    				arr[0] > 0 ? $page.find('.mail-inbox-unread').html(arr[0]) : $page.find('.mail-inbox-unread').empty();
+    				arr[1] > 0 ? $page.find('.mail-point-unread').html(arr[1]) : $page.find('.mail-point-unread').empty();
+    				arr[2] > 0 ? $page.find('.mail-delete-unread').html(arr[2]) : $page.find('.mail-delete-unread').empty();
+    			},
+    			error: function(err) {}
+    		});
+    	}
+    	
     	$page
     	.on('click', 'a[data-toggle="tab"]', function() {
     		var option = $(this).data('option');
@@ -532,10 +552,11 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '删除成功!', 'success');
+                            $table.bootstrapTable('refresh');
+                            refreshUnread();
 						} else {
                             swal('', ret.msg, 'error');
                         }
-                        $table.bootstrapTable('refresh'); 
                     },
                     error: function(err) {}
                 });
@@ -561,10 +582,11 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '删除成功!', 'success');
+                            $deleteTable.bootstrapTable('refresh');
+                            refreshUnread();
 						} else {
                             swal('', ret.msg, 'error');
                         }
-                        $deleteTable.bootstrapTable('refresh'); 
                     },
                     error: function(err) {}
                 });
@@ -592,10 +614,11 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '标记成功!', 'success');
+                            $table.bootstrapTable('refresh'); 
+                            refreshUnread();
 						} else {
                             swal('', ret.msg, 'error');
                         }
-                        $table.bootstrapTable('refresh'); 
                     },
                     error: function(err) {}
                 });
@@ -623,10 +646,11 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '取消标记成功!', 'success');
+                            $table.bootstrapTable('refresh'); 
+                            refreshUnread();
 						} else {
                             swal('', ret.msg, 'error');
                         }
-                        $table.bootstrapTable('refresh'); 
                     },
                     error: function(err) {}
                 });
@@ -644,6 +668,7 @@
                 	if (ret.code == 0) {
                 		$this.removeClass('fa-star-o').addClass('fa-star');
                 		$this.removeClass('point').addClass('unpoint');
+                		refreshUnread();
                     }
                 },
                 error: function(err) {}
@@ -661,6 +686,7 @@
    					if (ret.code == 0) {
    						$this.removeClass('fa-star').addClass('fa-star-o');
                        	$this.removeClass('unpoint').addClass('point');
+                       	refreshUnread();
                     }
                 },
                 error: function(err) {}
@@ -686,10 +712,11 @@
                     success: function(ret) {
                         if (ret.code == 0) {
                             swal('', '恢复成功!', 'success');
+                            $deleteTable.bootstrapTable('refresh'); 
+                            refreshUnread();
 						} else {
                             swal('', ret.msg, 'error');
                         }
-                        $deleteTable.bootstrapTable('refresh'); 
                     },
                     error: function(err) {}
                 });
