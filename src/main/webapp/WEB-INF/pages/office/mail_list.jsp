@@ -239,7 +239,6 @@
      	            	title: '发件人',
      	            	width: '120',
      	            	formatter: function(value, row, index) {
-     	            		debugger;
      	            		return row.readStatus == 0 ? '<span class="mail-unread">' + value + '</span>' : value; 
      	            	}
      	            }, {

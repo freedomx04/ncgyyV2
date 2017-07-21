@@ -64,13 +64,20 @@ public class MailController {
 				mailService.saveFile(mailFile);
 			}
 
-			List<MailFileEntity> fileList = mailService.getFileList(mail.getId());
 			// 发送邮件
 			for (String username: receivers.split(",")) {
 				UserBaseEntity receiver = userService.findByUsernameBase(username);
-				MailEntity receiveMail = new MailEntity(receivers, title, path, fileList, sender, receiver, now, now, now);
+				MailEntity receiveMail = new MailEntity(receivers, title, path, sender, receiver, now, now, now);
 				receiveMail.setMailStatus(MailStatus.RECEIVE);
 				mailService.save(receiveMail);
+				
+				for (String attachment: attachmentList) {
+					String filename = StringUtils.split(attachment, "?")[0];
+					String filepath = StringUtils.split(attachment, "?")[1];
+					String fileIcon = CommonUtils.getIcon(filename);
+					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now, now);
+					mailService.saveFile(mailFile);
+				}
 			}
 
 			return new Result(Code.SUCCESS.value(), "sended");
@@ -155,13 +162,20 @@ public class MailController {
 				mailService.saveFile(mailFile);
 			}
 			
-			List<MailFileEntity> fileList = mailService.getFileList(mail.getId());
 			// 发送邮件
 			for (String username: receivers.split(",")) {
 				UserBaseEntity receiver = userService.findByUsernameBase(username);
-				MailEntity receiveMail = new MailEntity(receivers, title, mail.getPath(), fileList, mail.getSender(), receiver, now, now, now);
+				MailEntity receiveMail = new MailEntity(receivers, title, mail.getPath(), mail.getSender(), receiver, now, now, now);
 				receiveMail.setMailStatus(MailStatus.RECEIVE);
 				mailService.save(receiveMail);
+				
+				for (String attachment: attachmentList) {
+					String filename = StringUtils.split(attachment, "?")[0];
+					String filepath = StringUtils.split(attachment, "?")[1];
+					String fileIcon = CommonUtils.getIcon(filename);
+					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now, now);
+					mailService.saveFile(mailFile);
+				}
 			}
 			
 			return new Result(Code.SUCCESS.value(), "send success");
