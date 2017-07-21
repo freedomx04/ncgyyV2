@@ -198,7 +198,6 @@
     	
     	var $page = $('.body-mail');
     	var userId = '${user.id}';
-    	//var userId = 9;
     	
     	var $inbox = $page.find('#mail-inbox');
     	var $point = $page.find('#mail-point');

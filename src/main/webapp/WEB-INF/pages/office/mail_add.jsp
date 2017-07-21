@@ -132,8 +132,7 @@
 		var $page = $('.body-mail-add');
 		var $form = $page.find('#form-mail');
 		var $select = $form.find('.chosen-select');
-		//var userId = '${user.id}';
-		var userId = '9';
+		var userId = '${user.id}';
 		
 		var type = '${type}';
 		var method = '${method}';

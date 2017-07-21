@@ -120,8 +120,6 @@ public class MailEntity extends BaseEntity {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
-	
-	
 
 	public MailEntity(String receivers, String title, String path, List<MailFileEntity> fileList, UserBaseEntity sender,
 			UserBaseEntity receiver, Date sendTime, Date createTime, Date updateTime) {

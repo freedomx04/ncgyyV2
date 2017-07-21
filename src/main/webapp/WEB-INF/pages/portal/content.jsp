@@ -37,14 +37,14 @@
 		</div>
 	
 		<div class="cmain" style="border: 0; width: 980px; margin: 0 auto;">
-			<div class="ctitle" style="line-height: 40px; padding: 20px 30px; text-align: center;">
+			<div class="ctitle" style="padding: 20px 20px 10px; text-align: center;">
 				<h1 id="con_title">${article.title}</h1>
 			</div>
 			<div class="cinfo" style="text-align: center; border-bottom: 1px #d9d9d9 solid; color: #999; padding: 15px;">
-				<span id="con_time">发布时间：<fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm" /></span>&nbsp; 
+				<span id="con_time">发布时间：<fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm"/></span>&nbsp; 
 				<span>来源：${article.source}</span>&nbsp;
 			</div>
-			<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 40px; color: #070707; line-height: 26px; min-height: 400px;word-break: break-all;">
+			<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 20px; color: #070707; line-height: 26px; min-height: 400px;word-break: break-all;">
 				${article.content}
 				
 				<c:if test="${not empty article.fileList}">
