@@ -21,6 +21,7 @@ import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
+import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.authority.UserEntity.UserStatus;
 import com.hm.ncgyy.service.authority.DepartmentService;
@@ -322,5 +323,34 @@ public class UserController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
+	@RequestMapping(value = "/api/user/exist") 
+	public Result exist(String username) {
+		try {
+			UserBaseEntity user = userService.findByUsernameBase(username);
+			if (user == null) {
+				return new Result(Code.NULL.value(), "用户不存在");
+			}
+			
+			return new ResultInfo(Code.SUCCESS.value(), "ok", user);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/validateMobile")
+	public Result validateMobile(Long userId, String mobile) {
+		try {
+			UserBaseEntity user = userService.findOneBase(userId);
+			if (!user.getMobile().equals(mobile)) {
+				return new Result(Code.ERROR.value(), "请输入正确的绑定手机号");
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", user);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
 }

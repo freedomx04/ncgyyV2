@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -15,7 +16,11 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 
 @Entity
-@Table(name = "office_mail")
+@Table(name = "office_mail", indexes = {
+	@Index(name = "index_office_mail_1", columnList = "receiver_id, mailStatus, deleteStatus, updateTime"),
+	@Index(name = "index_office_mail_2", columnList = "receiver_id, mailStatus, pointStatus, deleteStatus, updateTime"),
+	@Index(name = "index_office_mail_3", columnList = "sender_id, mailStatus, deleteStatus, updateTime")
+})
 public class MailEntity extends BaseEntity {
 
 	public class MailStatus {
@@ -78,7 +83,7 @@ public class MailEntity extends BaseEntity {
 	 * 收件人
 	 */
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "receive_id")
+	@JoinColumn(name = "receiver_id")
 	private UserBaseEntity receiver;
 
 	/**
