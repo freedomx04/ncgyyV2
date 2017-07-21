@@ -139,7 +139,7 @@
 				<div class="monitor">
 					<dl>
 	                 	<dt>
-	                 		<a href="monitorlist" target="_blank">
+	                 		<a href="monitorlist?item=mainBusiness" target="_blank">
 	                 			<img src="img/monitor.jpg" width="96" height="39">
 	                 		</a>
 	                 	</dt>
