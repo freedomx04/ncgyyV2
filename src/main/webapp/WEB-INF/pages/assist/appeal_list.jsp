@@ -257,9 +257,6 @@
 							    series : seriesData
 							};
 						myChart.setOption(option);
-						window.addEventListener("resize",function(){
-				            myChart.resize();
-				        });
 					}
 				},
 				error: function(err) {}
@@ -324,9 +321,6 @@
 							    ]
 							};
 						myChart.setOption(option);
-						window.addEventListener("resize",function(){
-				            myChart.resize();
-				        });
 					}
 				},
 				error: function(err) {}

@@ -54,7 +54,7 @@
 								<span></span>
 							</div>
 							<div class="clist_con" style="min-height: 600px; margin: 30px 0;">
-								<div class="chart-container" style="width: 723px; height: 400px;"></div>
+								<div class="chart-container" style="height: 400px;"></div>
 								<table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 							</div>
 						</td>
