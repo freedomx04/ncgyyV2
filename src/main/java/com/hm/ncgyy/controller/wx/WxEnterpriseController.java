@@ -68,14 +68,9 @@ public class WxEnterpriseController {
 	String enterprise_news(ModelMap modelMap, Long newsId) throws IOException {
 		NewsEntity news = newsService.findOne(newsId);
 		String content = commonService.getArticleContent(news.getPath());
-		
-		// 懒加载图片
-		content = content.replaceAll("src", "data-src");
 		news.setContent(content);
 		
 		modelMap.addAttribute("news", news);
-		modelMap.addAttribute("enterpriseName", news.getEnterprise().getName());
-		
 		return "wx/enterprise/enterprise_news";
 	}
 	

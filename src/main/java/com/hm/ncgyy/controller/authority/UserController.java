@@ -353,4 +353,47 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/user/bind", method = RequestMethod.POST)
+	public Result bind(String username, String password, String wxUserId) {
+		try {
+			UserEntity user = userService.findByUsername(username);
+			
+			if (user == null) {	
+				return new Result(Code.NULL.value(), "用户不存在");
+			}
+			
+			if (user.getStatus() == UserStatus.STATUS_NO_VALID) {
+				return new Result(Code.USER_NO_VALID.value(), "用户已被禁用");
+			}
+			
+			if (!StringUtils.equals(CiphersUtils.getInstance().MD5Password(password), user.getPassword())) {
+				return new Result(Code.USER_PWD_ERROR.value(), "密码错误");
+			}
+			
+			if (user.getWxUserId() != null) {
+				return new Result(Code.USER_WX_BIND.value(), "用户已绑定微信");
+			}
+			
+			user.setWxUserId(wxUserId);
+			userService.save(user);
+		
+			return new ResultInfo(Code.SUCCESS.value(), "绑定成功", user);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/removeBind")
+	public Result removeBind(Long userId) {
+		try {
+			UserEntity user = userService.findOne(userId);
+			user.setWxUserId(null);
+			userService.save(user);
+			return new Result(Code.SUCCESS.value(), "解绑成功");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 }

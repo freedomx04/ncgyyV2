@@ -27,7 +27,7 @@
 				<p>头像</p>
 			</div>
 			<div class="weui_cell_ft weui-updown" style="height: 60px;">
-				<img src="${icon}" data-src="${ctx}/${user.imagePath}" style="width: 60px; height: 60px;">
+				<img src="${icon}" data-src="${ctx}/api/avatar/${user.avatar}" style="width: 60px; height: 60px;">
 			</div>
 		</div>
 		
@@ -50,8 +50,9 @@
 				<p>性别</p>
 			</div>
 			<div class="weui_cell_ft">
-				<c:if test="${user.sex == 0}">男</c:if>
-				<c:if test="${user.sex == 1}">女</c:if>				
+				<c:if test="${user.gender == 0}">未填写</c:if>
+				<c:if test="${user.gender == 1}">男</c:if>
+				<c:if test="${user.gender == 2}">女</c:if>				
 			</div>
 		</div>
 		
@@ -92,18 +93,8 @@
 				<p>手机</p>
 			</div>
 			<div class="weui_cell_ft">
-				<c:if test="${empty user.telephone}">未填写</c:if>
-				${user.telephone}
-			</div>
-		</div>
-		
-		<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary">
-				<p>座机</p>
-			</div>
-			<div class="weui_cell_ft">
-				<c:if test="${empty user.officephone}">未填写</c:if>
-				${user.officephone}
+				<c:if test="${empty user.mobile}">未填写</c:if>
+				${user.mobile}
 			</div>
 		</div>
 		
@@ -121,22 +112,10 @@
 	<div class="weui_cells">
 		<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary">
-				<p>地址</p>
-				<p style="color: #888;">
-					<c:if test="${empty user.address}">未填写</c:if>
-					${user.address}
-				</p>
-			</div>		
-		</div>
-	</div>
-	
-	<div class="weui_cells">
-		<div class="weui_cell">
-			<div class="weui_cell_bd weui_cell_primary">
 				<p>个人描述</p>
 				<p style="color: #888;">
-					<c:if test="${empty user.description}">未填写</c:if>
-					${user.description}
+					<c:if test="${empty user.introduction}">未填写</c:if>
+					${user.introduction}
 				</p>
 			</div>		
 		</div>
@@ -171,7 +150,7 @@
 		.on('click', '#remove', function() {
 			$.confirm("您确定要解除平台账号绑定吗?", "解除绑定", function() {
 				$.ajax({
-					url: '${ctx}/user/removeBind',
+					url: '${ctx}/api/user/removeBind',
 					data: {
 						userId: userId
 					},

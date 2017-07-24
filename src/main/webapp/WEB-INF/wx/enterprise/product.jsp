@@ -62,8 +62,7 @@
  				var result = '';
  			
 				$.ajax({
-					url: '${ctx}/enterprise/product/listAllPaging',
-					type: 'POST',
+					url: '${ctx}/api/product/listPaging',
 					data: {
 						page: 0,
 						size: size
@@ -101,8 +100,7 @@
 				page++;
 				
 				$.ajax({
-					url: '${ctx}/enterprise/product/listAllPaging',
-					type: 'POST',
+					url: '${ctx}/api/product/listPaging',
 					data: {
 						page: page,
 						size: size

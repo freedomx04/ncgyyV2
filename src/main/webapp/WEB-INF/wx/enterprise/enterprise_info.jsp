@@ -42,7 +42,7 @@
 						<h2 class="weui-weixin-title">${enterprise.name}</h2>
 						
 						<div class="weui-weixin-img weui-updown">
-					    	<img src="${img}" data-src="${ctx}/${enterprise.imagePath}" class="weixin">
+					    	<img src="${img}" data-src="${ctx}/api/avatar/${enterprise.avatar}" class="weixin">
 					    </div>
 						
 						<div class="weui-weixin-content">
@@ -67,13 +67,13 @@
 			
 			<div class="weui_tab_bd_item">
 				<div class="weui_cells weui_cells_access" style="margin-top: 0;">
-					<c:if test="${empty enterprise.products}">
+					<c:if test="${empty enterprise.productList}">
 						<div class="weui-footer" style="padding: 10px;"><p>暂无数据</p></div>
 					</c:if>
-					<c:forEach var="product" items="${enterprise.products}">
+					<c:forEach var="product" items="${enterprise.productList}">
 						<a href="javascript:;" class="weui_cell product-info" data-product-id="${product.id}">
 							<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">
-								<img src="${icon}" data-src="${ctx}/${product.imagePath}" style="width: 80px; display: block;">
+								<img src="${icon}" data-src="${ctx}${product.imagePath}" style="width: 80px; display: block;">
 							</div>
 							<div class="weui_cell_bd">
 								<p>${product.name}</p>

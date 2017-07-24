@@ -141,8 +141,8 @@ public class EnterpriseController {
 	@RequestMapping(value = "/api/enterprise/list")
 	public Result list() {
 		try {
-
-			return new ResultInfo(Code.SUCCESS.value(), "ok", null);
+			List<EnterpriseEntity> enterpriseList = enterpriseService.list();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", enterpriseList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -160,7 +160,7 @@ public class EnterpriseController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/enterprise/listPage")
+	@RequestMapping(value = "/api/enterprise/listPaging")
 	public Result listPaging(int page, int size) {
 		try {
 			Page<EnterpriseBaseEntity> list = enterpriseService.listBase(page, size);
@@ -185,8 +185,8 @@ public class EnterpriseController {
 	@RequestMapping(value = "/api/enterprise/search")
 	public Result search(String input) {
 		try {
-
-			return new ResultInfo(Code.SUCCESS.value(), "ok", null);
+			List<EnterpriseBaseEntity> list = enterpriseService.search(input);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

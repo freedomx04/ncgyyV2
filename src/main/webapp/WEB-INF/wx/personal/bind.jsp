@@ -70,7 +70,7 @@
 		            
 		        } else {
 		        	$.ajax({
-		        		url: '${ctx}/user/bind',
+		        		url: '${ctx}/api/user/bind',
 		        		type: 'POST',
 		        		data: {
 		        			username: $form.find('input[name="username"]').val(),
@@ -78,22 +78,14 @@
 		        			wxUserId: wxUserId
 		        		},
 		        		success: function(ret) {
-		        			switch(ret.status) {
-		        			case 0:
-		        				$.toptips('绑定成功','ok');
-		        				
+		        			if (ret.code == 0) {
+								$.toptips(ret.msg, 'ok');
 		        				setTimeout(function() {
 		        					window.location = redirect + '?userId=' + ret.data.id;
 		        				}, 1000);
-		        				
-		        				break;
-		        			case 2:		$.toptips('用户不存在');	break;
-		        			case 11:	$.toptips('密码错误');		break;
-		        			case 13:	$.toptips('用户已被禁用');	break;
-		        			case 14: 	$.toptips('用户已绑定微信');	break;
-		        			default:	break;
+		        			} else {
+		        				$.toptips(ret.msg);
 		        			}
-		        			
 		        		},
 		        		error: function(err) {}
 		        	});

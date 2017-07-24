@@ -105,7 +105,6 @@
             validator.validate();
             
             if (validator.isValid()) {
-            	debugger;
             	$.ajax({
             		url: '${ctx}/api/news/create',
             		type: 'POST',

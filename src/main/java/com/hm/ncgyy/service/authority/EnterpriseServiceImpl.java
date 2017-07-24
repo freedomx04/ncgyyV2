@@ -82,5 +82,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		return baseRepository.findByPointStatus(PointStatus.POINT);
 	}
 
+	@Override
+	public List<EnterpriseBaseEntity> search(String input) {
+		return baseRepository.findByNameContaining(input);
+	}
+
 
 }

@@ -120,7 +120,7 @@ public class NewsController {
 		}
 	}
 
-	@RequestMapping(value = "/api/news/listPage")
+	@RequestMapping(value = "/api/news/listPaging")
 	public Result listPaging(Long enterpriseId, int page, int size) {
 		try {
 			List<NewsEntity> newsList = newsService.listByEnterpriseIdPaging(enterpriseId, page, size);

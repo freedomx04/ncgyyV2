@@ -13,10 +13,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/weui2.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/example.css">
 	
-	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/wx/lazyimg.js"></script>
-	<script type="text/javascript" src="${ctx}/local/common.js"></script>
-	
 </head>
 
 <body>
@@ -25,33 +21,12 @@
 			<h2 class="weui-weixin-title">${news.title}</h2>
 			<div class="weui-weixin-info">
 				<em class="weui-weixin-em"><fmt:formatDate value="${news.createTime}" pattern="yyyy-MM-dd"/></em>
-				<em class="weui-weixin-em">${enterpriseName}</em>
+				<em class="weui-weixin-em">${news.enterprise.name}</em>
 			</div>
 			
 			<div class="weui-weixin-content">${news.content}</div>
 		</div>
 	</div>
 	
-		<script type="text/javascript">
-	$(function() {
-		
-		var $content = $('.weui-weixin-content');
-		
-		var imgs = $content.find('img');
-		$.each(imgs, function(key, img) {
-			var $img = $(img);
-			
-			$img.attr('src', '${img}');
-			var src = $img.attr('data-src');
-			if (src.startsWith('/')) {
-				$img.attr('data-src', '${ctx}' + src);
-			}
-		});
-		
-		$k.util.lazyLoadImg('p [data-src]'); 
-		
-	});
-	</script>
-    
 </body>
 </html>

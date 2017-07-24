@@ -27,7 +27,7 @@
              <c:forEach var="enterprise" items="${enterpriseList}">
               	<a href="javascript:;" class="weui_cell enterprise-info" data-enterprise-id="${enterprise.id}">
               		<div class="weui_cell_hd weui-updown">
-              			<img src="${icon}" data-src="${ctx}/${enterprise.imagePath}" style="width: 40px; height: 40px; margin-right: 10px; display: block;"/>
+              			<img src="${icon}" data-src="${ctx}/api/avatar/${enterprise.avatar}" style="width: 40px; height: 40px; margin-right: 10px; display: block;"/>
               		</div>
                 	<div class="weui_cell_bd weui_cell_primary">
                     	<p>${enterprise.name}</p>
@@ -77,18 +77,18 @@
 				$search.show();
 				
 				$.ajax({
-					url: '${ctx}/enterprise/search',
+					url: '${ctx}/api/enterprise/search',
 					data: {
 						input: value
 					},
 					success: function(ret) {
-						if (ret.status == 0) {
+						if (ret.code == 0) {
 							var enterpriseList = ret.data;
 							if (enterpriseList.length > 0) {
 								$.each(enterpriseList, function(key, enterprise) {
 									$('<a href="javascript:;" class="weui_cell enterprise-info" data-enterprise-id="' + enterprise.id + '">'
 										+ '<div class="weui_cell_hd weui-updown">'
-										+ '<img src="${icon}" data-src="${ctx}/' + enterprise.imagePath + '" style="width: 40px; height: 40px; margin-right: 10px; display: block;"/>'
+										+ '<img src="${icon}" data-src="${ctx}/api/avatar/' + enterprise.avatar + '" style="width: 40px; height: 40px; margin-right: 10px; display: block;"/>'
 										+ '</div>'
 										+ '<div class="weui_cell_bd weui_cell_primary"><p>' + enterprise.name + '</p></div>'
 										+ '</a>')

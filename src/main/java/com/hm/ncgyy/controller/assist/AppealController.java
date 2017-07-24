@@ -127,7 +127,7 @@ public class AppealController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/appeal/listPage")
+	@RequestMapping(value = "/api/appeal/listPaging")
 	public Result listPaging(int page, int size) {
 		try {
 			Page<AppealEntity> list = appealService.listPaging(page, size);

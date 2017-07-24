@@ -48,14 +48,8 @@
 			
 				<p class="hm-weixin-title">产品介绍</p>
 				<p class="hm-weixin-content">${product.introduction}</p>
-				
-				<p class="hm-weixin-title">联系电话</p>
-				<p class="hm-weixin-content">${product.telephone}</p>
 			</div>
-			
 		</div>
-		
-		
 	</div>
 	
 	<script type="text/javascript">
