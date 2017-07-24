@@ -325,7 +325,7 @@
 						    toolbox: {
 						        show : false
 						    },
-						    calculable : true,
+						    calculable : false,
 						    legend: {
 						        data: ['本月止' +　legendName, '同比增幅', '环比增幅']
 						    },
