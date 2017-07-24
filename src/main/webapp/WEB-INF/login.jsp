@@ -193,7 +193,7 @@
                             	</div>
 	                        </div>
 	                        <div class="form-group clearfix">
-	                        	<a class="pull-right collapsed" data-toggle="collapse" href="forgetPassword" aria-expanded="false">忘记密码</a>
+	                        	<a class="pull-right collapsed" href="${ctx}/forgetpsw" target="_blank">忘记密码</a>
 	                        </div>
 	                        <div class="form-group row" style="margin: 0 auto;">
 	                        	<div class="col-sm-6">
