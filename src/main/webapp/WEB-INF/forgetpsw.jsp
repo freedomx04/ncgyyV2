@@ -40,7 +40,7 @@
     	width: 100%;
     	height: auto;
 	}
-	.ibox-content.tips {
+	.tips {
 	    background-color: f0f7fd;
 	    font-size: 16px;
 	    font-weight: bold;
@@ -108,10 +108,10 @@
 	        </div>
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-2">  
-	        	<div class="ibox-content tips">
-	        		您好：<span class="username"></span>, 请输入您绑定的手机号码！
-	        	</div> 
 	            <div class="ibox-content">
+		        	<div class="tips">
+		        		您好：<span class="username"></span>, 请输入您绑定的手机号码！
+		        	</div> 
 	            	<form class="form-horizontal" role="form" id="form-tel" autocomplete="off" onsubmit="return false;">
 						<div class="msg-wrap">
                     		<div class="msg-error hide"></div>
@@ -133,41 +133,42 @@
 	        </div>
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-3">
-	        	<form class="form-horizontal" role="form" id="form-psw" autocomplete="off" onsubmit="return false;">
-	        		<div class="ibox-content tips">
+	        	<div class="ibox-content">
+	        		<div class="tips" style="margin-bottom: 25px;">
 		        		您需要找回密码的用户名是：<span class="username"></span>
 		        	</div> 
-	        	
-	        		<div class="form-group">
-	                    <label for="password" class="col-sm-3 control-label"><i class="form-required">*</i>重置密码</label>
-	                    <div class="col-sm-7">
-	                        <input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" required>
+		        	<form class="form-horizontal" role="form" id="form-psw" autocomplete="off" onsubmit="return false;">
+		        		<div class="form-group">
+		                    <label for="password" class="col-sm-3 control-label"><i class="form-required">*</i>重置密码</label>
+		                    <div class="col-sm-7">
+		                        <input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" required>
+		                    </div>
 	                    </div>
-                    </div>
-                    <div class="form-group">
-					<label for="" class="col-sm-3 control-label" style="font-weight: normal; color: #999;">密码强度</label>
-					<div class="col-sm-7">
-						<div id="level" class="pw-strength">
-							<div class="pw-bar"></div>
-							<div class="pw-bar-on"></div>
-							<div class="pw-txt">
-								<span>弱</span><span>中</span><span>强</span>
+	                    <div class="form-group">
+						<label for="" class="col-sm-3 control-label" style="font-weight: normal; color: #999;">密码强度</label>
+						<div class="col-sm-7">
+							<div id="level" class="pw-strength">
+								<div class="pw-bar"></div>
+								<div class="pw-bar-on"></div>
+								<div class="pw-txt">
+									<span>弱</span><span>中</span><span>强</span>
+								</div>
 							</div>
 						</div>
-					</div>
-					</div>
-	                <div class="form-group">
-	                    <label for="confirm-password" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
-	                    <div class="col-sm-7">
-	                        <input type="password" class="form-control" name="confirmPassword" required>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-						<div class="col-sm-7 col-sm-offset-3">
-							<button type="button" class="btn btn-primary btn-next-step">下一步</button>
 						</div>
-					</div>
-	        	</form>
+		                <div class="form-group">
+		                    <label for="confirm-password" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
+		                    <div class="col-sm-7">
+		                        <input type="password" class="form-control" name="confirmPassword" required>
+		                    </div>
+		                </div>
+		                <div class="form-group">
+							<div class="col-sm-7 col-sm-offset-3">
+								<button type="button" class="btn btn-primary btn-next-step">下一步</button>
+							</div>
+						</div>
+		        	</form>
+		        </div>
 	        </div>
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-4"> 
@@ -293,7 +294,6 @@
 						success: function(ret) {
 							if (ret.code == 0) {
 								pearl($pearl);
-								window.location.href = "${ctx}/login";
 	                    	} else {
 	                    		$formPsw.find('.msg-error').removeClass('hide').text(ret.msg);
 	                    		return;
@@ -317,6 +317,11 @@
 			$page.find('.pearl').removeClass('current');
 			$nextP.addClass('done');
 			$nextP.next().addClass('current');
+			if ($pearl.attr("id") == "pearl-3") {
+				setTimeout(function() {
+					window.location.href = "${ctx}/login";
+				}, "1000");
+			}
 		}
 		
 	})( jQuery );
