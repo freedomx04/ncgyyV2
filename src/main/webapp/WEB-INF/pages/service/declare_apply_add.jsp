@@ -95,6 +95,7 @@
     <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/fileinput.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/layer/laydate/laydate.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
     
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -125,8 +126,8 @@
 				});
 				formData.append('attachmentList', attachmentList);
 				
-				formData.append('declareId', $k.util.getRequestParam('declareId'));
-				formData.append('enterpriseId', $k.util.getRequestParam('enterpriseId'));
+				formData.append('declareId', Url.queryString('declareId'));
+				formData.append('enterpriseId', Url.queryString('enterpriseId'));
             	
             	$.ajax({
             		url: '${ctx}/api/apply/create',

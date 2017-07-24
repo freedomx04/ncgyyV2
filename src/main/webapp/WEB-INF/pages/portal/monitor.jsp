@@ -70,13 +70,15 @@
 	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	
 	
 	<script>
 	var $page = $(".body-article");
 	;(function() {
 		
-		var item = $k.util.getRequestParam("item");
+		var item = Url.queryString("item");
 		var pagesize = 20;
 		
 		$page.find(".menu a").removeClass("nav_curr");

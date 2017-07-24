@@ -88,11 +88,12 @@
 	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
 	<script type="text/javascript" src="${ctx}/js/doT/1.0.1/doT.js"></script>
 	<script type="text/javascript" src="${ctx}/js/jquery/jquery-doT.js"></script>
-	<script src="${ctx}/plugins/wx/picker.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/wx/picker.js"></script>
 	<script type="text/javascript" src="${ctx}/js/highcharts/4.2.5/highcharts.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 	<script type="text/javascript">
-	var type = $k.util.getRequestParam("type");
+	var type = Url.queryString("type");
 	var item = type.split('-')[0];
 	var subItem = type.split('-')[1];
 	var $page = $(".wx-monitor");

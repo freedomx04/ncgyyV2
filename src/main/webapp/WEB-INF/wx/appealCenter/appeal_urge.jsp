@@ -31,12 +31,13 @@
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
 	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
 	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 	<script type="text/javascript">
 	$(function() {
 		var $page = $(".wx-appeal-urge");
-		var appealId = $k.util.getRequestParam("appealId");
-		var userId = parseInt($k.util.getRequestParam("userId"));
+		var appealId = Url.queryString("appealId");
+		var userId = parseInt(Url.queryString("userId"));
 		
 		$page.on('click', ".btn-appeal-urge", function() {
 			$.ajax({

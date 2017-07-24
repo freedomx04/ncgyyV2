@@ -63,12 +63,13 @@
 	<script type="text/javascript" src="${ctx}/plugins/paging/paging.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 	<script>
 	var $page = $(".body-article");
 	;(function() {
 		
-		var type = $k.util.getRequestParam("type");
+		var type = Url.queryString("type");
 		var pagesize = 20;
 		
 		$page.find(".ctree").removeClass("ctree_curr");

@@ -76,13 +76,14 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 
 	<script type="text/javascript">
 	
 		var $page = $('.body-declare-detail');
 		$page
 		.on('click', '.btn-declare-back', function() {
-			var type = $k.util.getRequestParam('type');
+			var type = Url.queryString('type');
 			if (type == 'ep') {
 				window.location.href = './declareEP';
 			} else if (type == 'gv') {

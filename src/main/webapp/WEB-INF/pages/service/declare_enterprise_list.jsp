@@ -85,6 +85,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrapValidator/js/language/zh_CN.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -96,7 +97,7 @@
 		$k.util.bsValidator($form);
 		
 		var $table = $k.util.bsTable($page.find('#declare-enterprise-list-table'), {
-			url: '${ctx}/api/apply/listByDeclareId?declareId=' + $k.util.getRequestParam('declareId'),
+			url: '${ctx}/api/apply/listByDeclareId?declareId=' + Url.queryString('declareId'),
 			idField: 'id',
 			responseHandler: function(res) {
                 return res.data;

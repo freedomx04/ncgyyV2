@@ -161,7 +161,7 @@
 	                    </li>
 	                </ul>
 	                <div>
-	                    <a href="index" class="btn btn-primary btn-outline">返回官网</a>
+	                    <a href="index" class="btn btn-primary btn-outline">返回首页</a>
 	                </div>
 	            </div>
 	        </div>

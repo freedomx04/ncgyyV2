@@ -21,6 +21,7 @@
 	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
 	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
 	<script type="text/javascript" src="${ctx}/js/base/constant.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 </head>
 
@@ -76,7 +77,7 @@
 	<script type="text/javascript">
 	$(function() {
 		var $page = $('.wx-appealCenter-info');
-		var userId = $k.util.getRequestParam("userId");
+		var userId = Url.queryString("userId");
 		var defaultIndex = Url.queryString("index");
 		if (!defaultIndex) {
 			defaultIndex = 0;
