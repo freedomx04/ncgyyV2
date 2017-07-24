@@ -41,8 +41,8 @@
  					<ul class="attachment-list list-unstyled">
  					<c:forEach var="file" items="${article.fileList}">
  						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-							<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
-					</li>
+							<a href="${ctx}/api/downloadFile?filename=${file.filename}&filepath=${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
+						</li>
  					</c:forEach>
  					</ul>
  				</div>
@@ -64,8 +64,6 @@
 		$page.on('click', '.btn-article-back', function() {
 			window.location.href = '../articleList?type=${article.type}';
 		});
-		
-		$k.util.attachmentIcon($page.find('.article-file'));
 		
 	</script>
 </body>

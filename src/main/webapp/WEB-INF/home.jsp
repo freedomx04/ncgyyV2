@@ -32,10 +32,10 @@
 				<ul class="nav" id="side-menu">
 					<li class="nav-header">
 						<div class="dropdown profile-element">
-							<span><img alt="image" class="img-circle" src="${ctx}/api/avatar/${user.avatar}" width="64" height="64"/></span>
+							<span><img alt="image" class="user-avatar img-circle" src="${ctx}/api/avatar/${user.avatar}" width="64" height="64"/></span>
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<span class="clear">
-									<span class="block m-t-xs"><strong class="font-bold">${user.name}</strong></span>
+									<span class="block m-t-xs"><strong class="font-bold user-name">${user.name}</strong></span>
 									<span class="block text-muted text-xs">${user.role.name}<b class="caret"></b></span>
 								</span>
 							</a>
@@ -357,24 +357,43 @@
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript">
-	;(function( $ ) {
 	
-		var $page = $('.body-home');
-		
-		$page
-		.on('click', '.btn-logout', function() {
-			$.ajax({
-				url: '${ctx}/api/user/logout',
-				success: function() {
-					window.location.href = "./login";
-				},
-				error: function() {}
-			});
+	var $page = $('.body-home');
+	var userId = '${user.id}';
+	
+	$page
+	.on('click', '.btn-logout', function() {
+		$.ajax({
+			url: '${ctx}/api/user/logout',
+			success: function() {
+				window.location.href = "./login";
+			},
+			error: function() {}
 		});
+	});
 	
-	})( jQuery );
+	function userRefresh() {
+		$.ajax({
+			url: '${ctx}/api/user/get',
+			data: {
+				userId: userId
+			},
+			success: function(ret) {
+				if (ret.code == 0) {
+					var user = ret.data;
+					$page.find('.user-avatar').attr('src', '${ctx}/api/avatar/' + user.avatar);
+					$page.find('.user-name').html(user.name);
+				}
+			},
+			error: function(err) {}
+		});
+	}
+	
+	function mailRefresh() {
+		
+	}
+	
 	</script>
 	
 </body>
-
 </html>

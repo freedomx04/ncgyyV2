@@ -54,7 +54,7 @@
 								 					<ul class="attachment-list list-unstyled">
 									 					<c:forEach var="file" items="${declare.fileList}">
 									 						<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
-																<a href="${ctx}${file.filepath}"><i class="icon-attachment"></i>${file.filename}</a>
+																<a href="${ctx}/api/downloadFile?filename=${file.filename}&filepath=${file.filepath}">${file.filename}</a>
 															</li>
 									 					</c:forEach>
 								 					</ul>

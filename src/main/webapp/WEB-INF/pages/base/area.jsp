@@ -30,6 +30,10 @@
 			
 			<div class="ibox-content">
 				<div class="btn-group hidden-xs" id="area-list-table-toolbar" role="group">
+					 <button type="button" class="btn btn-white btn-area-test">
+	                    <i class="fa fa-plus fa-fw"></i>test
+	                 </button>
+				
 					<c:if test="${fn:contains(role.resource, 'authority-area-add')}">
 	                    <button type="button" class="btn btn-white btn-area-add" data-toggle="modal" data-target="#modal-area-dialog">
 	                        <i class="fa fa-plus fa-fw"></i>新增
@@ -273,6 +277,9 @@
                     error: function(err) {}
                 });
             });
+        })
+        .on('click', '.btn-area-test', function() {
+        	window.parent.parent_click();
         });
 		
 	})( jQuery );

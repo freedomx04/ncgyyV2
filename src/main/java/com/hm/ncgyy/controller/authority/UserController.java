@@ -292,7 +292,6 @@ public class UserController {
 		}
 	}
 	
-	
 	@RequestMapping(value = "/api/user/status") 
 	public Result status(Long userId, Integer status) {
 		try {
