@@ -320,7 +320,7 @@
 							<img border="0" data-original="${ctx}/${product.imagePath}" width="180" height="122" style="display: inline;">
 						</a>
 					</div>
-					<div class="product_wz"> 
+					<div class="product_wz" style="text-align: center;"> 
 						<a href="product?productId=${product.id}" target="_blank">${product.name}</a>
 					</div>
 				</div>
