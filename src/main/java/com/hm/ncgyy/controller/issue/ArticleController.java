@@ -160,7 +160,7 @@ public class ArticleController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/article/listPage")
+	@RequestMapping(value = "/api/article/listPaging")
 	public Result listPaging(Integer type, int page, int size) {
 		try {
 			Page<ArticleEntity> list = articleService.listByType(type, page, size);
