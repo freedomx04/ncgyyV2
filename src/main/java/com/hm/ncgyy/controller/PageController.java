@@ -90,7 +90,12 @@ public class PageController {
 	@RequestMapping(value = "/enterprise")
 	String enterpriseInfo(ModelMap modelMap, Long enterpriseId) {
 		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
+		List<NewsEntity> newsList = newsService.listByEnterpriseId(enterpriseId);
+		List<ProductEntity> productList = productService.listByEnterpriseId(enterpriseId);
+		
 		modelMap.addAttribute("enterprise", enterprise);
+		modelMap.addAttribute("newsList", newsList);
+		modelMap.addAttribute("productList", productList);
 		return "pages/portal/enterpriseinfo";
 	}
 	
