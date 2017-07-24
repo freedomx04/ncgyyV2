@@ -95,7 +95,7 @@
 	    cursor: pointer;
 	    margin-top: 4px;
 	    left: 0;
-	    background: transparent url(https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/sideCatalog/img/sideCatalog_a278e02.gif) 3px -222px no-repeat;
+	    background: transparent url(${ctx}/img/sideCatalog.gif) 3px -222px no-repeat;
 	}
 	.side-catalog .catalog-scroller .catalog-list .arrow {
 	    left: 0;
@@ -105,7 +105,7 @@
 	    height: 13px;
 	    width: 18px;
 	    cursor: pointer;
-	    background: transparent url(https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/sideCatalog/img/sideCatalog_a278e02.gif) -271px -38px no-repeat;
+	    background: transparent url(${ctx}/img/sideCatalog.gif) -271px -38px no-repeat;
 	}
 	.side-catalog .catalog-scroller .catalog-list .catalog-title.level1 .title-link {
 	    color: #555;
@@ -140,7 +140,7 @@
 	    font-weight: 400;
 	    font-family: Microsoft YaHei,SimHei,Verdana;
 	    margin: 35px 0 15px 0px;
-	    background: url(https://bkssl.bdimg.com/static/wiki-lemma/normal/resource/img/paraTitle-line_c5e6d61.png);
+	    background: url(${ctx}/img/paraTitle-line_c5e6d61.png);
 	    position: relative;
 	}
 	.para-title.level-2 .title-text {
@@ -165,11 +165,11 @@
 	    cursor: pointer;
 	}
 	.side-catalog .bottom-wrap .toggle-button {
-	    background: transparent url(https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/sideCatalog/img/sideCatalog_a278e02.gif) no-repeat 0 0;
+	    background: transparent url(${ctx}/img/sideCatalog.gif) no-repeat 0 0;
 	}
 	.side-catalog .bottom-wrap .gotop-button {
 	    margin-top: 6px;
-	    background: transparent url(https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/sideCatalog/img/sideCatalog_a278e02.gif) no-repeat -1px -62px;
+	    background: transparent url(${ctx}/img/sideCatalog.gif) no-repeat -1px -62px;
 	}
 	
 	.lemma-summary {
@@ -259,11 +259,11 @@
 		</div>
 		
 		<div class="main-content">
+			<h2>${enterprise.name}</h2>
 			<div id="1" class="para-title level-2">
 				<h2 class="title-text">企业简介</h2>
 			</div>
 			<div class="para-content">
-				<h2>${enterprise.name}</h2>
 				<div class="lemma-summary">${enterprise.introduction}</div>
 			</div>
 			
@@ -335,9 +335,8 @@
 				<ul class="news-list">
 					<c:forEach var="news" items="${newsList}" varStatus="status">
 						<li class="news-item">
-							<span class="index">${status.index + 1}.${news.title}</span>
-							<a rel="nofollow" href="epnews?newsId=${news.id}&enterpriseId=${enterprise.id}" target="_blank" class="text">
-								${news.content}
+							<a href="epnews?newsId=${news.id}&enterpriseId=${enterprise.id}" target="_blank" class="text">
+								<span class="index">${status.index + 1}.${news.title}</span>
 							</a>
 							<span>．<fmt:formatDate value="${news.updateTime}" pattern="yyyy-MM-dd"/></span>
 						</li>

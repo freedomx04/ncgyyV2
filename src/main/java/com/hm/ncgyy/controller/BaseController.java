@@ -90,6 +90,11 @@ public class BaseController {
 		return "register";
 	}
 	
+	@RequestMapping(value = "/forgetpsw")
+	String forgetpsw() {
+		return "forgetpsw";
+	}
+	
 	@RequestMapping(value = "/init")
 	String init() {
 		return "init";
