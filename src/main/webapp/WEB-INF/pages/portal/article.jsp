@@ -93,7 +93,7 @@
 		
 		function getData(type, page, size) {
 			$.ajax({
-				url: "${ctx}/api/article/listPage",
+				url: "${ctx}/api/article/listPaging",
 				data: {
 					type: type,
 					page: page,

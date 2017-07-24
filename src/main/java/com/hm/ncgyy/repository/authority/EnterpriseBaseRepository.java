@@ -19,5 +19,7 @@ public interface EnterpriseBaseRepository extends PagingAndSortingRepository<Ent
 	List<EnterpriseBaseEntity> findByPointStatus(Integer pointStatus);
 	
 	Page<EnterpriseBaseEntity> findAll(Pageable pageable);
+	
+	List<EnterpriseBaseEntity> findByNameContaining(String name);
 
 }

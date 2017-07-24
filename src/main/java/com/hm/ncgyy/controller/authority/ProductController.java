@@ -124,8 +124,8 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/api/product/list")
-	public Result list(Long enterpriseId) {
+	@RequestMapping(value = "/api/product/listByEnterpriseId")
+	public Result listByEnterpriseId(Long enterpriseId) {
 		try {
 			List<ProductEntity> productList = productService.listByEnterpriseId(enterpriseId);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", productList);
@@ -135,8 +135,8 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/api/product/listPage")
-	public Result listPaging(Long enterpriseId, int page, int size) {
+	@RequestMapping(value = "/api/product/listPagingByEnterpriseId")
+	public Result listPagingByEnterpriseId(Long enterpriseId, int page, int size) {
 		try {
 			List<ProductEntity> productList = productService.listByEnterpriseIdPaging(enterpriseId, page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", productList);
@@ -146,7 +146,7 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/product/listAll")
+	@RequestMapping(value = "/api/product/list")
 	public Result list() {
 		try {
 			List<ProductEntity> list = productService.list();
@@ -157,8 +157,8 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/api/product/listAllPage")
-	public Result list(int page, int size) {
+	@RequestMapping(value = "/api/product/listPaging")
+	public Result listPaging(int page, int size) {
 		try {
 			List<ProductEntity> list = productService.listPaging(page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
@@ -167,4 +167,5 @@ public class ProductController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
 }

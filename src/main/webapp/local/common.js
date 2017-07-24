@@ -164,20 +164,35 @@
 	}
 	
 	/**
-	 * 从url中获取参数
+	 * 懒加载图片
 	 */
-	$k.util.getRequestParam = function(paras) {
-		var url = location.href;
-		var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
-		var paraObj = {};
-		for ( var i = 0; j = paraString[i]; i++) {
-			paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);
+	$k.util.lazyLoadImg = function($el) {
+		var lazyloadImg = new LazyloadImg({
+            el: $el, //匹配元素
+            top: 50, //元素在顶部伸出长度触发加载机制
+            right: 50, //元素在右边伸出长度触发加载机制
+            bottom: 50, //元素在底部伸出长度触发加载机制
+            left: 50, //元素在左边伸出长度触发加载机制
+            qriginal: true, // true，自动将图片剪切成默认图片的宽高；false显示图片真实宽高
+            load: function(el) {
+                el.style.cssText += '-webkit-animation: fadeIn 01s ease 0.2s 1 both;animation: fadeIn 1s ease 0.2s 1 both;';
+            },
+            error: function(el) {}
+        });
+	}
+	
+	/**
+	 * 截取字符串
+	 */
+	$k.util.subText = function($paragraph, maxParagraphLength) {
+		var paragraphText = $paragraph.text();
+		if (paragraphText == null) {
+			return;
 		}
-		var returnValue = paraObj[paras.toLowerCase()];
-		if (typeof (returnValue) == "undefined") {
-			return "";
-		} else {
-			return returnValue;
+		
+		var paragraphLength = paragraphText.length;
+		if (paragraphLength > maxParagraphLength) {
+			$paragraph.html(paragraphText.substring(0, maxParagraphLength) + '...');
 		}
 	}
 	

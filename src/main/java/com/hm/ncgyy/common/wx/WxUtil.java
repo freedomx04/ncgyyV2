@@ -8,6 +8,18 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
@@ -15,6 +27,8 @@ import org.springframework.ui.ModelMap;
 import com.google.gson.Gson;
 import com.hm.ncgyy.common.utils.ConfigUtils;
 import com.hm.ncgyy.common.utils.HttpUtils;
+import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.service.authority.UserService;
 
 public class WxUtil {
 
@@ -208,6 +222,76 @@ public class WxUtil {
 		String result = formatter.toString();
 		formatter.close();
 		return result;
+	}
+	
+	/**
+	 * 微信登入跳转
+	 * @param modelMap
+	 * @param request
+	 * @param userService
+	 * @param jspPath
+	 * @return
+	 */
+	public String redirect(ModelMap modelMap, HttpServletRequest request, UserService userService, String jspPath) {
+		UserEntity user = null;
+		String userId = request.getParameter("userId");
+		
+		// 第一次微信进入
+		if (userId == null) {
+			String wxUserId = getUserId(request.getParameter("code"));
+			user = userService.findByWxUserId(wxUserId);
+			
+			// 该微信用户未绑定, 跳转到绑定页面
+			if (user == null) {
+				modelMap.addAttribute("wxUserId", wxUserId);
+				
+				String redirect = request.getRequestURL().toString();
+				modelMap.addAttribute("redirect", redirect);
+				
+				return "wx/personal/bind";
+			}
+			
+			// 该微信用户已绑定, 跳转到指定页面
+			modelMap.addAttribute("user", user);
+			return jspPath;
+		} 
+		
+		// 绑定好后进入
+		user = userService.findOne(Long.parseLong(userId));
+		modelMap.addAttribute("user", user);
+		return jspPath;
+	}
+	
+	public String send(String toUser, String agentid, String content) throws IOException {
+		String ret = "";
+		
+		String token = getToken();
+		String url = String.format("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s", token);
+		
+		String json = "{'touser': '" + toUser + "', 'msgtype': 'text', 'agentid': '" + agentid + "', 'text': {'content': '" + content + "'}}";
+		json = json.replace('\'', '\"');
+		
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost httpPost = new HttpPost(url);
+		
+		RequestConfig config = RequestConfig.custom().setSocketTimeout(2000).setConnectTimeout(5000).build();
+		httpPost.setConfig(config);
+		httpPost.addHeader("Content-Type", "application/json");
+		
+		StringEntity entity = new StringEntity(json, Consts.UTF_8);
+		httpPost.setEntity(entity);
+		
+		CloseableHttpResponse response = httpClient.execute(httpPost, new BasicHttpContext());
+		
+		HttpEntity retEntity = response.getEntity();
+        if (response.getStatusLine().getStatusCode() < 400) {
+            ret = EntityUtils.toString(retEntity, "UTF-8");
+        } else {
+            EntityUtils.consume(entity);
+        }
+        httpClient.close();
+        
+        return ret;
 	}
 	
 }

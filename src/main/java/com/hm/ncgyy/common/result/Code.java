@@ -12,7 +12,8 @@ public enum Code {
 	
 	// 用户相关
 	USER_PWD_ERROR(2001),	// 密码错误
-	USER_NO_VALID(2002),	// 用户被禁用
+	USER_NO_VALID(2002),	// 用户已被禁用
+	USER_WX_BIND(2003),		// 用户已绑定微信
 	
 	
 	;

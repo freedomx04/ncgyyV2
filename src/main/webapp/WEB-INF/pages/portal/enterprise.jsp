@@ -65,7 +65,7 @@
 		
 		function getData(page, size) {
 			$.ajax({
-				url: "${ctx}/api/enterprise/listPage",
+				url: "${ctx}/api/enterprise/listPaging",
 				data: {
 					page: page,
 					size: size

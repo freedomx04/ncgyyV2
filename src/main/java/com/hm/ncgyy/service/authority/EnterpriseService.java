@@ -36,5 +36,7 @@ public interface EnterpriseService {
 	
 	List<EnterpriseBaseEntity> listPoint();
 	
+	List<EnterpriseBaseEntity> search(String input);
+	
 	
 }
