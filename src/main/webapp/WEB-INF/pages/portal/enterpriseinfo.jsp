@@ -216,6 +216,7 @@
 	    float: left;
 	    position: relative;
 	    word-break: break-all;
+	    height: 26px;
 	}
 	.cmn-clearfix{*zoom:1}
 	.cmn-clearfix:after{content:'\0020';display:block;height:0;font-size:0;clear:both;overflow:hidden;visibility:hidden}
