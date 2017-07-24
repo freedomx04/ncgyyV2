@@ -289,7 +289,7 @@
 						url :'${ctx}/api/user/password2',
 						type: 'POST',
 						data: {
-							password: $formName.find('input[name = "password"]').val(),
+							password: $formPsw.find('input[name = "password"]').val(),
 							userId: user.id
 						},
 						success: function(ret) {
