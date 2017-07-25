@@ -52,6 +52,7 @@ public class WxAppealController {
 	
 	@RequestMapping("/wx/appealCenter")
 	String rank(ModelMap modelMap) {
+		//return "wx/appealCenter/menu";
 		return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
 	}
 	
@@ -60,6 +61,12 @@ public class WxAppealController {
 		
 		UserEntity user = userService.findOne(userId);
 		EnterpriseEntity enterprise = user.getEnterprise();
+		
+		if (enterprise == null) {
+			modelMap.addAttribute("appealList", null);
+			return "wx/appealCenter/appeal_ep";
+		}
+		
 		Long enterpriseId = enterprise.getId();
 		List<AppealEntity> appealList = appealService.findByEnterpriseId(enterpriseId);
 		
@@ -114,6 +121,12 @@ public class WxAppealController {
 		
 		UserEntity user = userService.findOne(userId);
 		DepartmentEntity department = user.getDepartment();
+		
+		if (department == null) {
+			modelMap.addAttribute("appealList", null);
+			return "wx/appealCenter/appeal_gv";
+		}
+		
 		Long departmentId = department.getId();
 		
 		List<AppealEntity> appealList = appealService.findByDepartmentId(departmentId);

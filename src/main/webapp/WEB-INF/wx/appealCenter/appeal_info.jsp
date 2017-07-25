@@ -13,11 +13,10 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/weui2.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/example.css">
 	
-	<script type="text/javascript" src="${ctx}/js/jquery/1.10.1/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/constant.js"></script>
 	<script src="${ctx}/plugins/wx/select.js"></script>
+	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<style type="text/css">
 		.weui_cell_bd {
@@ -207,10 +206,10 @@
 		<div class="weui-popup-modal">
 			<div class="page-bd wx-electricity-list">  
 				<ul>
-					<c:if test="${empty appeal.urges}">
+					<c:if test="${empty appeal.urgeList}">
 						<div class="weui-footer" style="padding: 10px;"><p>暂无数据</p></div>
 					</c:if>
-					<c:forEach var="urge" items="${appeal.urges}">
+					<c:forEach var="urge" items="${appeal.urgeList}">
 						<li style="background-color: #efeff4;">
 							<div class="weui-flex js-category">
 								<p class="weui-flex-item">${urge.user.name}</p>
@@ -247,8 +246,9 @@
 		var appealId = parseInt($page.find(".appeal-info").data('appealId'));
 		
 		var appealStatus = $appealStatus.data('appealStatus');
-		$appealStatus.text($k.constant.getAppealStatus(appealStatus));
+		$appealStatus.text($k.util.getAppealStatus(appealStatus));
 		$page.find(".weui_btn").removeAttr("disabled");
+		
 		if ("${role}" == "ep") {
 			if(appealStatus == 0) {
 				$urgeBtn.addClass("weui_btn_disabled").attr("disabled", "true");
@@ -304,13 +304,13 @@
 			var $this = $(this);
 	        $.confirm("您确定要发送给派单员吗?", "确认发送?", function() {
 	        	$.ajax({
-					url: "${ctx}/appeal/send",
+					url: "${ctx}/api/appeal/send",
 					type: "POST",
 					data: {
 						appealId: appealId,
 					},
 					success: function(data) {
-						if(data.status=="0"){
+						if(data.code == 0){
 							$.toast("发送成功!");
 							setTimeout(function () {
 								window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=${role}&userId=${userId}";
@@ -327,13 +327,13 @@
 			var $this = $(this);
 	        $.confirm("您确定要受理该诉求吗?", "确认受理?", function() {
 	        	$.ajax({
-					url: "${ctx}/appeal/accept",
+					url: "${ctx}/api/appeal/accept",
 					type: "POST",
 					data: {
 						appealId: appealId,
 					},
 					success: function(data) {
-						if(data.status=="0"){
+						if(data.code == 0){
 							$.toast("受理成功!");
 							setTimeout(function () {
 								window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=${role}&userId=${userId}";
@@ -350,13 +350,13 @@
 			var $this = $(this);
 	        $.confirm("您确定要办结该诉求吗?", "确认办结?", function() {
 	        	$.ajax({
-					url: "${ctx}/appeal/handle",
+					url: "${ctx}/api/appeal/handle",
 					type: "POST",
 					data: {
 						appealId: appealId,
 					},
 					success: function(data) {
-						if(data.status=="0"){
+						if(data.code == 0){
 							$.toast("办结成功!");
 							setTimeout(function () {
 								window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=${role}&userId=${userId}";
@@ -398,7 +398,6 @@
     		}
     	});
 	});
-	
 	</script>
 	
 </body>

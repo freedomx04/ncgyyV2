@@ -48,7 +48,7 @@
 	}
 	</style>
 </head>
-<body class="gray-bg body-register">
+<body class="gray-bg body-forgetpsw">
 	<div class="row border-bottom white-bg">
          <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
              <div class="navbar-header">
@@ -109,7 +109,7 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-2">  
 	            <div class="ibox-content">
-		        	<div class="tips">
+		        	<div class="tips" style="margin-bottom: 25px;">
 		        		您好：<span class="username"></span>, 请输入您绑定的手机号码！
 		        	</div> 
 	            	<form class="form-horizontal" role="form" id="form-tel" autocomplete="off" onsubmit="return false;">
@@ -178,6 +178,7 @@
 				    </div>
 				    <h2></h2>
 				    <p style="display: block;">修改成功</p>
+				    <button type="button" id="btn-login" class="btn btn-primary">直接登录</button>
 				</div>
 	        </div>
 	        
@@ -196,7 +197,7 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var $page = $('.body-register');
+		var $page = $('.body-forgetpsw');
 		var $formName = $page.find('#form-username');
 		var $formTel = $page.find('#form-tel');
 		var $formPsw = $page.find('#form-psw');
@@ -254,7 +255,7 @@
 						if (ret.code == 0) {
 							user = ret.data;
 							pearl($pearl);
-							$page.find(".tips .username").text(user.name);
+							$page.find(".tips .username").text(user.username);
                     	} else {
                     		$formName.find('.msg-error').removeClass('hide').text(ret.msg);
                     	}
@@ -288,7 +289,7 @@
 						url :'${ctx}/api/user/password2',
 						type: 'POST',
 						data: {
-							password: $formName.find('input[name = "password"]').val(),
+							password: $formPsw.find('input[name = "password"]').val(),
 							userId: user.id
 						},
 						success: function(ret) {
@@ -317,12 +318,11 @@
 			$page.find('.pearl').removeClass('current');
 			$nextP.addClass('done');
 			$nextP.next().addClass('current');
-			if ($pearl.attr("id") == "pearl-3") {
-				setTimeout(function() {
-					window.location.href = "${ctx}/login";
-				}, "1000");
-			}
 		}
+		
+		$page.on("click", "#btn-login", function() {
+			window.location.href = "./login";
+		});
 		
 	})( jQuery );
 	</script>

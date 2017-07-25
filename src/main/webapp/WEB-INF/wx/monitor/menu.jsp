@@ -18,78 +18,202 @@
 <body>
 	<div>
 		<c:choose>
-		<c:when test="${user.role.resource.indexOf('agency_enterprise') > -1 || user.role.resource.indexOf('agency_department') > -1}">
+		<c:when test="${fn:contains(user.role.resource, 'authority-target-report')
+						|| fn:contains(user.role.resource, 'authority-target-enterprise')
+						|| fn:contains(user.role.resource, 'authority-target-industry')
+						|| fn:contains(user.role.resource, 'authority-target-area')
+						|| fn:contains(user.role.resource, 'authority-target-point-enterprise')
+						|| fn:contains(user.role.resource, 'authority-target-ep')}">
 		<div class="searchbar_wrap"></div>
 	    <div class="page-bd wx-monitor-list">  
 			<ul>
-				<c:forEach var="type" begin="0" end="3"  step="1" varStatus="i" items="企业主要指标,行业主要指标,区域主要指标,重点企业主要指标">
-					<li>
-						<div class="weui-flex js-category">
-							<p class="weui-flex-item">${type}</p>
-							<i class="icon icon-74"></i>
-						</div>
-						<div class="page-category js-categoryInner">
-							<c:if test="${user.role.resource.indexOf('agency_department') > -1}">
-							<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
-					            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=${i.index}-1">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>主营业务收入及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>   
-					             <a class="weui_cell" href="${ctx}/wx/monitorGV?type=${i.index}-2">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>用电量及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a> 
-	                         	<a class="weui_cell" href="${ctx}/wx/monitorGV?type=${i.index}-3">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>利润总额及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>
-					            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=${i.index}-4">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>实现税金总额及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>
-					        </div>
-					        </c:if>
-					        
-					        <c:if test="${user.role.resource.indexOf('agency_enterprise') > -1}">
-							<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
-					            <a class="weui_cell" href="${ctx}/wx/monitorEP?type=${i.index}-1&userId=${user.id}">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>主营业务收入及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>   
-					             <a class="weui_cell" href="${ctx}/wx/monitorEP?type=${i.index}-2&userId=${user.id}">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>用电量及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a> 
-	                         	<a class="weui_cell" href="${ctx}/wx/monitorEP?type=${i.index}-3&userId=${user.id}">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>利润总额及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>
-					            <a class="weui_cell" href="${ctx}/wx/monitorEP?type=${i.index}-4&userId=${user.id}">
-					                <div class="weui_cell_bd weui_cell_primary">
-					                    <p>实现税金总额及增幅图表</p>
-					                </div>
-					                <div class="weui_cell_ft"></div>
-					            </a>
-					        </div>
-					        </c:if>
-					        
+				<c:if test="${fn:contains(user.role.resource, 'authority-target-enterprise')}">
+				<li>
+					<div class="weui-flex js-category">
+						<p class="weui-flex-item">企业主要指标</p>
+						<i class="icon icon-74"></i>
+					</div>
+					<div class="page-category js-categoryInner">
+						<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=0-1">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>主营业务收入及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>   
+				             <a class="weui_cell" href="${ctx}/wx/monitorGV?type=0-2">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>用电量及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a> 
+                         	<a class="weui_cell" href="${ctx}/wx/monitorGV?type=0-3">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>利润总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=0-4">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>实现税金总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
 				        </div>
-				    </li>
-				</c:forEach>
+			        </div>
+			    </li>
+			    </c:if>
+			    
+			    <c:if test="${fn:contains(user.role.resource, 'authority-target-ep')}">
+				<li>
+					<div class="weui-flex js-category">
+						<p class="weui-flex-item">企业主要指标</p>
+						<i class="icon icon-74"></i>
+					</div>
+					<div class="page-category js-categoryInner">
+						<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
+				            <a class="weui_cell" href="${ctx}/wx/monitorEP?type=0-1&userId=${user.id}">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>主营业务收入及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>   
+				             <a class="weui_cell" href="${ctx}/wx/monitorEP?type=0-1&userId=${user.id}">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>用电量及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a> 
+                         	<a class="weui_cell" href="${ctx}/wx/monitorEP?type=0-3&userId=${user.id}">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>利润总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				            <a class="weui_cell" href="${ctx}/wx/monitorEP?type=0-3&userId=${user.id}">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>实现税金总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				        </div>
+			        </div>
+			    </li>
+			    </c:if>
+			    
+			    <c:if test="${fn:contains(user.role.resource, 'authority-target-industry')}">
+				<li>
+					<div class="weui-flex js-category">
+						<p class="weui-flex-item">行业主要指标</p>
+						<i class="icon icon-74"></i>
+					</div>
+					<div class="page-category js-categoryInner">
+						<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=1-1">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>主营业务收入及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>   
+				             <a class="weui_cell" href="${ctx}/wx/monitorGV?type=1-2">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>用电量及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a> 
+                         	<a class="weui_cell" href="${ctx}/wx/monitorGV?type=1-3">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>利润总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=1-4">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>实现税金总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				        </div>
+			        </div>
+			    </li>
+			    </c:if>
+			    
+			    
+			    <c:if test="${fn:contains(user.role.resource, 'authority-target-area')}">
+				<li>
+					<div class="weui-flex js-category">
+						<p class="weui-flex-item">区域主要指标</p>
+						<i class="icon icon-74"></i>
+					</div>
+					<div class="page-category js-categoryInner">
+						<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=2-1">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>主营业务收入及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>   
+				             <a class="weui_cell" href="${ctx}/wx/monitorGV?type=2-2">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>用电量及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a> 
+                         	<a class="weui_cell" href="${ctx}/wx/monitorGV?type=2-3">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>利润总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=2-4">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>实现税金总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				        </div>
+			        </div>
+			    </li>
+			    </c:if>
+			    
+			    <c:if test="${fn:contains(user.role.resource, 'authority-target-point-enterprise')}">
+				<li>
+					<div class="weui-flex js-category">
+						<p class="weui-flex-item">重点企业主要指标</p>
+						<i class="icon icon-74"></i>
+					</div>
+					<div class="page-category js-categoryInner">
+						<div class="weui_cells weui_cells_access" style="margin-top: 0px;">
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=3-1">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>主营业务收入及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>   
+				             <a class="weui_cell" href="${ctx}/wx/monitorGV?type=3-2">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>用电量及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a> 
+                         	<a class="weui_cell" href="${ctx}/wx/monitorGV?type=3-3">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>利润总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				            <a class="weui_cell" href="${ctx}/wx/monitorGV?type=3-4">
+				                <div class="weui_cell_bd weui_cell_primary">
+				                    <p>实现税金总额及增幅图表</p>
+				                </div>
+				                <div class="weui_cell_ft"></div>
+				            </a>
+				        </div>
+			        </div>
+			    </li>
+			    </c:if>
+			    
+			    
 			</ul>
 		</div> 
 		</c:when>

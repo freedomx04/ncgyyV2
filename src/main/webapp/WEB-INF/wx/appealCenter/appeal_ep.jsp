@@ -13,18 +13,25 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/weui2.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/example.css">
 	
-	<script type="text/javascript" src="${ctx}/js/jquery/1.10.1/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/constant.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 </head>
 
 <body class="wx-appealCenter-info">
+	<c:if test="${appealList == null}">
+		<div class="weui_msg">
+			<div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
+			<div class="weui_text_area">
+				<p class="weui_msg_desc">您的还不是企业用户，请联系管理员添加！</p>
+			</div>
+		</div>
+	</c:if>
+	
+	<c:if test="${appealList != null}">
 	<div class="weui_tab appealCenter-tab">
 		<div class="weui_tab_nav" style="padding: 10px 20px;">
 			<a href="javascript:;" class="weui_navbar_item weui_nav_green" data-index="0">诉求列表</a>
@@ -94,8 +101,8 @@
 			</div>
 			
 		</div>
-		
 	</div>
+	</c:if>
 
 	<script type="text/javascript">
 	$(function() {
@@ -113,13 +120,13 @@
 		
 		$.each($page.find(".weui-badge"), function(k, y) {
 			var status = $page.find(".weui-badge").eq(k).data('status');
-			$page.find(".weui-badge").eq(k).text($k.constant.getAppealStatus(status));
+			$page.find(".weui-badge").eq(k).text($k.util.getAppealStatus(status));
 		});
 		
 		$page
 		.on('click', '.appeal-info', function() {
 			var appealId = $(this).data('appealId');
-			window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=ep&userId=" + userId;
+			window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=ep&userId=" + 12;
 		})
 		.on('click', '.weui_navbar_item', function() {
 			var index = $(this).data('index');
@@ -127,6 +134,7 @@
 		});
 		
 	});
+	
 	</script>
 
 </body>

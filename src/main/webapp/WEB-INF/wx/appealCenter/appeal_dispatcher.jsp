@@ -13,14 +13,11 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/weui2.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/example.css">
 	
-	<script type="text/javascript" src="${ctx}/js/jquery/1.10.1/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
-	<script type="text/javascript" src="${ctx}/js/highcharts/4.2.5/highcharts.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/constant.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 </head>
@@ -59,15 +56,15 @@
 			
 			<div class="weui_tab_bd_item" style="width:100%;">
 				<div class="weui_cells_title">诉求分类分布图</div>
-				<div id="appealType-chart-container" style="margin-top: 10px; width: 100%;"></div>
+				<div id="appealType-chart-container" style="margin-top: 10px; width: 100%; height: 300px;"></div>
 				
 				<div class="weui_cells_title" >诉求分类状态统计图</div>
-				<div id="appealStatus-chart-container" style="margin-top: 10px; width: 100%;"></div>
+				<div id="appealStatus-chart-container" style="margin-top: 10px; width: 100%; height:450px;"></div>
 			</div>
 			
 			<div class="weui_tab_bd_item">
 				<div class="weui_cells_title">诉求预警提醒</div>
-				<div id="appeal-warning-chart-container" style="margin-top: 10px; width: 100%;"></div>
+				<div id="appeal-warning-chart-container" style="margin-top: 10px; width: 100%; height: 300px;"></div>
 			</div>
 			
 		</div>
@@ -89,12 +86,19 @@
 		
 		$.each($page.find(".weui-badge"), function(k, y) {
 			var status = $page.find(".weui-badge").eq(k).data('status');
-			$page.find(".weui-badge").eq(k).text($k.constant.getAppealStatus(status));
+			$page.find(".weui-badge").eq(k).text($k.util.getAppealStatus(status));
 		});
 		
-		getAppealTypeChart($page.find("#appealType-chart-container"));
-		getAppealStatusChart($page.find("#appealStatus-chart-container"));
-		getWarnigChart($page.find("#appeal-warning-chart-container"))
+		$page.find('#appealType-chart-container').css( 'width', $(".weui_tab").width());
+		$page.find('#appealStatus-chart-container').css( 'width', $(".weui_tab").width());
+		$page.find('#appeal-warning-chart-container').css( 'width', $(".weui_tab").width());
+		
+		if (defaultIndex == 1) {
+			getAppealTypeChart($page.find("#appealType-chart-container"));
+			getAppealStatusChart($page.find("#appealStatus-chart-container"));
+		} else {
+			getWarnigChart($page.find("#appeal-warning-chart-container"));
+		}
 		
 		
 		$page
@@ -105,183 +109,197 @@
 		.on('click', '.weui_navbar_item', function() {
 			var index = $(this).data('index');
 			Url.updateSearchParam("index", index);
+			if (index == 1) {
+				getAppealTypeChart($page.find("#appealType-chart-container"));
+				getAppealStatusChart($page.find("#appealStatus-chart-container"));
+			} else {
+				getWarnigChart($page.find("#appeal-warning-chart-container"));
+			}
 		});
 		
 		
 		function getAppealTypeChart($chartContainer) {
+			var myChart = echarts.init($chartContainer[0]);
 			$.ajax({
-				url: "${ctx}/appeal/getAppealCountByType",
+				url: "${ctx}/api/appeal/getAppealCountByType",
 				type: "POST",
-				success: function(data) {
-					var seriesData = [];
-					$.each(data.data, function(key, val) {
-						seriesData.push({name: val.appealTypeName, y: val.count, value: val.appealTypeId});
-		            });
-					var chart = $chartContainer.highcharts({
-						 chart: { plotBackgroundColor: null, plotBorderWidth: null, plotShadow: false }, 
-						 title: { text: '诉求分类分布图' }, 
-						 credits: {
-				             text: '',
-				             href: '#'
-				         },
-						 tooltip: { 
-							 formatter: function() {
-					            return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +'% ('+
-		                         Highcharts.numberFormat(this.y, 0, ',') +' 条)';
-		         
-							 } 		
-				         }, 
-						 plotOptions: { 
-							 pie: { 
-								 allowPointSelect: true, 
-								 cursor: 'pointer', 
-								 dataLabels: { enabled: false }, 
-								 showInLegend: true,
-							},
-							series: {
-	                            events: {
-	                               legendItemClick: function (event){                                    
-	                                  return false;
-	                               }
-	                            }
-	                       }
-						 }, 
-					    series: [{
-					    	type: "pie",
-					    	name: "占",
-					    	data: seriesData
-					    }]
-					});
+				success: function(ret) {
+					if (ret.code == 0) {
+						var seriesData = [];
+						var legendData = [];
+						
+						$.each(ret.data, function(key, val) {
+							seriesData.push({name: val.appealTypeName, type: 'pie', value: val.count});
+							legendData.push(val.appealTypeName);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求分类分布图',
+							        x: 'center'
+							    },
+							    tooltip : {
+							        trigger: 'item',
+							        formatter: "{a} <br/>{b} : {c} ({d}%)"
+							    },
+							    legend: {
+							        orient : 'vertical',
+							        x : 'left',
+							        data: legendData
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : true,
+							    series : [
+					               {
+					                   name:'诉求分类',
+					                   type:'pie',
+					                   radius : '55%',
+					                   center: ['50%', '60%'],
+					                   data: seriesData
+					               }
+					           ]
+							};
+						myChart.setOption(option);
+					}
 				},
 				error: function(err) {}
 			});
 		}
 		
 		function getAppealStatusChart($chartContainer){
+			var myChart = echarts.init($chartContainer[0]);
 			$.ajax({
-				url: "${ctx}/appeal/appealStatusCount",
+				url: "${ctx}/api/appeal/appealStatusCount",
 				type: "POST",
-				success: function(data) {
-					if(data.status != 0 || data.data.length == 0) {
-						$chartContainer.html("暂无数据！");
-						return;
+				success: function(ret) {
+					if (ret.code == 0) {
+						var seriesData = [];
+						var legendData = [];
+						
+						$.each(ret.data, function(key, val) {
+							var statusData = [];
+							$.each(val, function(ky, vl) {
+								//去掉新增的状态
+								if(ky != 0) {
+									statusData.push(vl.length);
+								}
+							})
+							seriesData.push({name: key, type: 'bar', stack: '诉求', data: statusData});
+							legendData.push(key);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求分类状态统计图',
+							        x: 'center'
+							    },
+							    tooltip : {
+							        trigger: 'axis'
+							    },
+							    legend: {
+							    	orient : 'vertical',
+							    	x : 'right',
+							        data: legendData
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : true,
+							    grid: {y: 70, y2:30, x2:20},
+							    xAxis : [
+							        {
+							            type : 'category',
+							            data : ['待派发', '待处理', '处理中', '待确认', '办结', '驳回']
+							        },
+							        {
+							            type : 'category',
+							            axisLine: {show:false},
+							            axisTick: {show:false},
+							            axisLabel: {show:false},
+							            splitArea: {show:false},
+							            splitLine: {show:false},
+							            data : ['待派发', '待处理', '处理中', '待确认', '办结', '驳回']
+							        }
+							    ],
+							    yAxis : [
+							        {
+							            type : 'value',
+							            axisLabel:{formatter:'{value} 条'}
+							        }
+							    ],
+							    series : seriesData
+							};
+						myChart.setOption(option);
 					}
-					var seriesData = [];
-					$.each(data.data, function(key, val) {
-						var statusData = [];
-						$.each(val, function(ky, vl) {
-							if(ky != 0 && ky != 1) {
-								statusData.push(vl.length);
-							}
-						})
-						seriesData.push({name: key, data: statusData});
-		            });
-					
-					 $chartContainer.highcharts({ 
-						 chart: { type: 'column' }, 
-						 title: { text: '诉求分类状态统计图' }, 
-						 credits: {
-				             text: '',
-				             href: '#'
-				         },
-						 xAxis: { categories: ['待处理', '处理中', '待确认', '办结', '驳回'] }, 
-						 yAxis: { 
-							 min: 0, title: { text: '记录(条)' }, 
-						 	 stackLabels: { 
-							 	enabled: true, 
-							 	style: { 
-								 	fontWeight: 'bold', 
-								 	color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray' 
-							 	} 
-						 	} 	
-						}, 
-						tooltip: { 
-							formatter: function() { 
-								return '<b>'+ this.x +'</b><br/>'+ this.series.name +': '+ this.y +'<br/>'+ '总计: '+ this.point.stackTotal; 
-								} 
-						}, 
-						plotOptions: { 
-							column: { 
-								stacking: 'normal', 
-								dataLabels: { 
-									enabled: true, 
-									color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white' 
-								},
-							},
-						   series: {
-	                            events: {
-	                               legendItemClick: function (event){                                    
-	                                  return false;
-	                               },
-	                               click: function(e) {  
-	                            	   
-		                           	} 
-	                            }
-	                       }
-						}, 
-						series: seriesData 
-					});
 				},
 				error: function(err) {}
 			});
 		}
 		
 		function getWarnigChart($chartContainer) {
+			var myChart = echarts.init($chartContainer[0]);
+			
 			$.ajax({
-				url: "${ctx}/appeal/overAppealDaysPC",
+				url: "${ctx}/api/appeal/overAppealDays",
 				type: "POST",
-				success: function(data) {
-					var result = data.data;
-					if(data.status != 0 || result == null || result.length == 0) {
-						$chartContainer.html("暂无数据！");
-						return;
+				success: function(ret) {
+					if (ret.code == 0) {
+						
+						var appealTypeName = [];
+						var acceptDays = [];
+						var handleDays = [];
+						
+						$.each(ret.data, function(key, val) {
+							appealTypeName.push(val.appealTypeName);
+							acceptDays.push(val.acceptDays.length);
+							handleDays.push(val.handleDays.length);
+			            });
+						
+						var option = {
+							    title : {
+							        text: '诉求预警提醒'
+							    },
+							    tooltip : {
+							        trigger: 'axis'
+							    },
+							    legend: {
+							        data:['超过受理天数','超过处理天数']
+							    },
+							    toolbox: {
+							        show : false
+							    },
+							    calculable : false,
+							    xAxis : [
+							        {
+							            type : 'category',
+							            data : appealTypeName
+							        }
+							    ],
+							    yAxis : [
+							        {
+							            type : 'value'
+							        }
+							    ],
+							    series : [
+							        {
+							            name: '超过受理天数',
+							            type: 'bar',
+							            data: acceptDays
+							        },
+							        {
+							            name: '超过处理天数',
+							            type: 'bar',
+							            data: handleDays
+							        }
+							    ]
+							};
+						myChart.setOption(option);
 					}
-					
-					var appealTypeName = [];
-					var acceptDays = [];
-					var handleDays = [];
-					$.each(data.data, function(key, val) {
-						appealTypeName.push(val.appealTypeName);
-						acceptDays.push({y: val.acceptDays.length, extra: val.acceptDays});
-						handleDays.push({y: val.handleDays.length, extra: val.handleDays});
-		            });
-					$chartContainer.highcharts({
-						 chart: { type: 'bar' }, 
-						 title: { text: '诉求预警提醒' }, 
-						 credits: {
-				             text: '',
-				             href: '#'
-				         },
-						 xAxis: { 
-							 categories: appealTypeName, 
-							 title: { text: null },
-						 }, 
-						 yAxis: { 
-							 min: 0, 
-							 title: { text: '记录 (条)', align: 'high' }, 
-							 labels: { overflow: 'justify', step: 4 } 
-						}, 
-						 tooltip: { valueSuffix: ' 条' }, 
-						 plotOptions: { 
-							 bar: { dataLabels: { enabled: true } },
-					         series: {
-								cursor: 'pointer', 
-	                            events: {
-	                               legendItemClick: function (event){                                    
-	                                  return false;
-	                               }
-	                            }
-	                         }
-						 }, 
-						 credits: { enabled: false }, 
-						 series: [
-					         { name: '超过受理天数', data: acceptDays},
-					         { name: '超过处理天数', data: handleDays}
-						 ] 
-				    });
 				},
 				error: function(err) {}
-		    });
+			});
 		}
 	});
 	</script>

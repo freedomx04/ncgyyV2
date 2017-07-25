@@ -45,6 +45,7 @@ public class WxMonitorController {
 	@RequestMapping("/wx/monitor")
 	String monitor(ModelMap modelMap) {
 		return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/monitor/menu");
+		//return "wx/monitor/menu";
 	}
 	
 	@RequestMapping(value = "/wx/monitorGV")

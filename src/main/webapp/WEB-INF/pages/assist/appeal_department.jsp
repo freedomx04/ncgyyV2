@@ -22,6 +22,16 @@
 </head>
 
 <body class="gray-bg body-appeal-department">
+	<c:if test="${appealList == null}">
+		<div class="weui_msg">
+			<div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div>
+			<div class="weui_text_area">
+				<p class="weui_msg_desc">您的还不是企业用户，请联系管理员添加！</p>
+			</div>
+		</div>
+	</c:if>
+	
+	<c:if test="${appealList != null}">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
@@ -62,6 +72,7 @@
             </div>
         </div>
     </div>
+    </c:if>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
