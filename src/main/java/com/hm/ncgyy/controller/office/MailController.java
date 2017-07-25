@@ -360,5 +360,24 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/mail/inboxUnread")
+	public Result inboxUnread(Long userId) {
+		try {
+			List<MailEntity> retList = new LinkedList<>();
+			
+			List<MailEntity> inboxList = mailService.listInbox(userId);
+			for (MailEntity mail: inboxList) {
+				if (mail.getReadStatus() == ReadStatus.UNREAD) {
+					retList.add(mail);
+				}
+			}
+			
+			return new ResultInfo(Code.SUCCESS.value(), "ok", retList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 }

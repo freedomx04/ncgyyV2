@@ -250,3 +250,10 @@ function formatDate2(val) {
 	}
 	return undefined;
 }
+
+function formatDate3(val) {
+	if (val) {
+		return new Date(val).Format("yyyy年MM月dd日  hh:mm");
+	}
+	return undefined;
+}

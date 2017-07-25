@@ -169,6 +169,8 @@
 		var $page = $('.body-mail-detail');
 		var mailId = '${mail.id}';
 		
+		window.parent.mailRefresh();
+		
 		$page
 		.on('click', '.btn-mail-back', function() {
 			window.history.back();

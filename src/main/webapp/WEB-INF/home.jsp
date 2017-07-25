@@ -222,84 +222,23 @@
 						<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
                         <div style="padding: 16px; font-size: 18px; font-weight: 400;">南城县工业园区综合信息服务平台后台管理页面</div>
                     </div>
-                    <!-- <ul class="nav navbar-top-links navbar-right">
+                    <ul class="nav navbar-top-links navbar-right">
                     	<li class="dropdown">
                     		<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    			 <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                    			<i class="fa fa-envelope"></i>
+                    			<span class="label label-warning mail-unread-count"></span>
                     		</a>
                     		<ul class="dropdown-menu dropdown-messages">
-                                <li class="m-t-xs">
-                                    <div class="dropdown-messages-box">
-                                        <a href="#" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/kakaxi.jpg">
-                                        </a>
-                                        <div class="media-body">
-                                            <small class="pull-right">46小时前</small>
-                                            <strong>小四</strong> 这个在日本投降书上签字的军官，建国后一定是个不小的干部吧？
-                                            <br>
-                                            <small class="text-muted">3天前 2014.11.8</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="dropdown-messages-box">
-                                        <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/kakaxi.jpg">
-                                        </a>
-                                        <div class="media-body ">
-                                            <small class="pull-right text-navy">25小时前</small>
-                                            <strong>国民岳父</strong> 如何看待“男子不满自己爱犬被称为狗，刺伤路人”？——这人比犬还凶
-                                            <br>
-                                            <small class="text-muted">昨天</small>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="#">
-                                            <i class="fa fa-envelope"></i> <strong> 查看所有消息</strong>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
+                    			<li class="btn-mail-list">
+	                    			<div class="text-center link-block">
+	                    				<a class="J_menuItem" href="mailList">
+	                    					<i class="fa fa-envelope fa-fw"></i> <strong>查看所有消息</strong>
+	                    				</a>
+	                    			</div>
+	                    		</li>
+                    		</ul>
                     	</li>
-                    	
-                    	<li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-alerts">
-                                <li>
-                                    <a href="#">
-                                        <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
-                                            <span class="pull-right text-muted small">4分钟前</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="#">
-                                        <div>
-                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
-                                            <span class="pull-right text-muted small">12分钟钱</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="#">
-                                            <strong>查看所有 </strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul> -->
+                    </ul>
 				</nav>
 			</div>
 			
@@ -361,6 +300,8 @@
 	var $page = $('.body-home');
 	var userId = '${user.id}';
 	
+	mailRefresh();
+	
 	$page
 	.on('click', '.btn-logout', function() {
 		$.ajax({
@@ -390,7 +331,38 @@
 	}
 	
 	function mailRefresh() {
+		$page.find('.mail-clear').remove();
 		
+		$.ajax({
+			url: '${ctx}/api/mail/inboxUnread',
+			data: {
+				userId: userId
+			},
+			success: function(ret) {
+				var mailList = ret.data;
+				// set unread count
+				mailList.length > 0 ? $page.find('.mail-unread-count').html(mailList.length) : $page.find('.mail-unread-count').html('');
+				
+				var $btnMail = $page.find('.btn-mail-list');
+				$.each(mailList, function(k, mail) {
+					var $li = '<li class="m-t-xs mail-clear">'
+							+ '    <div class="dropdown-messages-box">'
+							+ '        <span class="pull-left" style="padding: 3px 15px;">'
+							+ '			   <img alt="avatar" class="img-circle" src="${ctx}/api/avatar/' + mail.sender.avatar + '">'
+							+ '		   </span>'
+							+ '		   <div class="media-body">'
+							+ '		       <strong>' + mail.sender.username + '(' + mail.sender.name + ')'+ '</strong><br>'
+							+ '			   <span>' + mail.title + '</span><br>'
+							+ '			   <smail class="text-muted">' + formatDate3(mail.sendTime) + '</smail>'
+							+ '		   </div>'
+							+ '	   </div>'
+							+ '</li>'
+							+ '<li class="divider mail-clear"></li>';
+					$btnMail.before($li);
+				});
+			},
+			error: function(err) {}
+		}); 
 	}
 	
 	</script>
