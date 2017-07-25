@@ -33,7 +33,7 @@
 			</div>
 			
 			<div style="clear:both;"></div>
-			<div id="pageTool" style="margin-bottom: 20px;"></div>
+			<div id="pageTool" style="margin: 20px;"></div>
 		</div>
 	</div>
 	

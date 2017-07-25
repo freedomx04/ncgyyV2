@@ -251,6 +251,8 @@
                             }, function() {
                             	window.location.reload();
                             });
+							// refresh user avatar
+                        	window.parent.userRefresh();
 						} else {
 							swal('', ret.msg, 'error');
 						}

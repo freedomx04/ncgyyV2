@@ -23,7 +23,7 @@
 		</div>
 	
 		<div class="cmain" style="border: 0; width: 980px; margin: 0 auto;">
-			<div class="ctitle" style="line-height: 40px; padding: 20px 30px; text-align: center;">
+			<div class="ctitle" style="padding: 20px 20px 10px; text-align: center;">
 				<h1 id="con_title">${news.title}</h1>
 			</div>
 			<div class="cinfo" style="text-align: center; border-bottom: 1px #d9d9d9 solid; color: #999; padding: 15px;">

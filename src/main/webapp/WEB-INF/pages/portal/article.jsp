@@ -53,7 +53,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<div id="pageTool" style="margin-bottom: 20px;clear:both;"></div>
+			<div id="pageTool" style="margin: 20px; clear:both;"></div>
 		</div>
 	</div>
 	
