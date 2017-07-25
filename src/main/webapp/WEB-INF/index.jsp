@@ -190,8 +190,8 @@
 						<c:forEach var="product" items="${productList}">
 							<li>
 								<a href="product?productId=${product.id}" target="_blank">
-									<img src="${ctx}/${product.imagePath}" style="width: 100%; height: 200px;">
-									<div style="background-color: #e8e8e8; height: 28px; padding: 5px;">${product.name}</div>
+									<img src="${ctx}${product.imagePath}" style="width: 100%; height: 200px;">
+									<div style="background-color: #e8e8e8; height: 28px; padding: 5px; text-align: center;">${product.name}</div>
 								</a>
 								
 							</li>

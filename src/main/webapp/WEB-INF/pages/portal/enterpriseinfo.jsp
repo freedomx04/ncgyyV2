@@ -18,7 +18,7 @@
 		margin: 0 auto;
 	}
 	.main-content {
-		width: 750px;
+		width: 770px;
 	    float: left;
 	    position: relative;
 	    font-size: 14px;
@@ -357,7 +357,7 @@
 			
 		</div>
 		
-		<div class="side-content hide">
+		<div class="side-content">
 			<div class="side-catalog" style="visibility: visible;">
 				<div class="side-bar">
 					<em class="circle start"></em>
@@ -476,12 +476,12 @@
 			var ling = $(document).scrollTop();
 			//document.title = ling;
 			// 如果滚动距离大于的时候让滚动框出来
-			if(ling > 100){
+/* 			if(ling > 100){
 				$page.find('.side-content').removeClass('hide');
 			}
 			if(ling > 8800 || ling < 200){
 				$page.find('.side-content').addClass('hide');
-			}
+			} */
 		});
 		
 		$page.on('click', '.toggle-button', function() {

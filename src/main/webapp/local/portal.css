@@ -314,9 +314,7 @@ li {
     width: 200px;
     display: inline;
     float: left;
-    height: 230px;
-    margin-left: 30px;
-    margin-top: 30px;
+    margin: 15px;
 }
 .pnews_ul a, .product_ul a {
     width: 200px;
@@ -331,12 +329,10 @@ li {
 .pnews_wz, .product_wz {
     line-height: 22px;
     margin-top: 5px;
-    padding-left: 10px;
     width: 190px;
-    float: left;
-    height: 45px;
     overflow: hidden;
     font-size: 14px;
+    text-align: center;
 }
 
 
