@@ -63,8 +63,14 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-4 control-label">企业</label>
-								<div class="col-sm-2"><button type="button" class="btn btn-primary" data-type="enterprise">初始化</button></div>
+								<label class="col-sm-4 control-label">企业名称</label>
+								<div class="col-sm-2"><button type="button" class="btn btn-primary" data-type="enterpriseName">初始化</button></div>
+								<label class="col-sm-2 control-label init-result"></label>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-4 control-label">各企业详情</label>
+								<div class="col-sm-2"><button type="button" class="btn btn-primary" data-type="enterpriseDetail">初始化</button></div>
 								<label class="col-sm-2 control-label init-result"></label>
 							</div>
 							
