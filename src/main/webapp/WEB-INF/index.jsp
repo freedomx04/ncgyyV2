@@ -185,12 +185,12 @@
                         <dd><a href="productlist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
-				<div class="product" style="height: 600px;">
+				<div class="product">
 					<ul id="list">
 						<c:forEach var="product" items="${productList}">
 							<li>
 								<a href="product?productId=${product.id}" target="_blank">
-									<img src="${ctx}${product.imagePath}" style="width: 100%; height: 200px;">
+									<img src="${ctx}/${product.imagePath}" style="width: 100%; height: 200px;">
 									<div style="background-color: #e8e8e8; height: 28px; padding: 5px;">${product.name}</div>
 								</a>
 								
@@ -206,8 +206,6 @@
 	<%@ include file="/WEB-INF/template/footer.jsp"%>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/doT/1.0.1/doT.js"></script>
-	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery-doT.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/slideBox/jquery.slideBox.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/echarts/echarts-all.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
