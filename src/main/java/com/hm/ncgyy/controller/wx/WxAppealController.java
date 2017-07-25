@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hm.ncgyy.common.wx.WxUtil;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
@@ -52,7 +51,8 @@ public class WxAppealController {
 	
 	@RequestMapping("/wx/appealCenter")
 	String rank(ModelMap modelMap) {
-		return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
+		return "wx/appealCenter/menu";
+		//return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
 	}
 	
 	@RequestMapping(value = "/wx/appealEP")
@@ -60,6 +60,12 @@ public class WxAppealController {
 		
 		UserEntity user = userService.findOne(userId);
 		EnterpriseEntity enterprise = user.getEnterprise();
+		
+		if (enterprise == null) {
+			modelMap.addAttribute("appealList", null);
+			return "wx/appealCenter/appeal_ep";
+		}
+		
 		Long enterpriseId = enterprise.getId();
 		List<AppealEntity> appealList = appealService.findByEnterpriseId(enterpriseId);
 		
@@ -114,6 +120,12 @@ public class WxAppealController {
 		
 		UserEntity user = userService.findOne(userId);
 		DepartmentEntity department = user.getDepartment();
+		
+		if (department == null) {
+			modelMap.addAttribute("appealList", null);
+			return "wx/appealCenter/appeal_gv";
+		}
+		
 		Long departmentId = department.getId();
 		
 		List<AppealEntity> appealList = appealService.findByDepartmentId(departmentId);

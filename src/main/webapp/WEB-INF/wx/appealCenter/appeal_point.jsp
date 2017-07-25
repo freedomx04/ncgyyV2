@@ -17,9 +17,6 @@
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/constant.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 </head>
@@ -118,9 +115,11 @@
 		var $page = $('.wx-appealCenter-info');
 		var userId = Url.queryString("userId");
 		var defaultIndex = Url.queryString("index");
+		
 		if (!defaultIndex) {
 			defaultIndex = 0;
 		}
+		
 		$page.find('.appealCenter-tab').tab({
 			defaultIndex: defaultIndex,
 			activeClass: 'bg_green'
@@ -128,7 +127,7 @@
 		
 		$.each($page.find(".weui-badge"), function(k, y) {
 			var status = $page.find(".weui-badge").eq(k).data('status');
-			$page.find(".weui-badge").eq(k).text($k.constant.getAppealStatus(status));
+			$page.find(".weui-badge").eq(k).text($k.util.getAppealStatus(status));
 		});
 		
 		$page

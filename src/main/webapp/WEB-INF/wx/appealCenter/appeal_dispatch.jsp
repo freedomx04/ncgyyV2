@@ -37,10 +37,8 @@
     	<a href="javascript:;" class="weui_btn weui_btn_primary btn-appeal-dispatch">保存</a>
     </div>
     
-	<script type="text/javascript" src="${ctx}/js/jquery/1.10.1/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 	<script type="text/javascript">
@@ -51,7 +49,7 @@
 		
 		$page.on('click', ".btn-appeal-dispatch", function() {
 			$.ajax({
-				url: '${ctx}/appeal/dispatch',
+				url: '${ctx}/api/appeal/dispatch',
 				type: 'POST',
 				data: {
 					appealId: appealId,
@@ -59,7 +57,7 @@
 					dispatchOpinion: $page.find('#textarea-dispatchOpinion').val()
 				},
 				success: function(ret) {
-					if (ret.status == 0) {
+					if (ret.code == 0) {
 						$.toast('保存成功');
 						setTimeout(function () {
 							window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=${role}&userId=" + userId;

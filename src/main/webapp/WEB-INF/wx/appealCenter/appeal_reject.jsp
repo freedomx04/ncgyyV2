@@ -27,10 +27,8 @@
     	<a href="javascript:;" class="weui_btn weui_btn_primary btn-appeal-reject">保存</a>
     </div>
     
-	<script type="text/javascript" src="${ctx}/js/jquery/1.10.1/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/base.js"></script>
-	<script type="text/javascript" src="${ctx}/js/base/utils.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 	
 	<script type="text/javascript">
@@ -41,14 +39,14 @@
 		
 		$page.on('click', ".btn-appeal-reject", function() {
 			$.ajax({
-				url: '${ctx}/appeal/reject',
+				url: '${ctx}/api/appeal/reject',
 				type: 'POST',
 				data: {
 					appealId: appealId,
 					rejectOpinion: $page.find('#textarea-rejectOpinion').val()
 				},
 				success: function(ret) {
-					if (ret.status == 0) {
+					if (ret.code == 0) {
 						$.toast('保存成功');
 						setTimeout(function () {
 							window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=${role}&userId=" + userId;
