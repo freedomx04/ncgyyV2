@@ -43,7 +43,7 @@
 							<dt>产品名称</dt><dd>${product.name}</dd>
 							<dt>产品规格参数</dt><dd>${product.specification}</dd>
 							<dt>公司名称</dt><dd>${product.enterprise.name}</dd>
-							<dt>产品介绍</dt><dd>${enterprise.introduction}</dd>
+							<dt>产品介绍</dt><dd>${product.introduction}</dd>
 						</dl>
 					</div>
 		        </div>
