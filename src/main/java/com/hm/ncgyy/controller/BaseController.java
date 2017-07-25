@@ -51,11 +51,11 @@ public class BaseController {
 		modelMap.addAttribute("announceList", list.getContent());
 		
 		// 政策法规
-		list = articleService.listByType(2, 0, 5);
+		list = articleService.listByType(3, 0, 5);
 		modelMap.addAttribute("policyList", list.getContent());
 		
 		// 工业信息
-		list = articleService.listByType(3, 0, 5);		
+		list = articleService.listByType(4, 0, 5);		
 		modelMap.addAttribute("overviewList", list.getContent());
 		
 		// 企业信息

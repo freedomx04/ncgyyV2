@@ -23,9 +23,9 @@
 			<div class="slideBox news">
 				<ul class="items">
 					<c:forEach var="photonews" items="${photonewsList}">
-						<li style="width: 655px; height: 295px;">
-							<a href="${ctx}/news/${photonews.path}" title="${photonews.title}" target="_blank">
-								<img src="${ctx}${photonews.imagePath}" style="width: 100%; height: 100%:">
+						<li>
+							<a href="${ctx}/news/${photonews.path}" title="${photonews.title}" target="_blank" style="width: 655px; height: 295px;">
+								<img src="${ctx}${photonews.imagePath}" style="width: 100%; height: 100%;">
 							</a>
 						</li>
 					</c:forEach>
