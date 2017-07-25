@@ -43,23 +43,21 @@
 	.tips {
 	    background-color: f0f7fd;
 	    font-size: 16px;
-	    font-weight: bold;
 	    text-align: center;
+	    margin-bottom: 15px;
+	    padding: 8px;
 	}
 	.msg-wrap {
-	    min-height: 30px;
+	    min-height: 25px;
 	    margin-top: 5px;
 	    margin-bottom: 5px;
 	    width: 100%;
 	    height: auto;
+	    text-align: center;
 	}
 	.msg-error {
 	    position: relative;
 	    color: #e4393c;
-	    padding: 6px 10px 6px 12px;
-	    line-height: 15px;
-	    width: 100%;
-	    height: auto;
 	}
 	</style>
 </head>
@@ -100,6 +98,9 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane" id="pearl-1">
 	            <div class="ibox-content">
+	            	<div class="tips">
+		        		请输入要找回密码的用户名:
+		        	</div> 
 	                <form class="form-horizontal" role="form" id="form-username" autocomplete="off" onsubmit="return false;">
 	                	<div class="msg-wrap">
                     		<div class="msg-error hide"></div>
@@ -112,10 +113,8 @@
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            <div class="col-sm-7 col-sm-offset-3">
-                                <button type="button" class="btn btn-primary btn-next-step">下一步</button>
-                            </div>
+                        <div class="form-group text-center">
+                        	<button type="button" class="btn btn-primary btn-next-step">下一步</button>
                         </div>
                     </form>
                     
@@ -124,7 +123,7 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-2">  
 	            <div class="ibox-content">
-		        	<div class="tips" style="margin-bottom: 25px;">
+		        	<div class="tips">
 		        		您好：<span class="username"></span>, 请输入您绑定的手机号码！
 		        	</div> 
 	            	<form class="form-horizontal" role="form" id="form-tel" autocomplete="off" onsubmit="return false;">
@@ -138,10 +137,8 @@
                                 <input type="text" class="form-control" name="mobile" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-7 col-sm-offset-3">
-                                <button type="button" class="btn btn-primary btn-next-step">下一步</button>
-                            </div>
+                        <div class="form-group text-center">
+                        	<button type="button" class="btn btn-primary btn-next-step">下一步</button>
                         </div>
                     </form>
 	            </div>
@@ -149,7 +146,7 @@
 	        
 	        <div class="ibox float-e-margins pearl-pane hide" id="pearl-3">
 	        	<div class="ibox-content">
-	        		<div class="tips" style="margin-bottom: 25px;">
+	        		<div class="tips">
 		        		您需要找回密码的用户名是：<span class="username"></span>
 		        	</div> 
 		        	<form class="form-horizontal" role="form" id="form-psw" autocomplete="off" onsubmit="return false;">
@@ -177,10 +174,8 @@
 		                        <input type="password" class="form-control" name="confirmPassword" required>
 		                    </div>
 		                </div>
-		                <div class="form-group">
-							<div class="col-sm-7 col-sm-offset-3">
-								<button type="button" class="btn btn-primary btn-next-step">下一步</button>
-							</div>
+		                <div class="form-group text-center">
+		                	<button type="button" class="btn btn-primary btn-next-step">下一步</button>
 						</div>
 		        	</form>
 		        </div>
@@ -193,7 +188,7 @@
 				    </div>
 				    <h2></h2>
 				    <p style="display: block;">修改成功</p>
-				    <button type="button" id="btn-login" class="btn btn-primary">直接登录</button>
+				    <button type="button" id="btn-login" class="btn btn-primary">返回登录</button>
 				</div>
 	        </div>
 	        

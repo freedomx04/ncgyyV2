@@ -242,7 +242,8 @@
 	}
 	
 	.para-content {
-		margin-bottom: 85px;
+		padding: 10px;
+		margin-bottom: 40px;
 	}
 	</style>
 	
@@ -265,7 +266,7 @@
 				<h2 class="title-text">企业简介</h2>
 			</div>
 			<div class="para-content">
-				<c:if test="${enterprise.introduction == ''}">
+				<c:if test="${empty enterprise.introduction}">
 					暂无信息！
 				</c:if>
 				<div class="lemma-summary">${enterprise.introduction}</div>
@@ -317,10 +318,10 @@
 				<h2 class="title-text">企业产品</h2>
 			</div>
 			<div class="para-content">
-				<c:if test="${productList.size() == 0}">
+				<c:if test="${empty enterprise.productList}">
 					暂无信息！
 				</c:if>
-				<c:forEach var="product" items="${productList}">
+				<c:forEach var="product" items="${enterprise.productList}">
 				<div class="product_con">
 					<div class="product_ul">
 						<a href="product?productId=${product.id}" target="_blank">
@@ -340,10 +341,10 @@
 			</div>
 			<div class="para-content">
 				<ul class="news-list">
-					<c:if test="${newsList.size() == 0}">
+					<c:if test="${empty enterprise.newsList}">
 						暂无信息！
 					</c:if>
-					<c:forEach var="news" items="${newsList}" varStatus="status">
+					<c:forEach var="news" items="${enterprise.newsList}" varStatus="status">
 						<li class="news-item">
 							<a href="epnews?newsId=${news.id}&enterpriseId=${enterprise.id}" target="_blank" class="text">
 								<span class="index">${status.index + 1}.${news.title}</span>
