@@ -46,6 +46,21 @@
 	    font-weight: bold;
 	    text-align: center;
 	}
+	.msg-wrap {
+	    min-height: 30px;
+	    margin-top: 5px;
+	    margin-bottom: 5px;
+	    width: 100%;
+	    height: auto;
+	}
+	.msg-error {
+	    position: relative;
+	    color: #e4393c;
+	    padding: 6px 10px 6px 12px;
+	    line-height: 15px;
+	    width: 100%;
+	    height: auto;
+	}
 	</style>
 </head>
 <body class="gray-bg body-forgetpsw">

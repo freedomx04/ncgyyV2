@@ -140,7 +140,7 @@
 	    font-weight: 400;
 	    font-family: Microsoft YaHei,SimHei,Verdana;
 	    margin: 35px 0 15px 0px;
-	    background: url(${ctx}/img/paraTitle-line_c5e6d61.png);
+	    background: url(${ctx}/img/paraTitle-line.png);
 	    position: relative;
 	}
 	.para-title.level-2 .title-text {
@@ -265,6 +265,9 @@
 				<h2 class="title-text">企业简介</h2>
 			</div>
 			<div class="para-content">
+				<c:if test="${enterprise.introduction == ''}">
+					暂无信息！
+				</c:if>
 				<div class="lemma-summary">${enterprise.introduction}</div>
 			</div>
 			
@@ -314,6 +317,9 @@
 				<h2 class="title-text">企业产品</h2>
 			</div>
 			<div class="para-content">
+				<c:if test="${productList.size() == 0}">
+					暂无信息！
+				</c:if>
 				<c:forEach var="product" items="${productList}">
 				<div class="product_con">
 					<div class="product_ul">
@@ -334,6 +340,9 @@
 			</div>
 			<div class="para-content">
 				<ul class="news-list">
+					<c:if test="${newsList.size() == 0}">
+						暂无信息！
+					</c:if>
 					<c:forEach var="news" items="${newsList}" varStatus="status">
 						<li class="news-item">
 							<a href="epnews?newsId=${news.id}&enterpriseId=${enterprise.id}" target="_blank" class="text">
