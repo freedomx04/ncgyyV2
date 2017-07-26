@@ -10,25 +10,137 @@
     
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/paging/paging.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
+	
+	<style type="text/css">
+	.epList li {
+	    height: auto;
+	    padding: 15px 350px 20px 20px;
+	    background-color: #fff;
+	    margin-bottom: 15px;
+	    -webkit-transition: all .3s ease-in;
+	    -moz-transition: all .3s ease-in;
+	    -ms-transition: all .3s ease-in;
+	    -o-transition: all .3s ease-in;
+	    transition: all .3s ease-in;
+	    position: relative;
+	}
+	.epList li:hover {
+	    -webkit-box-shadow: 5px 8px 7px #ccc;
+	    -webkit-transition-duration: .3s;
+	    -webkit-transform: translateY(-2px);
+	}
+	.epName {
+	    font-size: 16px;
+	    color: #333;
+	}
+	.product {
+	    height: 20px;
+	    overflow: hidden;
+	    padding-top: 12px;
+	}
+	.product span {
+	    padding: 0px 6px;
+	    height: 20px;
+	    background-color: #f6f6f6;
+	    float: left;
+	    font-size: 12px;
+	    line-height: 20px;
+	    color: #999;
+	    border-radius: 4px;
+	    margin-right: 10px;
+	    text-align: center;
+	    overflow: hidden;
+	}
+	.epInfos {
+	    line-height: 25px;
+	    color: #999;
+	    margin: 12px 0px 0px 0px;
+	    height: 50px;
+	    overflow: hidden;
+	}
+	.epInfos i, .epContact i {
+	    color: #333;
+	}
+	.epContact {
+	    line-height: 25px;
+	    color: #999;
+	    margin: 0px 0px 10px 0px;
+	}
+	.epInfos i, .epContact i {
+	    color: #333;
+	    font-style: normal;
+	}
+	.listImg {
+	    position: absolute;
+	    top: 25px;
+	    right: 20px;
+	}
+	.listImg img {
+	    float: right;
+	    width: 130px;
+	    height: 130px;
+	    margin-left: 10px;
+	    padding: 5px;
+	    border: #e4e4e4 solid 1px;
+	}
+	
+	.search-wrapper {
+	    height: 70px;
+	    padding-left: 20px;
+	    overflow: hidden;
+	    background-color: #fff;
+	    border: #e4e4e4 1px solid;
+	    position: relative;
+	}
+	.search-wrapper input[type="text"] {
+	    width: 250px;
+	    height: 35px;
+	    border: #e4e4e4 1px solid;
+	    border-right: none;
+	    padding: 0px 5px;
+	    outline: none;
+	    float: left;
+	    margin-top: 17px;
+	    margin-bottom: 10px;
+	}
+	.search-wrapper input[type="button"] {
+	    width: 50px;
+	    height: 37px;
+	    background-color: #e4e4e4;
+	    border: none;
+	    position: absolute;
+	    top: 17px;
+	    color: #666;
+	    cursor: pointer;
+	    float: left;
+	}
+	</style>
 </head>
 
 <body class="body-enterprise">
 	<%@ include file="/WEB-INF/template/top.jsp"%>
 	
 	<div class="main">
-		<div class="mnav" style="border-bottom:1px #ccc solid;">
+		<div class="mnav">
 			<span>
 				<a href="index">首页</a>&nbsp;&gt;&nbsp;
 				<a href="enterpriselist">企业宣传</a>
 		    </span>
 		</div>
 		
+		
 		<div class="clist">
 			<div class="clist_r_title">
 				<span>企业宣传</span>
 			</div>
-			<div class="clist_con" style="min-height: 450px;">
-				<ul>
+			<div class="search-wrapper">
+			    <input type="text" name="keywords" id="keywords" value="" placeholder="关键词">
+			    <input type="button" id="search-btn" value="筛选">
+			</div>
+			
+			<div style="height: 20px;background-color: #F2F2F2;"></div>
+			<div style="min-height: 450px;">
+				<ul class="epList">
 				</ul>
 			</div>
 			
@@ -61,29 +173,50 @@
 			}
 		});
 		
-		getData(0, pageSize);
+		getData("${ctx}/api/enterprise/listPaging", {page: 0, size: pageSize});
 		
-		function getData(page, size) {
+		$page.on("click", "#search-btn", function() {
+			getData("${ctx}/api/enterprise/search", {input: $page.find("#keywords").val()});
+		});
+		
+		function getData(url, data) {
 			$.ajax({
-				url: "${ctx}/api/enterprise/listPaging",
-				data: {
-					page: page,
-					size: size
-				},
+				url: url,
+				data: data,
 				success: function(ret) {
 					if (ret.code == 0) {
-						$page.find(".clist_con ul").html("");
-						
-						$.each(ret.data.content, function(key, val) {
+						$page.find(".epList").html("");
+						var data;
+						if (url.indexOf("search") > 0) {
+							data = ret.data;
+						} else {
+							data = ret.data.content;
+						}
+						console.info(data)
+						$.each(data, function(key, val) {
 							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
 							
-							var ht = '<li style="height: 45px;">'+
-										'<img src="api/avatar/'+ val.avatar +'" width="35" height="35" style="margin: 5px 0;">'+
-										'<a href="enterprise?enterpriseId='+ val.id +'" target="_blank" style="line-height: 45px; display: inline-block; padding-left: 25px;">'+ name +'</a>'+
-										'<span><a href="" target="_blank">'+ val.industry.name +'</a></span>'+
+							var ht = '<li id='+ val.id +'>'+
+										'<a class="epName" href="" title="" target="_blank">'+ name +'</a>'+
+				                        '<p class="product">'+
+				                            '<span>'+ (val.mainProduct || "暂无信息") +'</span>'+
+				                        '</p>'+
+				                        '<p class="epInfos">'+
+				                            '<i>公司介绍：</i>'+ (val.introduction || "暂无信息") +'</p>'+
+				                        '<p class="epContact">'+
+				                            '<i>地址：</i>'+ (val.address || "暂无信息") +'</p>' + 
+			                            '<p class="listImg">'+
+				                        '</p>'
 									'</li>';
+							$(ht).appendTo($page.find(".epList"));
+							if (val.productList.length != 0) {
+			            		for (var i = 0; i < 2 && i < val.productList.length; i++) {
+			            			var vl = val.productList[i];
+			            			var proName = vl.name.length > 20 ? (vl.name.substr(0, 10) + "...") : vl.name;
+					            	$('<a href="${ctx}/product?productId='+ vl.id +'" title="'+ proName +'" target="_blank"><img data-original="" width="130" height="130" alt="" title="'+ proName +'" src="${ctx}'+ vl.imagePath +'" style="display: block;"></a>').appendTo($("#" + val.id).find(".listImg"));
+			            		}
+							}
 							
-							$(ht).appendTo($page.find(".clist_con ul"));
 						});
 					}
 				},

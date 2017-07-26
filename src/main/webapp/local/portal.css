@@ -13,9 +13,13 @@ body {
 	font-size: 12px;
 	position: relative;
 	min-height: 100%;
+	background-color: #F2F2F2;
 }
 div.main {
 	padding-bottom: 109px;
+	width: 980px;
+	margin: 0 auto;
+	background-color: #ffffff;
 }
 
 body, h1, h2, h3, h4, ul, li, dl, dt, dd, p, img, em {
@@ -243,6 +247,7 @@ li {
     font-size: 14px;
     margin: 0 auto;
     width: 980px;
+    background-color: #F2F2F2;
 }
 .mnav span {
     padding-left: 25px;
@@ -285,13 +290,13 @@ li {
 .clist_r_title {
     height: 40px;
     border-bottom: 1px #ccc solid;
+    margin-left: 20px;
 }
 .clist_r_title span {
     font-size: 22px;
 }
 .clist_con ul {
-    padding-left: 20px;
-    padding-top: 30px;
+    padding: 30px 20px 0 20px;
 }
 .clist_con ul li {
     position: relative;

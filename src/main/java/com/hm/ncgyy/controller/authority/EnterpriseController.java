@@ -163,7 +163,7 @@ public class EnterpriseController {
 	@RequestMapping(value = "/api/enterprise/listPaging")
 	public Result listPaging(int page, int size) {
 		try {
-			Page<EnterpriseBaseEntity> list = enterpriseService.listBase(page, size);
+			Page<EnterpriseEntity> list = enterpriseService.list(page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -185,7 +185,7 @@ public class EnterpriseController {
 	@RequestMapping(value = "/api/enterprise/search")
 	public Result search(String input) {
 		try {
-			List<EnterpriseBaseEntity> list = enterpriseService.search(input);
+			List<EnterpriseEntity> list = enterpriseService.search(input);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
