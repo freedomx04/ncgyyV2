@@ -277,8 +277,7 @@ public class InitController {
 			
 			workbook = new HSSFWorkbook(new FileInputStream(file));
 			
-			for (int i = 20; i < workbook.getNumberOfSheets(); i++) {
-			//for (int i = 0; i <= 0; i++) {
+			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 				HSSFSheet sheet = workbook.getSheetAt(i);
 				
 				//HSSFSheet sheet = workbook.getSheet("公司名称 (19)");
