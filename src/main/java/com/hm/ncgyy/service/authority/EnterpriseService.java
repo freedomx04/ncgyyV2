@@ -19,6 +19,8 @@ public interface EnterpriseService {
 	
 	List<EnterpriseEntity> list();
 	
+	Page<EnterpriseEntity> list(int page, int size);
+	
 	/**
 	 * base enterprise
 	 */
@@ -36,7 +38,7 @@ public interface EnterpriseService {
 	
 	List<EnterpriseBaseEntity> listPoint();
 	
-	List<EnterpriseBaseEntity> search(String input);
+	List<EnterpriseEntity> search(String input);
 	
 	
 }

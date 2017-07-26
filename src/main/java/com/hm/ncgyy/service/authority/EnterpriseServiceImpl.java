@@ -48,6 +48,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	}
 
 	@Override
+	public Page<EnterpriseEntity> list(int page, int size) {
+		return enterpriseRepository.findAll(new PageRequest(page, size));
+	}
+	
+	@Override
 	public EnterpriseBaseEntity findOneBase(Long enterpriseId) {
 		return baseRepository.findOne(enterpriseId);
 	}
@@ -83,7 +88,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	}
 
 	@Override
-	public List<EnterpriseBaseEntity> search(String input) {
+	public List<EnterpriseEntity> search(String input) {
 		return baseRepository.findByNameContaining(input);
 	}
 
