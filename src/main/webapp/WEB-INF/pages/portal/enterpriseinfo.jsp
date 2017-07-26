@@ -189,7 +189,7 @@
 	    background: url(${ctx}/img/basicInfo-bg.png);
 	}
 	.basic-info .basicInfo-block {
-	    width: 340px;
+	    width: 650px;
 	    float: left;
 	}
 	.basic-info .basicInfo-block .basicInfo-item {
@@ -212,11 +212,10 @@
 	.basic-info .basicInfo-block .basicInfo-item.value {
 	    zoom: 1;
 	    color: #333;
-	    width: 250px;
+	    width: 550px;
 	    float: left;
 	    position: relative;
 	    word-break: break-all;
-	    height: 26px;
 	}
 	.cmn-clearfix{*zoom:1}
 	.cmn-clearfix:after{content:'\0020';display:block;height:0;font-size:0;clear:both;overflow:hidden;visibility:hidden}
