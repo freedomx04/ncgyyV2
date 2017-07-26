@@ -85,7 +85,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'authority-area')}">
-								<li><a class="J_menuItem" href="area" data-index="32">园区管理</a></li>
+								<li><a class="J_menuItem" href="area">园区管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-industry')}">
 								<li><a class="J_menuItem" href="industry">行业管理</a></li>
@@ -232,7 +232,7 @@
                     			<li class="btn-mail-list">
 	                    			<div class="text-center link-block">
 	                    				<a class="J_menuItem" href="mailList">
-	                    					<i class="fa fa-envelope fa-fw"></i> <strong>查看所有消息</strong>
+	                    					<i class="fa fa-envelope fa-fw"></i> <strong>邮箱</strong>
 	                    				</a>
 	                    			</div>
 	                    		</li>
