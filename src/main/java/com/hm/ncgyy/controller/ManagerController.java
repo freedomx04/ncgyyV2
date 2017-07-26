@@ -21,6 +21,7 @@ import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.authority.VersionEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
@@ -37,6 +38,7 @@ import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
+import com.hm.ncgyy.service.authority.VersionService;
 import com.hm.ncgyy.service.base.AppealTypeService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
@@ -79,6 +81,9 @@ public class ManagerController {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@Autowired
+	VersionService versionService;
 	
 	@Autowired
 	DeclareService declareService;
@@ -291,6 +296,41 @@ public class ManagerController {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/department";
+	}
+	
+	/**
+	 * 版本接口
+	 */
+	@RequestMapping(value = "/versionList")
+	String versionList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		return "pages/authority/version_list";
+	}
+	
+	@RequestMapping(value = "versionAdd")
+	String versionAdd(ModelMap modelMap, String method, Long versionId) {
+		String title = "";
+		switch (method) {
+		case "add":
+			title = "版本新增";
+			break;
+		case "edit":
+			title = "版本编辑";
+			break;
+		case "detail":
+			title = "版本详情";
+			break;
+		}
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		if (versionId != null) {
+			VersionEntity version = versionService.findOne(versionId);
+			modelMap.addAttribute("version", version);
+		}
+		
+		return "pages/authority/version_add";
 	}
 	
 	/**

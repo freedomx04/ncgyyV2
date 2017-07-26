@@ -146,7 +146,6 @@ li {
     }     
 } 
 .con_two_right .enterprise, .con_three_right .product {
-	height: 600px;
 	width: 90%; 
 	position: relative;
 	margin: 0 auto; 

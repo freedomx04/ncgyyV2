@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>角色管理</title>
+	<title>版本管理</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,30 +17,29 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-	
 </head>
 
-<body class="gray-bg body-role-list">
+<body class="gray-bg body-version-list">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>角色管理</h5>
+				<h5>版本管理</h5>
 			</div>
 			
 			<div class="ibox-content">
-				<div class="btn-group hidden-xs" id="role-list-table-toolbar" role="group">
-					<c:if test="${fn:contains(role.resource, 'authority-role-add')}">
-	                    <button type="button" class="btn btn-white btn-role-add">
+				<div class="btn-group hidden-xs" id="version-list-table-toolbar" role="group">
+					<c:if test="${fn:contains(role.resource, 'authority-version-add')}">
+	                    <button type="button" class="btn btn-white btn-version-add" data-toggle="modal" data-target="#modal-version-dialog">
 	                        <i class="fa fa-plus fa-fw"></i>新增
 	                    </button>
                     </c:if>
-                    <c:if test="${fn:contains(role.resource, 'authority-role-delete-batch')}">
-	                    <button type="button" class="btn btn-white btn-role-delete-batch" disabled='disabled'>
+                    <c:if test="${fn:contains(role.resource, 'authority-version-delete-batch')}">
+	                    <button type="button" class="btn btn-white btn-version-delete-batch" disabled='disabled'>
 	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
 	                    </button>
                     </c:if>
                 </div>
-                <table id="role-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+                <table id="version-list-table" class="table-hm" data-mobile-responsive="true"> </table>
 			</div>
 		</div>
 	</div>
@@ -57,13 +56,12 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var $page = $('.body-role-list');
+		var $page = $('.body-version-list');
 		
-		var $table = $k.util.bsTable($page.find('#role-list-table'), {
-			url: '${ctx}/api/role/list',
-			toolbar: '#role-list-table-toolbar',
+		var $table = $k.util.bsTable($page.find('#version-list-table'), {
+			url: '${ctx}/api/version/list',
+			toolbar: '#version-list-table-toolbar',
 			idField: 'id',
-			showExport: true, 
 			responseHandler: function(res) {
                 return res.data;
             },
@@ -71,37 +69,43 @@
             	field: 'state',
             	checkbox: true
             }, {
-            	field: 'name',
-            	title: '角色名称',
-            	align: 'center'
+            	field: 'code',
+            	title: '版本号',
+            	align: 'center',
+            	width: '120'
             }, {
-            	field: 'description',
-            	title: '角色描述',
+            	field: 'releaseTime',
+            	title: '发布时间',
+            	align: 'center',
+            	width: '120'
+            }, {
+            	field: 'title',
+            	title: '主题',
             	align: 'center'
             }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
             		var resource = '${role.resource}'.split(',');
-                    var $operate = '<a class="btn-role-detail a-operate">详情</a>';
-                    if ($.inArray('authority-role-edit', resource) != -1) {
-                        $operate += '<a class="btn-role-edit a-operate">编辑</a>';
+                    var $operate = '<a class="btn-version-detail a-operate">详情</a>';
+                    if ($.inArray('authority-version-edit', resource) != -1) {
+                        $operate += '<a class="btn-version-edit a-operate">编辑</a>';
                     }
-                    if ($.inArray('authority-role-delete', resource) != -1) {
-                        $operate += '<a class="btn-role-delete a-operate">删除</a>';
+                    if ($.inArray('authority-version-delete', resource) != -1) {
+                        $operate += '<a class="btn-version-delete a-operate">删除</a>';
                     }
                     return $operate;
-            	},
+                },
             	events: window.operateEvents = {
-            		'click .btn-role-detail': function(e, value, row, index) {
+           			'click .btn-version-detail': function(e, value, row, index) {
+   						e.stopPropagation();
+   						window.location.href = './versionAdd?method=detail&versionId=' + row.id;
+   					},
+            		'click .btn-version-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href = './roleAdd?method=detail&roleId=' + row.id;
+            			window.location.href = './versionAdd?method=edit&versionId=' + row.id;
             		},
-            		'click .btn-role-edit': function(e, value, row, index) {
-            			e.stopPropagation();
-            			window.location.href = './roleAdd?method=edit&roleId=' + row.id;
-            		},
-            		'click .btn-role-delete': function(e, value, row, index) {
+            		'click .btn-version-delete': function(e, value, row, index) {
             			e.stopPropagation();
             			swal({
             				title: '',
@@ -114,9 +118,9 @@
                             closeOnConfirm: false
             			}, function() {
             				$.ajax({
-            					url: '${ctx}/api/role/delete',
+            					url: '${ctx}/api/version/delete',
             					data: {
-            						roleId: row.id
+            						versionId: row.id
             					},
             					success: function(ret) {
             						if (ret.code == 0) {
@@ -129,21 +133,21 @@
             					error: function(err) {}
             				});
             			});
-            		},
+            		}
             	}
             }]
 		});
 		
 		$table.on('all.bs.table', function(e, row) {
             var selNum = $table.bootstrapTable('getSelections').length;
-            selNum > 0 ? $page.find('.btn-role-delete-batch').removeAttr('disabled') : $page.find('.btn-role-delete-batch').attr('disabled', 'disabled');
+            selNum > 0 ? $page.find('.btn-version-delete-batch').removeAttr('disabled') : $page.find('.btn-version-delete-batch').attr('disabled', 'disabled');
         });
 		
 		$page
-		.on('click', '.btn-role-add', function() {
-			window.location.href = './roleAdd?method=add';
+		.on('click', '.btn-version-add', function() {
+			window.location.href = './versionAdd?method=add';
 		})
-		.on('click', '.btn-role-delete-batch', function() {
+		.on('click', '.btn-version-delete-batch', function() {
             swal({
                 title: '',
                 text: '确定批量删除选中记录',
@@ -155,11 +159,10 @@
                 closeOnConfirm: false
             }, function() {
                 var rows = $table.bootstrapTable('getSelections');
-                
                 $.ajax({
-                    url: '${ctx}/api/role/batchDelete',
+                    url: '${ctx}/api/version/batchDelete',
                     data: { 
-                        roleIdList: $k.util.getIdList(rows) 
+                        versionIdList: $k.util.getIdList(rows) 
                     },
                     success: function(ret) {
                         if (ret.code == 0) {

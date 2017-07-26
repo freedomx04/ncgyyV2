@@ -106,7 +106,7 @@
                         <dd><a href="enterpriselist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
-				<div class="enterprise">
+				<div class="enterprise" style="height: 450px;">
 					<ul id="list">
 						<c:forEach var="enterprise" items="${enterpriseList}">
 						<li>
@@ -185,7 +185,7 @@
                         <dd><a href="productlist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
-				<div class="product">
+				<div class="product" style="height: 650px;">
 					<ul id="list">
 						<c:forEach var="product" items="${productList}">
 							<li>
