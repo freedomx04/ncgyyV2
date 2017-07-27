@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
-import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 
 public interface EnterpriseBaseRepository extends PagingAndSortingRepository<EnterpriseBaseEntity, Long> {
 	
@@ -21,6 +20,6 @@ public interface EnterpriseBaseRepository extends PagingAndSortingRepository<Ent
 	
 	Page<EnterpriseBaseEntity> findAll(Pageable pageable);
 	
-	List<EnterpriseEntity> findByNameContaining(String name);
+	List<EnterpriseBaseEntity> findByNameContaining(String name);
 
 }

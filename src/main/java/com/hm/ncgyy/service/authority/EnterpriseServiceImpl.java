@@ -89,7 +89,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
 	@Override
 	public List<EnterpriseEntity> search(String input) {
-		return baseRepository.findByNameContaining(input);
+		return enterpriseRepository.findByNameContaining(input);
 	}
 
 
