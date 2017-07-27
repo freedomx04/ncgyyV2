@@ -67,7 +67,7 @@
 	$(function() {
 		
 		// 每个页面的分页独立
-		var page = page0 = page1 = page2 = page3 = -1;
+		var page = page1 = page2 = page3 = page4 = -1;
 		// 分页大小
 		var size = 10;
 		
@@ -142,7 +142,7 @@
 								var imgDiv = '';
 								if (article.type == 1) {
 									imgDiv = '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-										+ '<img src="${icon}" data-src="${ctx}/' + article.imagePath + '" style="width: 80px; display: block;">'
+										+ '<img src="${icon}" data-src="${ctx}' + article.imagePath + '" style="width: 80px; display: block;">'
 										+ '</div>';
 								}
 								
@@ -161,10 +161,10 @@
 							me.resetload();
 							
 							switch (type) {
-							case 0:	   page0 = 0;	 break;
 							case 1:    page1 = 0;    break;
 							case 2:    page2 = 0;	 break;
 							case 3:	   page3 = 0;	 break;
+							case 4:	   page4 = 0;	 break;
 							}
 							
 							me.unlock();
@@ -180,10 +180,10 @@
 					var result = '';
 					
 					switch (type) {
-					case 0:		page0++;	page = page0;	break;
 					case 1:		page1++;	page = page1;	break;
 					case 2: 	page2++;	page = page2;	break;
 					case 3:		page3++;	page = page3;	break;
+					case 4:     page4++;	page = page4;	break;
 					}
 					
 					$.ajax({
@@ -201,7 +201,7 @@
 									var imgDiv = '';
 									if (article.type == 1) {
 										imgDiv = '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-											+ '<img src="${icon}" data-src="${ctx}/' + article.imagePath + '" style="width: 80px; display: block;">'
+											+ '<img src="${icon}" data-src="${ctx}' + article.imagePath + '" style="width: 80px; display: block;">'
 											+ '</div>';
 									}
 									

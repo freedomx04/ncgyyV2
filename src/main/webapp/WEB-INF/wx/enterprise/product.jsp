@@ -72,7 +72,7 @@
 						$.each(products, function(key, product) {
 							result +='<a href="javascript:;" class="weui_cell product-info" data-product-id="' + product.id + '">'
 								+ '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-								+ '<img src="${icon}" data-src="${ctx}/' + product.imagePath + '" style="width: 80px; display: block;">'
+								+ '<img src="${icon}" data-src="${ctx}' + product.imagePath + '" style="width: 80px; display: block;">'
 								+ '</div>'
 								+ '<div class="weui_cell_bd">'
 								+ '<p>' + product.name + '</p>'
@@ -112,7 +112,7 @@
 							$.each(products, function(key, product) {
 								result +='<a href="javascript:;" class="weui_cell product-info" data-product-id="' + product.id + '">'
 									+ '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-									+ '<img src="${icon}" data-src="${ctx}/' + product.imagePath + '" style="width: 80px; display: block;">'
+									+ '<img src="${icon}" data-src="${ctx}' + product.imagePath + '" style="width: 80px; display: block;">'
 									+ '</div>'
 									+ '<div class="weui_cell_bd">'
 									+ '<p>' + product.name + '</p>'
@@ -173,7 +173,7 @@
 								$.each(productList, function(key, product) {
 									$('<a href="javascript:;" class="weui_cell product-info" data-product-id="' + product.id + '">'
 										+ '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-										+ '<img src="${icon}" data-src="${ctx}/' + product.imagePath + '" style="width: 80px; display: block;">'
+										+ '<img src="${icon}" data-src="${ctx}' + product.imagePath + '" style="width: 80px; display: block;">'
 										+ '</div>'
 										+ '<div class="weui_cell_bd">'
 										+ '<p>' + product.name + '</p>'

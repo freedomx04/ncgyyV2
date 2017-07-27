@@ -32,7 +32,7 @@
 	<div class="weui-weixin_ui">
 	
 		<div class="weui-weixin-img weui-updown" style="margin-bottom: 0;">
-			<img src="${img}" data-src="${ctx}/${product.imagePath}" class="weixin">
+			<img src="${img}" data-src="${ctx}${product.imagePath}" class="weixin">
 		</div>
 	
 		<div class="weui-weixin-page">
