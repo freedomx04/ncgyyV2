@@ -52,8 +52,6 @@ public class FormulaUtils {
 	}
 	
 	public static String getGrowth(String currentStr, String lastStr) {
-		//Double current = Double.valueOf(currentStr);
-		//Double last = Double.valueOf(lastStr);
 		Double current = (null == currentStr || "".equals(currentStr)) ? new Double(0) : Double.valueOf(currentStr);
 		Double last = (null == lastStr || "".equals(lastStr)) ? new Double(0) : Double.valueOf(lastStr);
 		
@@ -152,4 +150,9 @@ public class FormulaUtils {
 		return ret;
 	}
 	
+	public static Double formatDouble(double num) {
+		DecimalFormat df = new DecimalFormat("0.00"); // 格式化小数
+		String numStr = df.format(num);
+		return Double.valueOf(numStr);
+	}
 }

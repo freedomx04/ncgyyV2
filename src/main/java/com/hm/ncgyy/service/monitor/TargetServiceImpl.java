@@ -18,7 +18,7 @@ public class TargetServiceImpl implements TargetService {
 
 	@Autowired
 	TargetRepository targetRepository;
-	
+
 	@Autowired
 	EnterpriseService enterpriseService;
 
@@ -41,7 +41,7 @@ public class TargetServiceImpl implements TargetService {
 	public void delete(Long targetId) {
 		targetRepository.delete(targetId);
 	}
-	
+
 	@Override
 	public void delete(List<Long> targetIds) {
 		Iterable<TargetEntity> it = targetRepository.findByIdIn(targetIds);
@@ -90,59 +90,67 @@ public class TargetServiceImpl implements TargetService {
 		String monthly_lastMonth = FormulaUtils.getLastMonthMonthly(target.getMonthly());
 		return targetRepository.findByMonthlyAndEnterpriseId(monthly_lastMonth, target.getEnterprise().getId());
 	}
-	
+
 	@Override
 	public TargetVO detail(TargetEntity target) {
 		TargetEntity target_lastYear = getLastYearTarget(target);
 		TargetEntity target_lastMonth = getLastMonthTarget(target);
 		TargetVO ret = new TargetVO(target.getMonthly(), target, target_lastYear, target_lastMonth);
-		
+
 		if (target_lastYear != null) {
-			ret.setMainBusiness_yearGrowth(FormulaUtils.getGrowth(target.getMainBusiness(), target_lastYear.getMainBusiness()));
-			ret.setElectricity_yearGrowth(FormulaUtils.getGrowth(target.getElectricity(), target_lastYear.getElectricity()));
+			ret.setMainBusiness_yearGrowth(
+					FormulaUtils.getGrowth(target.getMainBusiness(), target_lastYear.getMainBusiness()));
+			ret.setElectricity_yearGrowth(
+					FormulaUtils.getGrowth(target.getElectricity(), target_lastYear.getElectricity()));
 			ret.setProfit_yearGrowth(FormulaUtils.getGrowth(target.getProfit(), target_lastYear.getProfit()));
 			ret.setTax_yearGrowth(FormulaUtils.getGrowth(target.getTax(), target_lastYear.getTax()));
 		}
-		
+
 		if (target_lastMonth != null) {
-			ret.setMainBusiness_monthGrowth(FormulaUtils.getGrowth(target.getMainBusiness(), target_lastMonth.getMainBusiness()));
-			ret.setElectricity_monthGrowth(FormulaUtils.getGrowth(target.getElectricity(), target_lastMonth.getElectricity()));
+			ret.setMainBusiness_monthGrowth(
+					FormulaUtils.getGrowth(target.getMainBusiness(), target_lastMonth.getMainBusiness()));
+			ret.setElectricity_monthGrowth(
+					FormulaUtils.getGrowth(target.getElectricity(), target_lastMonth.getElectricity()));
 			ret.setProfit_monthGrowth(FormulaUtils.getGrowth(target.getProfit(), target_lastMonth.getProfit()));
 			ret.setTax_monthGrowth(FormulaUtils.getGrowth(target.getTax(), target_lastMonth.getTax()));
 		}
-		
+
 		return ret;
 	}
 
 	@Override
 	public TargetVO detail(String monthly, EnterpriseBaseEntity enterprise) {
 		Long enterpriseId = enterprise.getId();
-		
+
 		TargetEntity target = targetRepository.findByMonthlyAndEnterpriseId(monthly, enterpriseId);
-		
+
 		String monthly_lastYear = FormulaUtils.getLastYearMonthly(monthly);
 		TargetEntity target_lastYear = targetRepository.findByMonthlyAndEnterpriseId(monthly_lastYear, enterpriseId);
-		
+
 		String monthly_lastMonth = FormulaUtils.getLastMonthMonthly(monthly);
 		TargetEntity target_lastMonth = targetRepository.findByMonthlyAndEnterpriseId(monthly_lastMonth, enterpriseId);
-		
+
 		TargetVO ret = new TargetVO(monthly, target, target_lastYear, target_lastMonth);
 		ret.setEnterprise(enterprise);
-		
+
 		if (target != null && target_lastYear != null) {
-			ret.setMainBusiness_yearGrowth(FormulaUtils.getGrowth(target.getMainBusiness(), target_lastYear.getMainBusiness()));
-			ret.setElectricity_yearGrowth(FormulaUtils.getGrowth(target.getElectricity(), target_lastYear.getElectricity()));
+			ret.setMainBusiness_yearGrowth(
+					FormulaUtils.getGrowth(target.getMainBusiness(), target_lastYear.getMainBusiness()));
+			ret.setElectricity_yearGrowth(
+					FormulaUtils.getGrowth(target.getElectricity(), target_lastYear.getElectricity()));
 			ret.setProfit_yearGrowth(FormulaUtils.getGrowth(target.getProfit(), target_lastYear.getProfit()));
 			ret.setTax_yearGrowth(FormulaUtils.getGrowth(target.getTax(), target_lastYear.getTax()));
 		}
-		
+
 		if (target != null && target_lastMonth != null) {
-			ret.setMainBusiness_monthGrowth(FormulaUtils.getGrowth(target.getMainBusiness(), target_lastMonth.getMainBusiness()));
-			ret.setElectricity_monthGrowth(FormulaUtils.getGrowth(target.getElectricity(), target_lastMonth.getElectricity()));
+			ret.setMainBusiness_monthGrowth(
+					FormulaUtils.getGrowth(target.getMainBusiness(), target_lastMonth.getMainBusiness()));
+			ret.setElectricity_monthGrowth(
+					FormulaUtils.getGrowth(target.getElectricity(), target_lastMonth.getElectricity()));
 			ret.setProfit_monthGrowth(FormulaUtils.getGrowth(target.getProfit(), target_lastMonth.getProfit()));
 			ret.setTax_monthGrowth(FormulaUtils.getGrowth(target.getTax(), target_lastMonth.getTax()));
 		}
-		
+
 		return ret;
 	}
 
@@ -160,8 +168,10 @@ public class TargetServiceImpl implements TargetService {
 			profit_current_totle += target.getProfit();
 			tax_current_totle += target.getTax();
 		}
-		TargetEntity target_current_totle = new TargetEntity(monthly, null, mainBusiness_current_totle,
-				electricity_current_totle, profit_current_totle, tax_current_totle);
+		TargetEntity target_current_totle = new TargetEntity(monthly, null,
+				FormulaUtils.formatDouble(mainBusiness_current_totle),
+				FormulaUtils.formatDouble(electricity_current_totle), FormulaUtils.formatDouble(profit_current_totle),
+				FormulaUtils.formatDouble(tax_current_totle));
 
 		// last year
 		String lastYearMonthly = FormulaUtils.getLastYearMonthly(monthly);
@@ -176,8 +186,10 @@ public class TargetServiceImpl implements TargetService {
 			profit_lastYear_totle += target.getProfit();
 			tax_lastYear_totle += target.getTax();
 		}
-		TargetEntity target_lastYear_totle = new TargetEntity(lastYearMonthly, null, mainBusiness_lastYear_totle,
-				electricity_lastYear_totle, profit_lastYear_totle, tax_lastYear_totle);
+		TargetEntity target_lastYear_totle = new TargetEntity(lastYearMonthly, null,
+				FormulaUtils.formatDouble(mainBusiness_lastYear_totle),
+				FormulaUtils.formatDouble(electricity_lastYear_totle), FormulaUtils.formatDouble(profit_lastYear_totle),
+				FormulaUtils.formatDouble(tax_lastYear_totle));
 
 		// last month
 		String lastMonthMonthly = FormulaUtils.getLastMonthMonthly(monthly);
@@ -192,23 +204,31 @@ public class TargetServiceImpl implements TargetService {
 			profit_lastMonth_totle += target.getProfit();
 			tax_lastMonth_totle += target.getTax();
 		}
-		TargetEntity target_lastMonth_totle = new TargetEntity(lastMonthMonthly, null, mainBusiness_lastMonth_totle,
-				electricity_lastMonth_totle, profit_lastMonth_totle, tax_lastMonth_totle);
+		TargetEntity target_lastMonth_totle = new TargetEntity(lastMonthMonthly, null,
+				FormulaUtils.formatDouble(mainBusiness_lastMonth_totle),
+				FormulaUtils.formatDouble(electricity_lastMonth_totle),
+				FormulaUtils.formatDouble(profit_lastMonth_totle), FormulaUtils.formatDouble(tax_lastMonth_totle));
 
 		TargetVO ret = new TargetVO(monthly, target_current_totle, target_lastYear_totle, target_lastMonth_totle);
-		
+
 		// 同比
-		ret.setMainBusiness_yearGrowth(FormulaUtils.getGrowth(target_current_totle.getMainBusiness(), target_lastYear_totle.getMainBusiness()));
-		ret.setElectricity_yearGrowth(FormulaUtils.getGrowth(target_current_totle.getElectricity(), target_lastYear_totle.getElectricity()));
-		ret.setProfit_yearGrowth(FormulaUtils.getGrowth(target_current_totle.getProfit(), target_lastYear_totle.getProfit()));
+		ret.setMainBusiness_yearGrowth(FormulaUtils.getGrowth(target_current_totle.getMainBusiness(),
+				target_lastYear_totle.getMainBusiness()));
+		ret.setElectricity_yearGrowth(
+				FormulaUtils.getGrowth(target_current_totle.getElectricity(), target_lastYear_totle.getElectricity()));
+		ret.setProfit_yearGrowth(
+				FormulaUtils.getGrowth(target_current_totle.getProfit(), target_lastYear_totle.getProfit()));
 		ret.setTax_yearGrowth(FormulaUtils.getGrowth(target_current_totle.getTax(), target_lastYear_totle.getTax()));
-		
+
 		// 环比
-		ret.setMainBusiness_monthGrowth(FormulaUtils.getGrowth(target_current_totle.getMainBusiness(), target_lastMonth_totle.getMainBusiness()));
-		ret.setElectricity_monthGrowth(FormulaUtils.getGrowth(target_current_totle.getElectricity(), target_lastMonth_totle.getElectricity()));
-		ret.setProfit_monthGrowth(FormulaUtils.getGrowth(target_current_totle.getProfit(), target_lastMonth_totle.getProfit()));
+		ret.setMainBusiness_monthGrowth(FormulaUtils.getGrowth(target_current_totle.getMainBusiness(),
+				target_lastMonth_totle.getMainBusiness()));
+		ret.setElectricity_monthGrowth(
+				FormulaUtils.getGrowth(target_current_totle.getElectricity(), target_lastMonth_totle.getElectricity()));
+		ret.setProfit_monthGrowth(
+				FormulaUtils.getGrowth(target_current_totle.getProfit(), target_lastMonth_totle.getProfit()));
 		ret.setTax_monthGrowth(FormulaUtils.getGrowth(target_current_totle.getTax(), target_lastMonth_totle.getTax()));
-		
+
 		return ret;
 	}
 
