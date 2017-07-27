@@ -45,5 +45,14 @@ public class VersionServiceImpl implements VersionService {
 		return versionRepository.findByOrderByCodeDesc();
 	}
 
+	@Override
+	public String getLateset() {
+		String code = "1.0";
+		List<VersionEntity> list = list();
+		if (list.size() > 0) {
+			code = list.get(0).getCode();
+		}
+		return code;
+	}
 
 }

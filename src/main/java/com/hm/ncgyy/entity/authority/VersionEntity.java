@@ -23,11 +23,6 @@ public class VersionEntity extends BaseEntity {
 	private String releaseTime;
 	
 	/**
-	 * 版本主题
-	 */
-	private String title;
-	
-	/**
 	 * 版本内容
 	 */
 	@Column(length = 4000)
@@ -37,11 +32,10 @@ public class VersionEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public VersionEntity(String code, String releaseTime, String title, String content, Date createTime, Date updateTime) {
+	public VersionEntity(String code, String releaseTime, String content, Date createTime, Date updateTime) {
 		super();
 		this.code = code;
 		this.releaseTime = releaseTime;
-		this.title = title;
 		this.content = content;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -61,14 +55,6 @@ public class VersionEntity extends BaseEntity {
 
 	public void setReleaseTime(String releaseTime) {
 		this.releaseTime = releaseTime;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getContent() {

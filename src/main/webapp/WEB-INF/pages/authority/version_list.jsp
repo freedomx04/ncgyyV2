@@ -72,16 +72,10 @@
             	field: 'code',
             	title: '版本号',
             	align: 'center',
-            	width: '120'
             }, {
             	field: 'releaseTime',
             	title: '发布时间',
             	align: 'center',
-            	width: '120'
-            }, {
-            	field: 'title',
-            	title: '主题',
-            	align: 'center'
             }, {
             	title: '操作',
             	align: 'center',

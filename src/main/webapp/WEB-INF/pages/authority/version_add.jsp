@@ -46,13 +46,6 @@
                         </div>
 					</div>
 					
-					<div class="form-group">
-						<label for="title" class="col-sm-3 control-label"><i class="form-required">*</i>版本主题</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" name="title" value="${version.title}" required>
-                        </div>
-					</div>
-					
 					<c:if test="${method != 'detail'}">
 					<div class="form-group" >
 						<label for="content" class="col-sm-3 control-label">版本内容</label>

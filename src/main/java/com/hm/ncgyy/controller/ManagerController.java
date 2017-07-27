@@ -333,6 +333,13 @@ public class ManagerController {
 		return "pages/authority/version_add";
 	}
 	
+	@RequestMapping(value = "/versionHistory")
+	String version(ModelMap modelMap) {
+		List<VersionEntity> versionList = versionService.list();
+		modelMap.addAttribute("versionList", versionList);
+		return "pages/authority/version_history";
+	}
+	
 	/**
 	 * 基础数据接口
 	 */

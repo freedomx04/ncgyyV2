@@ -17,5 +17,7 @@ public interface VersionService {
 	void delete(List<Long> versionIdList);
 	
 	List<VersionEntity> list();
+	
+	String getLateset();
 
 }

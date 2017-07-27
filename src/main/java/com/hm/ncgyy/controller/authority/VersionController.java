@@ -26,7 +26,7 @@ public class VersionController {
 	VersionService versionService;
 	
 	@RequestMapping(value = "/api/version/create", method = RequestMethod.POST)
-	public Result create(String code, String releaseTime, String title, String content) {
+	public Result create(String code, String releaseTime, String content) {
 		try {
 			VersionEntity version = versionService.findByCode(code);
 			if (version != null) {
@@ -34,7 +34,7 @@ public class VersionController {
 			}
 			
 			Date now = new Date();
-			version = new VersionEntity(code, releaseTime, title, content, now, now);
+			version = new VersionEntity(code, releaseTime, content, now, now);
 			versionService.save(version);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class VersionController {
 	}
 	
 	@RequestMapping(value = "/api/version/update", method = RequestMethod.POST)
-	public Result update(Long versionId, String code, String releaseTime, String title, String content) {
+	public Result update(Long versionId, String code, String releaseTime, String content) {
 		try {
 			VersionEntity version = versionService.findOne(versionId);
 			
@@ -52,7 +52,6 @@ public class VersionController {
 			if (updateVersion == null || version.getId() == updateVersion.getId()) {
 				version.setCode(code);
 				version.setReleaseTime(releaseTime);
-				version.setTitle(title);
 				version.setContent(content);
 				version.setUpdateTime(new Date());
 				versionService.save(version);
@@ -104,6 +103,21 @@ public class VersionController {
 		try {
 			List<VersionEntity> versionList = versionService.list();
 			return new ResultInfo(Code.SUCCESS.value(), "ok", versionList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/version/latest")
+	public Result latest() {
+		try {
+			String code = "1.0";
+			List<VersionEntity> list = versionService.list();
+			if (list.size() > 0) {
+				code = list.get(0).getCode();
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", code);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
