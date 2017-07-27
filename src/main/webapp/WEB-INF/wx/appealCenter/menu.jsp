@@ -18,10 +18,10 @@
 <body>
 	<div>
 		<c:choose>
-		<c:when test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')
+		<c:when test="${fn:contains(user.role.resource, 'authority-appeal-center') 
+						|| fn:contains(user.role.resource, 'authority-appeal-enterprise')
 						|| fn:contains(user.role.resource, 'authority-appeal-department') 
-						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher'
-						|| fn:contains(user.role.resource, 'authority-appeal-center')}">
+						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
 		<div class="weui_cells weui_cells_access">
 			<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
 				<a class="weui_cell " href="${ctx}/wx/appeal">
