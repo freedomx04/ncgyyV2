@@ -154,7 +154,6 @@
 									+ '</div>'
 									+ '</a>'
 							});
-							
 							$article.find('.weui_cells_bd').html(result);
 							$k.util.lazyLoadImg('.weui-updown [data-src]');
 							
