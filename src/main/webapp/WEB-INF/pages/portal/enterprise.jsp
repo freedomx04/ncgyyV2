@@ -24,11 +24,6 @@
 	    transition: all .3s ease-in;
 	    position: relative;
 	}
-	.epList li:hover {
-	    -webkit-box-shadow: 5px 8px 7px #ccc;
-	    -webkit-transition-duration: .3s;
-	    -webkit-transform: translateY(-2px);
-	}
 	.epName {
 	    font-size: 16px;
 	    color: #333;
@@ -89,7 +84,6 @@
 	    padding-left: 20px;
 	    overflow: hidden;
 	    background-color: #fff;
-	    border: #e4e4e4 1px solid;
 	    position: relative;
 	}
 	.search-wrapper input[type="text"] {
@@ -129,8 +123,8 @@
 		</div>
 		
 		
-		<div class="clist">
-			<div class="clist_r_title">
+		<div style="background-color: #f2f2f2;">
+			<div class="clist_r_title" style="background-color: #ffffff;margin: 0; padding-left: 20px;">
 				<span>企业宣传</span>
 			</div>
 			<div class="search-wrapper">
@@ -192,7 +186,6 @@
 						} else {
 							data = ret.data.content;
 						}
-						console.info(data)
 						$.each(data, function(key, val) {
 							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
 							
