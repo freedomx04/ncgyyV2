@@ -22,21 +22,22 @@
 	
 </head>
 
-<body class="wx-appealCenter-info" style="width: 100%;">
-	<div class="weui_tab appealCenter-tab" style="width: 100%;">
+<body class="wx-appealCenter-info">
+	<div class="weui_tab appealCenter-tab">
 		<div class="weui_tab_nav" style="padding: 10px 20px;">
 			<a href="javascript:;" class="weui_navbar_item weui_nav_green" data-index="0">诉求列表</a>
 			<a href="javascript:;" class="weui_navbar_item weui_nav_green" data-index="1">诉求分类</a>
 			<a href="javascript:;" class="weui_navbar_item weui_nav_green" data-index="2">诉求预警</a>
 		</div>
 		
-		<div style="width: 100%;">
+		<div>
 			<div class="weui_tab_bd_item">
 				<div class="weui_cells weui_cells_access" style="margin-top: 0;">
 					<c:if test="${empty appealList}">
 						<div class="weui-footer" style="padding: 10px;"><p>暂无数据</p></div>
 					</c:if>
 					<c:forEach var="appeal" items="${appealList}">
+						<c:if test="${appeal.status != 0}">
 						<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="${appeal.id}">
 			                <div class="weui_cell_hd">
 			                	<p style="font-size: 16px; margin-bottom: 8px;">${appeal.title}</p>
@@ -48,21 +49,22 @@
 			                	<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="${appeal.status}"></span>
 			                </div>
             			</a>
+            			</c:if>
 					</c:forEach>
 				</div>
 			</div>
 			
-			<div class="weui_tab_bd_item" style="width: 100%;">
+			<div class="weui_tab_bd_item" style="width:100%;">
 				<div class="weui_cells_title">诉求分类分布图</div>
-				<div id="appealType-chart-container" style="margin-top: 10px; width: 100%; height:300px;"></div>
+				<div id="appealType-chart-container" style="margin-top: 10px; width: 100%; height: 300px;"></div>
 				
 				<div class="weui_cells_title" >诉求分类状态统计图</div>
 				<div id="appealStatus-chart-container" style="margin-top: 10px; width: 100%; height:450px;"></div>
 			</div>
 			
-			<div class="weui_tab_bd_item" style="width: 100%;">
+			<div class="weui_tab_bd_item">
 				<div class="weui_cells_title">诉求预警提醒</div>
-				<div id="appeal-warning-chart-container" style="margin-top: 10px; width: 100%; height:300px;"></div>
+				<div id="appeal-warning-chart-container" style="margin-top: 10px; width: 100%; height: 300px;"></div>
 			</div>
 			
 		</div>
@@ -87,7 +89,6 @@
 			$page.find(".weui-badge").eq(k).text($k.util.getAppealStatus(status));
 		});
 		
-		
 		$page.find('#appealType-chart-container').css( 'width', $(".weui_tab").width());
 		$page.find('#appealStatus-chart-container').css( 'width', $(".weui_tab").width());
 		$page.find('#appeal-warning-chart-container').css( 'width', $(".weui_tab").width());
@@ -103,7 +104,7 @@
 		$page
 		.on('click', '.appeal-info', function() {
 			var appealId = $(this).data('appealId');
-			window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId +"&role=gv&userId=" + userId;
+			window.location = '${ctx}/wx/appealCenter/appealinfo?appealId=' + appealId + "&role=read&userId=" + userId;
 		})
 		.on('click', '.weui_navbar_item', function() {
 			var index = $(this).data('index');
@@ -119,13 +120,9 @@
 		
 		function getAppealTypeChart($chartContainer) {
 			var myChart = echarts.init($chartContainer[0]);
-			
 			$.ajax({
 				url: "${ctx}/api/appeal/getAppealCountByType",
 				type: "POST",
-				data: {
-					departmentId: parseInt("${departmentId}")
-				},
 				success: function(ret) {
 					if (ret.code == 0) {
 						var seriesData = [];
@@ -169,13 +166,9 @@
 		
 		function getAppealStatusChart($chartContainer){
 			var myChart = echarts.init($chartContainer[0]);
-			
 			$.ajax({
 				url: "${ctx}/api/appeal/appealStatusCount",
 				type: "POST",
-				data: {
-					departmentId: parseInt("${departmentId}")
-				},
 				success: function(ret) {
 					if (ret.code == 0) {
 						var seriesData = [];
@@ -243,9 +236,6 @@
 			$.ajax({
 				url: "${ctx}/api/appeal/overAppealDays",
 				type: "POST",
-				data: {
-					departmentId: parseInt("${departmentId}")
-				},
 				success: function(ret) {
 					if (ret.code == 0) {
 						

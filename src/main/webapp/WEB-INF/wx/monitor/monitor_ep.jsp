@@ -16,6 +16,15 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/wx/example.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 
+	<style>
+	.weui-picker-modal .title {
+		margin: 0px; 
+	}
+	.weui-picker-modal .toolbar {
+		height: 35px;
+	}
+	</style>
+
 </head>
 
 <body class="wx-monitor" style="background-color: #f8f8f8; padding: 0; margin: 0;">

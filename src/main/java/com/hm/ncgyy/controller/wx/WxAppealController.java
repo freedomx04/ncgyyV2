@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.wx.WxUtil;
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.assist.AppealEntity.AppealStatus;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
@@ -52,8 +53,8 @@ public class WxAppealController {
 	
 	@RequestMapping("/wx/appealCenter")
 	String rank(ModelMap modelMap) {
-		//return "wx/appealCenter/menu";
-		return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
+		return "wx/appealCenter/menu";
+		//return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
 	}
 	
 	@RequestMapping(value = "/wx/appealEP")
@@ -137,9 +138,17 @@ public class WxAppealController {
 		return "wx/appealCenter/appeal_gv";
 	}
 	
+	@RequestMapping(value = "/wx/appeal")
+	String appeal(ModelMap modelMap) {
+		List<AppealEntity> appealList = appealService.list();
+		modelMap.addAttribute("appealList", appealList);
+		
+		return "wx/appealCenter/appeal";
+	}
+	
 	@RequestMapping(value = "/wx/appealDispatcher")
 	String appealDispatcher(ModelMap modelMap) {
-		List<AppealEntity> appealList = appealService.list();
+		List<AppealEntity> appealList = appealService.findByStatus(AppealStatus.SENDING);
 		modelMap.addAttribute("appealList", appealList);
 		
 		return "wx/appealCenter/appeal_dispatcher";

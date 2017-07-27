@@ -82,10 +82,10 @@
 	                <p>受理速度</p>
 	            </div>
 	            <div class="weui_cell_ft">
-	            	<c:forEach begin="1" end="${appeal.evaluate.acceptSpeed}">
+	            	<c:forEach begin="1" end="${appeal.evaluation.accept}">
 					<span class="icon icon-48"></span>
 		    	    </c:forEach>
-		    	    <c:forEach begin="1" end="${5 - appeal.evaluate.acceptSpeed}">
+		    	    <c:forEach begin="1" end="${5 - appeal.evaluation.accept}">
 					<span class="icon icon-49"></span>
 		    	    </c:forEach>
 	            </div>
@@ -95,10 +95,10 @@
 	                <p>办结速度</p>
 	            </div>
 	            <div class="weui_cell_ft">
-	            	<c:forEach begin="1" end="${appeal.evaluate.processSpeed}">
+	            	<c:forEach begin="1" end="${appeal.evaluation.handle}">
 					<span class="icon icon-48"></span>
 		    	    </c:forEach>
-		    	    <c:forEach begin="1" end="${5 - appeal.evaluate.processSpeed}">
+		    	    <c:forEach begin="1" end="${5 - appeal.evaluation.handle}">
 					<span class="icon icon-49"></span>
 		    	    </c:forEach>
 	            </div>
@@ -108,10 +108,10 @@
 	                <p>办结结果</p>
 	            </div>
 	            <div class="weui_cell_ft">
-	            	<c:forEach begin="1" end="${appeal.evaluate.result}">
+	            	<c:forEach begin="1" end="${appeal.evaluation.result}">
 					<span class="icon icon-48"></span>
 		    	    </c:forEach>
-		    	    <c:forEach begin="1" end="${5 - appeal.evaluate.result}">
+		    	    <c:forEach begin="1" end="${5 - appeal.evaluation.result}">
 					<span class="icon icon-49"></span>
 		    	    </c:forEach>
 	            </div>
@@ -122,7 +122,7 @@
 	            </div>
         	</div>
             <div style="margin-left: 1em; color: #888;">
-            	${appeal.evaluate.evaluation}
+            	${appeal.evaluation.content}
             </div>
 		</div>
 		</c:if>

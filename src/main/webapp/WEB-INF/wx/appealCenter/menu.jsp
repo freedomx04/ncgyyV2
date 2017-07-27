@@ -20,35 +20,45 @@
 		<c:choose>
 		<c:when test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')
 						|| fn:contains(user.role.resource, 'authority-appeal-department') 
-						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher'
+						|| fn:contains(user.role.resource, 'authority-appeal-center')}">
 		<div class="weui_cells weui_cells_access">
-				<c:if test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')}">
-	            <a class="weui_cell " href="${ctx}/wx/appealEP?userId=12">
+			<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
+				<a class="weui_cell " href="${ctx}/wx/appeal">
 	                <div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心</p>
 	                </div>
 	                <div class="weui_cell_ft"></div>
 	            </a>
-	            </c:if>
+			</c:if>
             
-            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-department')}">
-            	<a class="weui_cell " href="${ctx}/wx/appealGV?userId=12">
-            		<div class="weui_cell_bd weui_cell_primary">
-	                    <p>诉求中心</p>
+            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')}">
+	            
+	            <a class="weui_cell " href="${ctx}/wx/appealEP?userId=${user.id}">
+	                <div class="weui_cell_bd weui_cell_primary">
+	                    <p>诉求中心(企业)</p>
 	                </div>
 	                <div class="weui_cell_ft"></div>
 	            </a>
-	            </c:if>
+            </c:if>
             
-            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
-            	<a class="weui_cell " href="${ctx}/wx/appealDispatcher?userId=12">
+            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-department')}">
+            	<a class="weui_cell " href="${ctx}/wx/appealGV?userId=${user.id}">
+            		<div class="weui_cell_bd weui_cell_primary">
+	                    <p>诉求中心(部门)</p>
+	                </div>
+	                <div class="weui_cell_ft"></div>
+	            </a>
+            </c:if>
+            
+           	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+            	<a class="weui_cell " href="${ctx}/wx/appealDispatcher?userId=${user.id}">
             		<div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心（派单）</p>
 	                </div>
 	                <div class="weui_cell_ft"></div>
 	            </a>
-	            </c:if>
-            
+            </c:if>
         </div>
         </c:when>
         
