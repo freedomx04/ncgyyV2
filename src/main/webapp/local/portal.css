@@ -215,7 +215,7 @@ li {
 }
 .monitor dl dd {
     float: right;
-    width: 550px;
+    width: 500px;
 }
 .monitor dl dd a {
     border-left: 1px #fff solid;
@@ -236,6 +236,7 @@ li {
 
 .policy, .industry, .monitor, .assist {
 	min-height: 204px;
+	padding-left: 15px;
 }
 
 .mnav {

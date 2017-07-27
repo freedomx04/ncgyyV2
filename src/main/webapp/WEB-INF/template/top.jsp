@@ -7,7 +7,7 @@
 				<a href="${ctx}/login">登录</a>
 				<a href="${ctx}/register" style="padding-left: 5px;">注册</a>
 			</div>
-			<a href="index.html" class="logo">工信部</a>
+			<a href="${ctx}/index" class="logo">工信部</a>
 			<div class="menu">
 				<a href="${ctx}/newslist?type=1" type="1">图片新闻</a>
 				<a href="${ctx}/newslist?type=2" type="2">公示公告</a>
