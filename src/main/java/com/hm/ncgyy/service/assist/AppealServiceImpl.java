@@ -121,4 +121,9 @@ public class AppealServiceImpl implements AppealService {
 			return appealRepository.getOverHandleDaysByEnterpriseId(enterpriseId, appealTypeId);
 		}
 	}
+	
+	@Override
+	public List<AppealEntity> search(String input) {
+		return appealRepository.findByTitleContaining(input);
+	}
 }

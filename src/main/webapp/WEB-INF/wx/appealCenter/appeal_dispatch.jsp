@@ -17,7 +17,7 @@
 
 <body class="wx-appeal-dispatch">
 	<div class="weui_panel">
-		<div class="weui_cell weui_cell_select">
+		<div class="weui_cell weui_cell_select" style="padding: 10px 15px;">
             <div class="weui_cell_hd"><label for="" class="weui_label">处理部门:</label></div>
             <div class="weui_cell_bd weui_cell_primary">
                 <select class="weui_select" name="departmentId" id="departmentId">

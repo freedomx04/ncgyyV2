@@ -53,8 +53,8 @@ public class WxAppealController {
 	
 	@RequestMapping("/wx/appealCenter")
 	String rank(ModelMap modelMap) {
-		return "wx/appealCenter/menu";
-		//return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
+		//return "wx/appealCenter/menu";
+		return WxUtil.getInstace().redirect(modelMap, request, userService, "wx/appealCenter/menu");
 	}
 	
 	@RequestMapping(value = "/wx/appealEP")
@@ -237,4 +237,5 @@ public class WxAppealController {
 		
 		return "wx/appealCenter/appeal_dispatch";
 	}
+	
 }

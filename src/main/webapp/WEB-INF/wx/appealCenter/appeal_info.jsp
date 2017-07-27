@@ -299,7 +299,10 @@
 				$parent.siblings().find('i').removeClass('icon-35').addClass('icon-74');
 			}
 		})
-		
+		.on('click', '.enterprise-info', function() {
+			var enterpriseId = $(this).data('enterpriseId');
+			window.location = '${ctx}/wx/enterprise/get?enterpriseId=' + enterpriseId;
+		})
 		.on("click", ".btn-appeal-send", function() {
 			var $this = $(this);
 	        $.confirm("您确定要发送给派单员吗?", "确认发送?", function() {

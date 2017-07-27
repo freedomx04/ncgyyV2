@@ -52,4 +52,6 @@ public interface AppealService {
 	
 	List<BigInteger> getOverHandleDays(Long departmentId, Long enterpriseId, Long appealTypeId);
 	
+	List<AppealEntity> search(String input);
+	
 }

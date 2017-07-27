@@ -39,8 +39,8 @@
 	                	${appeal.appealType.name}
 	                	<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="${appeal.status}"></span>
 	                </div>
-          			</a>
-          			</c:if>
+          		</a>
+        		</c:if>
 			</c:forEach>
 		</div>
 	</div>
@@ -89,26 +89,29 @@
 				$list.hide();
 				$search.show();
 				
-				/* $.ajax({
-					url: '${ctx}/enterprise/product/search',
+				$.ajax({
+					url: '${ctx}/api/appeal/search',
 					data: {
 						input: value
 					},
 					success: function(ret) {
-						if (ret.status == 0) {
-							var productList = ret.data;
-							if (productList.length > 0) {
-								$.each(productList, function(key, product) {
-									$('<a href="javascript:;" class="weui_cell product-info" data-product-id="' + product.id + '">'
-										+ '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
-										+ '<img src="${icon}" data-src="${ctx}/' + product.imagePath + '" style="width: 80px; display: block;">'
-										+ '</div>'
-										+ '<div class="weui_cell_bd">'
-										+ '<p>' + product.name + '</p>'
-										+ '<p style="font-size: 13px; color: #999; margin-top: 10px;">' + product.enterprise.name + '</p>'
-										+ '</div>'
-										+ '</a>')
-									.appendTo($search.find('.weui_cells_access'));
+						if (ret.code == 0) {
+							var appealList = ret.data;
+							if (appealList.length > 0) {
+								$.each(appealList, function(key, appeal) {
+									if (appeal.status == 1) {
+										$('<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="'+ appeal.id +'">'+
+								                '<div class="weui_cell_hd">'+
+							                	'<p style="font-size: 16px; margin-bottom: 8px;">'+ appeal.title +'</p>'+
+												'<p style="font-size: 13px; color: #999"></p>'+
+							                '</div>'+
+							                '<div class="weui_cell_bd weui_cell_primary"><p>'+ new Date(appeal.createTime).Format("yyyy-MM-dd hh:mm") +'</p></div>'+
+							                '<div style="color: #999;">'+ appeal.appealType.name +
+							                	'<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="'+ appeal.status +'">'+ $k.util.getAppealStatus(appeal.status) +'</span>'+
+							                '</div>'+
+						          		'</a>')
+										.appendTo($search.find('.weui_cells_access'));
+									}
 								});
 								
 							} else {
@@ -117,7 +120,7 @@
 						}
 					},
 					error: function(err) {}
-				}); */
+				});
 			},
 			oncancel: function() {
 				$search.hide();

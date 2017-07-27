@@ -371,4 +371,14 @@ public class AppealController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/appeal/search")
+	public Result search(String input) {
+		try {
+			List<AppealEntity> list = appealService.search(input);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 }

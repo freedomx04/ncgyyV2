@@ -91,4 +91,5 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 			+ "and ap.accept_time is not null and apt.id = ?2 and ap.department_id = ?1 and ap.status=3", nativeQuery = true)
 	List<BigInteger> getOverHandleDaysByDepartmentId(Long departmentId, Long appealTypeId);
 	
+	List<AppealEntity> findByTitleContaining(String title);
 }
