@@ -19,6 +19,7 @@ import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.ProductService;
+import com.hm.ncgyy.service.authority.VersionService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
 @Controller
@@ -37,6 +38,9 @@ public class BaseController {
 	
 	@Autowired
 	AppealService appealService;
+	
+	@Autowired
+	VersionService versionService;
 	
 	@RequestMapping(value = { "/", "/index" })
 	String index(ModelMap modelMap) {
@@ -77,6 +81,10 @@ public class BaseController {
 	String home(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
+		
+		String code = versionService.getLateset();
+		modelMap.addAttribute("versionCode", code);
+		
 		return "home";
 	}
 	

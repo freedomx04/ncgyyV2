@@ -44,7 +44,7 @@
 				<span id="con_time">发布时间：<fmt:formatDate value="${article.updateTime}" pattern="yyyy-MM-dd HH-mm"/></span>&nbsp; 
 				<span>来源：${article.source}</span>&nbsp;
 			</div>
-			<div class="ccontent" style="font-size: 14px; font-family: '宋体'; width: 100%; padding: 20px; color: #070707; line-height: 26px; min-height: 400px;word-break: break-all;">
+			<div class="ccontent" style="font-size: 14px; font-family: '宋体'; padding: 30px; color: #070707; line-height: 26px; min-height: 400px;word-break: break-all;">
 				${article.content}
 				
 				<c:if test="${not empty article.fileList}">

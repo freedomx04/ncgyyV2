@@ -35,7 +35,7 @@
 			<table width="100%" cellpadding="0" cellspacing="0">
 				<tbody>
 					<tr>
-						<td width="217" bgcolor="fafafa" valign="top">
+						<td width="217" valign="top">
 							<div class="ctree">
 								<div class="ctree_title"><h1>监测平台</h1></div>
 									<dl>

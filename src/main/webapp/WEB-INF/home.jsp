@@ -73,6 +73,9 @@
 							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
 								<li><a class="J_menuItem" href="department">部门管理</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
+								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:if>
@@ -276,9 +279,8 @@
 			<!-- footer -->
 			<div class="footer">
 				<div class="pull-left">南城县工业园区综合信息服务平台</div>
-				<div class="pull-right">当前版本：v2.0.0</div>
+				<div class="pull-right">当前版本：${versionCode}<a class="J_menuItem" href="${ctx}/versionHistory" style="padding-left: 10px;">版本历史</a></div>
 			</div>
-			
 		</div>
 		<!--右侧部分结束-->
 		

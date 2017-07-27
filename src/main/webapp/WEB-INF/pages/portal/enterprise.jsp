@@ -13,7 +13,7 @@
 	
 	<style type="text/css">
 	.epList li {
-	    height: auto;
+	    height: 160px;
 	    padding: 15px 350px 20px 20px;
 	    background-color: #fff;
 	    margin-bottom: 15px;
@@ -50,7 +50,7 @@
 	    line-height: 25px;
 	    color: #999;
 	    margin: 12px 0px 0px 0px;
-	    height: 50px;
+	    max-height: 50px;
 	    overflow: hidden;
 	}
 	.epInfos i, .epContact i {
@@ -124,12 +124,12 @@
 		
 		
 		<div style="background-color: #f2f2f2;">
-			<div class="clist_r_title" style="background-color: #ffffff;margin: 0; padding-left: 20px;">
+			<div class="clist_r_title" style="background-color: #ffffff;margin: 0; padding-left: 20px; padding-top: 20px;">
 				<span>企业宣传</span>
 			</div>
 			<div class="search-wrapper">
-			    <input type="text" name="keywords" id="keywords" value="" placeholder="关键词">
-			    <input type="button" id="search-btn" value="筛选">
+			    <input type="text" name="keywords" id="keywords" value="" placeholder="企业名称">
+			    <input type="button" id="search-btn" value="搜索">
 			</div>
 			
 			<div style="height: 20px;background-color: #F2F2F2;"></div>
@@ -139,7 +139,7 @@
 			</div>
 			
 			<div style="clear:both;"></div>
-			<div id="pageTool" style="margin: 20px;"></div>
+			<div id="pageTool" style="padding: 15px;"></div>
 		</div>
 	</div>
 	
@@ -190,7 +190,7 @@
 							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
 							
 							var ht = '<li id='+ val.id +'>'+
-										'<a class="epName" href="" title="" target="_blank">'+ name +'</a>'+
+										'<a class="epName" href="${ctx}/enterprise?enterpriseId=' + val.id + '" title="" target="_blank">'+ name +'</a>'+
 				                        '<p class="product">'+
 				                            '<span>'+ (val.mainProduct || "暂无信息") +'</span>'+
 				                        '</p>'+

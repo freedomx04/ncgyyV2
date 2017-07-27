@@ -129,6 +129,27 @@
 					</div>
 					
 					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-version">
+								<input type="checkbox"> 版本管理
+							</label>
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-version-add">
+								<input type="checkbox"> 新增
+							</label>
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-version-delete-batch">
+								<input type="checkbox"> 批量删除
+							</label>
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-version-edit">
+								<input type="checkbox"> 编辑
+							</label>
+							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-version-delete">
+								<input type="checkbox"> 删除
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
 						<label class="col-sm-2 control-label">基础数据</label>
 						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-area">
