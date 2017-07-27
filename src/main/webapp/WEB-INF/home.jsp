@@ -55,7 +55,8 @@
 					<c:if test="${fn:contains(user.role.resource, 'authority-role')
 						|| fn:contains(user.role.resource, 'authority-user')
 						|| fn:contains(user.role.resource, 'authority-enterprise')
-						|| fn:contains(user.role.resource, 'authority-department')}">
+						|| fn:contains(user.role.resource, 'authority-department')
+						|| fn:contains(user.role.resource, 'authority-version')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
