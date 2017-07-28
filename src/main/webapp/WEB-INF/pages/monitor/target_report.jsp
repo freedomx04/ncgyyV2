@@ -271,7 +271,7 @@
 						if (typeof fn === 'function') {
 							fn();
 						}
-						$k.util.chosen();
+						$k.util.chosen($page.find('.chosen-select'));
 					}
 				},
 				error: function(err) {}

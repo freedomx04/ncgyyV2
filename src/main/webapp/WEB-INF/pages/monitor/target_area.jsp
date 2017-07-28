@@ -191,7 +191,7 @@
 					$.each(data.data, function(key, val) {
 						$('<option value="'+ val.id +'">'+ val.name +'</option>').appendTo($page.find(".chosen-select"));
 					});
-					$k.util.chosen();
+					$k.util.chosen($page.find('.chosen-select'));
 				}
 			},
 			error: function(err) {}

@@ -150,17 +150,12 @@
 	/**
 	 * 下拉选框插件
 	 */
-	$k.util.chosen = function() {
-		//下拉选框
-		var config = {
-			".chosen-select": {},
-			".chosen-select-deselect": {allow_single_deselect:!0},
-			".chosen-select-no-single": {disable_search_threshold:10},
-			".chosen-select-no-results": {no_results_text:"Oops, nothing found!"},
-			".chosen-select-width": {width:"95%"}
-		};
-		for(var selector in config)
-			$(selector).chosen(config[selector]);
+	$k.util.chosen = function($obj) {
+		$obj.chosen({
+			no_results_text: '无搜索结果',
+			disable_search_threshold: 10,
+			search_contains: true
+		});
 	}
 	
 	/**
