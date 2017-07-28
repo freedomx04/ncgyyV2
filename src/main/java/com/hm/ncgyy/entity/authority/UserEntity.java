@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,7 +13,11 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "authority_user")
+@Table(name = "authority_user", indexes = {
+	@Index(name = "index_authority_user_username", columnList = "username"),
+	@Index(name = "index_authority_user_mobile", columnList = "mobile"),
+	@Index(name = "index_authority_user_wxuserid", columnList = "wxUserId")
+})
 public class UserEntity extends BaseEntity {
 
 	/**

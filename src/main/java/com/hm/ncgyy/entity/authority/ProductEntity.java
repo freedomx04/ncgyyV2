@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,7 +13,9 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "authority_enterprise_product")
+@Table(name = "authority_enterprise_product", indexes = {
+	@Index(name = "index_authority_enterprise_product_name", columnList = "name") 
+})
 public class ProductEntity extends BaseEntity {
 	
 	/**

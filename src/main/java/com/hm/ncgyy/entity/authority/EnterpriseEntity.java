@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,7 +18,10 @@ import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
 
 @Entity
-@Table(name = "authority_enterprise")
+@Table(name = "authority_enterprise", indexes = {
+	@Index(name = "index_authority_enterprise_name", columnList = "name"),
+	@Index(name = "index_authority_enterprise_pointstatus", columnList = "pointStatus")
+})
 public class EnterpriseEntity extends BaseEntity {
 	
 	public class PointStatus {
