@@ -73,7 +73,7 @@
 		var $page = $('.body-appeal-list');
 		
 		var $table = $k.util.bsTable($page.find('#appeal-list-table'), {
-			url: '${ctx}/api/appeal/list',
+			url: '${ctx}/api/appeal/list?status=0',
 			responseHandler: function(res) {
                 return res.data;
             },

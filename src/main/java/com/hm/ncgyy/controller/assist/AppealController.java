@@ -117,9 +117,9 @@ public class AppealController {
 	}
 	
 	@RequestMapping(value = "/api/appeal/list")
-	public Result list() {
+	public Result list(Integer status) {
 		try {
-			List<AppealEntity> list = appealService.list();
+			List<AppealEntity> list = appealService.list(status);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

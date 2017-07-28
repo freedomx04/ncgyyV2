@@ -47,12 +47,24 @@
 					<c:forEach var="appeal" items="${appealList}">
 						<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="${appeal.id}">
 			                <div class="weui_cell_hd">
-			                	<p style="font-size: 16px; margin-bottom: 8px;">${appeal.title}</p>
+			                	<p style="font-size: 16px; margin-bottom: 8px;">
+									<c:if test="${fn:length(appeal.title) > 30}">
+										${fn:substring(appeal.title, 0, 30)}...
+									</c:if>
+									<c:if test="${fn:length(appeal.title) <= 30}">
+										${appeal.title}
+									</c:if>
+								</p>
 								<p style="font-size: 13px; color: #999"><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 			                </div>
 			                <div class="weui_cell_bd weui_cell_primary"><p></p></div>
 			                <div style="color: #999;">
-			                	${appeal.appealType.name}
+			                	<c:if test="${fn:length(appeal.appealType.name) > 8}">
+									${fn:substring(appeal.appealType.name, 0, 8)}...
+								</c:if>
+								<c:if test="${fn:length(appeal.appealType.name) <= 8}">
+									${appeal.appealType.name}
+								</c:if>
 			                	<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="${appeal.status}"></span>
 			                </div>
             			</a>
@@ -70,11 +82,25 @@
 						<c:forEach var="appeal" items="${list.acceptDays}">
 							<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="${appeal.id}">
 				                <div class="weui_cell_hd">
-				                	<p style="font-size: 16px; margin-bottom: 8px;">${appeal.title}</p>
+				                	<p style="font-size: 16px; margin-bottom: 8px;">
+				                		<c:if test="${fn:length(appeal.title) > 30}">
+											${fn:substring(appeal.title, 0, 30)}...
+										</c:if>
+										<c:if test="${fn:length(appeal.title) <= 30}">
+											${appeal.title}
+										</c:if>
+									</p>
 									<p style="font-size: 13px; color: #999"><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 				                </div>
 				                <div class="weui_cell_bd weui_cell_primary"><p></p></div>
-				                <div style="color: #999;">${appeal.appealType.name}</div>
+				                <div style="color: #999;">
+				                	<c:if test="${fn:length(appeal.appealType.name) > 8}">
+										${fn:substring(appeal.appealType.name, 0, 8)}...
+									</c:if>
+									<c:if test="${fn:length(appeal.appealType.name) <= 8}">
+										${appeal.appealType.name}
+									</c:if>
+								</div>
 	            			</a>
 	            		</c:forEach>
 					</c:forEach>
@@ -89,11 +115,25 @@
 						<c:forEach var="appeal" items="${list.handleDays}">
 							<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="${appeal.id}">
 				                <div class="weui_cell_hd">
-				                	<p style="font-size: 16px; margin-bottom: 8px;">${appeal.title}</p>
+				                	<p style="font-size: 16px; margin-bottom: 8px;">
+										<c:if test="${fn:length(appeal.title) > 30}">
+											${fn:substring(appeal.title, 0, 30)}...
+										</c:if>
+										<c:if test="${fn:length(appeal.title) <= 30}">
+											${appeal.title}
+										</c:if>
+									</p>
 									<p style="font-size: 13px; color: #999"><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 				                </div>
 				                <div class="weui_cell_bd weui_cell_primary"><p></p></div>
-				                <div style="color: #999;">${appeal.appealType.name}</div>
+				                <div style="color: #999;">
+									<c:if test="${fn:length(appeal.appealType.name) > 8}">
+										${fn:substring(appeal.appealType.name, 0, 8)}...
+									</c:if>
+									<c:if test="${fn:length(appeal.appealType.name) <= 8}">
+										${appeal.appealType.name}
+									</c:if>
+								</div>
 	            			</a>
             			</c:forEach>
 					</c:forEach>

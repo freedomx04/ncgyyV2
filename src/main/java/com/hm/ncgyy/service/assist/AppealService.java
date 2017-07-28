@@ -15,7 +15,7 @@ public interface AppealService {
 	
 	void delete(Long appealId);
 	
-	List<AppealEntity> list();
+	List<AppealEntity> list(Integer status);
 	
 	Page<AppealEntity> listPaging(int page, int size);
 	

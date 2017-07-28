@@ -31,12 +31,24 @@
 				<c:if test="${appeal.status != 0}">
 				<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="${appeal.id}">
 	                <div class="weui_cell_hd">
-	                	<p style="font-size: 16px; margin-bottom: 8px;">${appeal.title}</p>
+	                	<p style="font-size: 16px; margin-bottom: 8px;">
+							<c:if test="${fn:length(appeal.title) > 30}">
+								${fn:substring(appeal.title, 0, 30)}...
+							</c:if>
+							<c:if test="${fn:length(appeal.title) <= 30}">
+								${appeal.title}
+							</c:if>
+						</p>
 						<p style="font-size: 13px; color: #999"><fmt:formatDate value="${appeal.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 	                </div>
 	                <div class="weui_cell_bd weui_cell_primary"><p></p></div>
 	                <div style="color: #999;">
-	                	${appeal.appealType.name}
+	                	<c:if test="${fn:length(appeal.appealType.name) > 8}">
+							${fn:substring(appeal.appealType.name, 0, 8)}...
+						</c:if>
+						<c:if test="${fn:length(appeal.appealType.name) <= 8}">
+							${appeal.appealType.name}
+						</c:if>
 	                	<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="${appeal.status}"></span>
 	                </div>
           		</a>
@@ -100,13 +112,16 @@
 							if (appealList.length > 0) {
 								$.each(appealList, function(key, appeal) {
 									if (appeal.status == 1) {
+										var title = appeal.title.length > 30 ? appeal.title.substring(0, 30) : appeal.title;
+										var typeName = appeal.appealType.name.length > 8 ? appeal.appealType.name.substring(0, 8) : appeal.appealType.name;
+										
 										$('<a class="weui_cell appeal-info" href="javascript:;" data-appeal-id="'+ appeal.id +'">'+
 								                '<div class="weui_cell_hd">'+
-							                	'<p style="font-size: 16px; margin-bottom: 8px;">'+ appeal.title +'</p>'+
-												'<p style="font-size: 13px; color: #999"></p>'+
+							                	'<p style="font-size: 16px; margin-bottom: 8px;">'+ title +'</p>'+
+												'<p style="font-size: 13px; color: #999">'+ new Date(appeal.createTime).Format("yyyy-MM-dd hh:mm") +'</p>'+
 							                '</div>'+
-							                '<div class="weui_cell_bd weui_cell_primary"><p>'+ new Date(appeal.createTime).Format("yyyy-MM-dd hh:mm") +'</p></div>'+
-							                '<div style="color: #999;">'+ appeal.appealType.name +
+							                '<div class="weui_cell_bd weui_cell_primary"><p></p></div>'+
+							                '<div style="color: #999;">'+ typeName +
 							                	'<span class="weui-badge" style="margin-left: 5px; background-color: #04be02;" data-status="'+ appeal.status +'">'+ $k.util.getAppealStatus(appeal.status) +'</span>'+
 							                '</div>'+
 						          		'</a>')

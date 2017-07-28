@@ -139,8 +139,8 @@ public class WxAppealController {
 	}
 	
 	@RequestMapping(value = "/wx/appeal")
-	String appeal(ModelMap modelMap) {
-		List<AppealEntity> appealList = appealService.list();
+	String appeal(ModelMap modelMap, Integer status) {
+		List<AppealEntity> appealList = appealService.list(status);
 		modelMap.addAttribute("appealList", appealList);
 		
 		return "wx/appealCenter/appeal";

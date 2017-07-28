@@ -15,7 +15,7 @@ public interface AppealRepository extends PagingAndSortingRepository<AppealEntit
 	/**
 	 * 获取所有
 	 */
-	List<AppealEntity> findAllByOrderByUpdateTimeDesc();
+	List<AppealEntity> findAllByStatusNotOrderByUpdateTimeDesc(Integer status);
 	
 	Page<AppealEntity> findAllByOrderByUpdateTimeDesc(Pageable pageable);
 	

@@ -33,10 +33,10 @@ public class AppealServiceImpl implements AppealService {
 	}
 
 	@Override
-	public List<AppealEntity> list() {
-		return appealRepository.findAllByOrderByUpdateTimeDesc();
+	public List<AppealEntity> list(Integer status) {
+		return appealRepository.findAllByStatusNotOrderByUpdateTimeDesc(status);
 	}
-
+	
 	@Override
 	public Page<AppealEntity> listPaging(int page, int size) {
 		return appealRepository.findAllByOrderByUpdateTimeDesc(new PageRequest(page, size));
