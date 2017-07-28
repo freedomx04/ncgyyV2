@@ -24,7 +24,7 @@
 						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
 		<div class="weui_cells weui_cells_access">
 			<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
-				<a class="weui_cell " href="${ctx}/wx/appeal">
+				<a class="weui_cell " href="${ctx}/wx/appeal?status=0">
 	                <div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心</p>
 	                </div>
@@ -54,7 +54,7 @@
            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
             	<a class="weui_cell " href="${ctx}/wx/appealDispatcher?userId=${user.id}">
             		<div class="weui_cell_bd weui_cell_primary">
-	                    <p>诉求中心（派单）</p>
+	                    <p>诉求中心(派单)</p>
 	                </div>
 	                <div class="weui_cell_ft"></div>
 	            </a>
