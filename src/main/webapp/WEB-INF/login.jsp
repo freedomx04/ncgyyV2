@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/iCheck/custom.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 
@@ -193,7 +194,14 @@
                             	</div>
 	                        </div>
 	                        <div class="form-group clearfix">
-	                        	<a class="pull-right collapsed" href="${ctx}/forgetpsw" target="_blank">忘记密码</a>
+	                        	<div class="checkbox i-checks remember">
+	                        		<label style="padding-left: 10px;">
+	                        			<input type="checkbox">
+	                        			<i></i>记住我
+	                        		</label>
+	                        	</div>
+	                        
+	                        	<a class="pull-right collapsed" href="${ctx}/forgetpsw" target="_blank" style="padding: 10px;">忘记密码</a>
 	                        </div>
 	                        <div class="form-group row" style="margin: 0 auto;">
 	                        	<div class="col-sm-6">
@@ -217,6 +225,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/iCheck/icheck.min.js"></script>
 
 	<script type="text/javascript">
 	;(function( $ ) {
@@ -225,6 +234,24 @@
 		var $form = $page.find('.login-form');
 		var $kaptcha_img = $page.find('#kaptcha-img');
 		var $kaptcha = $page.find('input[name="kaptcha"]');
+		var $username = $form.find('input[name="username"]');
+		var $password = $form.find('input[name="password"]');
+		var $remember = $page.find('.remember');
+		
+		$remember.iCheck({
+        	checkboxClass: "icheckbox_square-green", 
+        	radioClass: "iradio_square-green",
+        });
+		
+		// 初始化记住我
+		var username = $.cookie('username');
+		var password = $.cookie('password');
+		var remember = $.cookie('remember');
+	 	$username.val(username);
+	 	$password.val(password);
+	 	if (remember) {
+	 		$remember.iCheck('check');
+	 	}
 	
 		//点击更换图形验证码
 		$kaptcha_img.click(function() {
@@ -271,6 +298,17 @@
 							},
 							success: function(ret) {
 								if (ret.code == 0) {
+									// 勾选记住我时,用户名和密码存入cookie
+									if ($remember.find('input').is(':checked')) {
+										$.cookie('remember', 'true', { expires: 7 });
+										$.cookie('username', username, { expires: 7 });
+										$.cookie('password', password, { expires: 7 });
+									} else {
+										$.cookie('remember', 'false', { expires: -1 });
+										$.cookie('username', '', { expires: -1 });
+										$.cookie('password', '', { expires: -1 });
+									}
+									
 									window.location.href = "./home";
 								} else {
 									$form.find('.msg-error').removeClass('hide').text(ret.msg);
