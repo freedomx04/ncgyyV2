@@ -280,7 +280,7 @@
 			<!-- footer -->
 			<div class="footer">
 				<div class="pull-left">南城县工业园区综合信息服务平台</div>
-				<div class="pull-right">当前版本：${versionCode}<a class="J_menuItem" href="${ctx}/versionHistory" style="padding-left: 10px;">版本历史</a></div>
+				<div class="pull-right">当前版本：${versionCode}<a class="J_menuItem" href="${ctx}/versionHistory" style="padding-left: 10px;"><i class="fa fa-history fa-fw"></i>版本历史</a></div>
 			</div>
 		</div>
 		<!--右侧部分结束-->

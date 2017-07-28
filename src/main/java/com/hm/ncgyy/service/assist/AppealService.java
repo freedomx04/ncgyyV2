@@ -26,21 +26,11 @@ public interface AppealService {
 	 */
 	List<AppealEntity> findByEnterpriseId(Long enterpriseId);
 	
-	List<AppealEntity> findByEnterpriseIdUnconfirm(Long enterpriseId);
-	
-	List<AppealEntity> findByEnterpriseIdConfirmed(Long enterpriseId);
-	
-	
 	/**
 	 * department
 	 */
 	List<AppealEntity> findByDepartmentId(Long departmentId);
 	
-	List<AppealEntity> findByDepartmentIdUnconfirm(Long departmentId);
-	
-	List<AppealEntity> findByDepartmentIdConfirmed(Long departmentId);
-	
-
 	/**
 	 * others(chart)
 	 */

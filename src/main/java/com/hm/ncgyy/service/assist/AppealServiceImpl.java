@@ -53,32 +53,8 @@ public class AppealServiceImpl implements AppealService {
 	}
 
 	@Override
-	public List<AppealEntity> findByEnterpriseIdUnconfirm(Long enterpriseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<AppealEntity> findByEnterpriseIdConfirmed(Long enterpriseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<AppealEntity> findByDepartmentId(Long departmentId) {
 		return appealRepository.findByDepartmentIdOrderByUpdateTimeDesc(departmentId);
-	}
-
-	@Override
-	public List<AppealEntity> findByDepartmentIdUnconfirm(Long departmentId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<AppealEntity> findByDepartmentIdConfirmed(Long departmentId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
