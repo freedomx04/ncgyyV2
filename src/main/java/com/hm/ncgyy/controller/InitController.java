@@ -261,7 +261,8 @@ public class InitController {
 		}
 	}
 	
-	private String imageFormat = "/image/{time}{rand:6}";
+	@Value("${customize.path.image}")
+	private String imageFormat;
 	
 	@RequestMapping(value = "/api/init/enterpriseDetail")
 	public Result enterpriseDetail() throws IOException {

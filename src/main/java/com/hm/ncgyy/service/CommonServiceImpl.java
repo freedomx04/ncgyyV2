@@ -26,9 +26,12 @@ public class CommonServiceImpl implements CommonService {
 	private String uploadPath;
 	
 	private String articlePath = "article";
-	private String imageFormat = "/image/{time}{rand:6}";
 	
-	private String mailFormat = "/mail/{time}{rand:6}";
+	@Value("${customize.path.image}")
+	private String imageFormat;
+	
+	@Value("${customize.path.mail}")
+	private String mailFormat;
 
 	@Override
 	public String saveArticle(String content) throws IOException {

@@ -13,9 +13,11 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 
 @Entity
-@Table(name = "monitor_target", indexes = { @Index(name = "index_target_monthly", columnList = "monthly"),
-		@Index(name = "index_target_enterprise", columnList = "enterprise_id"),
-		@Index(name = "index_target_monthly_enterprise", columnList = "monthly, enterprise_id") })
+@Table(name = "monitor_target", indexes = { 
+	@Index(name = "index_target_monthly", columnList = "monthly"),
+	@Index(name = "index_target_enterprise", columnList = "enterprise_id"),
+	@Index(name = "index_target_monthly_enterprise", columnList = "monthly, enterprise_id") 
+})
 public class TargetEntity extends BaseEntity {
 
 	/**
