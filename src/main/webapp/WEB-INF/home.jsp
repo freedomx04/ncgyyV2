@@ -227,9 +227,10 @@
                         <div style="padding: 16px; font-size: 18px; font-weight: 400;">南城县工业园区综合信息服务平台后台管理页面</div>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
+                    	<li><a href="index" target="_blank"><i class="fa fa-home fa-fw"></i>平台首页</a></li>
                     	<li class="dropdown">
                     		<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    			<i class="fa fa-envelope"></i>
+                    			<i class="fa fa-envelope"></i>未读邮件
                     			<span class="label label-warning mail-unread-count"></span>
                     		</a>
                     		<ul class="dropdown-menu dropdown-messages">

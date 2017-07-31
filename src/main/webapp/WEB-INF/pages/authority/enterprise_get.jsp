@@ -314,7 +314,7 @@
 		
 		// product
 		var $productTable = $k.util.bsTable($page.find('#product-list-table'), {
-			url: '${ctx}/api/product/list?enterpriseId=${enterprise.id}',
+			url: '${ctx}/api/product/listByEnterpriseId?enterpriseId=${enterprise.id}',
 			toolbar: '#product-list-table-toolbar',
 			idField: 'id',
 			responseHandler: function(res) {

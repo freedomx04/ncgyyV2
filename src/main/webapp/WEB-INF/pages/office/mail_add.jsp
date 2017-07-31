@@ -146,14 +146,10 @@
 		$k.util.summernote($page.find('#summernote'));
 		
 		if (method == 'add') {
-			$select.chosen({
-				no_results_text: '没有找到结果！',
-			});
+			$k.util.chosen($select);
 		} else {
 			$('#summernote').summernote('code', '${mail.content}');
-			$select.chosen({
-				no_results_text: '没有找到结果！',
-			});
+			$k.util.chosen($select);
 			var receivers = '${mail.receivers}';
 			var selectArr = receivers.split(',');
 			$select.val(selectArr);
