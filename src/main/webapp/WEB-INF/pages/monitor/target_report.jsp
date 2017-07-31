@@ -191,6 +191,7 @@
 			 $form.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
 		})
         .on("change", "#importTarget-file-input", function() {
+        	alert("dfd")
         	var oMyForm = new FormData();
 			oMyForm.append("uploadfile",this.files[0]);
 
@@ -207,12 +208,13 @@
 						swal('', '上传数据格式不正确，请重新上传！', 'error');
 					} else {
 						initTable();
-						$page.find('#importTarget-file-input').val("");
 						swal('', '上传成功!', 'success');
 					}
+					$page.find('#importTarget-file-input').val("");
 				},
 				error: function(data) {}
 			});
+			$page.find(".btn-target-import").removeAttr("disabled");
 		})
 		.on("click", ".btn-target-import", function() {
 			$('input[id=importTarget-file-input]').click();
