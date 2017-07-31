@@ -214,7 +214,6 @@
 				},
 				error: function(data) {}
 			});
-			$page.find(".btn-target-import").removeAttr("disabled");
 		})
 		.on("click", ".btn-target-import", function() {
 			$('input[id=importTarget-file-input]').click();
