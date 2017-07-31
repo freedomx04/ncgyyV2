@@ -35,9 +35,12 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public String saveArticle(String content) throws IOException {
-		String path = CommonUtils.getShortUuid();
+		String dateFormat = "{yyyy}{mm}{dd}";
+		String datepath = PathFormat.parse(dateFormat);
+		String shortUuid = CommonUtils.getShortUuid();
+		String path = datepath + shortUuid;
 		
-		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		File file = Paths.get(uploadPath, articlePath, datepath, shortUuid + ".html").toFile();
 		FileUtil.sureDirExists(file, true);
 		FileUtils.write(file, content, "UTF-8");
 		
@@ -56,7 +59,10 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public String getArticleContent(String path) throws IOException {
-		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		String datepath = path.substring(0, 8);
+		String shortUuid = path.substring(8);
+		
+		File file = Paths.get(uploadPath, articlePath, datepath, shortUuid + ".html").toFile();
 		if (file.exists()) {
 			String content = FileUtils.readFileToString(file, "UTF-8");
 			return content;
