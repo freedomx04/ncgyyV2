@@ -110,7 +110,7 @@ public class UserEntity extends BaseEntity {
 	 */
 	@Column(length = 4000)
 	private String introduction;
-
+	
 	public UserEntity() {
 		// TODO Auto-generated constructor stub
 	}

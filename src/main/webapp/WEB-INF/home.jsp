@@ -211,6 +211,7 @@
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
 							<li><a class="J_menuItem" href="personalEnterprise">我的企业</a></li>
+							<li><a class="J_menuItem" href="loginHistory">登录历史</a></li>
 						</ul>
 					</li>					
 				</ul>

@@ -38,6 +38,24 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title"><h5>登录历史</h5></div>
+					<div class="ibox-content">
+						<table id="login-list-table" class="table-hm" data-mobile-responsive="true"></table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-5">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title"><h5>版本历史</h5></div>
+					<div class="ibox-content">bbb</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -51,6 +69,10 @@
 		$page.on('click', '.btn-personal-info', function() {
 			window.location.href = "./personalInfo";
 		});
+		
+		/* var $loginTable = $k.util.bsTable($page.find('#login-list-table'), {
+			url: '${ctx}/api/login/list',
+		}); */
 		
 	})( jQuery );
 	</script>

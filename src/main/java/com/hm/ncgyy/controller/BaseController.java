@@ -19,6 +19,7 @@ import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.ProductService;
+import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.authority.VersionService;
 import com.hm.ncgyy.service.issue.ArticleService;
 
@@ -26,6 +27,9 @@ import com.hm.ncgyy.service.issue.ArticleService;
 public class BaseController {
 	
 	static Logger log = LoggerFactory.getLogger(BaseController.class);
+	
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	ArticleService articleService;
@@ -80,6 +84,7 @@ public class BaseController {
 	@RequestMapping(value = "/home")
 	String home(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		user = userService.findOne(user.getId());
 		modelMap.addAttribute("user", user);
 		
 		String code = versionService.getLateset();

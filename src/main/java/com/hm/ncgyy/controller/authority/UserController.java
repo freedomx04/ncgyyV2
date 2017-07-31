@@ -18,8 +18,11 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
+import com.hm.ncgyy.common.utils.IpUtils;
+import com.hm.ncgyy.common.utils.IpUtils.LocationEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.LoginEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
@@ -235,14 +238,16 @@ public class UserController {
 			CurrentUserUtils.getInstance().serUser(user);
 			
 			// 登录信息
-//			String ip = IpUtils.getInstance().getIpAddr(request);
-//			LocationEntity ipInfo = IpUtils.getInstance().getIpInfo(ip);
-//			if (ipInfo != null) {
-//				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
-//				Date now = new Date();
-//				LoginEntity login = new LoginEntity(user, ip, location, ipInfo.getIsp(), LoginMode.MODE_USERNAME, now, now);
-//				loginService.save(login);
-//			}
+			UserBaseEntity baseUser = userService.findOneBase(user.getId());
+			//String ip = IpUtils.getIpAddr(request);
+			String ip = "182.109.244.39";
+			LocationEntity ipInfo = IpUtils.getIpInfo(ip);
+			if (ipInfo != null) {
+				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
+				Date now = new Date();
+				LoginEntity login = new LoginEntity(baseUser, ip, location, ipInfo.getIsp(), now, now);
+				loginService.save(login);
+			}
 			
 			return new Result(Code.SUCCESS.value(), "login success");
 		} catch (Exception e) {

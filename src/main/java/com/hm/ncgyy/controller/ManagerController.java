@@ -683,5 +683,12 @@ public class ManagerController {
 			return "pages/authority/enterprise_get";
 		}
 	}
+	
+	@RequestMapping(value = "/loginHistory")
+	String loginHistory(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		return "pages/personal/login_history";
+	}
 
 }

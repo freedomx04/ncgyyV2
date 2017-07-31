@@ -14,18 +14,12 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "authority_login")
 public class LoginEntity extends BaseEntity {
 	
-	public class LoginMode {
-		public static final int MODE_USERNAME = 0;
-		public static final int MODE_MOBILE = 1;
-		public static final int MODE_EMAIL = 2;
-	}
-	
 	/**
 	 * 关联用户id
 	 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
-	private UserEntity user;
+	private UserBaseEntity user;
 	
 	/**
 	 * 登录ip
@@ -42,31 +36,25 @@ public class LoginEntity extends BaseEntity {
 	 */
 	private String isp;
 	
-	/**
-	 * 登录方式
-	 */
-	private Integer mode = LoginMode.MODE_USERNAME;
-	
 	public LoginEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LoginEntity(UserEntity user, String ip, String location, String isp, Integer mode, Date createTime, Date updateTime) {
+	public LoginEntity(UserBaseEntity user, String ip, String location, String isp, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
 		this.ip = ip;
 		this.location = location;
 		this.isp = isp;
-		this.mode = mode;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
 
-	public UserEntity getUser() {
+	public UserBaseEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(UserBaseEntity user) {
 		this.user = user;
 	}
 
@@ -92,14 +80,6 @@ public class LoginEntity extends BaseEntity {
 
 	public void setIsp(String isp) {
 		this.isp = isp;
-	}
-
-	public Integer getMode() {
-		return mode;
-	}
-
-	public void setMode(Integer mode) {
-		this.mode = mode;
 	}
 	
 }

@@ -41,7 +41,7 @@
 	                    </button>
                     </c:if>
                 </div>
-                <table id="area-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+                <table id="area-list-table" class="table-hm" data-mobile-responsive="true"></table>
 			</div>
 		</div>
 	</div>
