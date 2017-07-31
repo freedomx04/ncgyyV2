@@ -39,7 +39,7 @@
 		        <div class="panel-body" style="font-size: 14px;padding-bottom: 80px;">
 					<div class="col-sm-9">
 						<dl class="dl-horizontal">
-							<dt>产品图片</dt><dd><img src="${ctx}/${product.imagePath}" style="max-width: 300px;"></dd>
+							<dt>产品图片</dt><dd><img src="${ctx}${product.imagePath}" style="max-width: 300px;"></dd>
 							<dt>产品名称</dt><dd>${product.name}</dd>
 							<dt>产品规格参数</dt><dd>${product.specification}</dd>
 							<dt>公司名称</dt><dd>${product.enterprise.name}</dd>
