@@ -40,13 +40,19 @@
  				<div class="tabs-container">
 					<ul class="nav nav-tabs nav-tabs-line">
 						<li class="active">
-                        	<a data-toggle="tab" href="#enterprise-tab-info" aria-expanded="true"><i class="fa fa-briefcase"></i>企业信息</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-info" data-option="enterprise" aria-expanded="true">
+                        		<i class="fa fa-briefcase"></i>企业信息
+                        	</a>
                     	</li>
                     	<li>
-                        	<a data-toggle="tab" href="#enterprise-tab-product" aria-expanded="true"><i class="fa fa-gift"></i>企业产品</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-product" data-option="product" aria-expanded="true">
+                        		<i class="fa fa-gift"></i>企业产品
+                        	</a>
                     	</li>
                     	<li>
-                        	<a data-toggle="tab" href="#enterprise-tab-news" aria-expanded="true"><i class="fa fa-newspaper-o"></i>企业新闻</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-news" data-option="news" aria-expanded="true">
+                        		<i class="fa fa-newspaper-o"></i>企业新闻
+                        	</a>
                     	</li>
 					</ul> 
 					<div class="tab-content">
@@ -306,11 +312,18 @@
     <script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/cropper/cropper.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/sitelogo/sitelogo.js"></script>
+     <script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 
 	<script type="text/javascript">
 	
 		var $page = $('.body-enterprise-detail');
 		var source = '${source}';
+		
+		var option = Url.queryString('tab');
+		if (!option) {
+			option = 'enterprise';
+		}
+		$page.find('a[data-option="' + option + '"]').tab('show');
 		
 		// product
 		var $productTable = $k.util.bsTable($page.find('#product-list-table'), {
@@ -487,6 +500,10 @@
         }
 		
 		$page
+		.on('click', 'a[data-toggle="tab"]', function() {
+    		var option = $(this).data('option');
+    		Url.updateSearchParam("tab", option);
+    	})
 		.on('click', '.btn-enterprise-back', function() {
 			window.location.href = './enterpriseList';
 		})

@@ -120,7 +120,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './enterpriseGet?enterpriseId=' + enterpriseId;
+                            	window.history.back();
                             });
                     	} else {
                     		swal('', '操作失败', 'error');
@@ -150,7 +150,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                            	window.location.href = './enterpriseGet?enterpriseId=' + enterpriseId;
+                            	window.history.back();
                             });
                     	} else {
                     		swal('', '操作失败', 'error');

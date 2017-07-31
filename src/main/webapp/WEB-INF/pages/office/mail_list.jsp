@@ -206,7 +206,7 @@
     	var $delete = $page.find('#mail-delete');
     	var $inboxTable, $pointTable, $draftTable, $sendTable, $deleteTable;
     	
-    	var option = Url.queryString("tab");
+    	var option = Url.queryString('tab');
     	if (!option) {
     		option = 'inbox';
     	}
