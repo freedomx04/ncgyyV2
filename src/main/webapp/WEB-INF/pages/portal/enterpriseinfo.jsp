@@ -278,37 +278,28 @@
 				<div class="basic-info cmn-clearfix">
 					<dl class="basicInfo-block">
 						<dt class="basicInfo-item name">企业名称</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.name}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.name}</dd>
+						
 						<dt class="basicInfo-item name">所属园区</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.area.name}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.area.name}</dd>
+						
 						<dt class="basicInfo-item name">行业类别</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.industry.name}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.industry.name}</dd>
+						
 						<dt class="basicInfo-item name">主要产品</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.mainProduct}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.mainProduct}</dd>
+						
 						<dt class="basicInfo-item name">企业负责人</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.principal}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.principal}</dd>
+						
 						<dt class="basicInfo-item name">联系电话</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.telephone}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.telephone}</dd>
+						
 						<dt class="basicInfo-item name">企业地址</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.address}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.address}</dd>
+						
 						<dt class="basicInfo-item name">投产时间</dt>
-						<dd class="basicInfo-item value">
-						${enterprise.productionTime}
-						</dd>
+						<dd class="basicInfo-item value">${enterprise.productionTime}</dd>
 					</dl>
 				</div>
 			</div>
@@ -324,7 +315,7 @@
 				<div class="product_con">
 					<div class="product_ul">
 						<a href="product?productId=${product.id}" target="_blank">
-							<img border="0" data-original="${ctx}/${product.imagePath}" width="180" height="122" style="display: inline;">
+							<img border="0" data-original="${ctx}${product.imagePath}" width="180" height="122" style="display: inline;">
 						</a>
 					</div>
 					<div class="product_wz" style="text-align: center;"> 

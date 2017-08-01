@@ -239,8 +239,7 @@ public class UserController {
 			
 			// 登录信息
 			UserBaseEntity baseUser = userService.findOneBase(user.getId());
-			//String ip = IpUtils.getIpAddr(request);
-			String ip = "182.109.244.39";
+			String ip = IpUtils.getIpAddr(request);
 			LocationEntity ipInfo = IpUtils.getIpInfo(ip);
 			if (ipInfo != null) {
 				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
