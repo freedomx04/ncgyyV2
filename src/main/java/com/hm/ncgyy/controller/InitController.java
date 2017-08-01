@@ -280,8 +280,6 @@ public class InitController {
 			
 			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 				HSSFSheet sheet = workbook.getSheetAt(i);
-				
-				//HSSFSheet sheet = workbook.getSheet("公司名称 (19)");
 				sheetName = sheet.getSheetName();
 				
 				// 获取所有图片

@@ -39,7 +39,7 @@
 						<dl class="dl-horizontal">
 							<dt>产品名称</dt><dd>${product.name}</dd>
 							<dt>规格参数</dt><dd>${product.specification}</dd>
-							<dt>产品介绍:</dt><dd>${product.introduction}</dd>
+							<dt>产品介绍</dt><dd>${product.introduction}</dd>
 						</dl>
 					</div>
 					<div class="col-sm-4 text-right">
