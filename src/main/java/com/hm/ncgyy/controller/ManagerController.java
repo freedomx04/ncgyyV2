@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.LoginEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
@@ -34,6 +36,7 @@ import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.LoginService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
@@ -100,13 +103,24 @@ public class ManagerController {
 	@Autowired
 	MailService mailService;
 	
+	@Autowired
+	LoginService loginService;
+	
 	/**
 	 * 总览
 	 */
 	@RequestMapping(value = "/overview")
 	String overview(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		user = userService.findOne(user.getId());
 		modelMap.addAttribute("user", user);
+		
+		Page<LoginEntity> loginPage = loginService.listByUserId(user.getId(), 0, 10);
+		modelMap.addAttribute("loginList", loginPage.getContent());
+		
+		VersionEntity version = versionService.findLatest();
+		modelMap.addAttribute("version", version);
+		
 		return "pages/overview";
 	}
 	

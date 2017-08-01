@@ -2,6 +2,8 @@ package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hm.ncgyy.entity.authority.VersionEntity;
 
 public interface VersionService {
@@ -18,6 +20,8 @@ public interface VersionService {
 	
 	List<VersionEntity> list();
 	
-	String getLateset();
-
+	Page<VersionEntity> listPaging(int page, int size);
+	
+	VersionEntity findLatest();
+	
 }

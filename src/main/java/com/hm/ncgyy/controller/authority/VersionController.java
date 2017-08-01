@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -109,15 +110,22 @@ public class VersionController {
 		}
 	}
 	
+	@RequestMapping(value = "/api/version/listPaging")
+	public Result listPaging(int page, int size) {
+		try {
+			Page<VersionEntity> versionPage = versionService.listPaging(page, size);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", versionPage.getContent());
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
 	@RequestMapping(value = "/api/version/latest")
 	public Result latest() {
 		try {
-			String code = "1.0";
-			List<VersionEntity> list = versionService.list();
-			if (list.size() > 0) {
-				code = list.get(0).getCode();
-			}
-			return new ResultInfo(Code.SUCCESS.value(), "ok", code);
+			VersionEntity version = versionService.findLatest();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", version);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

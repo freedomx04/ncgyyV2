@@ -15,6 +15,7 @@ import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.authority.VersionEntity;
 import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
@@ -87,8 +88,8 @@ public class BaseController {
 		user = userService.findOne(user.getId());
 		modelMap.addAttribute("user", user);
 		
-		String code = versionService.getLateset();
-		modelMap.addAttribute("versionCode", code);
+		VersionEntity version = versionService.findLatest();
+		modelMap.addAttribute("versionCode", version.getCode());
 		
 		return "home";
 	}

@@ -281,3 +281,10 @@ function formatDate3(val) {
 	}
 	return undefined;
 }
+
+function formatDate4(val) {
+	if (val) {
+		return new Date(val).Format("yyyy/MM/dd hh:mm");
+	}
+	return undefined;
+}

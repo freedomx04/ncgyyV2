@@ -3,6 +3,8 @@ package com.hm.ncgyy.service.authority;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.authority.VersionEntity;
@@ -44,15 +46,15 @@ public class VersionServiceImpl implements VersionService {
 	public List<VersionEntity> list() {
 		return versionRepository.findByOrderByCodeDesc();
 	}
+	
+	@Override
+	public Page<VersionEntity> listPaging(int page, int size) {
+		return versionRepository.findByOrderByCodeDesc(new PageRequest(page, size));
+	}
 
 	@Override
-	public String getLateset() {
-		String code = "1.0";
-		List<VersionEntity> list = list();
-		if (list.size() > 0) {
-			code = list.get(0).getCode();
-		}
-		return code;
+	public VersionEntity findLatest() {
+		return versionRepository.findFirstByOrderByCodeDesc();
 	}
 
 }

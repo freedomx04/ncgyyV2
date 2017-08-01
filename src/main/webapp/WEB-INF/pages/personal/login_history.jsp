@@ -59,7 +59,7 @@
             	field: 'createTime',
             	title: '时间',
             	align: 'center',
-            	formatter: formatDate3
+            	formatter: formatDate4
             }, {
             	field: 'ip',
             	title: 'IP',

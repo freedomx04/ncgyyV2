@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<%@ include file="/WEB-INF/include/preload.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -42,20 +41,63 @@
 		<div class="row">
 			<div class="col-sm-7">
 				<div class="ibox float-e-margins">
-					<div class="ibox-title"><h5>登录历史</h5></div>
+					<div class="ibox-title">
+						<h5>登录历史</h5>
+					</div>
 					<div class="ibox-content">
-						<table id="login-list-table" class="table-hm" data-mobile-responsive="true"></table>
+						<span style="display: block; margin-bottom: 15px;">
+							以下为您最近${fn:length(loginList)}次登录记录，若存在异常情况，请在核实后尽快
+							<a href="#"> 修改密码</a>
+						</span>
+						<table class="table-hm table text-center" data-mobile-responsive="true" style="margin-bottom: 0;">
+							<thead>
+								<tr>
+									<td>时间</td>
+									<td>IP</td>
+									<td>地点</td>
+									<td>运营商</td>
+								</tr>
+							</thead>
+							<tbody>
+							<c:forEach var="login" items="${loginList}">
+								<tr>
+									<td><fmt:formatDate value="${login.createTime}" pattern="yyyy/MM/dd HH:mm"/></td>
+									<td>${login.ip}</td>
+									<td>${login.location}</td>
+									<td>${login.isp}</td>
+								</tr>
+							</c:forEach>
+							</tbody>
+						</table>
+						<div style="margin-top: 15px;">
+							<a href="javascript:;" class="openPage" data-menu="loginHistory">
+								<i class="fa fa-plus-circle fa-fw"></i>全部登录历史
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<div class="col-sm-5">
 				<div class="ibox float-e-margins">
-					<div class="ibox-title"><h5>版本历史</h5></div>
-					<div class="ibox-content">bbb</div>
+					<div class="ibox-title">
+						<h5>版本历史</h5>
+					</div>
+					<div class="ibox-content">
+						<h2 style="display: inline-block;">Version ${version.code}</h2>
+						<span style="float: right;">${version.releaseTime}</span>
+						<div style="margin-top: 15px;">${version.content}</div>
+						
+						<div style="margin-top: 15px;">
+							<a href="javascript:;" class="openPage" data-menu="versionHistory">
+								<i class="fa fa-plus-circle fa-fw"></i>全部版本历史
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -66,13 +108,14 @@
 		
 		var $page = $('.body-overview');
 		
-		$page.on('click', '.btn-personal-info', function() {
+		$page
+		.on('click', '.btn-personal-info', function() {
 			window.location.href = "./personalInfo";
+		})
+		.on('click', '.openPage', function() {
+			var menu = $(this).data('menu');
+			window.parent.open(menu);
 		});
-		
-		/* var $loginTable = $k.util.bsTable($page.find('#login-list-table'), {
-			url: '${ctx}/api/login/list',
-		}); */
 		
 	})( jQuery );
 	</script>
