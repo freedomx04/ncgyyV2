@@ -286,20 +286,30 @@
 						<dt class="basicInfo-item name">行业类别</dt>
 						<dd class="basicInfo-item value">${enterprise.industry.name}</dd>
 						
+						<c:if test="${not empty enterprise.mainProduct}">
 						<dt class="basicInfo-item name">主要产品</dt>
 						<dd class="basicInfo-item value">${enterprise.mainProduct}</dd>
+						</c:if>
 						
+						<c:if test="${not empty enterprise.principal}">
 						<dt class="basicInfo-item name">企业负责人</dt>
 						<dd class="basicInfo-item value">${enterprise.principal}</dd>
+						</c:if>
 						
+						<c:if test="${not empty enterprise.telephone}">
 						<dt class="basicInfo-item name">联系电话</dt>
 						<dd class="basicInfo-item value">${enterprise.telephone}</dd>
+						</c:if>
 						
+						<c:if test="${not empty enterprise.address}">
 						<dt class="basicInfo-item name">企业地址</dt>
 						<dd class="basicInfo-item value">${enterprise.address}</dd>
+						</c:if>
 						
+						<c:if test="${not empty enterprise.productionTime}">
 						<dt class="basicInfo-item name">投产时间</dt>
 						<dd class="basicInfo-item value">${enterprise.productionTime}</dd>
+						</c:if>
 					</dl>
 				</div>
 			</div>

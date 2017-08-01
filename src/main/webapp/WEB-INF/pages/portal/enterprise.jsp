@@ -153,8 +153,9 @@
 	
 	<script type="text/javascript">
 	;(function() {
+		
 		var $page = $(".body-enterprise");
-		var pageSize = 25;
+		var pageSize = 20;
 		
 		$page.find(".menu a").removeClass("nav_curr");
 		$page.find(".menu .m_enterprise").addClass("nav_curr");
@@ -163,11 +164,11 @@
 			pagesize: pageSize, 
 			count: '${count}', 
 			callback: function(page, size, count) {
-				getData(page -1 , size);
+				getData("${ctx}/api/enterprise/listPaging", {page: page-1, size: size});
 			}
 		});
 		
-		getData("${ctx}/api/enterprise/listPaging", {page: 0, size: pageSize});
+		getData("${ctx}/api/enterprise/listPaging", { page: 0, size: pageSize });
 		
 		$page.on("click", "#search-btn", function() {
 			getData("${ctx}/api/enterprise/search", {input: $page.find("#keywords").val()});
@@ -202,6 +203,7 @@
 				                        '</p>'
 									'</li>';
 							$(ht).appendTo($page.find(".epList"));
+							
 							if (val.productList.length != 0) {
 			            		for (var i = 0; i < 2 && i < val.productList.length; i++) {
 			            			var vl = val.productList[i];
