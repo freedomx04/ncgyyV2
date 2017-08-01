@@ -41,6 +41,7 @@
 							</a>
 							<ul class="dropdown-menu animated fadeInRight m-t-xs">
 								<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
+								<li><a class="J_menuItem" href="modifyPassword">修改密码</a></li>
 								<li><a class="J_menuItem" href="mailList">邮箱</a></li>
 								<li class="divider"></li>
 								<li><a class="btn-logout" href="javascript:;">退出</a></li>
@@ -210,6 +211,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="personalInfo">个人资料</a></li>
+							<li><a class="J_menuItem" href="modifyPassword">修改密码</a></li>
 							<li><a class="J_menuItem" href="personalEnterprise">我的企业</a></li>
 							<li><a class="J_menuItem" href="loginHistory">登录历史</a></li>
 						</ul>

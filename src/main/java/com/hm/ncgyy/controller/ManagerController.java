@@ -116,7 +116,9 @@ public class ManagerController {
 		modelMap.addAttribute("user", user);
 		
 		Page<LoginEntity> loginPage = loginService.listByUserId(user.getId(), 0, 10);
-		modelMap.addAttribute("loginList", loginPage.getContent());
+		List<LoginEntity> loginList = loginPage.getContent();
+		modelMap.addAttribute("loginList", loginList);
+		modelMap.addAttribute("latestLogin", loginList.get(0));
 		
 		VersionEntity version = versionService.findLatest();
 		modelMap.addAttribute("version", version);
@@ -674,6 +676,13 @@ public class ManagerController {
 		UserEntity user = userService.findOne(currentUser.getId());
 		modelMap.addAttribute("user", user);
 		return "pages/personal/info";
+	}
+	
+	@RequestMapping(value = "/modifyPassword")
+	String modifyPassword(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		return "pages/personal/modify_password";
 	}
 	
 	@RequestMapping(value = "/personalEnterprise")

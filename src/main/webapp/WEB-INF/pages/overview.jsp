@@ -28,10 +28,10 @@
 						</div>
 						<div style="display: table-cell; vertical-align: top; width: 10000px; padding-top: 10px;">
 							<p style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">欢迎您，${user.username} <small style="color: #999;">${user.role.name}</small></p>
-							<!-- <p style="color: #999;">这是您第113次登录，上次登录时间：2017-7-4 19:16:31，详细信息请查看日志，如果不是您本人登录，请及时修改密码。</p> -->
+							<p style="color: #999; margin-bottom: 0;">上次登录时间：<fmt:formatDate value="${latestLogin.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 						</div>
 						<div style="display: table-cell; vertical-align: middle; padding-left: 10px;">
-							<a class="btn btn-outline btn-primary btn-sm btn-personal-info">个人资料</a>
+							<a href="javascript:;" class="btn btn-outline btn-primary btn-sm openPage" data-menu="personalInfo">个人资料</a>
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					<div class="ibox-content">
 						<span style="display: block; margin-bottom: 15px;">
 							以下为您最近${fn:length(loginList)}次登录记录，若存在异常情况，请在核实后尽快
-							<a href="#"> 修改密码</a>
+							<a href="javascript:;" class="openPage" data-menu="modifyPassword"> 修改密码</a>
 						</span>
 						<table class="table-hm table text-center" data-mobile-responsive="true" style="margin-bottom: 0;">
 							<thead>
@@ -109,9 +109,6 @@
 		var $page = $('.body-overview');
 		
 		$page
-		.on('click', '.btn-personal-info', function() {
-			window.location.href = "./personalInfo";
-		})
 		.on('click', '.openPage', function() {
 			var menu = $(this).data('menu');
 			window.parent.open(menu);
