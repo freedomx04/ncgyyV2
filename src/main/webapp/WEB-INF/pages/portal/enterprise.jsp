@@ -100,11 +100,11 @@
 	.search-wrapper input[type="button"] {
 	    width: 50px;
 	    height: 37px;
-	    background-color: #e4e4e4;
+	    background-color: #0066CC;
 	    border: none;
 	    position: absolute;
 	    top: 17px;
-	    color: #666;
+	    color: #fff;
 	    cursor: pointer;
 	    float: left;
 	}
@@ -154,40 +154,50 @@
 	<script type="text/javascript">
 	;(function() {
 		
-		var $page = $(".body-enterprise");
+		var $page = $('.body-enterprise');
 		var pageSize = 20;
 		
-		$page.find(".menu a").removeClass("nav_curr");
-		$page.find(".menu .m_enterprise").addClass("nav_curr");
+		$page.find('.menu a').removeClass('nav_curr');
+		$page.find('.menu .m_enterprise').addClass('nav_curr');
 		
-		$page.find('#pageTool').Paging({
-			pagesize: pageSize, 
-			count: '${count}', 
-			callback: function(page, size, count) {
-				getData("${ctx}/api/enterprise/listPaging", {page: page-1, size: size});
+		paging(${count});
+		getData(0, pageSize);
+		
+		document.onkeydown = function(e){
+			var ev = document.all ? window.event : e;
+			if(ev.keyCode==13) {
+				$('#search-btn').trigger("click");
 			}
-		});
+		}
 		
-		getData("${ctx}/api/enterprise/listPaging", { page: 0, size: pageSize });
-		
-		$page.on("click", "#search-btn", function() {
-			getData("${ctx}/api/enterprise/search", {input: $page.find("#keywords").val()});
-		});
-		
-		function getData(url, data) {
+		$page.on('click', '#search-btn', function() {
 			$.ajax({
-				url: url,
-				data: data,
+				url: '${ctx}/api/enterprise/search',
+				data: {
+					input: $page.find('#keywords').val()
+				},
+				success: function(ret) {
+					var retLen = ret.data.length;
+					paging(retLen);
+					getData(0, pageSize);
+				},
+				error: function(err) {}
+			});
+		});
+		
+		function getData(page, size) {
+			$.ajax({
+				url: '${ctx}/api/enterprise/searchPaging',
+				data: {
+					input: $page.find('#keywords').val(),
+					page: page,
+					size: pageSize
+				},
 				success: function(ret) {
 					if (ret.code == 0) {
 						$page.find(".epList").html("");
-						var data;
-						if (url.indexOf("search") > 0) {
-							data = ret.data;
-						} else {
-							data = ret.data.content;
-						}
-						$.each(data, function(key, val) {
+						
+						$.each(ret.data.content, function(key, val) {
 							var name = val.name.length > 80 ? (val.name.substr(0, 80) + "...") : val.name;
 							
 							var ht = '<li id='+ val.id +'>'+
@@ -216,6 +226,17 @@
 					}
 				},
 				error: function(err) {}
+			});
+		}
+		
+		function paging(retLen) {
+			$page.find("#pageTool").html("");
+			$page.find('#pageTool').Paging({
+				pagesize: pageSize, 
+				count: retLen, 
+				callback: function(page, size, count) {
+					getData(page-1, size);
+				}
 			});
 		}
 	})();
