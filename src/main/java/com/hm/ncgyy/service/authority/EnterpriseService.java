@@ -40,5 +40,7 @@ public interface EnterpriseService {
 	
 	List<EnterpriseEntity> search(String input);
 	
+	Page<EnterpriseEntity> search(String input, int page, int size);
+	
 	
 }

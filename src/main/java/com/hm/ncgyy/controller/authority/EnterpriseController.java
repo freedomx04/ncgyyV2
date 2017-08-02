@@ -192,5 +192,16 @@ public class EnterpriseController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/enterprise/searchPaging")
+	public Result searchPaging(String input, int page, int size) {
+		try {
+			Page<EnterpriseEntity> enterprisePage = enterpriseService.search(input, page, size);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", enterprisePage);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 }

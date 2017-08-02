@@ -92,5 +92,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		return enterpriseRepository.findByNameContaining(input);
 	}
 
+	@Override
+	public Page<EnterpriseEntity> search(String input, int page, int size) {
+		return enterpriseRepository.findByNameContaining(input, new PageRequest(page, size));
+	}
 
 }
