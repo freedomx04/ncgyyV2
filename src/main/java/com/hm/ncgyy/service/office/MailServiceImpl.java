@@ -94,5 +94,10 @@ public class MailServiceImpl implements MailService {
 	public void deleteFile(MailFileEntity file) {
 		mailFileRepository.delete(file);
 	}
+	
+	@Override
+	public List<MailEntity> search(String input) {
+		return mailRepository.findByTitleContaining(input);
+	}
 
 }

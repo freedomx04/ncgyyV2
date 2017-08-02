@@ -29,4 +29,6 @@ public interface MailService {
 	
 	void deleteFile(MailFileEntity file);
 	
+	List<MailEntity> search(String input);
+	
 }

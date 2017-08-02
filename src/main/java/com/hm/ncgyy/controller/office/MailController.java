@@ -379,5 +379,16 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/mail/search")
+	public Result search(String input) {
+		try {
+			List<MailEntity> list = mailService.search(input);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 }

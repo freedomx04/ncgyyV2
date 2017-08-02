@@ -8,6 +8,8 @@ import com.hm.ncgyy.entity.office.MailEntity;
 
 public interface MailRepository extends PagingAndSortingRepository<MailEntity, Long> {
 
+	List<MailEntity> findByTitleContaining(String title);
+	
 	List<MailEntity> findByReceiverIdAndMailStatusAndDeleteStatusOrderByUpdateTimeDesc(Long receiverId,
 			Integer mailStatus, Integer deleteStatus);
 

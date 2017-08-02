@@ -15,7 +15,6 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/wx/zepto.min.js"></script>
-	<script src="${ctx}/plugins/wx/select.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<style type="text/css">
