@@ -89,7 +89,11 @@ public class BaseController {
 		modelMap.addAttribute("user", user);
 		
 		VersionEntity version = versionService.findLatest();
-		modelMap.addAttribute("versionCode", version.getCode());
+		if (version != null) {
+			modelMap.addAttribute("versionCode", version.getCode());
+		} else {
+			modelMap.addAttribute("versionCode", "1.0");
+		}
 		
 		return "home";
 	}
