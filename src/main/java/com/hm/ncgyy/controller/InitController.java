@@ -283,6 +283,7 @@ public class InitController {
 				sheetName = sheet.getSheetName();
 				
 				// 获取所有图片
+				picMap.clear();
 				List<HSSFPictureData> pictures = workbook.getAllPictures();
 				for (HSSFShape shape : sheet.getDrawingPatriarch().getChildren()) {
 					HSSFClientAnchor anchor = (HSSFClientAnchor) shape.getAnchor();

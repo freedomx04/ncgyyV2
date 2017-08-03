@@ -139,7 +139,6 @@
             	events: window.operateEvents = {
             		'click .btn-area-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			
             			$dialog.find('.modal-title strong').text('编辑');
             			$.each(row, function(key, val) {
             				$form.find('input[name="' + key + '"]').val(val);
@@ -239,6 +238,7 @@
 		.on('hidden.bs.modal', '#modal-area-dialog', function() {
             $form.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
+            $(this).find('input[name="description"]').val('');
         }) 
 		.on('click', '.btn-area-add', function() {
 			 $dialog.find('.modal-title strong').text('新增');
