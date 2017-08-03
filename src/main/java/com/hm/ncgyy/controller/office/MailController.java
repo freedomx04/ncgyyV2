@@ -1,5 +1,6 @@
 package com.hm.ncgyy.controller.office;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -381,9 +382,26 @@ public class MailController {
 	}
 	
 	@RequestMapping(value = "/api/mail/search")
-	public Result search(String input) {
+	public Result search(Long userId, String input, String type) {
+		List<MailEntity> list = new ArrayList<MailEntity>();
 		try {
-			List<MailEntity> list = mailService.search(input);
+			switch (type) {
+			case "inbox":
+				list = mailService.searchInbox(userId, input);
+				break;
+			case "point":
+				list = mailService.searchPoint(userId, input);
+				break;
+			case "draft":
+				list = mailService.searchDraft(userId, input);
+				break;
+			case "send":
+				list = mailService.searchSend(userId, input);
+				break;
+			case "delete":
+				list = mailService.searchDelete(userId, input);
+				
+			}
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

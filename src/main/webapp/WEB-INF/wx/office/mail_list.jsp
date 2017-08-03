@@ -21,8 +21,9 @@
 	.mail-time {
 		color: #999;
 	}
-	.mail-content, .mail-title {
+	.mail-title {
 		word-break: break-all;
+		color: #999;
 	}
 	.weui_media_box {
 		padding: 5px;
@@ -47,7 +48,7 @@
                    		<div class="iblock weui-badge weui-badge-dot" style="margin: -13px 5px 0;background-color: #18b4ed;"></div>
                    	</c:if>
                    	<c:if test="${mail.readStatus != 0}">
-                   		<div class="iblock weui-badge weui-badge-dot" style="margin: -13px 5px 0;background-color: #fff;"></div>
+                   		<div class="iblock" style="margin: -13px 5px 0;width: 9.59px;"></div>
                    	</c:if>
 	            	<div class="iblock weui_media_box">
              			<div>
@@ -64,14 +65,6 @@
 								${mail.title}
 							</c:if>
 	                    </p>
-	                    <p class="weui_media_desc mail-content">
-							<c:if test="${fn:length(mail.content) > 80}">
-								${fn:substring(mail.content, 0, 80)}...
-							</c:if>
-							<c:if test="${fn:length(mail.content) <= 80}">
-								${mail.content}
-							</c:if>
-						</p>
 	                </div>
 	            </a>
 	            </c:forEach>
@@ -95,6 +88,7 @@
 		var $page = $('.wx-mail');
 		var $search = $page.find('.page-search .weui_cells_access');
 		var type = '${type}';
+		var userId = '${userId}';
 		switch (type) {
 		case "inbox":  document.title = '收件箱';  break;
 		case "point":  document.title = '星标邮件';  break;
@@ -125,47 +119,27 @@
 				$.ajax({
 					url: '${ctx}/api/mail/search',
 					data: {
-						input: value
+						userId: userId,
+						input: value,
+						type: type
 					},
 					success: function(ret) {
 						if(ret.code == 0) {
 							var mailList = ret.data;
 							if (mailList.length > 0) {
 								$.each(mailList, function(key, mail) {
-									var filter = false;
-									switch (type) {
-									case "inbox":
-										filter = mail.mailStatus == 3 && mail.deleteStatus == 0;
-										break;
-									case "point":
-										filter = mail.mailStatus == 3 && mail.pointStatus == 1 && mail.deleteStatus == 0;
-										break;
-									case "draft":
-										filter = mail.mailStatus == 1 && mail.deleteStatus == 0;
-										break;
-									case "send":
-										filter = mail.mailStatus == 2 && mail.deleteStatus == 0;
-										break;
-									case "delete":
-										filter = mail.mailStatus != 0 && mail.deleteStatus == 1;
-										
-									}
-									if (filter) {
-										var title = mail.title.length > 30 ? (mail.title.substr(0, 30) + "...") : mail.title;
-										var content = mail.content == null ? "" : mail.content.length > 80 ? (mail.content.substr(0, 80) + "...") : mail.content;
-										
-										$('<a class="weui_cell" href="${ctx}/wx/mailinfo?userId=${userId}&mailId=' + mail.id + '&type=${type}">'
-						                + '<div class="iblock weui-badge weui-badge-dot" style="margin: -13px 5px 0;background-color: ' + (mail.readStatus == 0 ? '#18b4ed' : '#fff') + ';"></div>'
-							            + '<div class="iblock weui_media_box"><div>'
-							            + '<h4 class="f15 left mail-sender">' + mail.sender.name + '</h4>'
-							            + '<span class="f13 right mail-time weui_cell_ft"></span>'
-							            + '</div>'
-							            + '<p class="clear f13 mail-title">' + title + '</p>'
-							            + '<p class="weui_media_desc mail-content">' + content + '</p>'
-							            + '</div>'
-							            + '</a>')
-							            .appendTo($search);
-									}
+									var title = mail.title.length > 30 ? (mail.title.substr(0, 30) + "...") : mail.title;
+									
+									$('<a class="weui_cell" href="${ctx}/wx/mailinfo?userId='+ userId +'&mailId=' + mail.id + '&type=${type}">'
+					                + '<div class="iblock weui-badge weui-badge-dot" style="margin: -13px 5px 0;background-color: ' + (mail.readStatus == 0 ? '#18b4ed' : '#fff') + ';"></div>'
+						            + '<div class="iblock weui_media_box"><div>'
+						            + '<h4 class="f15 left mail-sender">' + mail.sender.name + '</h4>'
+						            + '<span class="f13 right mail-time weui_cell_ft"></span>'
+						            + '</div>'
+						            + '<p class="clear f13 mail-title">' + title + '</p>'
+						            + '</div>'
+						            + '</a>')
+						            .appendTo($search);
 									
 								});
 							} else {

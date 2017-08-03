@@ -96,8 +96,45 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public List<MailEntity> search(String input) {
-		return mailRepository.findByTitleContaining(input);
+	public List<MailEntity> searchInbox(Long userId, String input) {
+		return mailRepository.findByReceiverIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(userId,
+				MailStatus.RECEIVE, DeleteStatus.NOT_DELETE, input);
+	}
+
+	@Override
+	public List<MailEntity> searchPoint(Long userId, String input) {
+		return mailRepository.findByReceiverIdAndMailStatusAndPointStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(userId,
+				MailStatus.RECEIVE, PointStatus.POINT, DeleteStatus.NOT_DELETE, input);
+	}
+
+	@Override
+	public List<MailEntity> searchDraft(Long userId, String input) {
+		return mailRepository.findBySenderIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(userId, MailStatus.DRAFT,
+				DeleteStatus.NOT_DELETE, input);
+	}
+
+	@Override
+	public List<MailEntity> searchSend(Long userId, String input) {
+		return mailRepository.findBySenderIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(userId, MailStatus.SEND,
+				DeleteStatus.NOT_DELETE, input);
+	}
+
+	@Override
+	public List<MailEntity> searchDelete(Long userId, String input) {
+		List<MailEntity> retList = new LinkedList<>();
+
+		List<MailEntity> draftDel = mailRepository.findBySenderIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(
+				userId, MailStatus.DRAFT, DeleteStatus.DELETED, input);
+		List<MailEntity> sendDel = mailRepository.findBySenderIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(
+				userId, MailStatus.SEND, DeleteStatus.DELETED, input);
+		List<MailEntity> receiveDel = mailRepository.findByReceiverIdAndMailStatusAndDeleteStatusAndTitleContainingOrderByUpdateTimeDesc(
+				userId, MailStatus.RECEIVE, DeleteStatus.DELETED, input);
+
+		retList.addAll(draftDel);
+		retList.addAll(sendDel);
+		retList.addAll(receiveDel);
+		
+		return retList;
 	}
 
 }

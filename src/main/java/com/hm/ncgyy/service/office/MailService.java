@@ -29,6 +29,14 @@ public interface MailService {
 	
 	void deleteFile(MailFileEntity file);
 	
-	List<MailEntity> search(String input);
+	List<MailEntity> searchInbox(Long userId, String input);
+
+	List<MailEntity> searchPoint(Long userId, String input);
+
+	List<MailEntity> searchDraft(Long userId, String input);
+
+	List<MailEntity> searchSend(Long userId, String input);
+
+	List<MailEntity> searchDelete(Long userId, String input);
 	
 }
