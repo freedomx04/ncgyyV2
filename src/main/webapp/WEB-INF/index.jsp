@@ -136,7 +136,7 @@
 		
 		<div class="con_three">
 			<div class="con_three_left">
-				<div class="monitor">
+				<div class="monitor" style="display: none;">
 					<dl>
 	                 	<dt>
 	                 		<a href="monitorlist?item=mainBusiness" target="_blank">
@@ -185,8 +185,8 @@
                         <dd><a href="productlist" target="_blank">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>
-				<div class="product" style="height: 650px;">
-					<ul id="list">
+				<div class="product" style="height: 410px;">
+					<ul id="list" style="width: 100%;">
 						<c:forEach var="product" items="${productList}">
 							<li>
 								<a href="product?productId=${product.id}" target="_blank">
