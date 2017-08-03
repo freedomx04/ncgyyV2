@@ -100,7 +100,7 @@
 		
 		$('.searchbar_wrap').searchBar({
 			cancelText : "取消",
-			searchText : '搜索',
+			searchText : '标题',
 			onfocus: function(value) {
 			},
 			onblur: function(value) {
