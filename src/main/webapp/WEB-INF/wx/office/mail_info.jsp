@@ -163,7 +163,8 @@
 					success: function(ret) {
 						if (ret.code == 0) {
 				            $.toast("标记成功!");
-				            window.location = "${ctx}/wx/mail/list?userId=${userId}&type=point";
+				            //window.location = "${ctx}/wx/mail/list?userId=${userId}&type=point";
+				            window.location = "${ctx}/wx/mail";
 						}
 					},
 					error: function(err) {}
@@ -180,7 +181,8 @@
 					success: function(ret) {
 						if (ret.code == 0) {
 				            $.toast("操作成功!");
-				            location.reload();
+				            //location.reload();
+				            window.location = "${ctx}/wx/mail";
 						}
 					},
 					error: function(err) {}
@@ -196,7 +198,8 @@
 					success: function(ret) {
 						if (ret.code == 0) {
 				            $.toast("删除成功!");
-				            window.location = "${ctx}/wx/mail/list?userId=${userId}&type=delete";
+				            //window.location = "${ctx}/wx/mail/list?userId=${userId}&type=delete";
+				            window.location = "${ctx}/wx/mail";
 						}
 					},
 					error: function(err) {}
@@ -240,7 +243,7 @@
 	          });
         })
         .on('click', '.btn-mail-back', function() {
-        	window.location = "${ctx}/wx/mail/list?userId=${userId}&type=" + type;
+        	window.location = "${ctx}/wx/mail/list?userId=${userId}&type=${type}";
         });
 	});
 	</script>
