@@ -320,7 +320,7 @@ public class InitController {
 				}
 				
 				// 所属园区
-				AreaEntity area = areaService.findByName("南城工业园");
+				AreaEntity area = areaService.findByName("城南工业带");
 				enterprise.setArea(area);
 				
 				// 主要产品

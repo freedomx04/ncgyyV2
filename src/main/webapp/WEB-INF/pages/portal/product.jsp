@@ -71,6 +71,10 @@
 					if (ret.code == 0 && ret.data.length != 0) {
 						$page.find(".clist_con").html("");
 						$.each(ret.data, function(key, val) {
+							var name = val.name;
+							if (name.length > 12) {
+								name = name.substring(0, 12) + '...';
+							} 
 							
 							var ht = '<div class="product_con">'+ 
 										'<div class="product_ul">'+
@@ -78,7 +82,7 @@
 												'<img border="0" data-original="${ctx}'+ val.imagePath +'" width="180" height="122">'+
 											'</a>'+
 										'</div>'+
-										'<div class="product_wz"> <a href="" target="_blank">'+ val.name +'</a></div></div>';
+										'<div class="product_wz">' + name + '</div></div>';
 							
 							$(ht).appendTo($page.find(".clist_con"));
 						});
