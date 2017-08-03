@@ -164,7 +164,7 @@
 						if (ret.code == 0) {
 				            $.toast("标记成功!");
 				            //window.location = "${ctx}/wx/mail/list?userId=${userId}&type=point";
-				            window.location = "${ctx}/wx/mail";
+				            window.location = "${ctx}/wx/mail?userId=${userId}";
 						}
 					},
 					error: function(err) {}
@@ -182,7 +182,7 @@
 						if (ret.code == 0) {
 				            $.toast("操作成功!");
 				            //location.reload();
-				            window.location = "${ctx}/wx/mail";
+				            window.location = "${ctx}/wx/mail?userId=${userId}";
 						}
 					},
 					error: function(err) {}
@@ -199,7 +199,7 @@
 						if (ret.code == 0) {
 				            $.toast("删除成功!");
 				            //window.location = "${ctx}/wx/mail/list?userId=${userId}&type=delete";
-				            window.location = "${ctx}/wx/mail";
+				            window.location = "${ctx}/wx/mail?userId=${userId}";
 						}
 					},
 					error: function(err) {}
@@ -216,7 +216,7 @@
 					success: function(ret) {
 						if (ret.code == 0) {
 				            $.toast("删除成功!");
-				            window.location = "${ctx}/wx/mail";
+				            window.location = "${ctx}/wx/mail?userId=${userId}";
 						}
 					},
 					error: function(err) {}
@@ -233,7 +233,7 @@
 					success: function(ret) {
 						if (ret.code == 0) {
 				            $.toast("恢复成功!");
-				            window.location = "${ctx}/wx/mail";
+				            window.location = "${ctx}/wx/mail?userId=${userId}";
 						}
 					},
 					error: function(err) {}
