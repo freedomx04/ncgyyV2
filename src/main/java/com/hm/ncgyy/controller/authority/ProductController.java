@@ -68,7 +68,9 @@ public class ProductController {
 			product.setUpdateTime(new Date());
 
 			if (uploadImage != null && !uploadImage.isEmpty()) {
-				commonService.deleteImage(product.getImagePath());
+				if (product.getImagePath() != null) {
+					commonService.deleteImage(product.getImagePath());
+				}
 				String imagePath = commonService.saveImage(uploadImage);
 				product.setImagePath(imagePath);
 			}
@@ -85,7 +87,9 @@ public class ProductController {
 	public Result delete(Long productId) {
 		try {
 			ProductEntity product = productService.findOne(productId);
-			commonService.deleteImage(product.getImagePath());
+			if (product.getImagePath() != null) {
+				commonService.deleteImage(product.getImagePath());
+			}
 			productService.delete(productId);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
