@@ -329,7 +329,12 @@
 						</a>
 					</div>
 					<div class="product_wz" style="text-align: center;"> 
-						<a href="product?productId=${product.id}" target="_blank">${product.name}</a>
+						<c:if test="${fn:length(product.name) > 12}">
+							<a href="${ctx}/product?productId=${product.id}" target="_blank" title="${product.name}">${fn:substring(product.name, 0, 12)}...</a>
+						</c:if>
+						<c:if test="${fn:length(product.name) <= 12}">
+							<a href="${ctx}/product?productId=${product.id}" target="_blank" title="${product.name}">${product.name}</a>
+						</c:if>
 					</div>
 				</div>
 				</c:forEach>
