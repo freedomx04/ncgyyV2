@@ -73,7 +73,10 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public void deleteArticle(String path) throws IOException {
-		File file = Paths.get(uploadPath, articlePath, path + ".html").toFile();
+		String datepath = path.substring(0, 8);
+		String shortUuid = path.substring(8);
+		
+		File file = Paths.get(uploadPath, articlePath, datepath, shortUuid + ".html").toFile();
 		if (file.exists()) {
 			file.delete();
 		}
