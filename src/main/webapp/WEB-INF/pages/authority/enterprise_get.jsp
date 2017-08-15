@@ -18,7 +18,6 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/cropper/cropper.min.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/sitelogo/sitelogo.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
-	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
