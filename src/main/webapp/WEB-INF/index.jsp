@@ -24,7 +24,7 @@
 				<ul class="items">
 					<c:forEach var="photonews" items="${photonewsList}">
 						<li>
-							<a href="${ctx}/news/${photonews.path}" title="${photonews.title}" target="_blank" style="width: 655px; height: 295px;">
+							<a href="${ctx}/news/${photonews.id}" title="${photonews.title}" target="_blank" style="width: 655px; height: 295px;">
 								<img src="${ctx}${photonews.imagePath}" style="width: 100%; height: 100%;">
 							</a>
 						</li>
@@ -38,7 +38,7 @@
 					<ul>
 						<c:forEach var="announce" items="${announceList}">
 							<li>
-								<a href="${ctx}/news/${announce.path}" target="_blank">
+								<a href="${ctx}/news/${announce.id}" target="_blank">
 								<c:if test="${fn:length(announce.title) > 32}">
 										${fn:substring(announce.title, 0, 32)}...
 									</c:if>
@@ -63,7 +63,7 @@
 						<ul>
 							<c:forEach var="policy" items="${policyList}">
 								<li>
-									<a href="${ctx}/news/${policy.path}" target="_blank">
+									<a href="${ctx}/news/${policy.id}" target="_blank">
 										<c:if test="${fn:length(policy.title) > 38}">
 											${fn:substring(policy.title, 0, 38)}...
 										</c:if>
@@ -83,7 +83,7 @@
 						<ul>
 							<c:forEach var="overview" items="${overviewList}">
 								<li>
-									<a href="${ctx}/news/${overview.path}" target="_blank">
+									<a href="${ctx}/news/${overview.id}" target="_blank">
 										<c:if test="${fn:length(overview.title) > 38}">
 											${fn:substring(overview.title, 0, 38)}...
 										</c:if>

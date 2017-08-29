@@ -56,12 +56,10 @@ public class PageController {
 		return "pages/portal/article";
 	}
 	
-	@RequestMapping(value = "/news/{path}")
-	String articleContent(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		ArticleEntity article = articleService.findByPath(path);
+	@RequestMapping(value = "/news/{articleId}")
+	String articleContent(ModelMap modelMap, @PathVariable("articleId") Long articleId) throws IOException {
+		ArticleEntity article = articleService.findOne(articleId);
 		if (article != null) {
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
 			modelMap.addAttribute("article", article);
 		}
 		return "pages/portal/content";

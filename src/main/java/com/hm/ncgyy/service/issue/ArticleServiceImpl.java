@@ -22,11 +22,6 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 	
 	@Override
-	public ArticleEntity findByPath(String path) {
-		return articleRepository.findByPath(path);
-	}
-
-	@Override
 	public void save(ArticleEntity article) {
 		articleRepository.save(article);
 	}

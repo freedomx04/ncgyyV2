@@ -40,9 +40,6 @@ public class WxArticleController {
 	@RequestMapping(value = "/wx/article/get")
 	String article_get(ModelMap modelMap, Long articleId) throws IOException {
 		ArticleEntity article = articleService.findOne(articleId);
-		String content = commonService.getArticleContent(article.getPath());
-		article.setContent(content);
-		
 		modelMap.addAttribute("article", article);
 		return "wx/issue/article_get";
 	}

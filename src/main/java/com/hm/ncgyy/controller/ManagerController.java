@@ -118,11 +118,13 @@ public class ManagerController {
 		Page<LoginEntity> loginPage = loginService.listByUserId(user.getId(), 0, 10);
 		List<LoginEntity> loginList = loginPage.getContent();
 		modelMap.addAttribute("loginList", loginList);
-		modelMap.addAttribute("latestLogin", loginList.get(0));
+		
+		if (loginList.size() > 0) {
+			modelMap.addAttribute("latestLogin", loginList.get(0));
+		}
 		
 		VersionEntity version = versionService.findLatest();
 		modelMap.addAttribute("version", version);
-		
 		return "pages/overview";
 	}
 	
@@ -406,26 +408,20 @@ public class ManagerController {
 		
 		if (articleId != null) {
 			ArticleEntity article = articleService.findOne(articleId);
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
 			modelMap.addAttribute("article", article);
 		}
 		
 		return "pages/issue/article_add";
 	}
 	
-	@RequestMapping(value = "/articleGet/{path}")
-	String articleGet(ModelMap modelMap, @PathVariable("path") String path) throws IOException {
-		ArticleEntity article = articleService.findByPath(path);
+	@RequestMapping(value = "/articleGet/{articleId}")
+	String articleGet(ModelMap modelMap, @PathVariable("articleId") Long articleId) throws IOException {
+		ArticleEntity article = articleService.findOne(articleId);
 		if (article != null) {
-			String content = commonService.getArticleContent(article.getPath());
-			article.setContent(content);
 			modelMap.addAttribute("article", article);
-			
 			String title = articleService.getArticleTitle(article.getType());
 			modelMap.addAttribute("title", title);
 		}
-		
 		return "pages/issue/article_get";
 	}
 	

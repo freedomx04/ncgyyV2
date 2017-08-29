@@ -10,8 +10,6 @@ import com.hm.ncgyy.entity.issue.ArticleEntity;
 
 public interface ArticleRepository extends CrudRepository<ArticleEntity, Long> {
 	
-	ArticleEntity findByPath(String path); 
-	
 	Iterable<ArticleEntity> findByIdIn(List<Long> articleIdList);
 	
 	List<ArticleEntity> findByTypeOrderByUpdateTimeDesc(Integer type);

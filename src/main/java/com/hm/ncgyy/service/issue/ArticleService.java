@@ -10,8 +10,6 @@ public interface ArticleService {
 	
 	ArticleEntity findOne(Long articleId);
 	
-	ArticleEntity findByPath(String path);
-	
 	void save(ArticleEntity article);
 	
 	void delete(Long articleId);

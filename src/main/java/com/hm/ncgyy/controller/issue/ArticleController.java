@@ -42,15 +42,13 @@ public class ArticleController {
 			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content,
 			@RequestParam("attachmentList") List<String> attachmentList) {
 		try {
-			String path = commonService.saveArticle(content);
-
 			String imagePath = null;
 			if (uploadImage != null) {
 				imagePath = commonService.saveImage(uploadImage);
 			}
 
 			Date now = new Date();
-			ArticleEntity article = new ArticleEntity(type, title, source, imagePath, path, now, now);
+			ArticleEntity article = new ArticleEntity(type, title, source, imagePath, content, now, now);
 			articleService.save(article);
 
 			for (String attachment : attachmentList) {
@@ -75,6 +73,7 @@ public class ArticleController {
 			ArticleEntity article = articleService.findOne(articleId);
 			article.setTitle(title);
 			article.setSource(source);
+			article.setContent(content);
 			article.setUpdateTime(new Date());
 
 			if (uploadImage != null && !uploadImage.isEmpty()) {
@@ -91,9 +90,7 @@ public class ArticleController {
 				articleFileService.save(articleFile);
 			}
 			
-			commonService.updateArticle(article.getPath(), content);
 			articleService.save(article);
-
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -105,13 +102,10 @@ public class ArticleController {
 	public Result delete(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
-
-			commonService.deleteArticle(article.getPath());
 			if (article.getImagePath() != null) {
 				commonService.deleteImage(article.getImagePath());
 			}
 			articleService.delete(articleId);
-
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
