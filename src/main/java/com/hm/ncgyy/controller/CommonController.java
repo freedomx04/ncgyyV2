@@ -54,6 +54,9 @@ public class CommonController {
 	@Value("${customize.path.attachment}")
 	private String attachmentPath;
 	
+	@Value("${customize.path.image}")
+	private String imageFormat;
+	
 	@Autowired
 	HttpServletRequest request;
 	
@@ -165,6 +168,33 @@ public class CommonController {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
             return null;
+		}
+	}
+	
+	@RequestMapping(value = "/api/uploadImage")
+	public Result uploadImage(MultipartFile imageFile) {
+		try {
+			if (imageFile == null) {
+				return null;
+			}
+			
+			String filename = imageFile.getOriginalFilename();
+			String suffix = FileUtil.getSuffix(filename);
+			
+			String tarPath = imageFormat + suffix;
+			tarPath = PathFormat.parse(tarPath);
+			
+			File file = Paths.get(uploadPath, tarPath).toFile();
+			FileUtil.sureDirExists(file, true);
+			
+			BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+			bout.write(imageFile.getBytes());
+			bout.close();
+			
+			return new ResultInfo(Code.SUCCESS.value(), "upload", tarPath);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
 

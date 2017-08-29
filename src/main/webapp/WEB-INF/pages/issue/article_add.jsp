@@ -127,18 +127,20 @@
 		
 		$k.util.bsValidator($form);
 		
+		$k.util.summernote($page.find('#summernote'), {
+			ctx: '${ctx}'
+		});
+		
 		new Attachment($page.find('#attachment'), {
 			uploadUrl: '${ctx}/api/fileUpload',
 			deleteUrl: '${ctx}/api/fileDelete',
 		});
 		
 		if (method == 'add') {
-			$k.util.summernote($page.find('#summernote'));
 			if (type == 1) {
 				$k.util.fileinput($page.find('#uploadImage'));
 			}
 		} else {
-			$k.util.summernote($page.find('#summernote'));
 			$('#summernote').summernote('code', '${article.content}');
 			if (type == 1) {
 				$k.util.fileinput($page.find('#uploadImage'), {

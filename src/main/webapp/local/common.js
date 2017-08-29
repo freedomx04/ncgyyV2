@@ -113,7 +113,25 @@
 			lang: 'zh-CN',
 			focus: true,
 			dialogsFade: true,
-			placeholder: '正文内容'
+			placeholder: '正文内容',
+			callbacks: {
+				onImageUpload: function(files) {
+					data = new FormData();
+					data.append('imageFile', files[0]);
+					
+					$.ajax({
+						url: param.ctx + '/api/uploadImage',
+						type: 'post',
+						data: data,
+						cache: false,
+						contentType: false,  
+				        processData: false, 
+				        success: function(ret) {
+				        	$obj.summernote('insertImage', param.ctx + ret.data, 'image');
+				        }
+					});
+				}
+			}
 		}, param);
 		
 		$obj.summernote(defaultParam);
