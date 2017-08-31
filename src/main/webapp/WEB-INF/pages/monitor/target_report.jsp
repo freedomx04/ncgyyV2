@@ -191,7 +191,6 @@
 			 $form.find('select[name = "enterpriseId"]').val("").trigger("chosen:updated");
 		})
         .on("change", "#importTarget-file-input", function() {
-        	alert("dfd")
         	var oMyForm = new FormData();
 			oMyForm.append("uploadfile",this.files[0]);
 
