@@ -284,20 +284,22 @@
 			
 			var $table = $k.util.bsTable($page.find('#target-list-table'), {
 				url: '${ctx}/api/target/listByMonthly',
-				method: "post",
 				contentType : "application/x-www-form-urlencoded",
 				queryParams: {monthly: $page.find("#search-monthly").val()},
 				toolbar: '#target-list-table-toolbar',
-				idField: 'target_current.id',
 				responseHandler: function(res) {
 	                return res.data;
 	            },
 	            columns: [{
+	            	field: 'state',
 	            	checkbox: true
 	            }, {
-	            	field: 'enterprise.name',
+	            	field: 'enterprise',
 	            	title: '企业名称',
-	            	align: 'center'
+	            	align: 'center',
+	            	formatter: function(value, row, index) {
+	            		return value != null ? value.name : '-';
+	            	}
 	            }, {
 	            	field: 'target_current',
 	            	title: '本月止主营业务收入',
