@@ -239,9 +239,9 @@
 
 			var $table = $k.util.bsTable($tab.find('#target-list-table'), {
 				url: url,
-				method: "post",
 				contentType : "application/x-www-form-urlencoded",
 				idField: 'id',
+				search: false,
 				queryParams: data,
 				responseHandler: function(res) {
 					getChart(res.data);

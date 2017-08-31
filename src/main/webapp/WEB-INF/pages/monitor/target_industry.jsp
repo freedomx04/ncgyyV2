@@ -146,11 +146,10 @@
 				                
 				                <div class="chart-container" style="height: 400px; margin-top: 40px;"></div>
 				                
-				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"> </table>
+				                <table id="target-list-table" class="table-hm" data-mobile-responsive="true"></table>
 		                    </div>
 		                </div>
 		            </div>
-		
 		        </div>
 			</div>
 		</div>
@@ -242,9 +241,9 @@
 
 			var $table = $k.util.bsTable($tab.find('#target-list-table'), {
 				url: url,
-				method: "post",
 				contentType : "application/x-www-form-urlencoded",
 				idField: 'id',
+				search: false,
 				queryParams: data,
 				responseHandler: function(res) {
 					getChart(res.data);
