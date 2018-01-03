@@ -388,16 +388,23 @@
     	
     	function initDate(fn) {
     		var now = new Date();
+    		var monthly;
 			// start time
-			now.setYear(now.getFullYear() - 1);
     		var month = now.getMonth();
-			$tab.find("#monthlyStart").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+    		if (month == 0) {
+    			monthly = (now.getFullYear() - 2) + '-12';
+    		} else {
+    			monthly = (now.getFullYear() - 1) + '-' + (month < 10 ? '0' + month : month)
+    		}
+    		$tab.find("#monthlyStart").val(monthly);
+    		
 			// end time 
-			now.setDate(1);
-			now.setMonth(now.getMonth());
-			now.setYear(now.getFullYear() + 1);
-			month = now.getMonth();
-			$tab.find("#monthlyEnd").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+			if (month == 0) {
+				monthly = (now.getFullYear() - 1) + '-12';
+			} else {
+				monthly = now.getFullYear() + '-' + (month < 10 ? "0" + month : month);
+			}
+			$tab.find("#monthlyEnd").val(monthly);
 
 			if (typeof fn === 'function') {
 				fn();

@@ -162,7 +162,14 @@
 		});
 		var now = new Date();
 		var month = now.getMonth();
-		$obj.parent().find("input").val(now.getFullYear() + "-" + (month < 10 ? "0" + month : month));
+		
+		var monthly;
+		if (month == 0) {
+			monthly = (now.getFullYear() - 1) + '-12';
+		} else {
+			monthly = now.getFullYear() + '-' + (month < 10 ? '0' + month : month);
+		}
+		$obj.parent().find("input").val(monthly);
 	}
 	
 	/**
