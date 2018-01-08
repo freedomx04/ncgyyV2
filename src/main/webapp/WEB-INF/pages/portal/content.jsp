@@ -8,6 +8,14 @@
 	<title>南城县工业园区综合信息服务平台</title>
 
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/portal.css">
+	
+	<style type="text/css">
+	.main img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+	</style>
 </head>
 <body class="body-article-content">
 	<%@ include file="/WEB-INF/template/top.jsp"%>

@@ -16,6 +16,14 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
+	<style type="text/css">
+	.ibox-content img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+	</style>
+	
 </head>
 
 <body class="gray-bg body-article-detail">
