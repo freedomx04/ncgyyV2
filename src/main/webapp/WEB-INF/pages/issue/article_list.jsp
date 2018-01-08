@@ -94,7 +94,16 @@
 			}, {
 				field: 'title',
 				title: '标题',
-				align: 'center'
+				align: 'center',
+				formatter: function(value, row, index) {
+					return '<a class="btn-article-detail">' + value + '</a>';
+				},
+				events: window.operateEvents = {
+					'click .btn-article-detail': function(e, value, row, index) {
+						e.stopPropagation();
+						window.location.href = './articleGet/' + row.id;
+					},
+				}
 			}, {
 				field: 'updateTime',
 				title: '修改时间',
@@ -105,7 +114,7 @@
 				align: 'center',
 				formatter: function(value, row, index) {
 					var resource = '${role.resource}'.split(',');
-					var $operate = '<a class="btn-article-detail a-operate">详情</a>';
+					var $operate = '';
 					var $edit = '<a class="btn-article-edit a-operate">编辑</a>';
 					var $delete = '<a class="btn-article-delete a-operate">删除</a>';
 					
@@ -146,10 +155,6 @@
 					return $operate;
 				},
 				events: window.operateEvents = {
-					'click .btn-article-detail': function(e, value, row, index) {
-						e.stopPropagation();
-						window.location.href = './articleGet/' + row.id;
-					},
 					'click .btn-article-edit': function(e, value, row, index) {
 						e.stopPropagation();
 						window.location.href = './articleAdd?type=${type}&method=edit&articleId=' + row.id;
