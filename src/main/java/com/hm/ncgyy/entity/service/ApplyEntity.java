@@ -57,8 +57,6 @@ public class ApplyEntity extends BaseEntity {
 	@JoinColumn(name = "apply_id")
 	List<ApplyFileEntity> fileList = new LinkedList<>();
 
-	
-	
 	public ApplyEntity() {
 		// TODO Auto-generated constructor stub
 	}
