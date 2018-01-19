@@ -34,8 +34,8 @@
 	                    </button>
                     </c:if>
                     <c:if test="${fn:contains(role.resource, 'authority-version-delete-batch')}">
-	                    <button type="button" class="btn btn-white btn-version-delete-batch" disabled='disabled'>
-	                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+	                    <button type="button" class="btn btn-danger btn-version-delete-batch" disabled='disabled'>
+	                        <i class="fa fa-trash-o fa-fw"></i>删除
 	                    </button>
                     </c:if>
                 </div>
@@ -72,6 +72,15 @@
             	field: 'code',
             	title: '版本号',
             	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-version-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+            		'click .btn-version-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href = './versionAdd?method=detail&versionId=' + row.id;
+            		}
+            	}
             }, {
             	field: 'releaseTime',
             	title: '发布时间',
@@ -81,7 +90,7 @@
             	align: 'center',
             	formatter: function(value, row, index) {
             		var resource = '${role.resource}'.split(',');
-                    var $operate = '<a class="btn-version-detail a-operate">详情</a>';
+                    var $operate = '';
                     if ($.inArray('authority-version-edit', resource) != -1) {
                         $operate += '<a class="btn-version-edit a-operate">编辑</a>';
                     }
@@ -91,10 +100,6 @@
                     return $operate;
                 },
             	events: window.operateEvents = {
-           			'click .btn-version-detail': function(e, value, row, index) {
-   						e.stopPropagation();
-   						window.location.href = './versionAdd?method=detail&versionId=' + row.id;
-   					},
             		'click .btn-version-edit': function(e, value, row, index) {
             			e.stopPropagation();
             			window.location.href = './versionAdd?method=edit&versionId=' + row.id;

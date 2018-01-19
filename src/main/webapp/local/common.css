@@ -6,6 +6,9 @@
 	font-size: 18px;
 }
 
+.btn-fw {
+	min-width: 80px;
+}
 .btn-white:hover {
 	background: #fafafa;
 }
@@ -92,3 +95,28 @@
 	font-weight: normal;
 }
 
+/** modal */
+.modal-center {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	height: 100%;
+	margin: 0px auto;
+}
+.modal-center .modal-content {
+	width: 100%;
+}
+
+/** table */
+.table-fixed {
+	table-layout: fixed;
+}
+.table-fixed td {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+}

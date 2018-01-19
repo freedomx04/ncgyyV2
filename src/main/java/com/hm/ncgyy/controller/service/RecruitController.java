@@ -152,7 +152,7 @@ public class RecruitController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/talent/job/filter", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/service/talent/recruit/filter", method = RequestMethod.POST)
 	public Result recruit_filter(String profession, String education, String workingYears, String salary, int page,
 			int size) {
 		try {
@@ -167,7 +167,7 @@ public class RecruitController {
 	/**
 	 * 求职
 	 */
-	@RequestMapping(value = "/api/service/talent/recruit/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/service/talent/job/create", method = RequestMethod.POST)
 	public Result job_create(Long userId, String name, Integer sex, String avatarPath, Integer profession,
 			Integer salary, Integer workingYears, Integer education, String contact, String intention,
 			String introduction, String experience) {
@@ -184,7 +184,7 @@ public class RecruitController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/talent/recruit/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/service/talent/job/update", method = RequestMethod.POST)
 	public Result job_update(Long jobId, String name, Integer sex, String avatarPath, Integer profession,
 			Integer salary, Integer workingYears, Integer education, String contact, String intention,
 			String introduction, String experience) {

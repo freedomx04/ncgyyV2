@@ -177,7 +177,7 @@ public class FinancingController {
 	/**
 	 * 投资
 	 */
-	@RequestMapping(value = "/api/service/logistics/invest/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/service/financing/invest/create", method = RequestMethod.POST)
 	public Result invest_create(Long supplierId, String title, Integer investType, Integer fundType, String profession,
 			String amount, String description, String remark) {
 		try {
@@ -193,7 +193,7 @@ public class FinancingController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/service/logistics/invest/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/service/financing/invest/update", method = RequestMethod.POST)
 	public Result invest_update(Long investId, String title, Integer investType, Integer fundType, String profession,
 			String amount, String description, String remark) {
 		try {
@@ -214,7 +214,7 @@ public class FinancingController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/service/logistics/invest/delete")
+	@RequestMapping(value = "/api/service/financing/invest/delete")
 	public Result invest_delete(Long investId) {
 		try {
 			investService.delete(investId);
@@ -225,7 +225,7 @@ public class FinancingController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/logistics/invest/deleteBatch")
+	@RequestMapping(value = "/api/service/financing/invest/deleteBatch")
 	public Result invest_deleteBatch(@RequestParam("investIdList[]") List<Long> investIdList) {
 		try {
 			investService.delete(investIdList);
@@ -236,7 +236,7 @@ public class FinancingController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/logistics/invest/get")
+	@RequestMapping(value = "/api/service/financing/invest/get")
 	public Result invest_get(Long investId) {
 		try {
 			InvestEntity invest = investService.findOne(investId);

@@ -317,6 +317,26 @@ public class ManagerController {
 	}
 	
 	/**
+	 * 供应商管理接口
+	 */
+	@RequestMapping(value = "/supplierList")
+	String supplierList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		return "pages/authority/supplier_list";
+	}
+	
+	/**
+	 * 反馈接口
+	 */
+	@RequestMapping(value = "/feedbackList")
+	String feedbackList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("role", user.getRole());
+		return "pages/authority/feedback_list";
+	}
+	
+	/**
 	 * 版本接口
 	 */
 	@RequestMapping(value = "/versionList")

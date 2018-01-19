@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/include/preload.jsp"%>
+<%@ include file="/WEB-INF/include/feedback.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,9 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 
 </head>
 
@@ -75,6 +78,8 @@
 							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
 								<li><a class="J_menuItem" href="department">部门管理</a></li>
 							</c:if>
+							<li><a class="J_menuItem" href="supplierList">供应商管理</a></li>
+							<li><a class="J_menuItem" href="feedbackList">反馈管理</a></li>
 							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
 								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
 							</c:if>
@@ -188,6 +193,11 @@
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="#">供应商信息</a></li>
+							<li><a class="J_menuItem" href="#">招工平台</a></li>
+							<li><a class="J_menuItem" href="#">招商平台</a></li>
+							<li><a class="J_menuItem" href="#">融资平台</a></li>
+							<li><a class="J_menuItem" href="#">物流平台</a></li>
 							<c:if test="${fn:contains(user.role.resource, 'authority-declare')}">
 								<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
 							</c:if>
@@ -284,11 +294,14 @@
 			<!-- footer -->
 			<div class="footer">
 				<div class="pull-left">南城县工业园区综合信息服务平台</div>
-				<div class="pull-right">当前版本：${versionCode}<a class="J_menuItem" href="versionHistory" style="padding-left: 10px;"><i class="fa fa-history fa-fw"></i>版本历史</a></div>
+				<div class="pull-right">当前版本：${versionCode}
+					<a class="J_menuItem" href="versionHistory" style="padding-left: 10px;"><i class="fa fa-history fa-fw"></i>版本历史</a>
+					<span>|</span>
+					<a class="btn-feedback"><i class="fa fa-pencil fa-fw"></i>意见反馈</a>
+				</div>
 			</div>
 		</div>
 		<!--右侧部分结束-->
-		
 	</div>
 
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -300,12 +313,14 @@
 	<script type="text/javascript" src="${ctx}/plugins/hplus/contabs.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/pace/pace.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.session.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript">
 	
 	var $page = $('.body-home');
 	var userId = '${user.id}';
+	var $feedbackDialog = $page.find('#modal-feedback-dialog');
 	
 	mailRefresh();
 	
@@ -314,12 +329,43 @@
 		$.ajax({
 			url: '${ctx}/api/user/logout',
 			success: function() {
-				window.location.href = "./login";
+				window.location.href = "${ctx}/login";
 			},
 			error: function() {}
 		});
-	});
+	})
+	.on('click', '.btn-feedback', function() {
+		$feedbackDialog.modal('show');
+	})
+	.on('click', '.btn-feedback-submit', function() {
+		var content = $feedbackDialog.find('.textarea-feedback').val();
+		if (!content) {
+			$feedbackDialog.find('.textarea-feedback').css('border', '1px solid #f75659');
+			return;
+		} else {
+			$feedbackDialog.find('.textarea-feedback').css('border', '1px solid #e5e6e7');
+			$.ajax({
+				url: '${ctx}/api/authority/feedback/create',
+				type: 'post',
+				data: {
+					userId: userId,
+					content: content
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$feedbackDialog.modal('hide');
+						toastr['info']('提交成功！ 谢谢您的建议反馈');
+					}
+				},
+				error: function(err) {}
+			});
+		}
+	})
+	.on('hidden.bs.modal', '#modal-feedback-dialog', function() {
+		$feedbackDialog.find('.textarea-feedback').val('');
+    });
 	
+	/** iframe页面打开其他嵌套页面 */
 	function open(menu) {
 		$page.find('a[href="' + menu + '"]').trigger('click');
 	}
