@@ -193,11 +193,11 @@
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="#">供应商信息</a></li>
-							<li><a class="J_menuItem" href="#">招工平台</a></li>
-							<li><a class="J_menuItem" href="#">招商平台</a></li>
-							<li><a class="J_menuItem" href="#">融资平台</a></li>
-							<li><a class="J_menuItem" href="#">物流平台</a></li>
+							<li><a class="J_menuItem" href="supplierInfo">供应商信息</a></li>
+							<li><a class="J_menuItem" href="platformTalent">招工平台</a></li>
+							<li><a class="J_menuItem" href="platformBusiness">招商平台</a></li>
+							<li><a class="J_menuItem" href="platformFinancing">融资平台</a></li>
+							<li><a class="J_menuItem" href="platformLogistics">物流平台</a></li>
 							<c:if test="${fn:contains(user.role.resource, 'authority-declare')}">
 								<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
 							</c:if>

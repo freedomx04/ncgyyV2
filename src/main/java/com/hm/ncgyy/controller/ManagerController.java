@@ -560,6 +560,31 @@ public class ManagerController {
 	/**
 	 * 服务平台接口
 	 */
+	@RequestMapping(value = "/supplierInfo")
+	String supplierInfo() {
+		return "pages/service/supplierInfo";
+	}
+	
+	@RequestMapping(value = "/platformTalent")
+	String platformTalent() {
+		return "pages/service/platform_talent";
+	}
+	
+	@RequestMapping(value = "/platformBusiness")
+	String platformBusiness() {
+		return "pages/service/platform_business";
+	}
+	
+	@RequestMapping(value = "/platformFinancing")
+	String platformFinancing() {
+		return "pages/service/platform_financing";
+	}
+	
+	@RequestMapping(value = "/platformLogistics")
+	String platformLogistics() {
+		return "pages/service/platform_logistics";
+	}
+	
 	@RequestMapping(value = "/declareGV")
 	String declareGV(ModelMap modelMap) {
 		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
