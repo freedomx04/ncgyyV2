@@ -30,22 +30,22 @@ public class JobEntity extends BaseEntity {
 	private String name;
 
 	/** 性别 */
-	private Integer sex;
+	private String sex;
 
 	/** 头像 */
 	private String avatarPath;
 
 	/** 行业 */
-	private Integer profession;
+	private String profession;
 
 	/** 期望薪资 */
-	private Integer salary;
+	private String salary;
 
 	/** 工作年限 */
-	private Integer workingYears;
+	private String workingYears;
 
 	/** 学历 */
-	private Integer education;
+	private String education;
 
 	/** 联系电话 */
 	private String contact;
@@ -63,8 +63,8 @@ public class JobEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobEntity(UserBaseEntity user, String name, Integer sex, String avatarPath, Integer profession,
-			Integer salary, Integer workingYears, Integer education, String contact, String intention,
+	public JobEntity(UserBaseEntity user, String name, String sex, String avatarPath, String profession,
+			String salary, String workingYears, String education, String contact, String intention,
 			String introduction, String experience, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
@@ -99,11 +99,11 @@ public class JobEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public Integer getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Integer sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
@@ -115,35 +115,35 @@ public class JobEntity extends BaseEntity {
 		this.avatarPath = avatarPath;
 	}
 
-	public Integer getProfession() {
+	public String getProfession() {
 		return profession;
 	}
 
-	public void setProfession(Integer profession) {
+	public void setProfession(String profession) {
 		this.profession = profession;
 	}
 
-	public Integer getSalary() {
+	public String getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Integer salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 
-	public Integer getWorkingYears() {
+	public String getWorkingYears() {
 		return workingYears;
 	}
 
-	public void setWorkingYears(Integer workingYears) {
+	public void setWorkingYears(String workingYears) {
 		this.workingYears = workingYears;
 	}
 
-	public Integer getEducation() {
+	public String getEducation() {
 		return education;
 	}
 
-	public void setEducation(Integer education) {
+	public void setEducation(String education) {
 		this.education = education;
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
@@ -32,6 +33,8 @@ import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
+import com.hm.ncgyy.entity.service.SupplierEntity;
+import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.DepartmentService;
@@ -49,6 +52,9 @@ import com.hm.ncgyy.service.issue.ArticleService;
 import com.hm.ncgyy.service.office.MailService;
 import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
+import com.hm.ncgyy.service.service.SupplierService;
+import com.hm.ncgyy.service.service.talent.JobService;
+import com.hm.ncgyy.service.service.talent.RecruitService;
 
 @Controller
 public class ManagerController {
@@ -105,6 +111,15 @@ public class ManagerController {
 	
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	SupplierService supplierService;
+	
+	@Autowired
+	RecruitService recruitService;
+	
+	@Autowired
+	JobService jobService;
 	
 	/**
 	 * 总览
@@ -560,13 +575,27 @@ public class ManagerController {
 	/**
 	 * 服务平台接口
 	 */
-	@RequestMapping(value = "/supplierInfo")
-	String supplierInfo() {
-		return "pages/service/supplierInfo";
+	@RequestMapping(value = "/supplierApply")
+	String supplierApply(ModelMap modelMap, Integer type) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("userId", user.getId());
+		modelMap.addAttribute("type", type);
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("propertys", ConstantUtil.propertys);
+		modelMap.addAttribute("scales", ConstantUtil.scales);
+		return "pages/service/supplier_apply";
 	}
 	
 	@RequestMapping(value = "/platformTalent")
-	String platformTalent() {
+	String platformTalent(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_TALENT);
+		modelMap.addAttribute("supplier", supplier);
+		
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("salarys", ConstantUtil.salarys);
+		modelMap.addAttribute("workingYearss", ConstantUtil.workingYearss);
+		modelMap.addAttribute("educations", ConstantUtil.educations);
 		return "pages/service/platform_talent";
 	}
 	

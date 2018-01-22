@@ -8,10 +8,10 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 
 public interface SupplierRepository extends PagingAndSortingRepository<SupplierEntity, Long> {
 
-	SupplierEntity findByUserId(Long userId);
+	SupplierEntity findByUserIdAndType(Long userId, Integer type);
 	
 	SupplierEntity findByName(String name);
 	
-	List<SupplierEntity> findByStatus(Integer status);
+	List<SupplierEntity> findByTypeAndStatus(Integer type, Integer status);
 	
 }

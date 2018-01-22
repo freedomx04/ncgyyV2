@@ -31,19 +31,20 @@ public class SupplierController {
 	SupplierService supplierService;
 
 	@RequestMapping(value = "/api/service/supplier/add", method = RequestMethod.POST)
-	public Result create(Long userId, String name, String imagePath, Integer profession, Integer property,
-			Integer scale, String address, String phone, String fax, String contactUser, String contact,
-			String introduction) {
+	public Result create(Long userId, Integer type, String name, String imagePath, String profession, String property,
+			String scale, String address, String phone, String fax, String contactUser, String contact,
+			String introduction, String license, String licensePath) {
 		try {
 			SupplierEntity supplier = supplierService.findByName(name);
 			if (supplier != null) {
-				return new Result(Code.EXISTED.value(), "供应商已存在");
+				return new Result(Code.EXISTED.value(), "供应商名称已存在");
 			}
 
 			Date now = new Date();
 			UserBaseEntity user = userService.findOneBase(userId);
-			supplier = new SupplierEntity(user, name, imagePath, profession, property, scale, address, phone, fax,
-					contactUser, contact, introduction, now, now);
+			supplier = new SupplierEntity(user, type, name, imagePath, profession, property, scale, address, phone, fax,
+					contactUser, contact, introduction, license, licensePath, now, now);
+			supplier.setStatus(SupplierStatus.STATUS_BEING_CERTIFIED);
 			supplierService.save(supplier);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -53,7 +54,7 @@ public class SupplierController {
 	}
 
 	@RequestMapping(value = "/api/service/supplier/update", method = RequestMethod.POST)
-	public Result update(Long supplierId, String imagePath, Integer scale, String address, String phone, String fax,
+	public Result update(Long supplierId, String imagePath, String scale, String address, String phone, String fax,
 			String contactUser, String contact, String introduction) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
@@ -85,21 +86,10 @@ public class SupplierController {
 		}
 	} 
 	
-	@RequestMapping(value = "/api/service/supplier/listPass")
-	public Result listPass() {
+	@RequestMapping(value = "/api/service/supplier/listByTypeAndStatus")
+	public Result listByTypeAndStatus(Integer type, Integer status) {
 		try {
-			List<SupplierEntity> list = supplierService.listByStatus(SupplierStatus.STATUS_PASS);
-			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return new Result(Code.ERROR.value(), e.getMessage());
-		}
-	}
-	
-	@RequestMapping(value = "/api/service/supplier/listCertification")
-	public Result listCertification() {
-		try {
-			List<SupplierEntity> list = supplierService.listByStatus(SupplierStatus.STATUS_BEING_CERTIFIED);
+			List<SupplierEntity> list = supplierService.listByTypeAndStatus(type, status);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -134,10 +124,10 @@ public class SupplierController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/service/supplier/findByUserId")
-	public Result findByUserId(Long userId) {
+	@RequestMapping(value = "/api/service/supplier/findByUserIdAndType")
+	public Result findByUserIdAndType(Long userId, Integer type) {
 		try {
-			SupplierEntity supplier = supplierService.findByUserId(userId);
+			SupplierEntity supplier = supplierService.findByUserIdAndType(userId, type);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", supplier);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

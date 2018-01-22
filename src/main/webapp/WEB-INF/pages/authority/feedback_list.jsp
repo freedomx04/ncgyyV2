@@ -33,7 +33,7 @@
                         <i class="fa fa-trash-o fa-fw"></i>删除
                     </button>
                 </div>
-                <table id="feedback-list-table" class="table-hm table-fixed" data-mobile-responsive="true"> </table>
+                <table id="feedback-list-table" class="table-hm table-fixed" data-mobile-responsive="true"></table>
 			</div>
 		</div>
 	</div>

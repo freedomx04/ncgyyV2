@@ -6,14 +6,14 @@
 			<form class="avatar-form" action="${ctx}/api/avatarUpload" enctype="multipart/form-data" method="post">
 				<div class="modal-header">
 					<button class="close" data-dismiss="modal" type="button">&times;</button>
-					<h4 class="modal-title" id="avatar-modal-label">头像上传</h4>
+					<h4 class="modal-title" id="avatar-modal-label">图片上传</h4>
 				</div>
 				<div class="modal-body">
 					<div class="avatar-body">
 						<div class="avatar-upload">
 							<input class="avatar-src" name="avatar_src" type="hidden">
 							<input class="avatar-data" name="avatar_data" type="hidden">
-							<label for="avatarInput">图片上传</label> <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+							<input class="avatar-input" id="avatarInput" name="avatar_file" type="file" style="margin-left: 0;">
 						</div>
 						<div class="row">
 							<div class="col-md-9">

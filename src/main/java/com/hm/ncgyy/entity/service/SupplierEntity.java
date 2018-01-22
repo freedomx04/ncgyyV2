@@ -23,67 +23,79 @@ public class SupplierEntity extends BaseEntity {
 		public static final int STATUS_PASS = 2; // 已通过
 		public static final int STATUS_DENY = 3; // 未通过
 	}
-	
+
+	/** 供应商类型 */
+	public class SupplierType {
+		public static final int TYPE_TALENT = 1; // 人才供应商
+		public static final int TYPE_BUSINESS = 2; // 招商供应商
+		public static final int TYPE_FINANCING = 3; // 融资供应商
+		public static final int TYPE_LOGISITCS = 4; // 物流供应商
+	}
+
 	/** 用户 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private UserBaseEntity user;
 	
+	/** 供应商类型 */
+	private Integer type;
+
 	/** 供应商名称 */
 	private String name;
 
 	/** 图片 */
 	private String imagePath;
-	
+
 	/** 行业类别 */
-	private Integer profession;
-	
+	private String profession;
+
 	/** 性质 */
-	private Integer property;
-	
+	private String property;
+
 	/** 规模 */
-	private Integer scale;
-	
+	private String scale;
+
 	/** 地址 */
 	private String address;
-	
+
 	/** 座机 */
 	private String phone;
-	
+
 	/** 传真 */
 	private String fax;
-	
+
 	/** 联系人 */
 	private String contactUser;
-	
+
 	/** 联系电话 */
 	private String contact;
-	
-	/** 简介*/
+
+	/** 简介 */
 	@Column(length = 2000)
 	private String introduction;
-	
+
 	/**
 	 * 审批
 	 */
 	/** 营业执照 */
 	private String license;
-	
+
 	/** 营业执照图片地址 */
 	private String licensePath;
-	
+
 	/** 认证状态 */
 	private Integer status = SupplierStatus.STATUS_NEW;
-	
+
 	public SupplierEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SupplierEntity(UserBaseEntity user, String name, String imagePath, Integer profession, Integer property,
-			Integer scale, String address, String phone, String fax, String contactUser, String contact,
-			String introduction, Date createTime, Date updateTime) {
+	public SupplierEntity(UserBaseEntity user, Integer type, String name, String imagePath, String profession, String property,
+			String scale, String address, String phone, String fax, String contactUser, String contact,
+			String introduction, String license, String licensePath, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
+		this.type = type;
 		this.name = name;
 		this.imagePath = imagePath;
 		this.profession = profession;
@@ -95,6 +107,8 @@ public class SupplierEntity extends BaseEntity {
 		this.contactUser = contactUser;
 		this.contact = contact;
 		this.introduction = introduction;
+		this.license = license;
+		this.licensePath = licensePath;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -105,6 +119,14 @@ public class SupplierEntity extends BaseEntity {
 
 	public void setUser(UserBaseEntity user) {
 		this.user = user;
+	}
+	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public String getName() {
@@ -123,27 +145,27 @@ public class SupplierEntity extends BaseEntity {
 		this.imagePath = imagePath;
 	}
 
-	public Integer getProfession() {
+	public String getProfession() {
 		return profession;
 	}
 
-	public void setProfession(Integer profession) {
+	public void setProfession(String profession) {
 		this.profession = profession;
 	}
 
-	public Integer getProperty() {
+	public String getProperty() {
 		return property;
 	}
 
-	public void setProperty(Integer property) {
+	public void setProperty(String property) {
 		this.property = property;
 	}
 
-	public Integer getScale() {
+	public String getScale() {
 		return scale;
 	}
 
-	public void setScale(Integer scale) {
+	public void setScale(String scale) {
 		this.scale = scale;
 	}
 
@@ -210,7 +232,7 @@ public class SupplierEntity extends BaseEntity {
 	public void setLicensePath(String licensePath) {
 		this.licensePath = licensePath;
 	}
-
+	
 	public Integer getStatus() {
 		return status;
 	}
@@ -218,5 +240,5 @@ public class SupplierEntity extends BaseEntity {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
 }

@@ -171,7 +171,7 @@ public class CommonController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/uploadImage")
+	@RequestMapping(value = "/api/uploadImage", method = RequestMethod.POST)
 	public Result uploadImage(MultipartFile imageFile) {
 		try {
 			if (imageFile == null) {

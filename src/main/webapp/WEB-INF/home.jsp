@@ -193,7 +193,6 @@
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="supplierInfo">供应商信息</a></li>
 							<li><a class="J_menuItem" href="platformTalent">招工平台</a></li>
 							<li><a class="J_menuItem" href="platformBusiness">招商平台</a></li>
 							<li><a class="J_menuItem" href="platformFinancing">融资平台</a></li>

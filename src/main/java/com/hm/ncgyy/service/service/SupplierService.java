@@ -10,12 +10,12 @@ public interface SupplierService {
 	
 	SupplierEntity findByName(String name);
 	
-	SupplierEntity findByUserId(Long userId);
+	SupplierEntity findByUserIdAndType(Long userId, Integer type);
 	
 	SupplierEntity save(SupplierEntity supplier);
 	
 	List<SupplierEntity> list();
 	
-	List<SupplierEntity> listByStatus(Integer status);
+	List<SupplierEntity> listByTypeAndStatus(Integer type, Integer status);
 	
 }

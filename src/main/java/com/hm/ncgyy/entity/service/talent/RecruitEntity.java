@@ -24,16 +24,16 @@ public class RecruitEntity extends BaseEntity {
 	private String position;
 	
 	/** 行业 */
-	private Integer profession;
+	private String profession;
 	
 	/** 薪资待遇 */
-	private Integer salary;
+	private String salary;
 	
 	/** 工作年限 */
-	private Integer workingYears;
+	private String workingYears;
 	
 	/** 学历 */
-	private Integer education;
+	private String education;
 	
 	/** 岗位职责 */
 	private String responsibility;
@@ -54,8 +54,8 @@ public class RecruitEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecruitEntity(SupplierEntity supplier, String position, Integer profession, Integer salary,
-			Integer workingYears, Integer education, String responsibility, String requirement,
+	public RecruitEntity(SupplierEntity supplier, String position, String profession, String salary,
+			String workingYears, String education, String responsibility, String requirement,
 			String address, String contactUser, String contact, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
@@ -89,35 +89,35 @@ public class RecruitEntity extends BaseEntity {
 		this.position = position;
 	}
 
-	public Integer getProfession() {
+	public String getProfession() {
 		return profession;
 	}
 
-	public void setProfession(Integer profession) {
+	public void setProfession(String profession) {
 		this.profession = profession;
 	}
 
-	public Integer getSalary() {
+	public String getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Integer salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 
-	public Integer getWorkingYears() {
+	public String getWorkingYears() {
 		return workingYears;
 	}
 
-	public void setWorkingYears(Integer workingYears) {
+	public void setWorkingYears(String workingYears) {
 		this.workingYears = workingYears;
 	}
 
-	public Integer getEducation() {
+	public String getEducation() {
 		return education;
 	}
 
-	public void setEducation(Integer education) {
+	public void setEducation(String education) {
 		this.education = education;
 	}
 

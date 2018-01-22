@@ -25,8 +25,8 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public SupplierEntity findByUserId(Long userId) {
-		return supplierRepository.findByUserId(userId);
+	public SupplierEntity findByUserIdAndType(Long userId, Integer type) {
+		return supplierRepository.findByUserIdAndType(userId, type);
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public List<SupplierEntity> listByStatus(Integer status) {
-		return supplierRepository.findByStatus(status);
+	public List<SupplierEntity> listByTypeAndStatus(Integer type, Integer status) {
+		return supplierRepository.findByTypeAndStatus(type, status);
 	}
 
 }
