@@ -205,7 +205,7 @@
 		
 		var $page = $('.body-supplier-apply');
 		var $form = $page.find('#form-supplier');
-		var type = '${type}';
+		var type = ${type};
 		var userId = '${userId}';
 		
 		$k.util.bsValidator($form);
@@ -280,7 +280,21 @@
             }
 		})
 		.on('click', '.btn-apply-back', function() {
-			window.location.href = '${ctx}/platformTalent';
+			switch (type) {
+			case 1:
+				window.location.href = '${ctx}/platformTalent';
+				break;
+			case 2:
+				window.location.href = '${ctx}/platformBusiness';
+				break;
+			case 3:
+				window.location.href = '${ctx}/platformFinancing';
+				break;
+			case 4:
+				window.location.href = '${ctx}/platformLogistics';
+				break;
+			}
+			
 		});
 		
 	})( jQuery );

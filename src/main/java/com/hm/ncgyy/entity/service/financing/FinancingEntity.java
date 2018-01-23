@@ -24,8 +24,8 @@ public class FinancingEntity extends BaseEntity {
 	/** 融资标题 */
 	private String title;
 
-	/** 行业 */
-	private Integer profession;
+	/** 行业类型 */
+	private String profession;
 
 	/** 融资用途 */
 	private String prupose;
@@ -34,27 +34,28 @@ public class FinancingEntity extends BaseEntity {
 	private String amount;
 
 	/** 融资类型 */
-	private Integer financingType;
+	private String financingType;
 
 	/** 项目描述 */
 	@Column(length = 4000)
 	private String description;
 
 	/** 项目优势 */
+	@Column(length = 4000)
 	private String advantage;
 
 	/** 联系人 */
 	private String contactUser;
 
-	/** 联系方式 */
+	/** 联系电话 */
 	private String contact;
 
 	public FinancingEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FinancingEntity(SupplierEntity supplier, String title, Integer profession, String prupose, String amount,
-			Integer financingType, String description, String advantage, String contactUser, String contact,
+	public FinancingEntity(SupplierEntity supplier, String title, String profession, String prupose, String amount,
+			String financingType, String description, String advantage, String contactUser, String contact,
 			Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
@@ -87,11 +88,11 @@ public class FinancingEntity extends BaseEntity {
 		this.title = title;
 	}
 
-	public Integer getProfession() {
+	public String getProfession() {
 		return profession;
 	}
 
-	public void setProfession(Integer profession) {
+	public void setProfession(String profession) {
 		this.profession = profession;
 	}
 
@@ -111,11 +112,11 @@ public class FinancingEntity extends BaseEntity {
 		this.amount = amount;
 	}
 
-	public Integer getFinancingType() {
+	public String getFinancingType() {
 		return financingType;
 	}
 
-	public void setFinancingType(Integer financingType) {
+	public void setFinancingType(String financingType) {
 		this.financingType = financingType;
 	}
 

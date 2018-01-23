@@ -25,10 +25,10 @@ public class InvestEntity extends BaseEntity {
 	private String title;
 
 	/** 投资方式 */
-	private Integer investType;
+	private String investType;
 
 	/** 资金类型 */
-	private Integer fundType;
+	private String fundType;
 
 	/** 投资行业 */
 	private String profession;
@@ -43,13 +43,19 @@ public class InvestEntity extends BaseEntity {
 	/** 其他备注 */
 	@Column(length = 2000)
 	private String remark;
+	
+	/** 联系人 */
+	private String contactUser;
+
+	/** 联系电话 */
+	private String contact;
 
 	public InvestEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public InvestEntity(SupplierEntity supplier, String title, Integer investType, Integer fundType, String profession,
-			String amount, String description, String remark, Date createTime, Date updateTime) {
+	public InvestEntity(SupplierEntity supplier, String title, String investType, String fundType, String profession,
+			String amount, String description, String remark, String contactUser, String contact, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.title = title;
@@ -59,6 +65,8 @@ public class InvestEntity extends BaseEntity {
 		this.amount = amount;
 		this.description = description;
 		this.remark = remark;
+		this.contactUser = contactUser;
+		this.contact = contact;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -79,19 +87,19 @@ public class InvestEntity extends BaseEntity {
 		this.title = title;
 	}
 
-	public Integer getInvestType() {
+	public String getInvestType() {
 		return investType;
 	}
 
-	public void setInvestType(Integer investType) {
+	public void setInvestType(String investType) {
 		this.investType = investType;
 	}
 
-	public Integer getFundType() {
+	public String getFundType() {
 		return fundType;
 	}
 
-	public void setFundType(Integer fundType) {
+	public void setFundType(String fundType) {
 		this.fundType = fundType;
 	}
 
@@ -125,6 +133,22 @@ public class InvestEntity extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getContactUser() {
+		return contactUser;
+	}
+
+	public void setContactUser(String contactUser) {
+		this.contactUser = contactUser;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 }

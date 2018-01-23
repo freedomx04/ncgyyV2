@@ -43,7 +43,7 @@ public class BusinessEntity extends BaseEntity {
 	/** 联系人 */
 	private String contactUser;
 
-	/** 联系方式 */
+	/** 联系电话 */
 	private String contact;
 
 	/** 邮箱 */

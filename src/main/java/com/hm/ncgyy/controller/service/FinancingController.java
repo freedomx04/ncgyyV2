@@ -17,11 +17,9 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
-import com.hm.ncgyy.entity.service.financing.FinancingSupplierEntity;
 import com.hm.ncgyy.entity.service.financing.InvestEntity;
 import com.hm.ncgyy.service.service.SupplierService;
 import com.hm.ncgyy.service.service.financing.FinancingService;
-import com.hm.ncgyy.service.service.financing.FinancingSupplierService;
 import com.hm.ncgyy.service.service.financing.InvestService;
 
 @RestController
@@ -33,34 +31,17 @@ public class FinancingController {
 	SupplierService supplierService;
 
 	@Autowired
-	FinancingSupplierService financingSupplierService;
-
-	@Autowired
 	FinancingService financingService;
 
 	@Autowired
 	InvestService investService;
 
 	/**
-	 * 融资供应商
-	 */
-	@RequestMapping(value = "/api/service/financing/supplier/get")
-	public Result get(Long supplierId) {
-		try {
-			FinancingSupplierEntity supplier = financingSupplierService.findOne(supplierId);
-			return new ResultInfo(Code.SUCCESS.value(), "ok", supplier);
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return new Result(Code.ERROR.value(), e.getMessage());
-		}
-	}
-
-	/**
 	 * 融资
 	 */
 	@RequestMapping(value = "/api/service/financing/financing/create", method = RequestMethod.POST)
-	public Result financing_create(Long supplierId, String title, Integer profession, String prupose, String amount,
-			Integer financingType, String description, String advantage, String contactUser, String contact) {
+	public Result financing_create(Long supplierId, String title, String profession, String prupose, String amount,
+			String financingType, String description, String advantage, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
@@ -75,8 +56,8 @@ public class FinancingController {
 	}
 
 	@RequestMapping(value = "/api/service/financing/financing/update", method = RequestMethod.POST)
-	public Result financing_update(Long financingId, String title, Integer profession, String prupose, String amount,
-			Integer financingType, String description, String advantage, String contactUser, String contact) {
+	public Result financing_update(Long financingId, String title, String profession, String prupose, String amount,
+			String financingType, String description, String advantage, String contactUser, String contact) {
 		try {
 			FinancingEntity financing = financingService.findOne(financingId);
 			financing.setTitle(title);
@@ -178,13 +159,13 @@ public class FinancingController {
 	 * 投资
 	 */
 	@RequestMapping(value = "/api/service/financing/invest/create", method = RequestMethod.POST)
-	public Result invest_create(Long supplierId, String title, Integer investType, Integer fundType, String profession,
-			String amount, String description, String remark) {
+	public Result invest_create(Long supplierId, String title, String investType, String fundType, String profession,
+			String amount, String description, String remark, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
 			InvestEntity invest = new InvestEntity(supplier, title, investType, fundType, profession, amount,
-					description, remark, now, now);
+					description, remark, contactUser, contact, now, now);
 			investService.save(invest);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -192,10 +173,10 @@ public class FinancingController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/service/financing/invest/update", method = RequestMethod.POST)
-	public Result invest_update(Long investId, String title, Integer investType, Integer fundType, String profession,
-			String amount, String description, String remark) {
+	public Result invest_update(Long investId, String title, String investType, String fundType, String profession,
+			String amount, String description, String remark, String contactUser, String contact) {
 		try {
 			InvestEntity invest = investService.findOne(investId);
 			invest.setTitle(title);
@@ -205,6 +186,8 @@ public class FinancingController {
 			invest.setAmount(amount);
 			invest.setDescription(description);
 			invest.setRemark(remark);
+			invest.setContactUser(contactUser);
+			invest.setContact(contact);
 			invest.setUpdateTime(new Date());
 			investService.save(invest);
 			return new Result(Code.SUCCESS.value(), "编辑成功");
@@ -213,7 +196,7 @@ public class FinancingController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/service/financing/invest/delete")
 	public Result invest_delete(Long investId) {
 		try {
@@ -246,11 +229,11 @@ public class FinancingController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/service/financing/invest/listPaging")
 	public Result invest_listPaging(int page, int size) {
 		try {
-			Page<FinancingEntity> list = financingService.list(page, size);
+			Page<InvestEntity> list = investService.list(page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -261,7 +244,7 @@ public class FinancingController {
 	@RequestMapping(value = "/api/service/financing/invest/listBySupplierId")
 	public Result invest_listBySupplierId(Long supplierId) {
 		try {
-			List<FinancingEntity> list = financingService.listBySupplierId(supplierId);
+			List<InvestEntity> list = investService.listBySupplierId(supplierId);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

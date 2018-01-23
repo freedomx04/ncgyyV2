@@ -19,28 +19,6 @@
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-	
-	<style type="text/css">
-	.modal .modal-body {
-		max-height: 500px;
-		overflow: auto;
-	}
-	dl dt,
-	dl dd {
-		line-height: 2em;
-	}
-	.dl-detail {
-		padding-right: 40px;
-	}
-	.dl-detail dt {
-		width: 100px;
-	}
-	@media (min-width: 768px) {
-		.dl-detail dd {
-	    	margin-left: 120px;
-		}
-	}
-	</style>
 </head>
 
 <body class="gray-bg body-platform-talent">
@@ -118,7 +96,6 @@
 										<img src="${ctx}/img/operate-success.png" style="max-width: 100px;">
 										<h3 style="padding: 5px;">申请提交完成，正在为你审核...</h3>
 										<p>我们会在3个工作日内完成供应商信息的审核工作，审核通过后，你可以使用供应商所提供的平台服务。</p>
-										<p><button type="button" class="btn btn-primary btn-fw btn-apply-back">返回</button></p>
 									</div>
 								</c:if>
 								<c:if test="${supplier.status == 2}">
@@ -405,7 +382,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="contact" class="col-sm-3 control-label"><i class="form-required">*</i>联系方式</label>
+                            <label for="contact" class="col-sm-3 control-label"><i class="form-required">*</i>联系电话</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="contact" required>
                             </div>
@@ -466,11 +443,12 @@
 		
 		// 招聘
 		var $recruitTable = $('#recruit-list-table');
-		var $recruitDialog = $('#modal-recruit-dialog');
-		var $recruitDetailDialog = $('#modal-recruit-detail-dialog');
-		var $recruitForm = $('#form-recruit');
-		$k.util.bsValidator($recruitForm);
 		if ($recruitTable) {
+			var $recruitDialog = $('#modal-recruit-dialog');
+			var $recruitDetailDialog = $('#modal-recruit-detail-dialog');
+			var $recruitForm = $('#form-recruit');
+			$k.util.bsValidator($recruitForm);
+			
 			$recruitTable = $k.util.bsTable($page.find('#recruit-list-table'), {
 				url: '${ctx}/api/service/talent/recruit/listBySupplierId?supplierId=' + supplierId,
 				toolbar: '#recruit-list-table-toolbar',

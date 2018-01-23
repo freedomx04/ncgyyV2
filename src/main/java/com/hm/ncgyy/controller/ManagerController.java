@@ -606,7 +606,16 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/platformFinancing")
-	String platformFinancing() {
+	String platformFinancing(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_FINANCING);
+		modelMap.addAttribute("supplier", supplier);
+		modelMap.addAttribute("userId", user.getId());
+		
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("financingTypes", ConstantUtil.financingTypes);
+		modelMap.addAttribute("investTypes", ConstantUtil.investTypes);
+		modelMap.addAttribute("fundTypes", ConstantUtil.fundTypes);
 		return "pages/service/platform_financing";
 	}
 	

@@ -109,6 +109,10 @@
 .modal-center .modal-content {
 	width: 100%;
 }
+.modal .modal-body {
+	max-height: 500px;
+	overflow: auto;
+}
 
 /** table */
 .table-fixed {
@@ -119,4 +123,22 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	-moz-text-overflow: ellipsis;
+}
+
+
+/** dl */
+dl dt,
+dl dd {
+	line-height: 2em;
+}
+.dl-detail {
+	padding-right: 40px;
+}
+.dl-detail dt {
+	width: 100px;
+}
+@media (min-width: 768px) {
+	.dl-detail dd {
+    	margin-left: 120px;
+	}
 }
