@@ -77,6 +77,7 @@
 						<label for="profession" class="col-sm-3 control-label"><i class="form-required">*</i>行业类别</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="profession" required>
+								<option value="">请选择行业类别</option>
 								<c:forEach var="profession" items="${professions}">
 									<option value="${profession}">${profession}</option>
 								</c:forEach>
@@ -88,6 +89,7 @@
 						<label for="property" class="col-sm-3 control-label"><i class="form-required">*</i>企业性质</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="property" required>
+								<option value="">请选择企业性质</option>
 								<c:forEach var="property" items="${propertys}">
 									<option value="${property}">${property}</option>
 								</c:forEach>
@@ -99,6 +101,7 @@
 						<label for="scale" class="col-sm-3 control-label"><i class="form-required">*</i>企业规模</label>
 						<div class="col-sm-5">
 							<select class="form-control" name="scale" required>
+								<option value="">请选择企业规模</option>
 								<c:forEach var="scale" items="${scales}">
 									<option value="${scale}">${scale}</option>
 								</c:forEach>

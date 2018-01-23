@@ -33,12 +33,12 @@ public class BusinessController {
 
 	@RequestMapping(value = "/api/service/business/create", method = RequestMethod.POST)
 	public Result create(Long supplierId, String name, String address, String overview, String content, String scale,
-			String mode, String contactUser, String contact, String email, String fax) {
+			String mode, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
 			BusinessEntity business = new BusinessEntity(supplier, name, address, overview, content, scale, mode,
-					contactUser, contact, email, fax, now, now);
+					contactUser, contact, now, now);
 			businessService.save(business);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public class BusinessController {
 
 	@RequestMapping(value = "/api/service/business/update", method = RequestMethod.POST)
 	public Result update(Long businessId, String name, String address, String overview, String content, String scale,
-			String mode, String contactUser, String contact, String email, String fax) {
+			String mode, String contactUser, String contact) {
 		try {
 			BusinessEntity business = businessService.findOne(businessId);
 			business.setName(name);
@@ -60,8 +60,6 @@ public class BusinessController {
 			business.setMode(mode);
 			business.setContactUser(contactUser);
 			business.setContact(contact);
-			business.setEmail(email);
-			business.setFax(fax);
 			business.setUpdateTime(new Date());
 			businessService.save(business);
 			return new Result(Code.SUCCESS.value(), "添加成功");

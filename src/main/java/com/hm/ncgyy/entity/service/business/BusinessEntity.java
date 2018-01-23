@@ -46,19 +46,12 @@ public class BusinessEntity extends BaseEntity {
 	/** 联系电话 */
 	private String contact;
 
-	/** 邮箱 */
-	private String email;
-
-	/** 传真 */
-	private String fax;
-
 	public BusinessEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public BusinessEntity(SupplierEntity supplier, String name, String address, String overview, String content,
-			String scale, String mode, String contactUser, String contact, String email, String fax, Date createTime,
-			Date updateTime) {
+			String scale, String mode, String contactUser, String contact, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.name = name;
@@ -69,8 +62,6 @@ public class BusinessEntity extends BaseEntity {
 		this.mode = mode;
 		this.contactUser = contactUser;
 		this.contact = contact;
-		this.email = email;
-		this.fax = fax;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -145,22 +136,6 @@ public class BusinessEntity extends BaseEntity {
 
 	public void setContact(String contact) {
 		this.contact = contact;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
 	}
 
 }

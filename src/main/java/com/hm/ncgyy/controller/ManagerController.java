@@ -601,7 +601,11 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/platformBusiness")
-	String platformBusiness() {
+	String platformBusiness(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_BUSINESS);
+		modelMap.addAttribute("supplier", supplier);
+		modelMap.addAttribute("userId", user.getId());
 		return "pages/service/platform_business";
 	}
 	
