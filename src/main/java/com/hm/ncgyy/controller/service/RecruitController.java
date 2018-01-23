@@ -62,9 +62,9 @@ public class RecruitController {
 	}
 
 	@RequestMapping(value = "/api/service/talent/recruit/update", method = RequestMethod.POST)
-	public Result recruit_update(Long recruitId, String position, String profession, String salary,
-			String workingYears, String education, String responsibility, String requirement, String address,
-			String contactUser, String contact) {
+	public Result recruit_update(Long recruitId, String position, String profession, String salary, String workingYears,
+			String education, String responsibility, String requirement, String address, String contactUser,
+			String contact) {
 		try {
 			RecruitEntity recruit = recruitService.findOne(recruitId);
 			recruit.setPosition(position);
@@ -168,14 +168,14 @@ public class RecruitController {
 	 * 求职
 	 */
 	@RequestMapping(value = "/api/service/talent/job/create", method = RequestMethod.POST)
-	public Result job_create(Long userId, String name, String sex, String avatarPath, String profession,
-			String salary, String workingYears, String education, String contact, String intention,
-			String introduction, String experience) {
+	public Result job_create(Long userId, String intention, String name, String sex, Integer age, String avatar,
+			String profession, String education, String workingYears, String salary, String area, String introduction,
+			String experience, String contact) {
 		try {
 			UserBaseEntity user = userService.findOneBase(userId);
 			Date now = new Date();
-			JobEntity job = new JobEntity(user, name, sex, avatarPath, profession, salary, workingYears, education,
-					contact, intention, introduction, experience, now, now);
+			JobEntity job = new JobEntity(user, intention, name, sex, age, avatar, profession, education, workingYears,
+					salary, area, introduction, experience, contact, now, now);
 			jobService.save(job);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -185,22 +185,24 @@ public class RecruitController {
 	}
 
 	@RequestMapping(value = "/api/service/talent/job/update", method = RequestMethod.POST)
-	public Result job_update(Long jobId, String name, String sex, String avatarPath, String profession,
-			String salary, String workingYears, String education, String contact, String intention,
-			String introduction, String experience) {
+	public Result job_update(Long jobId, String intention, String name, String sex, Integer age, String avatar,
+			String profession, String education, String workingYears, String salary, String area, String introduction,
+			String experience, String contact) {
 		try {
 			JobEntity job = jobService.findOne(jobId);
+			job.setIntention(intention);
 			job.setName(name);
 			job.setSex(sex);
-			job.setAvatarPath(avatarPath);
+			job.setAge(age);
+			job.setAvatar(avatar);
 			job.setProfession(profession);
-			job.setSalary(salary);
-			job.setWorkingYears(workingYears);
 			job.setEducation(education);
-			job.setContact(contact);
-			job.setIntention(intention);
+			job.setWorkingYears(workingYears);
+			job.setSalary(salary);
+			job.setArea(area);
 			job.setIntroduction(introduction);
 			job.setExperience(experience);
+			job.setContact(contact);
 			job.setUpdateTime(new Date());
 			jobService.save(job);
 			return new Result(Code.SUCCESS.value(), "编辑成功");

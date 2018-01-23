@@ -3,6 +3,7 @@ package com.hm.ncgyy.entity.service.talent;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -36,9 +37,11 @@ public class RecruitEntity extends BaseEntity {
 	private String education;
 	
 	/** 岗位职责 */
+	@Column(length = 4000)
 	private String responsibility;
 	
 	/** 任职要求 */
+	@Column(length = 4000)
 	private String requirement;
 	
 	/** 工作地点 */

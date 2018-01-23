@@ -175,7 +175,7 @@
 					<div class="form-group">
                         <div class="col-sm-4 col-sm-offset-3">
                         	<button type="button" class="btn btn-primary btn-fw btn-supplier-submit">提交</button>
-                        	<button type="button" class="btn btn-white btn-fw">返回</button>
+                        	<button type="button" class="btn btn-white btn-fw btn-apply-back">返回</button>
                         </div>
                    </div>
 				</form>

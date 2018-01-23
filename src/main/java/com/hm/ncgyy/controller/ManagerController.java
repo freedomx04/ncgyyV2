@@ -591,6 +591,7 @@ public class ManagerController {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_TALENT);
 		modelMap.addAttribute("supplier", supplier);
+		modelMap.addAttribute("userId", user.getId());
 		
 		modelMap.addAttribute("professions", ConstantUtil.professions);
 		modelMap.addAttribute("salarys", ConstantUtil.salarys);

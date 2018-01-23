@@ -3,6 +3,7 @@ package com.hm.ncgyy.entity.service.talent;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -26,59 +27,69 @@ public class JobEntity extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private UserBaseEntity user;
 
+	/** 求职意向 */
+	private String intention;
+
 	/** 姓名 */
 	private String name;
 
 	/** 性别 */
 	private String sex;
 
+	/** 年龄 */
+	private Integer age;
+
 	/** 头像 */
-	private String avatarPath;
+	private String avatar;
 
-	/** 行业 */
+	/** 专业 */
 	private String profession;
-
-	/** 期望薪资 */
-	private String salary;
-
-	/** 工作年限 */
-	private String workingYears;
 
 	/** 学历 */
 	private String education;
 
-	/** 联系电话 */
-	private String contact;
+	/** 工作年限 */
+	private String workingYears;
 
-	/** 求职意向 */
-	private String intention;
+	/** 期望薪资 */
+	private String salary;
+
+	/** 期望地区 */
+	private String area;
 
 	/** 自我介绍 */
+	@Column(length = 4000)
 	private String introduction;
 
 	/** 工作经历 */
+	@Column(length = 4000)
 	private String experience;
+	
+	/** 联系电话 */
+	private String contact;
 
 	public JobEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public JobEntity(UserBaseEntity user, String name, String sex, String avatarPath, String profession,
-			String salary, String workingYears, String education, String contact, String intention,
-			String introduction, String experience, Date createTime, Date updateTime) {
+	public JobEntity(UserBaseEntity user, String intention, String name, String sex, Integer age, String avatar,
+			String profession, String education, String workingYears, String salary, String area, String introduction,
+			String experience, String contact, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
+		this.intention = intention;
 		this.name = name;
 		this.sex = sex;
-		this.avatarPath = avatarPath;
+		this.age = age;
+		this.avatar = avatar;
 		this.profession = profession;
-		this.salary = salary;
-		this.workingYears = workingYears;
 		this.education = education;
-		this.contact = contact;
-		this.intention = intention;
+		this.workingYears = workingYears;
+		this.salary = salary;
+		this.area = area;
 		this.introduction = introduction;
 		this.experience = experience;
+		this.contact = contact;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -89,6 +100,14 @@ public class JobEntity extends BaseEntity {
 
 	public void setUser(UserBaseEntity user) {
 		this.user = user;
+	}
+
+	public String getIntention() {
+		return intention;
+	}
+
+	public void setIntention(String intention) {
+		this.intention = intention;
 	}
 
 	public String getName() {
@@ -107,12 +126,20 @@ public class JobEntity extends BaseEntity {
 		this.sex = sex;
 	}
 
-	public String getAvatarPath() {
-		return avatarPath;
+	public Integer getAge() {
+		return age;
 	}
 
-	public void setAvatarPath(String avatarPath) {
-		this.avatarPath = avatarPath;
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getProfession() {
@@ -123,12 +150,12 @@ public class JobEntity extends BaseEntity {
 		this.profession = profession;
 	}
 
-	public String getSalary() {
-		return salary;
+	public String getEducation() {
+		return education;
 	}
 
-	public void setSalary(String salary) {
-		this.salary = salary;
+	public void setEducation(String education) {
+		this.education = education;
 	}
 
 	public String getWorkingYears() {
@@ -139,12 +166,20 @@ public class JobEntity extends BaseEntity {
 		this.workingYears = workingYears;
 	}
 
-	public String getEducation() {
-		return education;
+	public String getSalary() {
+		return salary;
 	}
 
-	public void setEducation(String education) {
-		this.education = education;
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 	public String getContact() {
@@ -153,14 +188,6 @@ public class JobEntity extends BaseEntity {
 
 	public void setContact(String contact) {
 		this.contact = contact;
-	}
-
-	public String getIntention() {
-		return intention;
-	}
-
-	public void setIntention(String intention) {
-		this.intention = intention;
 	}
 
 	public String getIntroduction() {
