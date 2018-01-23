@@ -13,24 +13,24 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
 @Table(name = "service_logistics_line")
-public class LogisticsLineEntity extends BaseEntity {
+public class LineEntity extends BaseEntity {
 	
 	/** 物流供应商 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "supplier_id")
 	private SupplierEntity supplier;
 	
-	/** 始发地 */
+	/** 发货地 */
 	private String origin;
 	
-	/** 目的地 */
+	/** 收货地*/
 	private String destination;
 	
 	/** 运输方式 */
-	private Integer transportMode;
+	private String transportMode;
 	
 	/** 参考时效 */
-	private Integer aging;
+	private String aging;
 	
 	/** 重货单价（公斤） */
 	private Double heavyPrice;
@@ -41,12 +41,12 @@ public class LogisticsLineEntity extends BaseEntity {
 	/** 最低一票 */
 	private Double lowest;
 	
-	public LogisticsLineEntity() {
+	public LineEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LogisticsLineEntity(SupplierEntity supplier, String origin, String destination, Integer transportMode,
-			Integer aging, Double heavyPrice, Double lightPrice, Double lowest, Date createTime, Date updateTime) {
+	public LineEntity(SupplierEntity supplier, String origin, String destination, String transportMode,
+			String aging, Double heavyPrice, Double lightPrice, Double lowest, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.origin = origin;
@@ -84,19 +84,19 @@ public class LogisticsLineEntity extends BaseEntity {
 		this.destination = destination;
 	}
 
-	public Integer getTransportMode() {
+	public String getTransportMode() {
 		return transportMode;
 	}
 
-	public void setTransportMode(Integer transportMode) {
+	public void setTransportMode(String transportMode) {
 		this.transportMode = transportMode;
 	}
 
-	public Integer getAging() {
+	public String getAging() {
 		return aging;
 	}
 
-	public void setAging(Integer aging) {
+	public void setAging(String aging) {
 		this.aging = aging;
 	}
 

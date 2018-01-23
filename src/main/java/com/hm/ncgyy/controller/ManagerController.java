@@ -624,7 +624,13 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/platformLogistics")
-	String platformLogistics() {
+	String platformLogistics(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_LOGISITCS);
+		modelMap.addAttribute("supplier", supplier);
+		modelMap.addAttribute("userId", user.getId());
+		
+		modelMap.addAttribute("transportModes", ConstantUtil.transportModes);
 		return "pages/service/platform_logistics";
 	}
 	

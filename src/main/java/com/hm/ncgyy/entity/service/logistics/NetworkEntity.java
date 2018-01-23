@@ -13,7 +13,7 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
 @Table(name = "service_logistics_network")
-public class LogisticsNetworkEntity extends BaseEntity {
+public class NetworkEntity extends BaseEntity {
 
 	/** 物流供应商 */
 	@OneToOne(cascade = CascadeType.PERSIST)
@@ -32,11 +32,11 @@ public class LogisticsNetworkEntity extends BaseEntity {
 	/** 业务内容 */
 	private String business;
 	
-	public LogisticsNetworkEntity() {
+	public NetworkEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LogisticsNetworkEntity(SupplierEntity supplier, String name, String address, String contact,
+	public NetworkEntity(SupplierEntity supplier, String name, String address, String contact,
 			String business, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;

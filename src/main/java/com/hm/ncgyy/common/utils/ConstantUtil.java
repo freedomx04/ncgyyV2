@@ -38,7 +38,4 @@ public class ConstantUtil {
 	/** 运输方式 */
 	public static String[] transportModes = { "公路运输", "铁路运输", "水路运输", "航空运输", "管道运输", "国际多式联运" };
 
-	/** 货源类型 */
-	public static String[] supplyTypes = { "重货", "轻货" };
-
 }

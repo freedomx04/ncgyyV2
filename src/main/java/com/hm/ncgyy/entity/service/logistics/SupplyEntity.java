@@ -13,13 +13,7 @@ import com.hm.ncgyy.entity.authority.UserBaseEntity;
 
 @Entity
 @Table(name = "service_logistics_supply")
-public class LogisticsSupplyEntity extends BaseEntity {
-
-	/** 货源分类 */
-	public class SupplyType {
-		public static final int SUPPLY_HEAVY = 0; // 重货
-		public static final int SUPPLY_LIGHT = 1; // 轻货
-	}
+public class SupplyEntity extends BaseEntity {
 
 	/** 用户 */
 	@OneToOne(cascade = CascadeType.PERSIST)
@@ -36,10 +30,7 @@ public class LogisticsSupplyEntity extends BaseEntity {
 	private String description;
 
 	/** 货源类型 */
-	private Integer supplyType;
-
-	/** 有效时间 */
-	private Date validDate;
+	private String supplyType;
 
 	/** 备注 */
 	private String remark;
@@ -53,20 +44,18 @@ public class LogisticsSupplyEntity extends BaseEntity {
 	/** 具体地点 */
 	private String address;
 
-	public LogisticsSupplyEntity() {
+	public SupplyEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LogisticsSupplyEntity(UserBaseEntity user, String origin, String destination, String description,
-			Integer supplyType, Date validDate, String remark, String contactUser, String contact, String address,
-			Date createTime, Date updateTime) {
+	public SupplyEntity(UserBaseEntity user, String origin, String destination, String description, String supplyType,
+			String remark, String contactUser, String contact, String address, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
 		this.origin = origin;
 		this.destination = destination;
 		this.description = description;
 		this.supplyType = supplyType;
-		this.validDate = validDate;
 		this.remark = remark;
 		this.contactUser = contactUser;
 		this.contact = contact;
@@ -107,20 +96,12 @@ public class LogisticsSupplyEntity extends BaseEntity {
 		this.description = description;
 	}
 
-	public Integer getSupplyType() {
+	public String getSupplyType() {
 		return supplyType;
 	}
 
-	public void setSupplyType(Integer supplyType) {
+	public void setSupplyType(String supplyType) {
 		this.supplyType = supplyType;
-	}
-
-	public Date getValidDate() {
-		return validDate;
-	}
-
-	public void setValidDate(Date validDate) {
-		this.validDate = validDate;
 	}
 
 	public String getRemark() {
