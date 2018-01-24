@@ -34,14 +34,14 @@ ul .current {
 <header class="header white-bg">
 	<div class="container header-info">
 		<div class="logo pull-left">
-			<a href="#">
+			<a href="${ctx}/service/talent">
 				<img src="${ctx}/img/service-logo.png">
 			</a>
 		</div>
 		<div class="nav">
 			<ul class="service-type">
 				<li>
-					<a class="service-talent" href="${ctx}/service/talent">人才服务</a>
+					<a class="service-talent" href="${ctx}/service/talent">用工服务</a>
 				</li>
 				<li>
 					<a class="service-business" href="${ctx}/service/business">招商服务</a>
@@ -53,6 +53,11 @@ ul .current {
 					<a class="service-logistics" href="${ctx}/service/logistics">物流服务</a>
 				</li>
 			</ul>
+		</div>
+		<div class="pull-right" style="padding: 30px 0;">
+			<div>
+				<a href="${ctx}/index">园区首页</a>
+			</div>
 		</div>
 	</div>
 </header>
