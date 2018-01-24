@@ -21,6 +21,9 @@ public class DemandEntity extends BaseEntity {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "enterprise_id")
 	private EnterpriseBaseEntity enterprise;
+	
+	/** 需求标题 */
+	private String title;
 
 	/** 需求内容 */
 	@Column(length = 16777216)
@@ -30,9 +33,10 @@ public class DemandEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DemandEntity(EnterpriseBaseEntity enterprise, String content, Date createTime, Date updateTime) {
+	public DemandEntity(EnterpriseBaseEntity enterprise, String title, String content, Date createTime, Date updateTime) {
 		super();
 		this.enterprise = enterprise;
+		this.title = title;
 		this.content = content;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -44,6 +48,14 @@ public class DemandEntity extends BaseEntity {
 
 	public void setEnterprise(EnterpriseBaseEntity enterprise) {
 		this.enterprise = enterprise;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {

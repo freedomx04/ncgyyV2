@@ -39,19 +39,16 @@
  				<div class="tabs-container">
 					<ul class="nav nav-tabs nav-tabs-line">
 						<li class="active">
-                        	<a data-toggle="tab" href="#enterprise-tab-info" data-option="enterprise" aria-expanded="true">
-                        		<i class="fa fa-briefcase"></i>企业信息
-                        	</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-info" data-option="enterprise" aria-expanded="true">企业信息</a>
                     	</li>
                     	<li>
-                        	<a data-toggle="tab" href="#enterprise-tab-product" data-option="product" aria-expanded="true">
-                        		<i class="fa fa-gift"></i>企业产品
-                        	</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-product" data-option="product" aria-expanded="true">企业产品</a>
                     	</li>
                     	<li>
-                        	<a data-toggle="tab" href="#enterprise-tab-news" data-option="news" aria-expanded="true">
-                        		<i class="fa fa-newspaper-o"></i>企业新闻
-                        	</a>
+                        	<a data-toggle="tab" href="#enterprise-tab-news" data-option="news" aria-expanded="true">企业新闻</a>
+                    	</li>
+                    	<li>
+                    		<a data-toggle="tab" href="#enterprise-tab-demand" data-option="news" aria-expanded="true">信息化服务</a>
                     	</li>
 					</ul> 
 					<div class="tab-content">
@@ -218,8 +215,8 @@
 									<button type="button" class="btn btn-white btn-product-add">
 				                        <i class="fa fa-plus fa-fw"></i>新增
 				                    </button>
-				                    <button type="button" class="btn btn-white btn-product-delete-batch" disabled='disabled'>
-				                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+				                    <button type="button" class="btn btn-danger btn-product-delete-batch" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>
 								</div>
 								<table id="product-list-table" class="table-hm" data-mobile-responsive="true"></table>
@@ -232,11 +229,25 @@
 									<button type="button" class="btn btn-white btn-news-add">
 				                        <i class="fa fa-plus fa-fw"></i>新增
 				                    </button>
-				                    <button type="button" class="btn btn-white btn-news-delete-batch" disabled='disabled'>
-				                        <i class="fa fa-trash-o fa-fw"></i>批量删除
+				                    <button type="button" class="btn btn-danger btn-news-delete-batch" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>
 								</div>
 								<table id="news-list-table" class="table-hm" data-mobile-responsive="true"></table>
+							</div>
+						</div>
+						
+						<div id="enterprise-tab-demand" class="tab-pane">
+							<div class="panel-body">
+								<div class="btn-group hidden-xs" id="demand-list-table-toolbar" role="group">
+									<button type="button" class="btn btn-white btn-demand-add">
+				                        <i class="fa fa-plus fa-fw"></i>新增
+				                    </button>
+				                    <button type="button" class="btn btn-danger btn-demand-delete-batch" disabled='disabled'>
+				                        <i class="fa fa-trash-o fa-fw"></i>删除
+				                    </button>
+								</div>
+								<table id="demand-list-table" class="table-hm" data-mobile-responsive="true"></table>
 							</div>
 						</div>
 					</div>
@@ -294,7 +305,6 @@
 				</div>
 			</div>
 		</div>
-	
 	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
@@ -472,10 +482,86 @@
                 }
             }]
 		});
-		
 		$newsTable.on('all.bs.table', function(e, row) {
             var selNum = $newsTable.bootstrapTable('getSelections').length;
             selNum > 0 ? $page.find('.btn-news-delete-batch').removeAttr('disabled') : $page.find('.btn-news-delete-batch').attr('disabled', 'disabled');
+        });
+		
+		// demand
+		var $demandTable = $k.util.bsTable($page.find('#demand-list-table'), {
+			url: '${ctx}/api/enterprise/demand/listByEnterpriseId?enterpriseId=${enterprise.id}',
+			toolbar: '#demand-list-table-toolbar',
+			idField: 'id',
+			responseHandler: function(res) {
+                return res.data;
+            },
+            columns: [{
+            	field: 'state',
+            	checkbox: true
+            }, {
+            	field: 'title',
+            	title: '服务标题',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-demand-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+            		'click .btn-demand-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			window.location.href = './demandGet?demandId=' + row.id;
+            		}
+            	}
+            }, {
+            	field: 'updateTime',
+            	title: '修改时间',
+            	align: 'center',
+            	formatter: formatDate2
+            }, {
+            	title: '操作',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+                    return '<a class="btn-demand-edit a-operate">编辑</a><a class="btn-demand-delete a-operate">删除</a>';
+                },
+                events: window.operateEvents = {
+                	'click .btn-demand-edit': function(e, value, row, index) {
+                		e.stopPropagation();
+                		window.location.href= './demandAdd?method=edit&demandId=' + row.id;
+                	},
+                	'click .btn-demand-delete': function(e, value, row, index) {
+                		e.stopPropagation();
+                		swal({
+							title: '',
+							text: '确定删除选中记录',
+							type: 'warning',
+							showCancelButton: true,
+							cancelButtonText: '取消',
+							confirmButtonColor: '#DD6B55',
+							confirmButtonText: '确定',
+							closeOnConfirm: false
+						}, function() {
+							$.ajax({
+								url: '${ctx}/api/enterprise/demand/delete',
+								data: { 
+									demandId: row.id
+								},
+								success: function(ret) {
+									if (ret.code == '0') {
+										swal('', '删除成功!', 'success');
+									} else {
+										swal('', ret.msg, 'error');
+									}
+									$demandTable.bootstrapTable('refresh'); 
+								},
+								error: function(err) {}
+							});
+						});
+                	}
+                }
+            }]
+		});
+		$demandTable.on('all.bs.table', function(e, row) {
+            var selNum = $demandTable.bootstrapTable('getSelections').length;
+            selNum > 0 ? $page.find('.btn-demand-delete-batch').removeAttr('disabled') : $page.find('.btn-demand-delete-batch').attr('disabled', 'disabled');
         });
 		
 		// enterprise
@@ -620,6 +706,38 @@
 							swal('', ret.msg, 'error');
 						}
 						$newsTable.bootstrapTable('refresh');
+					},
+					error: function(err) {}
+				});
+			});
+		})
+		.on('click', '.btn-demand-add', function() {
+			window.location.href = './demandAdd?method=add&enterpriseId=${enterprise.id}';
+		})
+		.on('click', '.btn-demand-delete-batch', function() {
+			swal({
+				title: '',
+				text: '确定批量删除选中记录',
+				type: 'warning',
+				showCancelButton: true,
+				cancelButtonText: '取消',
+				confirmButtonColor: '#DD6B55',
+				confirmButtonText: '确定',
+				closeOnConfirm: false
+			}, function() {
+				var rows = $demandTable.bootstrapTable('getSelections');
+				$.ajax({
+					url: '${ctx}/api/enterprise/demand/batchDelete',
+					data: {
+						demandIdList: $k.util.getIdList(rows) 
+					},
+					success: function(ret) {
+						if (ret.code == '0') {
+							swal('', '删除成功!', 'success');
+						} else {
+							swal('', ret.msg, 'error');
+						}
+						$demandTable.bootstrapTable('refresh');
 					},
 					error: function(err) {}
 				});

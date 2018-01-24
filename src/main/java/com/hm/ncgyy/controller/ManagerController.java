@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.authority.DemandEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
@@ -37,6 +38,7 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
+import com.hm.ncgyy.service.authority.DemandService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.LoginService;
@@ -90,6 +92,9 @@ public class ManagerController {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@Autowired
+	DemandService demandService;
 	
 	@Autowired
 	VersionService versionService;
@@ -322,6 +327,27 @@ public class ManagerController {
 		modelMap.addAttribute("news", news);
 		
 		return "pages/authority/news_get";
+	}
+	
+	@RequestMapping(value = "/demandAdd")
+	String demandAdd(ModelMap modelMap, String method, Long demandId, Long enterpriseId) throws IOException {
+		String title = method.equals("add") ? "服务新增" : "服务编辑";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("enterpriseId", enterpriseId);
+		
+		if (demandId != null) {
+			DemandEntity demand = demandService.findOne(demandId);
+			modelMap.addAttribute("demand", demand);
+		}
+		return "pages/authority/demand_add";
+	}
+	
+	@RequestMapping(value = "/demandGet")
+	String demandGet(ModelMap modelMap, Long demandId) throws IOException {
+		DemandEntity demand = demandService.findOne(demandId);
+		modelMap.addAttribute("demand", demand);
+		return "pages/authority/demand_get";
 	}
 	
 	@RequestMapping(value = "/department")
