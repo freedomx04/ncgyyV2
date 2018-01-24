@@ -160,7 +160,7 @@
 				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>
 				                </div>
-				                <table id="supply-list-table" class="table-hm table-fixed" data-mobile-responsive="true"></table>
+				                <table id="supply-list-table" class="table-hm" data-mobile-responsive="true"></table>
 							</div>
 						</div>
 					</div>
@@ -180,14 +180,14 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="form-line" autocomplete="off">
                     	<div class="form-group">
-                            <label for=origin class="col-sm-3 control-label"><i class="form-required">*</i>发货地</label>
+                            <label for="origin" class="col-sm-3 control-label"><i class="form-required">*</i>发货地</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control citypicker" name="origin">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for=destination class="col-sm-3 control-label"><i class="form-required">*</i>收货地</label>
+                            <label for="destination" class="col-sm-3 control-label"><i class="form-required">*</i>收货地</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control citypicker" name="destination">
                             </div>
@@ -318,6 +318,107 @@
 	</div>
 	
 	<!-- 货源 -->
+	<div class="modal" id="modal-supply-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-center">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">网点信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" id="form-supply" autocomplete="off">
+                       <div class="form-group">
+                            <label for="origin" class="col-sm-3 control-label"><i class="form-required">*</i>发货地</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control citypicker" name="origin">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="destination" class="col-sm-3 control-label"><i class="form-required">*</i>收货地</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control citypicker" name="destination">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="supplyType" class="col-sm-3 control-label"><i class="form-required">*</i>货源类型</label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="supplyType" required>
+                               		<option value="">请选择货源类型</option>
+									<option value="重货">重货</option>
+									<option value="轻货">轻货</option>
+								</select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>货源描述</label>
+                        	<div class="col-sm-7">
+                                <textarea class="form-control" name="description" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label for="remark" class="col-sm-3 control-label"><i class="form-required">*</i>备注</label>
+                        	<div class="col-sm-7">
+                                <textarea class="form-control" name="remark" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label for="contactUser" class="col-sm-3 control-label"><i class="form-required">*</i>联系人</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="contactUser" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact" class="col-sm-3 control-label"><i class="form-required">*</i>联系电话</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="contact" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address" class="col-sm-3 control-label"><i class="form-required">*</i>具体地点</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="address" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <div class="modal" id="modal-supply-detail-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-center">
+			<div class="modal-content animated fadeInDown">
+				<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">货源信息</h4>
+                </div>
+                <div class="modal-body">
+                	<dl class="dl-horizontal dl-detail">
+                		<dt>发货地</dt><dd data-name="origin"></dd>
+                		<dt>收货地</dt><dd data-name="destination"></dd>
+                		<dt>货源类型</dt><dd data-name="supplyType"></dd>
+                		<dt>货源描述</dt><dd data-name="description"></dd>
+                		<dt>备注</dt><dd data-name="remark"></dd>
+                		<dt>联系人</dt><dd data-name="contactUser"></dd>
+                		<dt>联系电话</dt><dd data-name="contact"></dd>
+                		<dt>具体地点</dt><dd data-name="address"></dd>
+                	</dl>
+                </div>
+			</div>
+		</div>
+	</div>
 	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -368,16 +469,25 @@
 	            	title: '运输方式',
 	            }, {
 	            	field: 'aging',
-	            	title: '参考时效',
+	            	title: '参考时效'
 	            }, {
 	            	field: 'heavyPrice',
 	            	title: '重货单价',
+	            	formatter: function(value, row, index) {
+	            		return value + ' 元/公斤';
+	            	}
 	            }, {
 	            	field: 'lightPrice',
-	            	title: '轻货单价'
+	            	title: '轻货单价',
+	            	formatter: function(value, row, index) {
+	            		return value + ' 元/立方';
+	            	}
 	            }, {
 	            	field: 'lowest',
-	            	title: '最低一票'
+	            	title: '最低一票',
+	            	formatter: function(value, row, index) {
+	            		return value + ' 元';
+	            	}
 	            }, {
 	            	title: '操作',
 	            	align: 'center',
@@ -651,6 +761,185 @@
 		}
 		
 		// 货源
+		var $supplyTable = $('#supply-list-table');
+		var $supplyDialog = $('#modal-supply-dialog');
+		var $supplyDetailDialog = $('#modal-supply-detail-dialog');
+		var $supplyForm = $('#form-supply');
+		$k.util.bsValidator($supplyForm);
+			
+		var $supplyTable = $k.util.bsTable($page.find('#supply-list-table'), {
+			url: '${ctx}/api/service/logistics/supply/listByUserId?userId=' + userId,
+			toolbar: '#supply-list-table-toolbar',
+			idField: 'id',
+			responseHandler: function(res) {
+                return res.data;
+            },
+            columns:[{
+            	field: 'state',
+            	checkbox: true
+            }, {
+            	field: 'origin',
+            	title: '发货地',
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-supply-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+               		'click .btn-supply-detail': function(e, value, row, index) {
+               			e.stopPropagation();
+               			$.each(row, function(key, val) {
+               				$supplyDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+               			});
+               			$supplyDetailDialog.modal('show');
+               		}
+               	}
+            }, {
+            	field: 'destination',
+            	title: '收货地',
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-supply-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+            		'click .btn-supply-detail': function(e, value, row, index) {
+            			e.stopPropagation();
+            			$.each(row, function(key, val) {
+            				$supplyDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+            			});
+            			$supplyDetailDialog.modal('show');
+            		}
+            	}
+            }, {
+            	field: 'supplyType',
+            	title: '货源类型',
+            	align: 'center'
+            }, {
+            	field: 'contactUser',
+            	title: '联系人'
+            }, {
+            	field: 'contact',
+            	title: '联系电话'
+            }, {
+            	title: '操作',
+            	align: 'center',
+            	formatter: function(value, row, index) {
+            		var $edit = '<a class="btn-supply-edit a-operate">编辑</a>';
+            		var $delete = '<a class="btn-supply-delete a-operate">删除</a>';
+            		return $edit + $delete;
+            	},
+            	events: window.operateEvents = {
+            		'click .btn-supply-edit': function(e, value, row, index) {
+            			e.stopPropagation();
+            			$.each(row, function(key, val) {
+            				if (key == 'origin') {
+            					initCityPicker($supplyForm.find('input[name="origin"]'), val);
+            				} else if (key == 'destination') {
+            					initCityPicker($supplyForm.find('input[name="destination"]'), val);
+            				} else {
+            					$supplyForm.find('input[name="' + key + '"]').val(val);
+	            				$supplyForm.find('select[name="' + key + '"]').val(val);
+	            				$supplyForm.find('textarea[name="' + key + '"]').val(val);
+            				}
+            			});
+            			$supplyDialog.data('method', 'edit');
+           				$supplyDialog.data('supplyId', row.id);
+            			$supplyDialog.modal('show');
+            		},
+            		'click .btn-supply-delete': function(e, value, row, index) {
+            			e.stopPropagation();
+            			swal({
+            				title: '',
+            				text: '确定删除选中记录?',
+            				type: 'warning',
+            				showCancelButton: true,
+                            cancelButtonText: '取消',
+                            confirmButtonColor: '#DD6B55',
+                            confirmButtonText: '确定',
+            			}, function() {
+            				$.ajax({
+            					url: '${ctx}/api/service/logistics/supply/delete',
+            					data: {
+            						supplyId: row.id
+            					},
+            					success: function(ret) {
+            						 if (ret.code == 0) {
+           	                        	toastr['success'](ret.msg);
+           		                		$supplyTable.bootstrapTable('refresh'); 
+           							} else {
+           								toastr['error'](ret.msg);
+           	                        }
+            					},
+            					error: function(err) {}
+            				});
+            			});
+            		}
+            	}
+            }]
+		});
+		$supplyTable.on('all.bs.table', function(e, row) {
+            var selNum = $supplyTable.bootstrapTable('getSelections').length;
+            selNum > 0 ? $page.find('.btn-supply-delete-batch').removeAttr('disabled') : $page.find('.btn-supply-delete-batch').attr('disabled', 'disabled');
+        });
+			
+		$supplyDialog.on('click', '.btn-confirm', function() {
+			var origin = $supplyForm.find('input[name="origin"]').citypicker().val();
+			if (!origin) {
+				toastr['error']('请选择发货地!');
+				return;
+			}
+			var destination = $supplyForm.find('input[name="destination"]').citypicker().val();
+			if (!destination) {
+				toastr['error']('请选择收货地!');
+				return;
+			}
+			
+			var validator = $supplyForm.data('bootstrapValidator');
+            validator.validate();
+            
+            if (validator.isValid()) {
+            	var formData = new FormData($supplyForm[0]); 
+           		var method = $supplyDialog.data('method');
+           		if (method == 'add') {
+           			formData.append('userId', userId);
+           			$.ajax({
+   					    url: '${ctx}/api/service/logistics/supply/create',
+   		            	type: 'post',
+   		            	data: formData,
+   		        		processData: false,
+   		                contentType: false,
+   		                cache: false, 
+   		                success: function(ret) {
+   		                	if (ret.code == 0) {
+   		                		$supplyDialog.modal('hide');
+   		                		toastr['success'](ret.msg);
+   		                		$supplyTable.bootstrapTable('refresh'); 
+   		                	} else {
+   		                		toastr['error'](ret.msg);
+   		                	}
+   		                },
+   		                error: function(err) {}
+   		            });
+           		} else {
+           			formData.append('supplyId', $supplyDialog.data('supplyId'));
+           			$.ajax({
+   					    url: '${ctx}/api/service/logistics/supply/update',
+   		            	type: 'post',
+   		            	data: formData,
+   		        		processData: false,
+   		                contentType: false,
+   		                cache: false, 
+   		                success: function(ret) {
+   		                	if (ret.code == 0) {
+   		                		$supplyDialog.modal('hide');
+   		                		toastr['success'](ret.msg);
+   		                		$supplyTable.bootstrapTable('refresh'); 
+   		                	} else {
+   		                		toastr['error'](ret.msg);
+   		                	}
+   		                },
+   		                error: function(err) {}
+   		            });
+           		}
+            }
+		});
 		
 		$page
 		.on('click', '.btn-logistics-supplier', function() {
@@ -724,6 +1013,45 @@
                         if (ret.code == 0) {
                         	toastr['success'](ret.msg);
 	                		$networkTable.bootstrapTable('refresh'); 
+						} else {
+							toastr['error'](ret.msg);
+                        }
+                    },
+                    error: function(err) {}
+                });
+            });
+        })
+        // 货源
+        .on('click', '.btn-supply-add', function() {
+			$supplyDialog.data('method', 'add');
+			$supplyDialog.find('.citypicker').citypicker();
+			$supplyDialog.modal('show');
+		})
+		.on('hidden.bs.modal', '#modal-supply-dialog', function() {
+            $supplyForm.bootstrapValidator('resetForm', true);
+            $(this).removeData('bs.modal');
+            $supplyDialog.find('.citypicker').citypicker('reset');
+        })
+        .on('click', '.btn-supply-delete-batch', function() {
+            swal({
+                title: '',
+                text: '确定批量删除选中记录',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '确定',
+            }, function() {
+                var rows = $supplyTable.bootstrapTable('getSelections');
+                $.ajax({
+                    url: '${ctx}/api/service/logistics/supply/deleteBatch',
+                    data: { 
+                    	supplyIdList: $k.util.getIdList(rows) 
+                    },
+                    success: function(ret) {
+                        if (ret.code == 0) {
+                        	toastr['success'](ret.msg);
+	                		$supplyTable.bootstrapTable('refresh'); 
 						} else {
 							toastr['error'](ret.msg);
                         }

@@ -256,12 +256,12 @@ public class LogisticsController {
 	 * 货源
 	 */
 	@RequestMapping(value = "/api/service/logistics/supply/create", method = RequestMethod.POST)
-	public Result supply_create(Long userId, String origin, String destination, String description, String supplyType,
+	public Result supply_create(Long userId, String origin, String destination, String supplyType, String description,
 			String remark, String contactUser, String contact, String address) {
 		try {
 			UserBaseEntity user = userService.findOneBase(userId);
 			Date now = new Date();
-			SupplyEntity supply = new SupplyEntity(user, origin, destination, description, supplyType, remark,
+			SupplyEntity supply = new SupplyEntity(user, origin, destination, supplyType, description, remark,
 					contactUser, contact, address, now, now);
 			supplyService.save(supply);
 			return new Result(Code.SUCCESS.value(), "添加成功");
@@ -272,14 +272,14 @@ public class LogisticsController {
 	}
 
 	@RequestMapping(value = "/api/service/logistics/supply/update", method = RequestMethod.POST)
-	public Result supply_update(Long supplyId, String origin, String destination, String description, String supplyType,
+	public Result supply_update(Long supplyId, String origin, String destination, String supplyType, String description,
 			String remark, String contactUser, String contact, String address) {
 		try {
 			SupplyEntity supply = supplyService.findOne(supplyId);
 			supply.setOrigin(origin);
 			supply.setDestination(destination);
-			supply.setDescription(description);
 			supply.setSupplyType(supplyType);
+			supply.setDescription(description);
 			supply.setRemark(remark);
 			supply.setContactUser(contactUser);
 			supply.setContact(contact);

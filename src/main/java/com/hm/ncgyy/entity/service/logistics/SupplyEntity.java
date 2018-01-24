@@ -3,6 +3,7 @@ package com.hm.ncgyy.entity.service.logistics;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -26,13 +27,15 @@ public class SupplyEntity extends BaseEntity {
 	/** 收货地 */
 	private String destination;
 
-	/** 货源描述 */
-	private String description;
-
 	/** 货源类型 */
 	private String supplyType;
 
+	/** 货源描述 */
+	@Column(length = 4000)
+	private String description;
+
 	/** 备注 */
+	@Column(length = 2000)
 	private String remark;
 
 	/** 联系人 */
@@ -48,14 +51,14 @@ public class SupplyEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SupplyEntity(UserBaseEntity user, String origin, String destination, String description, String supplyType,
+	public SupplyEntity(UserBaseEntity user, String origin, String destination, String supplyType, String description,
 			String remark, String contactUser, String contact, String address, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
 		this.origin = origin;
 		this.destination = destination;
-		this.description = description;
 		this.supplyType = supplyType;
+		this.description = description;
 		this.remark = remark;
 		this.contactUser = contactUser;
 		this.contact = contact;
