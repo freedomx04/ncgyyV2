@@ -28,7 +28,7 @@ public class FinancingEntity extends BaseEntity {
 	private String profession;
 
 	/** 融资用途 */
-	private String prupose;
+	private String purpose;
 
 	/** 融资金额 */
 	private String amount;
@@ -54,14 +54,14 @@ public class FinancingEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FinancingEntity(SupplierEntity supplier, String title, String profession, String prupose, String amount,
+	public FinancingEntity(SupplierEntity supplier, String title, String profession, String purpose, String amount,
 			String financingType, String description, String advantage, String contactUser, String contact,
 			Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.title = title;
 		this.profession = profession;
-		this.prupose = prupose;
+		this.purpose = purpose;
 		this.amount = amount;
 		this.financingType = financingType;
 		this.description = description;
@@ -96,12 +96,12 @@ public class FinancingEntity extends BaseEntity {
 		this.profession = profession;
 	}
 
-	public String getPrupose() {
-		return prupose;
+	public String getPurpose() {
+		return purpose;
 	}
 
-	public void setPrupose(String prupose) {
-		this.prupose = prupose;
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
 	public String getAmount() {

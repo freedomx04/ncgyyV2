@@ -41,12 +41,18 @@ public class LineEntity extends BaseEntity {
 	/** 最低一票 */
 	private Double lowest;
 	
+	/** 联系人 */
+	private String contactUser;
+
+	/** 联系电话 */
+	private String contact;
+	
 	public LineEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public LineEntity(SupplierEntity supplier, String origin, String destination, String transportMode,
-			String aging, Double heavyPrice, Double lightPrice, Double lowest, Date createTime, Date updateTime) {
+			String aging, Double heavyPrice, Double lightPrice, Double lowest, String contactUser, String contact, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.origin = origin;
@@ -56,6 +62,8 @@ public class LineEntity extends BaseEntity {
 		this.heavyPrice = heavyPrice;
 		this.lightPrice = lightPrice;
 		this.lowest = lowest;
+		this.contactUser = contactUser;
+		this.contact = contact;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -122,6 +130,22 @@ public class LineEntity extends BaseEntity {
 
 	public void setLowest(Double lowest) {
 		this.lowest = lowest;
+	}
+
+	public String getContactUser() {
+		return contactUser;
+	}
+
+	public void setContactUser(String contactUser) {
+		this.contactUser = contactUser;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 	
 }

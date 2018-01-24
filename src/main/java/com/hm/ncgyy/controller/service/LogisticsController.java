@@ -151,12 +151,12 @@ public class LogisticsController {
 	 */
 	@RequestMapping(value = "/api/service/logistics/line/create", method = RequestMethod.POST)
 	public Result line_create(Long supplierId, String origin, String destination, String transportMode, String aging,
-			Double heavyPrice, Double lightPrice, Double lowest) {
+			Double heavyPrice, Double lightPrice, Double lowest, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
 			LineEntity line = new LineEntity(supplier, origin, destination, transportMode, aging, heavyPrice,
-					lightPrice, lowest, now, now);
+					lightPrice, lowest, contactUser, contact, now, now);
 			lineService.save(line);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -167,7 +167,7 @@ public class LogisticsController {
 
 	@RequestMapping(value = "/api/service/logistics/line/update", method = RequestMethod.POST)
 	public Result line_update(Long lineId, String origin, String destination, String transportMode, String aging,
-			Double heavyPrice, Double lightPrice, Double lowest) {
+			Double heavyPrice, Double lightPrice, Double lowest, String contactUser, String contact) {
 		try {
 			LineEntity line = lineService.findOne(lineId);
 			line.setOrigin(origin);
@@ -177,6 +177,8 @@ public class LogisticsController {
 			line.setHeavyPrice(heavyPrice);
 			line.setLightPrice(lightPrice);
 			line.setLowest(lowest);
+			line.setContactUser(contactUser);
+			line.setContact(contact);
 			line.setUpdateTime(new Date());
 			lineService.save(line);
 			return new Result(Code.SUCCESS.value(), "编辑成功");

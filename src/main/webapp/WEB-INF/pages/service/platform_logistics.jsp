@@ -241,6 +241,21 @@
                             	</div>
                             </div>
                         </div>
+                        
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label for="contactUser" class="col-sm-3 control-label"><i class="form-required">*</i>联系人</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="contactUser" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact" class="col-sm-3 control-label"><i class="form-required">*</i>联系电话</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="contact" required>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -250,6 +265,30 @@
             </div>
         </div>
     </div>
+    
+    <div class="modal" id="modal-line-detail-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-center">
+			<div class="modal-content animated fadeInDown">
+				<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">线路信息</h4>
+                </div>
+                <div class="modal-body">
+                	<dl class="dl-horizontal dl-detail">
+                		<dt>发货地</dt><dd data-name="origin"></dd>
+                		<dt>收货地</dt><dd data-name="destination"></dd>
+                		<dt>运输方式</dt><dd data-name="transportMode"></dd>
+                		<dt>参考时效</dt><dd data-name="aging"></dd>
+                		<dt>重货单价</dt><dd data-name="heavyPrice"></dd>
+                		<dt>轻货单价</dt><dd data-name="lightPrice"></dd>
+                		<dt>最低一票</dt><dd data-name="lowest"></dd>
+                		<dt>联系人</dt><dd data-name="contactUser"></dd>
+                		<dt>联系电话</dt><dd data-name="contact"></dd>
+                	</dl>
+                </div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- 网点 -->
 	<div class="modal" id="modal-network-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -461,9 +500,49 @@
 	            }, {
 	            	field: 'origin',
 	            	title: '发货地',
+	            	formatter: function(value, row, index) {
+	            		return '<a class="btn-line-detail">' + value + '</a>';
+	            	},
+	            	events: window.operateEvents = {
+	               		'click .btn-line-detail': function(e, value, row, index) {
+	               			e.stopPropagation();
+	               			$.each(row, function(key, val) {
+	               				if (key == 'heavyPrice') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元/公斤');
+	               				} else if (key == 'lightPrice') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元/立方');
+	               				} else if (key == 'lowest') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元');
+	               				} else {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+	               				}
+	               			});
+	               			$lineDetailDialog.modal('show');
+	               		}
+	               	}
 	            }, {
 	            	field: 'destination',
 	            	title: '收货地',
+	            	formatter: function(value, row, index) {
+	            		return '<a class="btn-line-detail">' + value + '</a>';
+	            	},
+	            	events: window.operateEvents = {
+	               		'click .btn-line-detail': function(e, value, row, index) {
+	               			e.stopPropagation();
+	               			$.each(row, function(key, val) {
+	               				if (key == 'heavyPrice') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元/公斤');
+	               				} else if (key == 'lightPrice') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元/立方');
+	               				} else if (key == 'lowest') {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val + ' 元');
+	               				} else {
+	               					$lineDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+	               				}
+	               			});
+	               			$lineDetailDialog.modal('show');
+	               		}
+	               	}
 	            }, {
 	            	field: 'transportMode',
 	            	title: '运输方式',

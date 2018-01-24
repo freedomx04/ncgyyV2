@@ -40,12 +40,12 @@ public class FinancingController {
 	 * 融资
 	 */
 	@RequestMapping(value = "/api/service/financing/financing/create", method = RequestMethod.POST)
-	public Result financing_create(Long supplierId, String title, String profession, String prupose, String amount,
+	public Result financing_create(Long supplierId, String title, String profession, String purpose, String amount,
 			String financingType, String description, String advantage, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
-			FinancingEntity financing = new FinancingEntity(supplier, title, profession, prupose, amount, financingType,
+			FinancingEntity financing = new FinancingEntity(supplier, title, profession, purpose, amount, financingType,
 					description, advantage, contactUser, contact, now, now);
 			financingService.save(financing);
 			return new Result(Code.SUCCESS.value(), "添加成功");
@@ -56,13 +56,13 @@ public class FinancingController {
 	}
 
 	@RequestMapping(value = "/api/service/financing/financing/update", method = RequestMethod.POST)
-	public Result financing_update(Long financingId, String title, String profession, String prupose, String amount,
+	public Result financing_update(Long financingId, String title, String profession, String purpose, String amount,
 			String financingType, String description, String advantage, String contactUser, String contact) {
 		try {
 			FinancingEntity financing = financingService.findOne(financingId);
 			financing.setTitle(title);
 			financing.setProfession(profession);
-			financing.setPrupose(prupose);
+			financing.setPurpose(purpose);
 			financing.setAmount(amount);
 			financing.setFinancingType(financingType);
 			financing.setDescription(description);
