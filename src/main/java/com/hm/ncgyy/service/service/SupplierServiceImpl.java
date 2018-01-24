@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.entity.service.SupplierEntity;
+import com.hm.ncgyy.entity.service.SupplierEntity.SupplierStatus;
 import com.hm.ncgyy.repository.service.SupplierRepository;
 
 @Service
@@ -42,6 +43,16 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<SupplierEntity> listByTypeAndStatus(Integer type, Integer status) {
 		return supplierRepository.findByTypeAndStatus(type, status);
+	}
+
+	@Override
+	public List<SupplierEntity> listCertified() {
+		return supplierRepository.findByStatusNot(SupplierStatus.STATUS_NEW);
+	}
+
+	@Override
+	public List<SupplierEntity> listUncertified() {
+		return supplierRepository.findByStatus(SupplierStatus.STATUS_NEW);
 	}
 
 }

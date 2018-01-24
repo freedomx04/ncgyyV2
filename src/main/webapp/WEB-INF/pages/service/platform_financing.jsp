@@ -57,10 +57,10 @@
 												<span class="label label-warning">审核中</span>
 											</c:when>
 											<c:when test="${supplier.status == 2}">
-												<span class="label label-success">已通过</span>
+												<span class="label label-success">已认证</span>
 											</c:when>
 											<c:when test="${supplier.status == 3}">
-												<span class="label label-danger">未通过</span>
+												<span class="label label-danger">未驳回</span>
 											</c:when>
 										</c:choose>
 										</dd>

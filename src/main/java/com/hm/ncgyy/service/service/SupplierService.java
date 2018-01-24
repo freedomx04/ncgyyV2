@@ -18,4 +18,8 @@ public interface SupplierService {
 	
 	List<SupplierEntity> listByTypeAndStatus(Integer type, Integer status);
 	
+	List<SupplierEntity> listCertified();
+	
+	List<SupplierEntity> listUncertified();
+	
 }

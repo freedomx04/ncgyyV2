@@ -18,8 +18,7 @@ public class SupplierEntity extends BaseEntity {
 
 	/** 认证状态 */
 	public class SupplierStatus {
-		public static final int STATUS_NEW = 0; // 新增/未申请
-		public static final int STATUS_BEING_CERTIFIED = 1; // 审核中
+		public static final int STATUS_NEW = 1; // 待审核
 		public static final int STATUS_PASS = 2; // 已通过
 		public static final int STATUS_DENY = 3; // 未通过
 	}
@@ -36,7 +35,7 @@ public class SupplierEntity extends BaseEntity {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private UserBaseEntity user;
-	
+
 	/** 供应商类型 */
 	private Integer type;
 
@@ -90,8 +89,8 @@ public class SupplierEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SupplierEntity(UserBaseEntity user, Integer type, String name, String imagePath, String profession, String property,
-			String scale, String address, String phone, String fax, String contactUser, String contact,
+	public SupplierEntity(UserBaseEntity user, Integer type, String name, String imagePath, String profession,
+			String property, String scale, String address, String phone, String fax, String contactUser, String contact,
 			String introduction, String license, String licensePath, Date createTime, Date updateTime) {
 		super();
 		this.user = user;
@@ -120,7 +119,7 @@ public class SupplierEntity extends BaseEntity {
 	public void setUser(UserBaseEntity user) {
 		this.user = user;
 	}
-	
+
 	public Integer getType() {
 		return type;
 	}
@@ -232,7 +231,7 @@ public class SupplierEntity extends BaseEntity {
 	public void setLicensePath(String licensePath) {
 		this.licensePath = licensePath;
 	}
-	
+
 	public Integer getStatus() {
 		return status;
 	}

@@ -14,4 +14,8 @@ public interface SupplierRepository extends PagingAndSortingRepository<SupplierE
 	
 	List<SupplierEntity> findByTypeAndStatus(Integer type, Integer status);
 	
+	List<SupplierEntity> findByStatus(Integer status);
+	
+	List<SupplierEntity> findByStatusNot(Integer status);
+	
 }

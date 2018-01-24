@@ -15,7 +15,6 @@ import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
-import com.hm.ncgyy.entity.service.SupplierEntity.SupplierStatus;
 import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.service.SupplierService;
 
@@ -44,7 +43,6 @@ public class SupplierController {
 			UserBaseEntity user = userService.findOneBase(userId);
 			supplier = new SupplierEntity(user, type, name, imagePath, profession, property, scale, address, phone, fax,
 					contactUser, contact, introduction, license, licensePath, now, now);
-			supplier.setStatus(SupplierStatus.STATUS_BEING_CERTIFIED);
 			supplierService.save(supplier);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -86,6 +84,28 @@ public class SupplierController {
 		}
 	} 
 	
+	@RequestMapping(value = "/api/service/supplier/listUncertified")
+	public Result listUncertified() {
+		try {
+			List<SupplierEntity> list = supplierService.listUncertified();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/service/supplier/listCertified")
+	public Result listCertified() {
+		try {
+			List<SupplierEntity> list = supplierService.listCertified();
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
 	@RequestMapping(value = "/api/service/supplier/listByTypeAndStatus")
 	public Result listByTypeAndStatus(Integer type, Integer status) {
 		try {
@@ -117,7 +137,7 @@ public class SupplierController {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			supplier.setStatus(status);
 			supplierService.save(supplier);
-			return new Result(Code.SUCCESS.value(), "ok");
+			return new Result(Code.SUCCESS.value(), "操作成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
