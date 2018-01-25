@@ -20,6 +20,8 @@ import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.entity.service.business.BusinessEntity;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
 import com.hm.ncgyy.entity.service.financing.InvestEntity;
+import com.hm.ncgyy.entity.service.information.DemandEntity;
+import com.hm.ncgyy.entity.service.information.ServiceEntity;
 import com.hm.ncgyy.entity.service.logistics.LineEntity;
 import com.hm.ncgyy.entity.service.logistics.NetworkEntity;
 import com.hm.ncgyy.entity.service.logistics.SupplyEntity;
@@ -34,6 +36,8 @@ import com.hm.ncgyy.service.issue.ArticleService;
 import com.hm.ncgyy.service.service.business.BusinessService;
 import com.hm.ncgyy.service.service.financing.FinancingService;
 import com.hm.ncgyy.service.service.financing.InvestService;
+import com.hm.ncgyy.service.service.information.DemandService;
+import com.hm.ncgyy.service.service.information.ServiceService;
 import com.hm.ncgyy.service.service.logistics.LineService;
 import com.hm.ncgyy.service.service.logistics.NetworkService;
 import com.hm.ncgyy.service.service.logistics.SupplyService;
@@ -68,6 +72,12 @@ public class PageController {
 	
 	@Autowired
 	JobService jobService;
+	
+	@Autowired
+	ServiceService serviceService;
+	
+	@Autowired
+	DemandService demandService;
 	
 	@Autowired
 	BusinessService businessService;
@@ -195,6 +205,30 @@ public class PageController {
 		JobEntity job = jobService.findOne(jobId);
 		model.addAttribute("job", job);
 		return "pages/portal/service/talent_job_info";
+	}
+	
+	@RequestMapping(value = "/service/information")
+	String service_information(ModelMap model) {
+		Page<ServiceEntity> services = serviceService.list(0, 100);
+		model.addAttribute("services", services.getContent());
+		
+		Page<DemandEntity> demands = demandService.list(0, 100);
+		model.addAttribute("demands", demands.getContent());
+		return "pages/portal/service/information";
+	}
+	
+	@RequestMapping(value = "/service/information/service/info")
+	String service_info(ModelMap model, Long serviceId) {
+		ServiceEntity service = serviceService.findOne(serviceId);
+		model.addAttribute("service", service);
+		return "pages/portal/service/information_service_info";
+	}
+	
+	@RequestMapping(value = "/service/information/demand/info")
+	String demand_info(ModelMap model, Long demandId) {
+		DemandEntity demand = demandService.findOne(demandId);
+		model.addAttribute("demand", demand);
+		return "pages/portal/service/information_demand_info";
 	}
 	
 	@RequestMapping(value = "/service/business")

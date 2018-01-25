@@ -44,7 +44,7 @@ ul .current {
 					<a class="service-talent" href="${ctx}/service/talent">用工服务</a>
 				</li>
 				<li>
-					<a class="service-business" href="${ctx}/service/business">招商服务</a>
+					<a class="service-business" href="${ctx}/service/information">信息化服务</a>
 				</li>
 				<li>
 					<a class="service-financing" href="${ctx}/service/financing">融资服务</a>
@@ -75,7 +75,7 @@ ul .current {
 	
 	switch (type) {
 	case 'talent':		$ul.find('.service-talent').addClass('current');		break;
-	case 'business':	$ul.find('.service-business').addClass('current');		break;
+	case 'information':	$ul.find('.service-information').addClass('current');	break;
 	case 'financing':	$ul.find('.service-financing').addClass('current');		break;
 	case 'logistics':	$ul.find('.service-logistics').addClass('current');		break;
 	}
