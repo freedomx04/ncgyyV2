@@ -17,6 +17,7 @@
 				<a href="${ctx}/productlist" class="m_product">产品宣传</a>
 				<a href="${ctx}/monitorlist?item=mainBusiness" class="m_monitor" style="display: none;">监测平台</a>
 				<a href="${ctx}/assistlist" class="m_assist">帮扶平台</a>
+				<a href="${ctx}/business" class="m_business" target="_blank">招商管理</a>
 				<a href="${ctx}/service" class="m_service" target="_blank">服务平台</a>
 			</div>
 		</div>

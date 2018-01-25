@@ -80,9 +80,6 @@ public class PageController {
 	DemandService demandService;
 	
 	@Autowired
-	BusinessService businessService;
-	
-	@Autowired
 	FinancingService financingService;
 	
 	@Autowired
@@ -96,6 +93,9 @@ public class PageController {
 	
 	@Autowired
 	SupplyService supplyService;
+	
+	@Autowired
+	BusinessService businessService;
 	
 	/**
 	 * 新闻页面
@@ -178,6 +178,43 @@ public class PageController {
 		AppealEntity appeal = appealService.findOne(appealId);
 		modelMap.addAttribute("appeal", appeal);
 		return "pages/portal/assistinfo";
+	}
+	
+	/**
+	 * 招商管理页面 
+	 */
+	@RequestMapping(value = "/business")
+	String business(ModelMap modelMap) {
+		Page<ArticleEntity> dynamics = articleService.listByType(10, 0, 10);
+		modelMap.addAttribute("dynamics", dynamics.getContent());
+		
+		Page<ArticleEntity> policys = articleService.listByType(11, 0, 10);
+		modelMap.addAttribute("policys", policys.getContent());
+		
+		Page<BusinessEntity> businesss = businessService.list(0, 10);
+		modelMap.addAttribute("businesss", businesss.getContent());
+		return "pages/portal/business/business";
+	}
+	
+	@RequestMapping(value = "/business/dynamic/info")
+	String dynamic_info(ModelMap model, Long dynamicId) {
+		ArticleEntity dynamic = articleService.findOne(dynamicId);
+		model.addAttribute("dynamic", dynamic);
+		return "pages/portal/business/dynamic_info";
+	}
+	
+	@RequestMapping(value = "/business/policy/info")
+	String policy_info(ModelMap model, Long policyId) {
+		ArticleEntity policy = articleService.findOne(policyId);
+		model.addAttribute("policy", policy);
+		return "pages/portal/business/policy_info";
+	}
+	
+	@RequestMapping(value = "/business/item/info")
+	String item_info(ModelMap model, Long itemId) {
+		BusinessEntity item = businessService.findOne(itemId);
+		model.addAttribute("item", item);
+		return "pages/portal/business/item_info";
 	}
 	
 	/**

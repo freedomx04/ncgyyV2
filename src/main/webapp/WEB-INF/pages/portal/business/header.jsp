@@ -1,0 +1,71 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<style type="text/css">
+ul {
+	padding: 0;
+	margin: 0;
+}
+.header .header-info .logo {
+	width: 180px;
+	padding: 15px 0;
+	margin-right: 40px;
+}
+.header .header-info .nav{
+	float: left;
+}
+.header .header-info .nav ul li {
+	display: inline-block;
+	font-size: 18px;
+	line-height: 87px;
+	margin: 0 10px;
+}
+ul .current {
+	color: #e94e38;
+}
+</style>
+
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
+
+<header class="header white-bg">
+		<div class="container header-info">
+			<div class="logo pull-left">
+				<h2><a href="${ctx}/business">招商管理</a></h2>
+			</div>
+			<%-- <div class="nav">
+				<ul class="service-type">
+					<li>
+						<a class="service-talent" href="${ctx}/service/talent">用工服务</a>
+					</li>
+					<li>
+						<a class="service-business" href="${ctx}/service/information">信息化服务</a>
+					</li>
+					<li>
+						<a class="service-financing" href="${ctx}/service/financing">融资服务</a>
+					</li>
+					<li>
+						<a class="service-logistics" href="${ctx}/service/logistics">物流服务</a>
+					</li>
+				</ul>
+			</div> --%>
+			<div class="pull-right" style="padding: 30px 0;">
+				<div>
+					<a href="${ctx}/index">园区首页</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+;(function( $ ) {	
+	
+	
+})( jQuery );
+</script>
