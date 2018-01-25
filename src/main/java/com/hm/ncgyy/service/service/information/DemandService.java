@@ -1,10 +1,10 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.service.information;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.hm.ncgyy.entity.authority.DemandEntity;
+import com.hm.ncgyy.entity.service.information.DemandEntity;
 
 public interface DemandService {
 	
@@ -16,7 +16,7 @@ public interface DemandService {
 	
 	void delete(List<Long> demandIds);
 	
-	List<DemandEntity> listByEnterpriseId(Long enterpriseId);
+	List<DemandEntity> listByUserId(Long userId);
 	
 	Page<DemandEntity> list(int page, int size);
 

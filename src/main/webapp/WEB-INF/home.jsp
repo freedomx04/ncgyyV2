@@ -194,7 +194,7 @@
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="platformTalent">用工平台</a></li>
-							<li><a class="J_menuItem" href="platformBusiness">招商平台</a></li>
+							<li><a class="J_menuItem" href="platformInformation">信息化平台</a></li>
 							<li><a class="J_menuItem" href="platformFinancing">融资平台</a></li>
 							<li><a class="J_menuItem" href="platformLogistics">物流平台</a></li>
 							<c:if test="${fn:contains(user.role.resource, 'authority-declare')}">

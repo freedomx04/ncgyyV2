@@ -117,7 +117,7 @@
                					var typeName;
                					switch (val) {
                					case 1:		typeName = '人才服务';		break;
-                        		case 2:		typeName = '招商服务';		break;
+                        		case 2:		typeName = '信息化服务';	break;
                         		case 3:		typeName = '融资服务';		break;
                         		case 4:		typeName = '物流服务';		break;
                					}
@@ -141,7 +141,7 @@
             		var typeName;
             		switch (value) {
             		case 1:		typeName = '人才服务';		break;
-            		case 2:		typeName = '招商服务';		break;
+            		case 2:		typeName = '信息化服务';	break;
             		case 3:		typeName = '融资服务';		break;
             		case 4:		typeName = '物流服务';		break;
             		}
@@ -262,7 +262,7 @@
                					var typeName;
                					switch (val) {
                					case 1:		typeName = '人才服务';		break;
-                        		case 2:		typeName = '招商服务';		break;
+                        		case 2:		typeName = '信息化服务';	break;
                         		case 3:		typeName = '融资服务';		break;
                         		case 4:		typeName = '物流服务';		break;
                					}
@@ -286,7 +286,7 @@
             		var typeName;
             		switch (value) {
             		case 1:		typeName = '人才服务';		break;
-            		case 2:		typeName = '招商服务';		break;
+            		case 2:		typeName = '信息化服务';	break;
             		case 3:		typeName = '融资服务';		break;
             		case 4:		typeName = '物流服务';		break;
             		}

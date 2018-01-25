@@ -1,4 +1,4 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.service.information;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.authority.DemandEntity;
-import com.hm.ncgyy.repository.authority.DemandRepository;
+import com.hm.ncgyy.entity.service.information.DemandEntity;
+import com.hm.ncgyy.repository.service.information.DemandRepository;
 
 @Service
 public class DemandServiceImpl implements DemandService {
-	
+
 	@Autowired
 	DemandRepository demandRepository;
 
@@ -38,8 +38,8 @@ public class DemandServiceImpl implements DemandService {
 	}
 
 	@Override
-	public List<DemandEntity> listByEnterpriseId(Long enterpriseId) {
-		return demandRepository.findByEnterpriseIdOrderByUpdateTimeDesc(enterpriseId);
+	public List<DemandEntity> listByUserId(Long userId) {
+		return demandRepository.findByUserIdOrderByUpdateTimeDesc(userId);
 	}
 
 	@Override

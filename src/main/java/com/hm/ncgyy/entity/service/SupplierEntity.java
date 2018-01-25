@@ -26,7 +26,7 @@ public class SupplierEntity extends BaseEntity {
 	/** 供应商类型 */
 	public class SupplierType {
 		public static final int TYPE_TALENT = 1; // 人才供应商
-		public static final int TYPE_BUSINESS = 2; // 招商供应商
+		public static final int TYPE_INFORMATION = 2; // 信息化服务供应商
 		public static final int TYPE_FINANCING = 3; // 融资供应商
 		public static final int TYPE_LOGISITCS = 4; // 物流供应商
 	}

@@ -108,6 +108,14 @@
 	 * 文本编辑器
 	 */
 	$k.util.summernote = function($obj, param) {
+		if (param.simple == true) {
+			param.toolbar = [
+				['font', ['bold', 'underline', 'clear']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']]
+			];
+		}
+		
 		var defaultParam = $.extend({
 			minHeight: 360,
 			lang: 'zh-CN',
