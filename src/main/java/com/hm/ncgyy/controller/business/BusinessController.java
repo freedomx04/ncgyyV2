@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.service;
+package com.hm.ncgyy.controller.business;
 
 import java.util.Date;
 import java.util.List;
@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.service.SupplierEntity;
-import com.hm.ncgyy.entity.service.business.BusinessEntity;
-import com.hm.ncgyy.service.service.SupplierService;
-import com.hm.ncgyy.service.service.business.BusinessService;
+import com.hm.ncgyy.entity.business.BusinessEntity;
+import com.hm.ncgyy.service.business.BusinessService;
 
 @RestController
 public class BusinessController {
@@ -28,17 +26,13 @@ public class BusinessController {
 	@Autowired
 	BusinessService businessService;
 
-	@Autowired
-	SupplierService supplierService;
-
-	@RequestMapping(value = "/api/service/business/create", method = RequestMethod.POST)
-	public Result create(Long supplierId, String name, String address, String overview, String content, String scale,
-			String mode, String contactUser, String contact) {
+	@RequestMapping(value = "/api/business/business/create", method = RequestMethod.POST)
+	public Result create(String name, String address, String overview, String content, String scale, String mode,
+			String contactUser, String contact, String email, String fax) {
 		try {
-			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
-			BusinessEntity business = new BusinessEntity(supplier, name, address, overview, content, scale, mode,
-					contactUser, contact, now, now);
+			BusinessEntity business = new BusinessEntity(name, address, overview, content, scale, mode, contactUser,
+					contact, email, fax, now, now);
 			businessService.save(business);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -47,9 +41,9 @@ public class BusinessController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/business/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/business/business/update", method = RequestMethod.POST)
 	public Result update(Long businessId, String name, String address, String overview, String content, String scale,
-			String mode, String contactUser, String contact) {
+			String mode, String contactUser, String contact, String email, String fax) {
 		try {
 			BusinessEntity business = businessService.findOne(businessId);
 			business.setName(name);
@@ -60,16 +54,18 @@ public class BusinessController {
 			business.setMode(mode);
 			business.setContactUser(contactUser);
 			business.setContact(contact);
+			business.setEmail(email);
+			business.setFax(fax);
 			business.setUpdateTime(new Date());
 			businessService.save(business);
-			return new Result(Code.SUCCESS.value(), "添加成功");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
-	@RequestMapping(value = "/api/service/business/delete")
+	
+	@RequestMapping(value = "/api/business/business/delete")
 	public Result delete(Long businessId) {
 		try {
 			businessService.delete(businessId);
@@ -80,7 +76,7 @@ public class BusinessController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/business/deleteBatch")
+	@RequestMapping(value = "/api/business/business/deleteBatch")
 	public Result deleteBatch(@RequestParam("businessIdList[]") List<Long> businessIdList) {
 		try {
 			businessService.delete(businessIdList);
@@ -91,7 +87,7 @@ public class BusinessController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/business/get")
+	@RequestMapping(value = "/api/business/business/get")
 	public Result get(Long businessId) {
 		try {
 			BusinessEntity business = businessService.findOne(businessId);
@@ -102,22 +98,22 @@ public class BusinessController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/business/listPaging")
-	public Result listPaging(int page, int size) {
+	@RequestMapping(value = "/api/business/business/list")
+	public Result list() {
 		try {
-			Page<BusinessEntity> list = businessService.list(page, size);
+			List<BusinessEntity> list = businessService.list();
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
-	@RequestMapping(value = "/api/service/business/listBySupplierId")
-	public Result listBySupplierId(Long supplierId) {
+	
+	@RequestMapping(value = "/api/business/business/listPaging")
+	public Result listPaging(int page, int size) {
 		try {
-			List<BusinessEntity> list = businessService.listBySupplierId(supplierId);
-			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+			Page<BusinessEntity> list = businessService.list(page, size);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list.getContent());
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

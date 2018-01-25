@@ -27,6 +27,9 @@ public class ArticleEntity extends BaseEntity {
 		public static final int ANNOUNCE = 2; // 公示公告
 		public static final int POLICY = 3; // 政策法规
 		public static final int OVERVIEW = 4; // 工业信息
+		
+		public static final int BUSINESS_DYNAMIC = 10;	// 招商动态
+		public static final int BUSINESS_POLICY = 11;	// 招商政策
 	}
 
 	/**

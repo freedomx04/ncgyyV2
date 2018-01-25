@@ -59,6 +59,10 @@
  						<c:if test="${fn:contains(role.resource, 'authority-overview-delete-batch')}">
                           <button type="button" class="btn btn-white btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>批量删除</button>
                     	</c:if>
+ 					</c:if>
+ 					<c:if test="${type == 10 || type == 11}">
+ 						<button type="button" class="btn btn-white btn-article-add"><i class="fa fa-plus fa-fw"></i>新增</button>
+ 						<button type="button" class="btn btn-danger btn-article-delete-batch" disabled='disabled'><i class="fa fa-trash-o fa-fw"></i>删除</button>
  					</c:if> 					
  				</div>
  				<table id="article-list-table" class="table-hm" data-mobile-responsive="true"></table>
@@ -150,6 +154,11 @@
                     	if ($.inArray('authority-overview-delete', resource) != -1) {
                     		$operate += $delete;
                     	}
+                    	break;
+                    case 10:
+                    case 11:
+                    	$operate += $edit;
+                    	$operate += $delete;
                     	break;
                     }
 					return $operate;

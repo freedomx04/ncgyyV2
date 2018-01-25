@@ -1,25 +1,16 @@
-package com.hm.ncgyy.entity.service.business;
+package com.hm.ncgyy.entity.business;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
-import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
-@Table(name = "service_business")
+@Table(name = "business_business")
 public class BusinessEntity extends BaseEntity {
-
-	/** 供应商 */
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "supplier_id")
-	private SupplierEntity supplier;
 
 	/** 项目名称 */
 	private String name;
@@ -46,14 +37,19 @@ public class BusinessEntity extends BaseEntity {
 	/** 联系电话 */
 	private String contact;
 
+	/** 邮箱 */
+	private String email;
+	
+	/** 传真 */
+	private String fax;
+	
 	public BusinessEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BusinessEntity(SupplierEntity supplier, String name, String address, String overview, String content,
-			String scale, String mode, String contactUser, String contact, Date createTime, Date updateTime) {
+	public BusinessEntity(String name, String address, String overview, String content, String scale, String mode,
+			String contactUser, String contact, String email, String fax, Date createTime, Date updateTime) {
 		super();
-		this.supplier = supplier;
 		this.name = name;
 		this.address = address;
 		this.overview = overview;
@@ -62,16 +58,10 @@ public class BusinessEntity extends BaseEntity {
 		this.mode = mode;
 		this.contactUser = contactUser;
 		this.contact = contact;
+		this.email = email;
+		this.fax = fax;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
-	}
-
-	public SupplierEntity getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(SupplierEntity supplier) {
-		this.supplier = supplier;
 	}
 
 	public String getName() {
@@ -136,6 +126,22 @@ public class BusinessEntity extends BaseEntity {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
 	}
 
 }

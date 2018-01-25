@@ -55,6 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
 		case 2:		title = "公示公告";		break;
 		case 3:		title = "政策法规";		break;
 		case 4:		title = "工业信息";		break;
+		case 10:	title = "招商动态";		break;
+		case 11:	title = "招商政策";		break;
 		default:	break;
 		}
 		return title;

@@ -572,6 +572,19 @@ public class ManagerController {
 		return "pages/assist/appeal_get";
 	}
 	
+	/** 
+	 * 招商管理接口
+	 */
+	@RequestMapping(value = "/businessItem")
+	String businessItem() {
+		return "pages/business/item";
+	}
+	
+	@RequestMapping(value = "/businessMessage")
+	String businessMessage() {
+		return "pages/business/message";
+	}
+	
 	/**
 	 * 服务平台接口
 	 */

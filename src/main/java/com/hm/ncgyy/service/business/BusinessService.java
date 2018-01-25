@@ -1,10 +1,10 @@
-package com.hm.ncgyy.service.service.business;
+package com.hm.ncgyy.service.business;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.hm.ncgyy.entity.service.business.BusinessEntity;
+import com.hm.ncgyy.entity.business.BusinessEntity;
 
 public interface BusinessService {
 	
@@ -16,8 +16,8 @@ public interface BusinessService {
 	
 	void delete(List<Long> businessIds);
 	
-	Page<BusinessEntity> list(int page, int size);
+	List<BusinessEntity> list();
 	
-	List<BusinessEntity> listBySupplierId(Long supplierId);
+	Page<BusinessEntity> list(int page, int size);
 
 }

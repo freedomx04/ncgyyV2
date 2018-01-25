@@ -186,6 +186,20 @@
 						</ul>
 					</li>
 					</c:if>
+					
+					<li>
+						<a href="#">
+							<i class="fa fa-globe fa-fw"></i><span class="nav-label">招商管理</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="articleList?type=10">招商动态</a></li>
+							<li><a class="J_menuItem" href="articleList?type=11">招商政策</a></li>
+							<li><a class="J_menuItem" href="businessItem">招商项目</a></li>
+							<li><a class="J_menuItem" href="businessMessage">留言管理</a></li>
+						</ul>
+					</li>
+					
+					
 					<c:if test="${fn:contains(user.role.resource, 'authority-declare')
 						|| fn:contains(user.role.resource, 'authority-apply')}">
 					<li>

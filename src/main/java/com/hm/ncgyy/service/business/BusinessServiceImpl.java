@@ -1,4 +1,4 @@
-package com.hm.ncgyy.service.service.business;
+package com.hm.ncgyy.service.business;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.service.business.BusinessEntity;
-import com.hm.ncgyy.repository.service.business.BusinessRepository;
+import com.hm.ncgyy.entity.business.BusinessEntity;
+import com.hm.ncgyy.repository.business.BusinessRepository;
 
 @Service
 public class BusinessServiceImpl implements BusinessService {
@@ -38,13 +38,13 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
+	public List<BusinessEntity> list() {
+		return businessRepository.findByOrderByUpdateTimeDesc();
+	}
+	
+	@Override
 	public Page<BusinessEntity> list(int page, int size) {
 		return businessRepository.findByOrderByUpdateTimeDesc(new PageRequest(page, size));
-	}
-
-	@Override
-	public List<BusinessEntity> listBySupplierId(Long supplierId) {
-		return businessRepository.findBySupplierIdOrderByUpdateTimeDesc(supplierId);
 	}
 
 }
