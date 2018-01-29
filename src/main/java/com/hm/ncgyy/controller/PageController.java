@@ -222,11 +222,6 @@ public class PageController {
 	 */
 	@RequestMapping(value = {"/service", "/service/talent"})
 	String service_talent(ModelMap model) {
-		Page<RecruitEntity> recruits = recruitService.list(0, 100);
-		model.addAttribute("recruits", recruits.getContent());
-		
-		Page<JobEntity> jobs = jobService.list(0, 100);
-		model.addAttribute("jobs", jobs.getContent());
 		return "pages/portal/service/talent";
 	}
 	
@@ -246,11 +241,6 @@ public class PageController {
 	
 	@RequestMapping(value = "/service/information")
 	String service_information(ModelMap model) {
-		Page<ServiceEntity> services = serviceService.list(0, 100);
-		model.addAttribute("services", services.getContent());
-		
-		Page<DemandEntity> demands = demandService.list(0, 100);
-		model.addAttribute("demands", demands.getContent());
 		return "pages/portal/service/information";
 	}
 	
@@ -268,27 +258,8 @@ public class PageController {
 		return "pages/portal/service/information_demand_info";
 	}
 	
-	@RequestMapping(value = "/service/business")
-	String service_business(ModelMap model) {
-		Page<BusinessEntity> businesss = businessService.list(0, 100);
-		model.addAttribute("businesss", businesss.getContent());
-		return "pages/portal/service/business";
-	}
-	
-	@RequestMapping(value = "/service/business/info")
-	String business_info(ModelMap model, Long businessId) {
-		BusinessEntity business = businessService.findOne(businessId);
-		model.addAttribute("business", business);
-		return "pages/portal/service/business_info";
-	}
-	
 	@RequestMapping(value = "/service/financing")
 	String service_financing(ModelMap model) {
-		Page<FinancingEntity> financings = financingService.list(0, 100);
-		model.addAttribute("financings", financings.getContent());
-		
-		Page<InvestEntity> invests = investService.list(0, 100);
-		model.addAttribute("invests", invests.getContent());
 		return "pages/portal/service/financing";
 	}
 	
@@ -308,14 +279,6 @@ public class PageController {
 	
 	@RequestMapping(value = "/service/logistics")
 	String service_logistics(ModelMap model) {
-		Page<LineEntity> lines = lineService.list(0, 100);
-		model.addAttribute("lines", lines.getContent());
-		
-		Page<NetworkEntity> networks = networkService.list(0, 100);
-		model.addAttribute("networks", networks.getContent());
-		
-		Page<SupplyEntity> supplys = supplyService.list(0, 100);
-		model.addAttribute("supplys", supplys.getContent());
 		return "pages/portal/service/logistics";
 	}
 	

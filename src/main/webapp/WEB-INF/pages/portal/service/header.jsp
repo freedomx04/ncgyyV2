@@ -1,5 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
+
 <style type="text/css">
 ul {
 	padding: 0;
@@ -22,14 +29,22 @@ ul {
 ul .current {
 	color: #e94e38;
 }
+
+.pagination-info {
+	margin: 20px 15px;
+	line-height: 29px;
+}
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+	background-color: #e94e38;
+	border-color: #e94e38;
+	color: #fff;
+}
 </style>
-
-<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
-
-<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
-<link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
 
 <header class="header white-bg">
 	<div class="container header-info">
@@ -64,6 +79,8 @@ ul .current {
 
 <script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${ctx}/plugins/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+<script type="text/javascript" src="${ctx}/local/common.js"></script>
 
 <script type="text/javascript">
 ;(function( $ ) {	

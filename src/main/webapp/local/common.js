@@ -146,6 +146,27 @@
 	}
 	
 	/**
+	 * 分页
+	 */
+	$k.util.paginator = function($obj, param) {
+		var options = $.extend({
+			bootstrapMajorVersion: 3,
+			numberOfPages: 5,
+			itemTexts: function(type, page, current) {
+				switch (type) {
+				case 'first':	return '首页';
+				case 'prev':	return '上一页';
+				case 'next':	return '下一页';
+				case 'last':	return '末页';
+				case 'page':	return page;
+				}
+			},
+			tooltipTitles: function(type, page, current) {}
+		}, param);
+		$obj.bootstrapPaginator(options);
+	}
+	
+	/**
 	 * 评价星级
 	 */
 	$k.util.raty = function($obj, star, param) {
