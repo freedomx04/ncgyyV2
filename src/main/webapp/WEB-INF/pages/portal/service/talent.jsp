@@ -27,6 +27,88 @@
 				</ul>
 				<div class="tab-content">
 					<div id="tab-recruit" class="tab-pane active">
+						<div class="filter-recruit" style="border-bottom: 1px solid #e7e7e7; padding: 20px 0;">
+							<div class="row filter-search">
+								<div class="col-md-8 input-group">
+									<input type="text" class="input-recruit form-control" placeholder="搜索职位">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-primary search-recruit">搜索</button>
+									</span>
+								</div>
+							</div>
+							<div class="filter-classify" style="margin-top: 20px;">
+								<ul class="list-unstyled has-more">
+									<li>
+										<dt>行业类别：</dt>
+										<a class="btn-more btn-collapse">
+											<span class="select-toggle-text">更多</span>
+											<span class="fa fa-angle-down"></span>
+										</a>
+										<dl>
+											<c:forEach var="profession" items="${professions}">
+												<c:if test="${profession == '不限'}">
+													<a class="select-all active" data-classify="profession">不限</a>
+												</c:if>
+												<c:if test="${profession != '不限'}">
+													<a class="select-item" data-classify="profession" data-value="${profession}">${profession}</a>
+												</c:if>
+											</c:forEach>
+										</dl>
+									</li>
+								
+									<li>
+										<dt>薪资待遇：</dt>
+										<dl>
+											<c:forEach var="salary" items="${salarys}">
+												<c:if test="${salary == '不限'}">
+													<a class="select-all active" data-classify="salary">不限</a>
+												</c:if>
+												<c:if test="${salary != '不限'}">
+													<a class="select-item" data-classify="salary" data-value="${salary}">${salary}</a>
+												</c:if>
+											</c:forEach>
+										</dl>
+									</li>
+									
+									<li>
+										<dt>工作年限：</dt>
+										<dl>
+											<c:forEach var="workingYears" items="${workingYearss}">
+												<c:if test="${workingYears == '不限'}">
+													<a class="select-all active" data-classify="workingYears">不限</a>
+												</c:if>
+												<c:if test="${workingYears != '不限'}">
+													<a class="select-item" data-classify="workingYears" data-value="${workingYears}">${workingYears}</a>
+												</c:if>
+											</c:forEach>
+										</dl>
+									</li>
+									
+									<li>
+										<dt>学历要求：</dt>
+										<dl>
+											<c:forEach var="education" items="${educations}">
+												<c:if test="${education == '不限'}">
+													<a class="select-all active" data-classify="education">不限</a>
+												</c:if>
+												<c:if test="${education != '不限'}">
+													<a class="select-item" data-classify="education" data-value="${education}">${education}</a>
+												</c:if>
+											</c:forEach>
+										</dl>
+									</li>
+									
+									<li class="select-result">
+										<dt>已选条件：</dt>
+										<dl>
+											<span class="select-no">暂时没有选择过滤条件</span>
+											<button type="button" class="btn btn-danger btn-filter-recruit">确定</button>
+										</dl>
+										
+									</li>
+								</ul>
+							</div>
+						</div>
 						<div class="list-recruit"></div>
 						<div class="paginator-recruit">
 							<div class="pull-left pagination-info"></div>
@@ -49,19 +131,42 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var paginatorSize = 10;
+		var $page = $('.page-talent');
+		
+		var paginatorSize = 5;
 		
 		var $recruit = $('#tab-recruit');
-		var recruitPage = 0;
-		loadRecruit(recruitPage, paginatorSize);
+		loadRecruit('${ctx}/api/service/talent/recruit/listPaging', {
+			page: 0,
+			size: paginatorSize
+		});
 		
-		function loadRecruit(recruitPage, paginatorSize) {
+		$page
+		.on('click', '.search-recruit', function() {
+			var searchStr = $page.find('.input-recruit').val();
+			loadRecruit('${ctx}/api/service/talent/recruit/search', {
+				searchStr: searchStr,
+				page: 0,
+				size: paginatorSize
+			});
+		})
+		.on('click', '.btn-filter-recruit', function() {
+			debugger;
+			loadRecruit('${ctx}/api/service/talent/recruit/filter', {
+				profession: 1,
+				salary: 1,
+				workingYears: 1,
+				education: 1,
+				page: 0,
+				size: paginatorSize
+			});
+		});
+		
+		function loadRecruit(url, data) {
 			$.ajax({
-				url: '${ctx}/api/service/talent/recruit/listPaging',
-				data: {
-					page: recruitPage,
-					size: paginatorSize
-				},
+				url: url,
+				data: data,
+				type: 'post',
 				success: function(ret) {
 					if (ret.code == 0) {
 						$recruit.find('.list-recruit').empty();
@@ -72,7 +177,7 @@
 									+ '<div class="row">'
 									+ 	'<div class="col-sm-7">'
 									+ 		'<div class="item-title">'
-									+ 			'<a href="${ctx}/service/talent/recruit/info?recruitId=' + recruit.id + '">' + recruit.position + '</a>'
+									+ 			'<a href="${ctx}/service/talent/recruit/info?recruitId=' + recruit.id + '" target="_blank">' + recruit.position + '</a>'
 									+ 		'</div>'
 									+ 		'<span>招聘行业：' + recruit.profession + '</span>'
 									+ 		'<span>薪资待遇：' + recruit.salary + '</span>'
@@ -91,10 +196,11 @@
 						});
 						
 						$k.util.paginator($recruit.find('.pagination'), {
-							currentPage: recruitPage + 1,
+							currentPage: data.page + 1,
 							totalPages: ret.data.totalPages,
 							onPageClicked: function(event, originalEvent, type, page) {
-								loadRecruit(page - 1, paginatorSize);
+								data.page = page - 1;
+								loadRecruit(url, data)
 							}
 						}); 
 					}

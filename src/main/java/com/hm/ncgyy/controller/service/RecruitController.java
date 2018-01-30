@@ -119,7 +119,7 @@ public class RecruitController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/talent/recruit/listPaging")
+	@RequestMapping(value = "/api/service/talent/recruit/listPaging", method = RequestMethod.POST)
 	public Result recruit_listPaging(int page, int size) {
 		try {
 			Page<RecruitEntity> list = recruitService.list(page, size);

@@ -44,6 +44,75 @@ ul .current {
 	border-color: #e94e38;
 	color: #fff;
 }
+
+.filter-search {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.filter-search input {
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+}
+.filter-search button {
+	padding: 10px 45px;
+	font-size: 16px;
+} 
+.filter-classify ul {
+	position: relative;
+	min-height: 36px;
+	padding: 6px 0;
+}
+.filter-classify li {
+	padding-left: 100px;
+}
+.filter-classify dt {
+	position: absolute;
+	left: 20px;
+	padding-right: 10px;
+	height: 36px;
+	line-height: 36px;
+}
+.filter-classify dl {
+	height: 32px;
+	overflow: hidden;
+	margin-bottom: 0;
+	display: inline-block;
+}
+.filter-classify .select-all,
+.filter-classify .select-item,
+.filter-classify .select-no {
+	float: left;
+	padding: 0px 8px;
+	margin: 2px;
+	height: 32px;
+	line-height: 32px;
+}
+.filter-classify .select-all.active,
+.filter-classify .select-all:hover,
+.filter-classify .select-item.active,
+.filter-classify .select-item:hover {
+	background-color: #00b38a;
+	color: #fff;
+}
+.filter-classify .has-more dl {
+	margin-right: 80px;
+}
+.filter-classify .btn-more {
+	position: absolute;
+	right: 10px;
+	height: 32px;
+	line-height: 32px;
+	margin: 2px;
+}
+.filter-classify .select-result a {
+	background: #3b8cff url("${ctx}/img/close.gif") no-repeat scroll right 13px;
+	padding-right: 20px;
+}
+.filter-classify .select-result btn {
+	margin: 2px;
+	width: 80px;
+}
 </style>
 
 <header class="header white-bg">
@@ -96,6 +165,68 @@ ul .current {
 	case 'financing':	$ul.find('.service-financing').addClass('current');		break;
 	case 'logistics':	$ul.find('.service-logistics').addClass('current');		break;
 	}
+	
+	$('body')
+	.on('click', '.select-all', function() {
+		var $this = $(this);
+		if ($this.hasClass('active')) {
+			return;
+		}
+		$this.addClass('active');
+		$this.siblings().removeClass('active');
+		
+		var classify = $this.data('classify');
+		$('.select-result').find('.select-item[data-classify="' + classify + '"]').remove();
+	})
+	.on('click', '.select-item', function() {
+		var $this = $(this);
+		if ($this.hasClass('active')) {
+			return;
+		}
+		$this.closest('dl').find('.select-all').removeClass('active');
+		$this.addClass('active');
+		
+		var $copy = $this.clone();
+		$('.select-result dl').append($copy);
+	})
+	.on('click', '.select-result .select-item', function() {
+		var $this = $(this);
+		var classify = $this.data('classify');
+		var value = $this.data('value');
+		$this.remove();
+		
+		if ($('.select-result .select-item[data-classify="' + classify + '"]').length == 0) {
+			$('.select-all[data-classify="' + classify + '"]').addClass('active');
+		}
+		$('.select-item[data-value="' + value + '"]').removeClass('active');
+		
+		if ($('.select-result .select-item').length > 1) {
+			$('.select-no').hide();
+		} else {
+			$('.select-no').show();
+		}
+	})
+	.on('click', '.select-item, .select-all', function() {
+		if ($('.select-result .select-item').length > 0) {
+			$('.select-no').hide();
+		} else {
+			$('.select-no').show();
+		}
+	})
+	.on('click', '.btn-more', function() {
+		var $this = $(this);
+		if ($this.hasClass('btn-collapse')) {
+			$this.removeClass('btn-collapse').addClass('btn-expand');
+			$this.find('.select-toggle-text').text('收起');
+			$this.find('fa').removeClass('fa-angle-down').addClass('fa-angle-up');
+			$this.closest('li').find('dl').css({'height': '100%', 'overflow': 'visible'});
+		} else {
+			$this.removeClass('btn-expand').addClass('btn-collapse');
+			$this.find('.select-toggle-text').text('更多');
+			$this.find('fa').removeClass('fa-angle-up').addClass('fa-angle-down');
+			$this.closest('li').find('dl').css({'height': '32px', 'overflow': 'hidden'});
+		}
+	});
 	
 })( jQuery );
 </script>

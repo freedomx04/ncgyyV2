@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
@@ -221,7 +222,11 @@ public class PageController {
 	 * 服务平台页面
 	 */
 	@RequestMapping(value = {"/service", "/service/talent"})
-	String service_talent(ModelMap model) {
+	String service_talent(ModelMap modelMap) {
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("salarys", ConstantUtil.salarys);
+		modelMap.addAttribute("workingYearss", ConstantUtil.workingYearss);
+		modelMap.addAttribute("educations", ConstantUtil.educations);
 		return "pages/portal/service/talent";
 	}
 	
