@@ -18,7 +18,7 @@ public interface JobRepository extends PagingAndSortingRepository<JobEntity, Lon
 
 	Page<JobEntity> findByIntentionContainingOrderByUpdateTimeDesc(String intention, Pageable pageable);
 
-	Page<JobEntity> findByProfessionInAndEducationInAndWorkingYearsInAndSalaryIn(List<Integer> profession,
-			List<Integer> education, List<Integer> workingYears, List<Integer> salary, Pageable pageable);
+	Page<JobEntity> findByProfessionInAndEducationInAndWorkingYearsInAndSalaryInOrderByUpdateTimeDesc(List<String> profession,
+			List<String> education, List<String> workingYears, List<String> salary, Pageable pageable);
 
 }

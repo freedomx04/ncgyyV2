@@ -111,7 +111,7 @@ public class FinancingController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/financing/financing/listPaging")
+	@RequestMapping(value = "/api/service/financing/financing/listPaging", method = RequestMethod.POST)
 	public Result financing_listPaging(int page, int size) {
 		try {
 			Page<FinancingEntity> list = financingService.list(page, size);
@@ -230,7 +230,7 @@ public class FinancingController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/financing/invest/listPaging")
+	@RequestMapping(value = "/api/service/financing/invest/listPaging", method = RequestMethod.POST)
 	public Result invest_listPaging(int page, int size) {
 		try {
 			Page<InvestEntity> list = investService.list(page, size);
@@ -264,9 +264,9 @@ public class FinancingController {
 	}
 
 	@RequestMapping(value = "/api/service/financing/invest/filter", method = RequestMethod.POST)
-	public Result invest_filter(String investType, String fundType, int page, int size) {
+	public Result invest_filter(String profession, String investType, String fundType, int page, int size) {
 		try {
-			Page<InvestEntity> list = investService.filter(investType, fundType, page, size);
+			Page<InvestEntity> list = investService.filter(profession, investType, fundType, page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

@@ -15,5 +15,7 @@ public interface DemandRepository extends PagingAndSortingRepository<DemandEntit
 	List<DemandEntity> findByUserIdOrderByUpdateTimeDesc(Long userId);
 	
 	Page<DemandEntity> findByOrderByUpdateTimeDesc(Pageable pageable);
+	
+	Page<DemandEntity> findByTitleContainingOrderByUpdateTimeDesc(String title, Pageable pageable);
 
 }

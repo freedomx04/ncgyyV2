@@ -31,13 +31,13 @@ public class InformationController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	SupplierService supplierService;
 
 	@Autowired
 	DemandService demandService;
-	
+
 	@Autowired
 	ServiceService serviceService;
 
@@ -108,7 +108,7 @@ public class InformationController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/information/demand/listPaging")
+	@RequestMapping(value = "/api/service/information/demand/listPaging", method = RequestMethod.POST)
 	public Result demand_listPaging(int page, int size) {
 		try {
 			Page<DemandEntity> list = demandService.list(page, size);
@@ -129,7 +129,18 @@ public class InformationController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
+	@RequestMapping(value = "/api/service/information/demand/search", method = RequestMethod.POST)
+	public Result demand_search(String searchStr, int page, int size) {
+		try {
+			Page<DemandEntity> list = demandService.search(searchStr, page, size);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
 	/**
 	 * 信息化服务
 	 */
@@ -197,7 +208,7 @@ public class InformationController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/information/service/listPaging")
+	@RequestMapping(value = "/api/service/information/service/listPaging", method = RequestMethod.POST)
 	public Result service_listPaging(int page, int size) {
 		try {
 			Page<ServiceEntity> list = serviceService.list(page, size);
@@ -212,6 +223,17 @@ public class InformationController {
 	public Result service_listBySupplierId(Long supplierId) {
 		try {
 			List<ServiceEntity> list = serviceService.listBySupplierId(supplierId);
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/api/service/information/service/search", method = RequestMethod.POST)
+	public Result service_search(String searchStr, int page, int size) {
+		try {
+			Page<ServiceEntity> list = serviceService.search(searchStr, page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

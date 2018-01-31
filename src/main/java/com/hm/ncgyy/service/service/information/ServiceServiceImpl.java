@@ -47,4 +47,9 @@ public class ServiceServiceImpl implements ServiceService {
 		return serviceRepository.findAll(new PageRequest(page, size));
 	}
 
+	@Override
+	public Page<ServiceEntity> search(String searchStr, int page, int size) {
+		return serviceRepository.findByTitleContainingOrderByUpdateTimeDesc(searchStr, new PageRequest(page, size));
+	}
+
 }

@@ -264,7 +264,11 @@ public class PageController {
 	}
 	
 	@RequestMapping(value = "/service/financing")
-	String service_financing(ModelMap model) {
+	String service_financing(ModelMap modelMap) {
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("financingTypes", ConstantUtil.financingTypes);
+		modelMap.addAttribute("investTypes", ConstantUtil.investTypes);
+		modelMap.addAttribute("fundTypes", ConstantUtil.fundTypes);
 		return "pages/portal/service/financing";
 	}
 	

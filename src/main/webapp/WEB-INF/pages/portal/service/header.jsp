@@ -109,7 +109,7 @@ ul .current {
 	background: #3b8cff url("${ctx}/img/close.gif") no-repeat scroll right 13px;
 	padding-right: 20px;
 }
-.filter-classify .select-result btn {
+.filter-classify .select-result .btn {
 	margin: 2px;
 	width: 80px;
 }
@@ -169,6 +169,7 @@ ul .current {
 	$('body')
 	.on('click', '.select-all', function() {
 		var $this = $(this);
+		var $tab = $this.closest('.tab-pane');
 		if ($this.hasClass('active')) {
 			return;
 		}
@@ -176,10 +177,11 @@ ul .current {
 		$this.siblings().removeClass('active');
 		
 		var classify = $this.data('classify');
-		$('.select-result').find('.select-item[data-classify="' + classify + '"]').remove();
+		$tab.find('.select-result .select-item[data-classify="' + classify + '"]').remove();
 	})
 	.on('click', '.select-item', function() {
 		var $this = $(this);
+		var $tab = $this.closest('.tab-pane');
 		if ($this.hasClass('active')) {
 			return;
 		}
@@ -187,30 +189,27 @@ ul .current {
 		$this.addClass('active');
 		
 		var $copy = $this.clone();
-		$('.select-result dl').append($copy);
+		$tab.find('.select-result dl .btn').before($copy);
 	})
 	.on('click', '.select-result .select-item', function() {
 		var $this = $(this);
+		var $tab = $this.closest('.tab-pane');
 		var classify = $this.data('classify');
 		var value = $this.data('value');
 		$this.remove();
 		
-		if ($('.select-result .select-item[data-classify="' + classify + '"]').length == 0) {
-			$('.select-all[data-classify="' + classify + '"]').addClass('active');
+		if ($tab.find('.select-result .select-item[data-classify="' + classify + '"]').length == 0) {
+			$tab.find('.select-all[data-classify="' + classify + '"]').addClass('active');
 		}
-		$('.select-item[data-value="' + value + '"]').removeClass('active');
-		
-		if ($('.select-result .select-item').length > 1) {
-			$('.select-no').hide();
-		} else {
-			$('.select-no').show();
-		}
+		$tab.find('.select-item[data-value="' + value + '"]').removeClass('active');
 	})
 	.on('click', '.select-item, .select-all', function() {
-		if ($('.select-result .select-item').length > 0) {
-			$('.select-no').hide();
+		var $this = $(this);
+		var $tab = $this.closest('.tab-pane');
+		if ($tab.find('.select-result .select-item').length > 0) {
+			$tab.find('.select-no').hide();
 		} else {
-			$('.select-no').show();
+			$tab.find('.select-no').show();
 		}
 	})
 	.on('click', '.btn-more', function() {
@@ -229,4 +228,13 @@ ul .current {
 	});
 	
 })( jQuery );
+
+function getFilterValue(classify) {
+	var list = [];
+	$('.select-result a[data-classify="' + classify + '"]').each(function(index, val) {
+		list.push($(val).data('value'));
+	});
+	return list.join(',');
+}
+
 </script>

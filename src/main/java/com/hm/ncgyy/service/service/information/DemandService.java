@@ -19,5 +19,7 @@ public interface DemandService {
 	List<DemandEntity> listByUserId(Long userId);
 	
 	Page<DemandEntity> list(int page, int size);
+	
+	Page<DemandEntity> search(String searchStr, int page, int size);
 
 }

@@ -245,7 +245,7 @@ public class RecruitController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/talent/job/listPaging")
+	@RequestMapping(value = "/api/service/talent/job/listPaging", method = RequestMethod.POST)
 	public Result job_listPaging(int page, int size) {
 		try {
 			Page<JobEntity> list = jobService.list(page, size);

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -13,7 +14,12 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 
 @Entity
-@Table(name = "service_talent_job")
+@Table(name = "service_talent_job", indexes = {
+	@Index(name = "index_service_talent_job_updateTime", columnList = "updateTime"),
+	@Index(name = "index_service_talent_job_user", columnList = "user_id, updateTime"),
+	@Index(name = "index_service_talent_job_search", columnList = "intention, updateTime"),
+	@Index(name = "index_service_talent_job_filter", columnList = "profession, salary, workingYears, education, updateTime")
+})
 public class JobEntity extends BaseEntity {
 
 	/** 性别 */

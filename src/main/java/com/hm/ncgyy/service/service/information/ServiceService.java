@@ -19,5 +19,7 @@ public interface ServiceService {
 	List<ServiceEntity> listBySupplierId(Long supplierId);
 
 	Page<ServiceEntity> list(int page, int size);
+	
+	Page<ServiceEntity> search(String searchStr, int page, int size);
 
 }

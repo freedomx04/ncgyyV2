@@ -15,5 +15,7 @@ public interface ServiceRepository extends PagingAndSortingRepository<ServiceEnt
 	Page<ServiceEntity> findByOrderByUpdateTimeDesc(Pageable pageable);
 
 	List<ServiceEntity> findBySupplierIdOrderByUpdateTimeDesc(Long supplierId);
+	
+	Page<ServiceEntity> findByTitleContainingOrderByUpdateTimeDesc(String title, Pageable pageable);
 
 }

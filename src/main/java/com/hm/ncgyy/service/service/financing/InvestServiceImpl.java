@@ -9,12 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.entity.service.financing.InvestEntity;
 import com.hm.ncgyy.repository.service.financing.InvestRepository;
 
 @Service
 public class InvestServiceImpl implements InvestService {
-	
+
 	@Autowired
 	InvestRepository investRepository;
 
@@ -51,22 +52,46 @@ public class InvestServiceImpl implements InvestService {
 
 	@Override
 	public Page<InvestEntity> search(String searchStr, int page, int size) {
-		return investRepository.findByTitleContaining(searchStr, new PageRequest(page, size));
+		return investRepository.findByTitleContainingOrderByUpdateTimeDesc(searchStr, new PageRequest(page, size));
 	}
 
 	@Override
-	public Page<InvestEntity> filter(String investType, String fundType, int page, int size) {
-		List<Integer> itlist = new LinkedList<>();
-		for (String it: StringUtils.split(investType, '-')) {
-			itlist.add(Integer.parseInt(it));
+	public Page<InvestEntity> filter(String profession, String investType, String fundType, int page, int size) {
+		List<String> prlist = new LinkedList<>();
+		if (StringUtils.isEmpty(profession)) {
+			for (String pr : ConstantUtil.professions) {
+				prlist.add(pr);
+			}
+		} else {
+			for (String pr : StringUtils.split(profession, ',')) {
+				prlist.add(pr);
+			}
 		}
-		
-		List<Integer> ftlist = new LinkedList<>();
-		for (String ft: StringUtils.split(fundType, '-')) {
-			ftlist.add(Integer.parseInt(ft));
+
+		List<String> itlist = new LinkedList<>();
+		if (StringUtils.isEmpty(investType)) {
+			for (String it : ConstantUtil.investTypes) {
+				itlist.add(it);
+			}
+		} else {
+			for (String it : StringUtils.split(investType, ',')) {
+				itlist.add(it);
+			}
 		}
-		
-		return investRepository.findByInvestTypeInAndFundTypeIn(itlist, ftlist, new PageRequest(page, size));
+
+		List<String> ftlist = new LinkedList<>();
+		if (StringUtils.isEmpty(fundType)) {
+			for (String ft : ConstantUtil.fundTypes) {
+				ftlist.add(ft);
+			}
+		} else {
+			for (String ft : StringUtils.split(fundType, ',')) {
+				ftlist.add(ft);
+			}
+		}
+
+		return investRepository.findByProfessionInAndInvestTypeInAndFundTypeInOrderByUpdateTimeDesc(prlist, itlist,
+				ftlist, new PageRequest(page, size));
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -13,7 +14,11 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 
 @Entity
-@Table(name = "service_information_demand")
+@Table(name = "service_information_demand", indexes = {
+	@Index(name = "index_service_information_demand_updateTime", columnList = "updateTime"),
+	@Index(name = "index_service_information_demand_user", columnList = "user_id, updateTime"),
+	@Index(name = "index_service_information_demand_search", columnList = "title, updateTime")
+})
 public class DemandEntity extends BaseEntity {
 
 	/** 用户 */

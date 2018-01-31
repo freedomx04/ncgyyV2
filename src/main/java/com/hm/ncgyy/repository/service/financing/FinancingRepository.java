@@ -12,17 +12,13 @@ public interface FinancingRepository extends PagingAndSortingRepository<Financin
 
 	Iterable<FinancingEntity> findByIdIn(List<Long> financingIds);
 
-	List<FinancingEntity> findByOrderByUpdateTimeDesc();
-
 	Page<FinancingEntity> findByOrderByUpdateTimeDesc(Pageable pageable);
 
 	List<FinancingEntity> findBySupplierIdOrderByUpdateTimeDesc(Long supplierId);
 
-	Page<FinancingEntity> findBySupplierIdOrderByUpdateTimeDesc(Long supplierId, Pageable pageable);
+	Page<FinancingEntity> findByTitleContainingOrderByUpdateTimeDesc(String title, Pageable pageable);
 
-	Page<FinancingEntity> findByTitleContaining(String title, Pageable pageable);
-
-	Page<FinancingEntity> findByProfessionInAndFinancingTypeIn(List<Integer> profession, List<Integer> financingType,
-			Pageable pageable);
+	Page<FinancingEntity> findByProfessionInAndFinancingTypeInOrderByUpdateTimeDesc(List<String> profession,
+			List<String> financingType, Pageable pageable);
 
 }

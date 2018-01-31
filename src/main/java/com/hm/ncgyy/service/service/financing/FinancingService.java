@@ -16,9 +16,9 @@ public interface FinancingService {
 	
 	void delete(List<Long> financingIds);
 	
-	Page<FinancingEntity> list(int page, int size);
-	
 	List<FinancingEntity> listBySupplierId(Long supplierId);
+	
+	Page<FinancingEntity> list(int page, int size);
 	
 	Page<FinancingEntity> search(String searchStr, int page, int size);
 	

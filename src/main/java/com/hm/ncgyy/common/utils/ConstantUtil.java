@@ -26,13 +26,13 @@ public class ConstantUtil {
 	public static String[] educations = { "不限", "高中以下", "高中", "中专/技校", "大专", "本科", "硕士", "博士" };
 
 	/** 融资类型 */
-	public static String[] financingTypes = { "债权融资", "股权融资", "其他融资", "整体转让" };
+	public static String[] financingTypes = { "不限", "债权融资", "股权融资", "其他融资", "整体转让" };
 
 	/** 投资方式 */
-	public static String[] investTypes = { "股权投资", "债权投资", "金融投资", "BT/BOT 项目投资", "其它投资" };
+	public static String[] investTypes = { "不限", "股权投资", "债权投资", "金融投资", "BT/BOT 项目投资", "其它投资" };
 
 	/** 资金类型 */
-	public static String[] fundTypes = { "个人资金", "企业资金", "天使投资", "VC投资", "PE投资", "小额贷款", "典当公司", "担保公司", "金融租赁", "投资公司",
+	public static String[] fundTypes = { "不限", "个人资金", "企业资金", "天使投资", "VC投资", "PE投资", "小额贷款", "典当公司", "担保公司", "金融租赁", "投资公司",
 			"商业银行", "基金公司", "证券公司", "信托公司", "资产管理", "其它资金" };
 
 	/** 运输方式 */

@@ -18,7 +18,7 @@ public interface RecruitRepository extends PagingAndSortingRepository<RecruitEnt
 
 	Page<RecruitEntity> findByPositionContainingOrderByUpdateTimeDesc(String position, Pageable pageable);
 
-	Page<RecruitEntity> findByProfessionInAndEducationInAndWorkingYearsInAndSalaryIn(List<Integer> profession,
-			List<Integer> education, List<Integer> workingYears, List<Integer> salary, Pageable pageable);
+	Page<RecruitEntity> findByProfessionInAndEducationInAndWorkingYearsInAndSalaryInOrderByUpdateTimeDesc(List<String> profession,
+			List<String> education, List<String> workingYears, List<String> salary, Pageable pageable);
 
 }

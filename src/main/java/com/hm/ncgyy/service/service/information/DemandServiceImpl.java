@@ -47,4 +47,9 @@ public class DemandServiceImpl implements DemandService {
 		return demandRepository.findByOrderByUpdateTimeDesc(new PageRequest(page, size));
 	}
 
+	@Override
+	public Page<DemandEntity> search(String searchStr, int page, int size) {
+		return demandRepository.findByTitleContainingOrderByUpdateTimeDesc(searchStr, new PageRequest(page, size));
+	}
+
 }

@@ -12,17 +12,13 @@ public interface InvestRepository extends PagingAndSortingRepository<InvestEntit
 
 	Iterable<InvestEntity> findByIdIn(List<Long> investIds);
 
-	List<InvestEntity> findByOrderByUpdateTimeDesc();
-
 	Page<InvestEntity> findByOrderByUpdateTimeDesc(Pageable pageable);
 
 	List<InvestEntity> findBySupplierIdOrderByUpdateTimeDesc(Long supplierId);
 
-	Page<InvestEntity> findBySupplierIdOrderByUpdateTimeDesc(Long supplierId, Pageable pageable);
+	Page<InvestEntity> findByTitleContainingOrderByUpdateTimeDesc(String title, Pageable pageable);
 
-	Page<InvestEntity> findByTitleContaining(String title, Pageable pageable);
-
-	Page<InvestEntity> findByInvestTypeInAndFundTypeIn(List<Integer> investType, List<Integer> fundType,
-			Pageable pageable);
+	Page<InvestEntity> findByProfessionInAndInvestTypeInAndFundTypeInOrderByUpdateTimeDesc(List<String> profession,
+			List<String> investType, List<String> fundType, Pageable pageable);
 
 }

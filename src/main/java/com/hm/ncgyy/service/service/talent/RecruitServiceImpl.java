@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.entity.service.talent.RecruitEntity;
 import com.hm.ncgyy.repository.service.talent.RecruitRepository;
 
@@ -57,28 +58,52 @@ public class RecruitServiceImpl implements RecruitService {
 	@Override
 	public Page<RecruitEntity> filter(String profession, String education, String workingYears, String salary, int page,
 			int size) {
-		List<Integer> prlist = new LinkedList<>();
-		for (String pr : StringUtils.split(profession, '-')) {
-			prlist.add(Integer.parseInt(pr));
+		List<String> prlist = new LinkedList<>();
+		if (StringUtils.isEmpty(profession)) {
+			for (String pr : ConstantUtil.professions) {
+				prlist.add(pr);
+			}
+		} else {
+			for (String pr : StringUtils.split(profession, ',')) {
+				prlist.add(pr);
+			}
 		}
 
-		List<Integer> edlist = new LinkedList<>();
-		for (String ed : StringUtils.split(education, '-')) {
-			edlist.add(Integer.parseInt(ed));
+		List<String> edlist = new LinkedList<>();
+		if (StringUtils.isEmpty(education)) {
+			for (String ed : ConstantUtil.educations) {
+				edlist.add(ed);
+			}
+		} else {
+			for (String ed : StringUtils.split(education, ',')) {
+				edlist.add(ed);
+			}
 		}
 
-		List<Integer> wylist = new LinkedList<>();
-		for (String wy : StringUtils.split(workingYears, '-')) {
-			wylist.add(Integer.parseInt(wy));
+		List<String> wylist = new LinkedList<>();
+		if (StringUtils.isEmpty(workingYears)) {
+			for (String wy : ConstantUtil.workingYearss) {
+				wylist.add(wy);
+			}
+		} else {
+			for (String wy : StringUtils.split(workingYears, ',')) {
+				wylist.add(wy);
+			}
 		}
 
-		List<Integer> salist = new LinkedList<>();
-		for (String sa : StringUtils.split(salary, '-')) {
-			salist.add(Integer.parseInt(sa));
+		List<String> salist = new LinkedList<>();
+		if (StringUtils.isEmpty(salary)) {
+			for (String sa : ConstantUtil.salarys) {
+				salist.add(sa);
+			}
+		} else {
+			for (String sa : StringUtils.split(salary, ',')) {
+				salist.add(sa);
+			}
 		}
 
-		return recruitRepository.findByProfessionInAndEducationInAndWorkingYearsInAndSalaryIn(prlist, edlist,
-				wylist, salist, new PageRequest(page, size));
+		return recruitRepository.findByProfessionInAndEducationInAndWorkingYearsInAndSalaryInOrderByUpdateTimeDesc(
+				prlist, edlist, wylist, salist, new PageRequest(page, size));
 	}
 
 }

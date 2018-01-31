@@ -9,12 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
 import com.hm.ncgyy.repository.service.financing.FinancingRepository;
 
 @Service
 public class FinancingServiceImpl implements FinancingService {
-	
+
 	@Autowired
 	FinancingRepository financingRepository;
 
@@ -40,33 +41,46 @@ public class FinancingServiceImpl implements FinancingService {
 	}
 
 	@Override
+	public List<FinancingEntity> listBySupplierId(Long supplierId) {
+		return financingRepository.findBySupplierIdOrderByUpdateTimeDesc(supplierId);
+	}
+
+	@Override
 	public Page<FinancingEntity> list(int page, int size) {
 		return financingRepository.findByOrderByUpdateTimeDesc(new PageRequest(page, size));
 	}
 
 	@Override
-	public List<FinancingEntity> listBySupplierId(Long supplierId) {
-		return financingRepository.findByOrderByUpdateTimeDesc();
-	}
-
-	@Override
 	public Page<FinancingEntity> search(String searchStr, int page, int size) {
-		return financingRepository.findByTitleContaining(searchStr, new PageRequest(page, size));
+		return financingRepository.findByTitleContainingOrderByUpdateTimeDesc(searchStr, new PageRequest(page, size));
 	}
 
 	@Override
 	public Page<FinancingEntity> filter(String profession, String financingType, int page, int size) {
-		List<Integer> prlist = new LinkedList<>();
-		for (String pr: StringUtils.split(profession, '-')) {
-			prlist.add(Integer.parseInt(pr));
+		List<String> prlist = new LinkedList<>();
+		if (StringUtils.isEmpty(profession)) {
+			for (String pr : ConstantUtil.professions) {
+				prlist.add(pr);
+			}
+		} else {
+			for (String pr : StringUtils.split(profession, ',')) {
+				prlist.add(pr);
+			}
 		}
-		
-		List<Integer> ftlist = new LinkedList<>();
-		for (String ft: StringUtils.split(financingType, '-')) {
-			ftlist.add(Integer.parseInt(ft));
+
+		List<String> ftlist = new LinkedList<>();
+		if (StringUtils.isEmpty(financingType)) {
+			for (String ft : ConstantUtil.financingTypes) {
+				ftlist.add(ft);
+			}
+		} else {
+			for (String ft : StringUtils.split(financingType, ",")) {
+				ftlist.add(ft);
+			}
 		}
-		
-		return financingRepository.findByProfessionInAndFinancingTypeIn(prlist, ftlist, new PageRequest(page, size));
+
+		return financingRepository.findByProfessionInAndFinancingTypeInOrderByUpdateTimeDesc(prlist, ftlist,
+				new PageRequest(page, size));
 	}
 
 }

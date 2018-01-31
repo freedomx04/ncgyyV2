@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -13,7 +14,12 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
-@Table(name = "service_financing_invest")
+@Table(name = "service_financing_invest", indexes = {
+	@Index(name = "index_service_financing_invest_updateTime",  columnList = "updateTime"),
+	@Index(name = "index_service_financing_invest_supplier", columnList = "supplier_id, updateTime"),
+	@Index(name = "index_service_financing_invest_search", columnList = "title, updateTime"),
+	@Index(name = "index_service_financing_invest_filter", columnList = "profession, investType, fundType, updateTime")
+})
 public class InvestEntity extends BaseEntity {
 
 	/** 供应商 */
