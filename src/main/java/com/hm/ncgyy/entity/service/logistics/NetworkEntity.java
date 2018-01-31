@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,7 +13,9 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
-@Table(name = "service_logistics_network")
+@Table(name = "service_logistics_network", indexes = {
+	@Index(name = "index_service_logistics_network_search", columnList = "name, address")
+})
 public class NetworkEntity extends BaseEntity {
 
 	/** 物流供应商 */

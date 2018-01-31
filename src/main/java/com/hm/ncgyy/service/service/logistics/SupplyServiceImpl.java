@@ -49,7 +49,7 @@ public class SupplyServiceImpl implements SupplyService {
 
 	@Override
 	public Page<SupplyEntity> search(String origin, String destination, int page, int size) {
-		return supplyRepository.findByOriginAndDestinationOrderByUpdateTimeDesc(origin, destination,
+		return supplyRepository.findByOriginContainingAndDestinationContainingOrderByUpdateTimeDesc(origin, destination,
 				new PageRequest(page, size));
 	}
 

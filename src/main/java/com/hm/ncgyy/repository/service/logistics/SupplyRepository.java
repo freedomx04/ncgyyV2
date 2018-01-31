@@ -16,7 +16,7 @@ public interface SupplyRepository extends PagingAndSortingRepository<SupplyEntit
 
 	List<SupplyEntity> findByUserIdOrderByUpdateTimeDesc(Long userId);
 
-	Page<SupplyEntity> findByOriginAndDestinationOrderByUpdateTimeDesc(String origin, String destination,
-			Pageable pageable);
+	Page<SupplyEntity> findByOriginContainingAndDestinationContainingOrderByUpdateTimeDesc(String origin,
+			String destination, Pageable pageable);
 
 }

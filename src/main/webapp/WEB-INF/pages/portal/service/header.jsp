@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
@@ -113,6 +114,34 @@ ul .current {
 	margin: 2px;
 	width: 80px;
 }
+
+/** corner */
+.corner-buttons {
+	position: fixed;
+	width: 50px;
+	right: 0;
+	bottom: 30px;
+	display: flex;
+	flex-direction: column;
+}
+.corner-container {
+	width: 40px;
+}
+.corner-btn {
+	margin-top: 10px;
+	padding: 0px;
+	color: #999;
+	background: #fff;
+	width: 40px;
+	height: 40px;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+	box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+.corner-btn:HOVER,
+.corner-btn:FOCUS {
+	color: #999;
+	background: #d5dbe7;
+}
 </style>
 
 <header class="header white-bg">
@@ -146,9 +175,18 @@ ul .current {
 	</div>
 </header>
 
+<div class="corner-buttons">
+	<div class="corner-container btn-top" data-toggle="tooltip" data-placement="left" data-container="body" title="回到顶部">
+		<button type="button" class="btn corner-btn">
+			<i class="fa fa-chevron-up fa-lg"></i>
+		</button>
+	</div>
+</div>
+
 <script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript" src="${ctx}/local/common.js"></script>
 
 <script type="text/javascript">
@@ -165,6 +203,8 @@ ul .current {
 	case 'financing':	$ul.find('.service-financing').addClass('current');		break;
 	case 'logistics':	$ul.find('.service-logistics').addClass('current');		break;
 	}
+	
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('body')
 	.on('click', '.select-all', function() {
@@ -225,6 +265,9 @@ ul .current {
 			$this.find('fa').removeClass('fa-angle-up').addClass('fa-angle-down');
 			$this.closest('li').find('dl').css({'height': '32px', 'overflow': 'hidden'});
 		}
+	})
+	.on('click', '.btn-top', function() {
+		$('html, body').animate({scrollTop: 0}, 1000);
 	});
 	
 })( jQuery );

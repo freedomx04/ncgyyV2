@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,47 +13,50 @@ import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 
 @Entity
-@Table(name = "service_logistics_line")
+@Table(name = "service_logistics_line", indexes = {
+	@Index(name = "index_service_logistics_line_search", columnList = "origin, destination") 
+})
 public class LineEntity extends BaseEntity {
-	
+
 	/** 物流供应商 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "supplier_id")
 	private SupplierEntity supplier;
-	
+
 	/** 发货地 */
 	private String origin;
-	
-	/** 收货地*/
+
+	/** 收货地 */
 	private String destination;
-	
+
 	/** 运输方式 */
 	private String transportMode;
-	
+
 	/** 参考时效 */
 	private String aging;
-	
+
 	/** 重货单价（公斤） */
 	private Double heavyPrice;
-	
+
 	/** 轻货单价（立方米） */
 	private Double lightPrice;
-	
+
 	/** 最低一票 */
 	private Double lowest;
-	
+
 	/** 联系人 */
 	private String contactUser;
 
 	/** 联系电话 */
 	private String contact;
-	
+
 	public LineEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public LineEntity(SupplierEntity supplier, String origin, String destination, String transportMode,
-			String aging, Double heavyPrice, Double lightPrice, Double lowest, String contactUser, String contact, Date createTime, Date updateTime) {
+	public LineEntity(SupplierEntity supplier, String origin, String destination, String transportMode, String aging,
+			Double heavyPrice, Double lightPrice, Double lowest, String contactUser, String contact, Date createTime,
+			Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.origin = origin;
@@ -147,5 +151,5 @@ public class LineEntity extends BaseEntity {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	
+
 }

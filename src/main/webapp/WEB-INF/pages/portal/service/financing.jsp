@@ -169,7 +169,7 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var paginatorSize = 1;
+		var paginatorSize = 10;
 		
 		var $financing = $('#tab-financing');
 		loadFinancing('${ctx}/api/service/financing/financing/listPaging', {

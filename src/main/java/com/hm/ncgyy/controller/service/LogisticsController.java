@@ -113,7 +113,7 @@ public class LogisticsController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/logistics/network/listPaging")
+	@RequestMapping(value = "/api/service/logistics/network/listPaging", method = RequestMethod.POST)
 	public Result network_listPaging(int page, int size) {
 		try {
 			Page<NetworkEntity> list = networkService.list(page, size);
@@ -221,7 +221,7 @@ public class LogisticsController {
 		}
 	}
 
-	@RequestMapping(value = "/api/service/logistics/line/listPaging")
+	@RequestMapping(value = "/api/service/logistics/line/listPaging", method = RequestMethod.POST)
 	public Result line_listPaging(int page, int size) {
 		try {
 			Page<LineEntity> list = lineService.list(page, size);

@@ -14,8 +14,6 @@ public interface LineRepository extends PagingAndSortingRepository<LineEntity, L
 	
 	List<LineEntity> findBySupplierId(Long supplierId);
 	
-	Page<LineEntity> findBySupplierId(Long supplierId, Pageable pageable);
-	
 	Page<LineEntity> findByOriginContainingAndDestinationContaining(String origin, String destination, Pageable pageable);
 
 }
