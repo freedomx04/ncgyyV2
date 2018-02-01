@@ -17,18 +17,16 @@
 	<div class="main animated fadeInRight">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="info-main white-bg">
-						<div class="info-header text-center">
-							<div class="info-name">${dynamic.title}</div>
-							<div class="info-time">
-								<span>来源：${dynamic.source}</span>
-								<span style="margin-left: 20px;">时间：<fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy-MM-dd"/></span>
-							</div>
+				<div class="info-main white-bg">
+					<div class="info-header text-center">
+						<div class="info-name">${dynamic.title}</div>
+						<div class="info-time">
+							<span>来源：${dynamic.source}</span>
+							<span style="margin-left: 20px;">时间：<fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy-MM-dd"/></span>
 						</div>
-						
-						<div class="info-content">${dynamic.content}</div>
 					</div>
+					
+					<div class="info-content">${dynamic.content}</div>
 				</div>
 			</div>
 		</div>

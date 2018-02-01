@@ -13,9 +13,16 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
+	
+	<style type="text/css">
+	.page-business .main ul {
+		line-height: 36px;
+		font-size: 16px;
+	}
+	</style>
 </head>
 
-<body class="gray-bg body-business">
+<body class="gray-bg page-business">
 	<!-- header -->
 	<%@ include file="/WEB-INF/pages/portal/business/header.jsp"%>
 	
@@ -26,49 +33,29 @@
 					<div class="info-main white-bg">
 						<div class="info-title">招商动态</div>
 						<div class="info-content">
-							<c:forEach var="dynamic" items="${dynamics}">
-								<div class="service-item">
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="item-title">
-												<a href="${ctx}/business/dynamic/info?dynamicId=${dynamic.id}" target="_blank">${dynamic.title}</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-time"><fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy-MM-dd"/></div>
-								</div>
-							</c:forEach>
+							<ul class="list-unstyled">
+								<c:forEach var="dynamic" items="${dynamics}">
+									<li class="text-ellipsis"><a href="${ctx}/business/dynamic/info?dynamicId=${dynamic.id}" target="_blank">${dynamic.title}</a></li>
+								</c:forEach>
+							</ul>
 						</div>
 						
 						<div class="info-title">招商政策</div>
 						<div class="info-content">
-							<c:forEach var="policy" items="${policys}">
-								<div class="service-item">
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="item-title">
-												<a href="${ctx}/business/policy/info?policyId=${policy.id}" target="_blank">${policy.title}</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-time"><fmt:formatDate value="${policy.updateTime}" pattern="yyyy-MM-dd"/></div>
-								</div>
-							</c:forEach>
+							<ul class="list-unstyled">
+								<c:forEach var="policy" items="${policys}">
+									<li class="text-ellipsis"><a href="${ctx}/business/policy/info?policyId=${policy.id}" target="_blank">${policy.title}</a></li>
+								</c:forEach>
+							</ul>
 						</div>
 						
 						<div class="info-title">招商项目</div>
 						<div class="info-content">
-							<c:forEach var="business" items="${businesss}">
-								<div class="service-item">
-									<div class="row">
-										<div class="col-sm-10">
-											<div class="item-title">
-												<a href="${ctx}/business/item/info?itemId=${business.id}" target="_blank">${business.name}</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
+							<ul class="list-unstyled">
+								<c:forEach var="business" items="${businesss}">
+									<li class="text-ellipsis"><a href="${ctx}/business/item/info?itemId=${business.id}" target="_blank">${business.name}</a></li>
+								</c:forEach>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -138,7 +125,7 @@
 	<script type="text/javascript">
 	;(function( $ ) {
 		
-		var $page = $('.body-business');
+		var $page = $('.page-business');
 		
 		var $form = $('#form-message');
 		$k.util.bsValidator($form);

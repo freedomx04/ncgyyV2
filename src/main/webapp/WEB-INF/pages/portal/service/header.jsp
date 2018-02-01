@@ -123,6 +123,7 @@ ul .current {
 	bottom: 30px;
 	display: flex;
 	flex-direction: column;
+	z-index: 999;
 }
 .corner-container {
 	width: 40px;

@@ -113,11 +113,11 @@ public class BusinessController {
 	public Result listPaging(int page, int size) {
 		try {
 			Page<BusinessEntity> list = businessService.list(page, size);
-			return new ResultInfo(Code.SUCCESS.value(), "ok", list.getContent());
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-
+	
 }

@@ -85,7 +85,7 @@
 				page: 0,
 				size: paginatorSize
 			});
-		})
+		});
 		
 		function loadService(url, data) {
 			$.ajax({
@@ -98,7 +98,7 @@
 						
 						var count = ret.data.totalElements;
 						if (count > 0) {
-							$service.find('.pagination-info').text('总共 ' + ret.data.totalElements + ' 条记录');
+							$service.find('.pagination-info').text('总共 ' + count + ' 条记录');
 							$.each(ret.data.content, function(key, service) {
 								var $obj = 
 									'<div class="service-item">'
@@ -151,7 +151,7 @@
 				page: 0,
 				size: paginatorSize
 			});
-		})
+		});
 		
 		function loadDemand(url, data) {
 			$.ajax({
@@ -164,7 +164,7 @@
 						
 						var count = ret.data.totalElements;
 						if (count > 0) {
-							$demand.find('.pagination-info').text('总共 ' + ret.data.totalElements + ' 条记录');
+							$demand.find('.pagination-info').text('总共 ' + count + ' 条记录');
 							$.each(ret.data.content, function(key, demand) {
 								var $obj = 
 									'<div class="service-item">'

@@ -186,15 +186,20 @@ public class PageController {
 	 */
 	@RequestMapping(value = "/business")
 	String business(ModelMap modelMap) {
-		Page<ArticleEntity> dynamics = articleService.listByType(10, 0, 10);
+		Page<ArticleEntity> dynamics = articleService.listByType(10, 0, 5);
 		modelMap.addAttribute("dynamics", dynamics.getContent());
 		
-		Page<ArticleEntity> policys = articleService.listByType(11, 0, 10);
+		Page<ArticleEntity> policys = articleService.listByType(11, 0, 5);
 		modelMap.addAttribute("policys", policys.getContent());
 		
-		Page<BusinessEntity> businesss = businessService.list(0, 10);
+		Page<BusinessEntity> businesss = businessService.list(0, 5);
 		modelMap.addAttribute("businesss", businesss.getContent());
 		return "pages/portal/business/business";
+	}
+	
+	@RequestMapping(value = "/business/dynamic")
+	String business_dynamic(ModelMap modelMap) {
+		return "pages/portal/business/dynamic";
 	}
 	
 	@RequestMapping(value = "/business/dynamic/info")
@@ -204,11 +209,21 @@ public class PageController {
 		return "pages/portal/business/dynamic_info";
 	}
 	
+	@RequestMapping(value = "/business/policy")
+	String business_policy(ModelMap modelMap) {
+		return "pages/portal/business/policy";
+	}
+	
 	@RequestMapping(value = "/business/policy/info")
 	String policy_info(ModelMap model, Long policyId) {
 		ArticleEntity policy = articleService.findOne(policyId);
 		model.addAttribute("policy", policy);
 		return "pages/portal/business/policy_info";
+	}
+	
+	@RequestMapping(value = "/business/item")
+	String business_item(ModelMap modelMap) {
+		return "pages/portal/business/item";
 	}
 	
 	@RequestMapping(value = "/business/item/info")
