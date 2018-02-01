@@ -4,6 +4,33 @@ a {
 a:HOVER {
 	color: #e94e38;
 }
+
+
+/** navbar */
+.nav>li>a {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: #000;
+	font-weight: 500;
+	font-size: 16px;
+}
+.nav.navbar-right>li>a {
+	color: #000;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+	background: 0 0;
+	border-color: transparent;
+	color: #676a6c;
+}
+.navbar-toggle .icon-bar {
+	background-color: #000;
+}
+.nav-tabs>li>a {
+	color: #A7B1C2;
+	font-weight: 600;
+	padding: 10px 20px 10px 25px;
+}
+
 .main {
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -11,7 +38,6 @@ a:HOVER {
 .tabs-container .nav-tabs>li>a {
 	font-size: 16px;
 	font-weight: normal;
-	padding: 10px 30px;
 }
 .tabs-container .nav-tabs>li.active>a, 
 .tabs-container .nav-tabs>li.active>a:focus, 
