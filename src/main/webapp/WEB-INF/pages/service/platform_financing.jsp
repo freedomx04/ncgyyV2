@@ -180,9 +180,9 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="prupose" class="col-sm-3 control-label"><i class="form-required">*</i>融资用途</label>
+                            <label for="purpose" class="col-sm-3 control-label"><i class="form-required">*</i>融资用途</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="prupose" required>
+                                <input type="text" class="form-control" name="purpose" required>
                             </div>
                         </div>
                         
@@ -256,7 +256,7 @@
                 	<dl class="dl-horizontal dl-detail">
                 		<dt>项目名称</dt><dd data-name="title"></dd>
                 		<dt>行业类型</dt><dd data-name="profession"></dd>
-                		<dt>融资用途</dt><dd data-name="prupose"></dd>
+                		<dt>融资用途</dt><dd data-name="purpose"></dd>
                 		<dt>融资金额</dt><dd data-name="amount"></dd>
                 		<dt>融资类型</dt><dd data-name="financingType"></dd>
                 		<dt>项目概述</dt><dd data-name="description"></dd>

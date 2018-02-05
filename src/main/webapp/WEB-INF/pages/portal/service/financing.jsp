@@ -218,7 +218,7 @@
 										+ 			'<a href="${ctx}/service/financing/financing/info?financingId=' + financing.id + '" target="_blank">' + financing.title + '</a>'
 										+ 		'</div>'
 										+ 		'<span>行业类别：' + financing.profession + '</span>'
-										+ 		'<span>融资用途：' + financing.prupose + '</span>'
+										+ 		'<span>融资用途：' + financing.purpose + '</span>'
 										+ 		'<span>融资金额：' + financing.amount + '</span>'
 										+ 		'<span>融资类型：' + financing.financingType + '</span>'
 										+ 	'</div>'
