@@ -6,6 +6,10 @@
 	background-color: #fff;
 }
 
+.padding-0 {
+	padding: 0;
+}
+
 .form-required {
 	color: red;
 	margin-right: 5px;

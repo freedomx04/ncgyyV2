@@ -32,7 +32,7 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-service form-control" placeholder="搜索服务">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-service">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-service">搜索</button>
 									</span>
 								</div>
 							</div>
@@ -50,7 +50,7 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-demand form-control" placeholder="搜索需求">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-demand">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-demand">搜索</button>
 									</span>
 								</div>
 							</div>
@@ -108,7 +108,7 @@
 										+ 			'<a href="${ctx}/service/information/service/info?serviceId=' + service.id + '" target="_blank">' + service.title + '</a>'
 										+ 		'</div>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + service.supplier.name + '</div>'
 										+ 		'<span>行业：' + service.supplier.profession + '</span>'
 										+ 		'<span>性质：' + service.supplier.property + '</span>'

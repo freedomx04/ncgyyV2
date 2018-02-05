@@ -17,7 +17,7 @@
 	<div class="main animated fadeInRight">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-8 padding-0">
 					<div class="info-main white-bg">
 						<div class="info-header">
 							<div class="info-name">${network.name}</div>
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-sm-4 hidden-xs">
 					<div class="info-supplier white-bg">
 						<div class="info-title" style="margin-top: 0;">供应商名片</div>
 						<div class="info-content">

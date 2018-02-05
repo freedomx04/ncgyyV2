@@ -9,28 +9,6 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
 
 <style type="text/css">
-ul {
-	padding: 0;
-	margin: 0;
-}
-.header .header-info .logo {
-	width: 180px;
-	padding: 15px 0;
-	margin-right: 40px;
-}
-.header .header-info .nav{
-	float: left;
-}
-.header .header-info .nav ul li {
-	display: inline-block;
-	font-size: 18px;
-	line-height: 87px;
-	margin: 0 10px;
-}
-ul .current {
-	color: #e94e38;
-}
-
 /** pagination */
 .pagination-info {
 	margin: 20px 15px;
@@ -46,20 +24,15 @@ ul .current {
 	border-color: #e94e38;
 	color: #fff;
 }
+.pagination>li>a, .pagination>li>span {
+	color: #000;
+}
 
+/** filter */
 .filter-search {
 	padding-left: 20px;
 	padding-right: 20px;
 }
-.filter-search input {
-	height: 44px;
-	line-height: 44px;
-	font-size: 16px;
-}
-.filter-search button {
-	padding: 10px 45px;
-	font-size: 16px;
-} 
 .filter-classify ul {
 	position: relative;
 	min-height: 36px;
@@ -89,6 +62,9 @@ ul .current {
 	margin: 2px;
 	height: 32px;
 	line-height: 32px;
+}
+.filter-classify .select-no {
+	padding: 0;
 }
 .filter-classify .select-all.active,
 .filter-classify .select-all:hover,
@@ -146,37 +122,6 @@ ul .current {
 }
 </style>
 
-<%-- <header class="header white-bg">
-	<div class="container header-info">
-		<div class="logo pull-left">
-			<a href="${ctx}/service/talent">
-				<img src="${ctx}/img/service-logo.png">
-			</a>
-		</div>
-		<div class="nav">
-			<ul class="service-type">
-				<li>
-					<a class="service-talent" href="${ctx}/service/talent">用工服务</a>
-				</li>
-				<li>
-					<a class="service-business" href="${ctx}/service/information">信息化服务</a>
-				</li>
-				<li>
-					<a class="service-financing" href="${ctx}/service/financing">融资服务</a>
-				</li>
-				<li>
-					<a class="service-logistics" href="${ctx}/service/logistics">物流服务</a>
-				</li>
-			</ul>
-		</div>
-		<div class="pull-right" style="padding: 30px 0;">
-			<div>
-				<a href="${ctx}/index">园区首页</a>
-			</div>
-		</div>
-	</div>
-</header> --%>
-
 <header class="navbar navbar-static-top white-bg">
 	<div class="container">
 		<div class="navbar-header" style="width: auto;">
@@ -191,16 +136,16 @@ ul .current {
 		<nav id="bs-navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="${ctx}/service/talent">用工服务</a>
+					<a class="service-talent" href="${ctx}/service/talent">用工服务</a>
 				</li>
 				<li>
-					<a href="${ctx}/service/information">信息化服务</a>
+					<a class="service-information" href="${ctx}/service/information">信息化服务</a>
 				</li>
 				<li>
-					<a href="${ctx}/service/financing">融资服务</a>
+					<a class="serivice-financing" href="${ctx}/service/financing">融资服务</a>
 				</li>
 				<li>
-					<a href="${ctx}/service/logistics">物流服务</a>
+					<a class="service-logistics" href="${ctx}/service/logistics">物流服务</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -212,8 +157,8 @@ ul .current {
 	</div>
 </header>
 
-<div class="corner-buttons">
-	<div class="corner-container btn-top" data-toggle="tooltip" data-placement="left" data-container="body" title="回到顶部">
+<div class="corner-buttons hidden-xs">
+	<div class="corner-container btn-top" title="回到顶部">
 		<button type="button" class="btn corner-btn">
 			<i class="fa fa-chevron-up fa-lg"></i>
 		</button>
@@ -232,7 +177,7 @@ ul .current {
 	var type = window.location.pathname;
 	type = type.substring(type.lastIndexOf('/') + 1);
 	
-	var $ul = $('.service-type');
+	var $ul = $('.navbar-nav');
 	
 	switch (type) {
 	case 'talent':		$ul.find('.service-talent').addClass('current');		break;
@@ -240,8 +185,6 @@ ul .current {
 	case 'financing':	$ul.find('.service-financing').addClass('current');		break;
 	case 'logistics':	$ul.find('.service-logistics').addClass('current');		break;
 	}
-	
-	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('body')
 	.on('click', '.select-all', function() {

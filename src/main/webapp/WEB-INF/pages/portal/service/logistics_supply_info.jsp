@@ -17,7 +17,7 @@
 	<div class="main animated fadeInRight">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-12 padding-0">
 					<div class="info-main white-bg">
 						<div class="info-header">
 							<div class="info-name">${supply.origin} - ${supply.destination}</div>

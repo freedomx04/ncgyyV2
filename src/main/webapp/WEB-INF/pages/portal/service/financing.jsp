@@ -32,11 +32,11 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-financing form-control" placeholder="搜索">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-financing">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-financing">搜索</button>
 									</span>
 								</div>
 							</div>
-							<div class="filter-classify" style="margin-top: 20px;">
+							<div class="filter-classify hidden-xs" style="margin-top: 20px;">
 								<ul class="list-unstyled has-more">
 									<li>
 										<dt>行业类别：</dt>
@@ -93,11 +93,11 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-invest form-control" placeholder="搜索">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-invest">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-invest">搜索</button>
 									</span>
 								</div>
 							</div>
-							<div class="filter-classify" style="margin-top: 20px;">
+							<div class="filter-classify hidden-xs" style="margin-top: 20px;">
 								<ul class="list-unstyled has-more">
 									<li>
 										<dt>投资行业：</dt>
@@ -222,7 +222,7 @@
 										+ 		'<span>融资金额：' + financing.amount + '</span>'
 										+ 		'<span>融资类型：' + financing.financingType + '</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + financing.supplier.name + '</div>'
 										+ 		'<span>行业：' + financing.supplier.profession + '</span>'
 										+ 		'<span>性质：' + financing.supplier.property + '</span>'
@@ -305,7 +305,7 @@
 										+ 		'<span>投资行业：' + invest.profession + '</span>'
 										+ 		'<span>投资金额：' + invest.amount + '</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + invest.supplier.name + '</div>'
 										+ 		'<span>行业：' + invest.supplier.profession + '</span>'
 										+ 		'<span>性质：' + invest.supplier.property + '</span>'

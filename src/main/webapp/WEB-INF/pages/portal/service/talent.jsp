@@ -32,11 +32,11 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-recruit form-control" placeholder="搜索职位">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-recruit">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-recruit">搜索</button>
 									</span>
 								</div>
 							</div>
-							<div class="filter-classify" style="margin-top: 20px;">
+							<div class="filter-classify hidden-xs" style="margin-top: 20px;">
 								<ul class="list-unstyled has-more">
 									<li>
 										<dt>行业类别：</dt>
@@ -121,11 +121,11 @@
 								<div class="col-md-8 input-group">
 									<input type="text" class="input-job form-control" placeholder="搜索求职意向">
 									<span class="input-group-btn">
-										<button type="button" class="btn btn-primary search-job">搜索</button>
+										<button type="button" class="btn btn-primary btn-fw search-job">搜索</button>
 									</span>
 								</div>
 							</div>
-							<div class="filter-classify" style="margin-top: 20px;">
+							<div class="filter-classify hidden-xs" style="margin-top: 20px;">
 								<ul class="list-unstyled has-more">
 									<li>
 										<dt>专业类别：</dt>
@@ -269,7 +269,7 @@
 										+ 		'<span>工作年限：' + recruit.workingYears + '</span>'
 										+ 		'<span>学历要求：' + recruit.education + '</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + recruit.supplier.name + '</div>'
 										+ 		'<span>行业：' + recruit.supplier.profession + '</span>'
 										+ 		'<span>性质：' + recruit.supplier.property + '</span>'
@@ -354,7 +354,7 @@
 										+ 		'<span>学历：' + job.education + '</span>'
 										+ 		'<span>专业：' + job.profession + '</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + job.user.name + '</div>'
 										+ 		'<span>工作经验：' + job.workingYears + '</span>'
 										+ 		'<span>期望薪资：' + job.salary + '</span>'

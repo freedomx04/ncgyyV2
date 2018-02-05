@@ -3,8 +3,9 @@ a {
 }
 a:HOVER {
 	color: #e94e38;
+	text-decoration: none;
+	cursor: pointer;
 }
-
 
 /** navbar */
 .nav>li>a {
@@ -20,7 +21,10 @@ a:HOVER {
 .nav>li>a:focus, .nav>li>a:hover {
 	background: 0 0;
 	border-color: transparent;
-	color: #676a6c;
+	color: #e94e38;
+}
+.nav>li>a.current {
+	color: #e94e38;
 }
 .navbar-toggle .icon-bar {
 	background-color: #000;

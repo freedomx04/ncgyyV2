@@ -47,8 +47,8 @@
 									</div>
 								</div>
 								<div class="form-group col-sm-4">
-									<button type="button" class="btn btn-primary search-line" style="width: 80px; margin-left: 15px;">搜索</button>
-									<button type="button" class="btn btn-white clear-line" style="width: 80px;">清除</button>
+									<button type="button" class="btn btn-primary btn-fw search-line" style="width: 80px; margin-left: 15px;">搜索</button>
+									<button type="button" class="btn btn-white btn-fw clear-line" style="width: 80px;">清除</button>
 								</div>
 							</form>
 						</div>
@@ -166,7 +166,7 @@
 										+ 		'<span>轻货单价：' + line.lightPrice + ' 元/立方</span>'
 										+ 		'<span>最低一票：' + line.lowest + ' 元</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + line.supplier.name + '</div>'
 										+ 		'<span>行业：' + line.supplier.profession + '</span>'
 										+ 		'<span>性质：' + line.supplier.property + '</span>'
@@ -235,7 +235,7 @@
 										+ 		'<span>联系电话：' + network.contact + '</span>'
 										+ 		'<span>业务内容：' + network.business + '</span>'
 										+ 	'</div>'
-										+ 	'<div class="col-sm-5">'
+										+ 	'<div class="col-sm-5 hidden-xs">'
 										+ 		'<div class="item-title">' + network.supplier.name + '</div>'
 										+ 		'<span>行业：' + network.supplier.profession + '</span>'
 										+ 		'<span>性质：' + network.supplier.property + '</span>'
