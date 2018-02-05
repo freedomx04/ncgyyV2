@@ -29,7 +29,7 @@
 	<div class="main">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-8 padding-0">
 					<div class="info-main white-bg">
 						<div class="info-title">招商动态</div>
 						<div class="info-content">
@@ -60,7 +60,7 @@
 					</div>
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-sm-4 hidden-xs">
 					<div class="white-bg" style="padding: 20px 0">
 						<div class="info-title" style="margin: 0 0 20px 20px;">我要留言</div>
 						<form class="form-horizontal" role="form" id="form-message" autocomplete="off">

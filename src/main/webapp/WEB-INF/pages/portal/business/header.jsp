@@ -5,32 +5,10 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 
-<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
 
 <style type="text/css">
-ul {
-	padding: 0;
-	margin: 0;
-}
-.header .header-info .logo {
-	width: 180px;
-	padding: 15px 0;
-	margin-right: 40px;
-}
-.header .header-info .nav{
-	float: left;
-}
-.header .header-info .nav ul li {
-	display: inline-block;
-	font-size: 18px;
-	line-height: 87px;
-	margin: 0 10px;
-}
-ul .current {
-	color: #e94e38;
-}
-
 .pagination-info {
 	margin: 20px 15px;
 	line-height: 29px;
@@ -44,6 +22,9 @@ ul .current {
 	background-color: #e94e38;
 	border-color: #e94e38;
 	color: #fff;
+}
+.pagination>li>a, .pagination>li>span {
+	color: #000;
 }
 
 /** corner */
@@ -76,13 +57,19 @@ ul .current {
 }
 </style>
 
-<header class="header white-bg">
-	<div class="container header-info">
-		<div class="logo pull-left">
-			<h2><a href="${ctx}/business">招商管理</a></h2>
+<header class="navbar navbar-static-top white-bg">
+	<div class="container">
+		<div class="navbar-header" style="width: auto;">
+			<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+			</button>
+			<a href="${ctx}/business" class="navbar-brand">招商管理</a>
 		</div>
-		<div class="nav">
-			<ul class="service-type">
+		<nav id="bs-navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
 				<li>
 					<a class="business-dynamic" href="${ctx}/business/dynamic">招商动态</a>
 				</li>
@@ -93,17 +80,17 @@ ul .current {
 					<a class="business-item" href="${ctx}/business/item">招商项目</a>
 				</li>
 			</ul>
-		</div> 
-		<div class="pull-right" style="padding: 30px 0;">
-			<div>
-				<a href="${ctx}/index">园区首页</a>
-			</div>
-		</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="${ctx}/index">园区首页</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 </header>
 
-<div class="corner-buttons">
-	<div class="corner-container btn-top" data-toggle="tooltip" data-placement="left" data-container="body" title="回到顶部">
+<div class="corner-buttons hidden-xs">
+	<div class="corner-container btn-top" title="回到顶部">
 		<button type="button" class="btn corner-btn">
 			<i class="fa fa-chevron-up fa-lg"></i>
 		</button>
@@ -123,15 +110,12 @@ ul .current {
 	var type = window.location.pathname;
 	type = type.substring(type.lastIndexOf('/') + 1);
 	
-	var $ul = $('.service-type');
-	
+	var $ul = $('.navbar-nav');
 	switch (type) {
 	case 'dynamic':		$ul.find('.business-dynamic').addClass('current');		break;
 	case 'policy':		$ul.find('.business-policy').addClass('current');		break;
 	case 'item':		$ul.find('.business-item').addClass('current');			break;
 	}
-	
-	$('[data-toggle="tooltip"]').tooltip();
 	
 	$('body')
 	.on('click', '.btn-top', function() {
