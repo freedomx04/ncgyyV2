@@ -113,6 +113,7 @@ a:HOVER {
 	font-weight: 400;
 }
 
+
 /** mobile */
 @media (max-width: 768px) {
 	.main .info-main {
