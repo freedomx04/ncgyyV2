@@ -87,7 +87,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="mobile" class="col-sm-3 control-label"><i class="form-required">*</i>手机号</label>
+						<label for="mobile" class="col-sm-3 control-label"><i class="form-required">*</i>联系电话</label>
 						<div class="col-sm-5">
                             <input type="text" class="form-control" name="mobile" value="${user.mobile}" required>
                         </div>
@@ -203,14 +203,6 @@
 		
 		$k.util.bsValidator($form, {
 			fields: {
-				mobile: {
-	                 validators: {
-	                     regexp: {
-	                         regexp: /^1[3|5|8]{1}[0-9]{9}$/,
-	                         message: '请输入正确的手机号码'
-	                     }
-	                 }
-	             },
 	             username: {
 	            	 validators: {
 	           	 		regexp: {

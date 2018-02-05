@@ -202,14 +202,21 @@
                         <div class="form-group">
                         	<label for="responsibility" class="col-sm-3 control-label"><i class="form-required">*</i>岗位职责</label>
                         	 <div class="col-sm-7">
-                                <textarea class="form-control" name="responsibility" style="resize:none; height: 100px;" required></textarea>
+                                <textarea class="form-control" name="responsibility" style="resize:none; height: 150px;" required></textarea>
                             </div>
                         </div>
                         
                         <div class="form-group">
                         	<label for="requirement" class="col-sm-3 control-label"><i class="form-required">*</i>任职要求</label>
                         	<div class="col-sm-7">
-                                <textarea class="form-control" name="requirement" style="resize:none; height: 100px;" required></textarea>
+                                <textarea class="form-control" name="requirement" style="resize:none; height: 150px;" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        	<label for="benefit" class="col-sm-3 control-label"><i class="form-required">*</i>岗位待遇</label>
+                        	<div class="col-sm-7">
+                                <textarea class="form-control" name="benefit" style="resize:none; height: 150px;" required></textarea>
                             </div>
                         </div>
                         
@@ -260,6 +267,7 @@
                 		<dt>学历</dt><dd data-name="education"></dd>
                 		<dt>岗位职责</dt><dd data-name="responsibility"></dd>
                 		<dt>任职要求</dt><dd data-name=requirement></dd>
+                		<dt>岗位待遇</dt><dd data-name="benefit"></dd>
                 		<dt>工作地点</dt><dd data-name="address"></dd>
                 		<dt>联系人</dt><dd data-name="contactUser"></dd>
                 		<dt>联系电话</dt><dd data-name="contact"></dd>
@@ -370,14 +378,14 @@
                         <div class="form-group">
                         	<label for="introduction" class="col-sm-3 control-label"><i class="form-required">*</i>自我介绍</label>
                         	<div class="col-sm-7">
-                                <textarea class="form-control" name="introduction" style="resize:none; height: 100px;" required></textarea>
+                                <textarea class="form-control" name="introduction" style="resize:none; height: 150px;" required></textarea>
                             </div>
                         </div>
                         
                         <div class="form-group">
                         	<label for="experience" class="col-sm-3 control-label"><i class="form-required">*</i>工作经历</label>
                         	<div class="col-sm-7">
-                                <textarea class="form-control" name="experience" style="resize:none; height: 100px;" required></textarea>
+                                <textarea class="form-control" name="experience" style="resize:none; height: 150px;" required></textarea>
                             </div>
                         </div>
                         
