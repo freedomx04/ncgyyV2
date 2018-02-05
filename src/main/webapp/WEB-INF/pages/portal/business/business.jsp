@@ -31,7 +31,7 @@
 			<div class="row">
 				<div class="col-sm-8 padding-0">
 					<div class="info-main white-bg">
-						<div class="info-title">招商动态</div>
+						<div class="info-title" style="margin-top: 0;">招商动态</div>
 						<div class="info-content">
 							<ul class="list-unstyled">
 								<c:forEach var="dynamic" items="${dynamics}">

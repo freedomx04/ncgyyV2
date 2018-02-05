@@ -112,3 +112,10 @@ a:HOVER {
 	font-size: 16px;
 	font-weight: 400;
 }
+
+/** mobile */
+@media (max-width: 768px) {
+	.main .info-main {
+		padding: 20px;
+	}
+}
