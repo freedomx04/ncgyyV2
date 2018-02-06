@@ -47,12 +47,12 @@ public class RecruitController {
 	@RequestMapping(value = "/api/service/talent/recruit/create", method = RequestMethod.POST)
 	public Result recruit_create(Long supplierId, String position, String profession, String salary,
 			String workingYears, String education, String responsibility, String requirement, String benefit,
-			String address, String contactUser, String contact) {
+			String welfare, String address, String contactUser, String contact) {
 		try {
 			SupplierEntity supplier = supplierService.findOne(supplierId);
 			Date now = new Date();
 			RecruitEntity recruit = new RecruitEntity(supplier, position, profession, salary, workingYears, education,
-					responsibility, requirement, benefit, address, contactUser, contact, now, now);
+					responsibility, requirement, benefit, welfare, address, contactUser, contact, now, now);
 			recruitService.save(recruit);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -63,7 +63,7 @@ public class RecruitController {
 
 	@RequestMapping(value = "/api/service/talent/recruit/update", method = RequestMethod.POST)
 	public Result recruit_update(Long recruitId, String position, String profession, String salary, String workingYears,
-			String education, String responsibility, String requirement, String benefit, String address,
+			String education, String responsibility, String requirement, String benefit, String welfare, String address,
 			String contactUser, String contact) {
 		try {
 			RecruitEntity recruit = recruitService.findOne(recruitId);
@@ -75,6 +75,7 @@ public class RecruitController {
 			recruit.setResponsibility(responsibility);
 			recruit.setRequirement(requirement);
 			recruit.setBenefit(benefit);
+			recruit.setWelfare(welfare);
 			recruit.setAddress(address);
 			recruit.setContactUser(contactUser);
 			recruit.setContact(contact);

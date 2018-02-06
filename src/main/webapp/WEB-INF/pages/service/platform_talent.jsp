@@ -220,6 +220,13 @@
                             </div>
                         </div>
                         
+                        <div class="form-group">
+                        	<label for="welfare" class="col-sm-3 control-label">公司福利</label>
+                        	<div class="col-sm-7">
+                                <textarea class="form-control" name="welfare" style="resize:none; height: 150px;"></textarea>
+                            </div>
+                        </div>
+                        
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label for="address" class="col-sm-3 control-label"><i class="form-required">*</i>工作地点</label>
@@ -268,6 +275,7 @@
                 		<dt>岗位职责</dt><dd data-name="responsibility"></dd>
                 		<dt>任职要求</dt><dd data-name=requirement></dd>
                 		<dt>岗位待遇</dt><dd data-name="benefit"></dd>
+                		<dt>公司福利</dt><dd data-name="welfare"></dd>
                 		<dt>工作地点</dt><dd data-name="address"></dd>
                 		<dt>联系人</dt><dd data-name="contactUser"></dd>
                 		<dt>联系电话</dt><dd data-name="contact"></dd>

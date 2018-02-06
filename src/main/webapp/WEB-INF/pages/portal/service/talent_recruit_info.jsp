@@ -42,6 +42,9 @@
 						<div class="info-title">岗位待遇</div>
 						<div class="info-content">${recruit.benefit}</div>
 						
+						<div class="info-title">公司福利</div>
+						<div class="info-content">${recruit.welfare}</div>
+						
 						<div class="info-title">联系方式</div>
 						<div class="info-content">
 							<span>工作地点：${recruit.address}</span>

@@ -53,6 +53,10 @@ public class RecruitEntity extends BaseEntity {
 	@Column(length = 2000)
 	private String benefit;
 
+	/** 公司福利 */
+	@Column(length = 2000)
+	private String welfare;
+
 	/** 工作地点 */
 	private String address;
 
@@ -68,7 +72,7 @@ public class RecruitEntity extends BaseEntity {
 
 	public RecruitEntity(SupplierEntity supplier, String position, String profession, String salary,
 			String workingYears, String education, String responsibility, String requirement, String benefit,
-			String address, String contactUser, String contact, Date createTime, Date updateTime) {
+			String welfare, String address, String contactUser, String contact, Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.position = position;
@@ -79,6 +83,7 @@ public class RecruitEntity extends BaseEntity {
 		this.responsibility = responsibility;
 		this.requirement = requirement;
 		this.benefit = benefit;
+		this.welfare = welfare;
 		this.address = address;
 		this.contactUser = contactUser;
 		this.contact = contact;
@@ -149,13 +154,21 @@ public class RecruitEntity extends BaseEntity {
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
 	}
-	
+
 	public String getBenefit() {
 		return benefit;
 	}
 
 	public void setBenefit(String benefit) {
 		this.benefit = benefit;
+	}
+	
+	public String getWelfare() {
+		return welfare;
+	}
+
+	public void setWelfare(String welfare) {
+		this.welfare = welfare;
 	}
 
 	public String getAddress() {
