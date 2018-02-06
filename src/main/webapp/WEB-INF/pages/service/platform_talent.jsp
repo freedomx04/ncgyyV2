@@ -792,6 +792,7 @@
 		.on('hidden.bs.modal', '#modal-recruit-dialog', function() {
             $recruitForm.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
+            $recruitForm.find('textarea[name="welfare"]').val('');
         })
         .on('click', '.btn-recruit-delete-batch', function() {
             swal({
