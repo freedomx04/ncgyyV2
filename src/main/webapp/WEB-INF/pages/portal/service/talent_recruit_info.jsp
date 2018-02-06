@@ -50,6 +50,8 @@
 							<span>工作地点：${recruit.address}</span>
 							<span>联  系  人：${recruit.contactUser}</span>
 							<span>联系电话：${recruit.contact}</span>
+							<span>邮      箱：${recruit.email}</span>
+							<span>乘车路线：${recruit.line}</span>
 						</div>
 					</div>
 				</div>

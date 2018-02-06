@@ -248,6 +248,20 @@
                                 <input type="text" class="form-control" name="contact" required>
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="col-sm-3 control-label">邮箱</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="email">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="line" class="col-sm-3 control-label">乘车路线</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="line">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -279,6 +293,8 @@
                 		<dt>工作地点</dt><dd data-name="address"></dd>
                 		<dt>联系人</dt><dd data-name="contactUser"></dd>
                 		<dt>联系电话</dt><dd data-name="contact"></dd>
+                		<dt>邮箱</dt><dd data-name="email"></dd>
+                		<dt>乘车路线</dt><dd data-name="line"></dd>
                 	</dl>
                 </div>
 			</div>
@@ -792,7 +808,8 @@
 		.on('hidden.bs.modal', '#modal-recruit-dialog', function() {
             $recruitForm.bootstrapValidator('resetForm', true);
             $(this).removeData('bs.modal');
-            $recruitForm.find('textarea[name="welfare"]').val('');
+            $recruitForm.find('input').val('');
+            $recruitForm.find('textarea').val('');
         })
         .on('click', '.btn-recruit-delete-batch', function() {
             swal({

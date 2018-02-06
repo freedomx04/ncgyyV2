@@ -66,13 +66,20 @@ public class RecruitEntity extends BaseEntity {
 	/** 联系电话 */
 	private String contact;
 
+	/** 邮箱 */
+	private String email;
+
+	/** 乘车路线 */
+	private String line;
+
 	public RecruitEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public RecruitEntity(SupplierEntity supplier, String position, String profession, String salary,
 			String workingYears, String education, String responsibility, String requirement, String benefit,
-			String welfare, String address, String contactUser, String contact, Date createTime, Date updateTime) {
+			String welfare, String address, String contactUser, String contact, String email, String line,
+			Date createTime, Date updateTime) {
 		super();
 		this.supplier = supplier;
 		this.position = position;
@@ -87,6 +94,8 @@ public class RecruitEntity extends BaseEntity {
 		this.address = address;
 		this.contactUser = contactUser;
 		this.contact = contact;
+		this.email = email;
+		this.line = line;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
@@ -162,7 +171,7 @@ public class RecruitEntity extends BaseEntity {
 	public void setBenefit(String benefit) {
 		this.benefit = benefit;
 	}
-	
+
 	public String getWelfare() {
 		return welfare;
 	}
@@ -193,6 +202,22 @@ public class RecruitEntity extends BaseEntity {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLine() {
+		return line;
+	}
+
+	public void setLine(String line) {
+		this.line = line;
 	}
 
 }
