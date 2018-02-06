@@ -93,16 +93,14 @@
                             </button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
-                            <button type="button" class="btn btn-primary btn-mail-draft-send">
+                            <button type="button" class="btn btn-primary btn-fw btn-mail-draft-send">
                                 <i class="fa fa-send-o fa-fw"></i>发送
                             </button>
-                            <button type="button" class="btn btn-white btn-mail-draft-edit">
+                            <button type="button" class="btn btn-white btn-fw btn-mail-draft-edit">
                                 <i class="fa fa-pencil fa-fw"></i>存草稿
                             </button>
                             </c:if>
-                            <button type="button" class="btn btn-white btn-mail-cancel">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
+                            <button type="button" class="btn btn-white btn-fw btn-mail-cancel">取消</button>
                         </div>
                     </div>
 				</form>
@@ -143,7 +141,10 @@
             uploadUrl: '${ctx}/api/fileUpload',
             deleteUrl: '${ctx}/api/fileDelete',
         });
-		$k.util.summernote($page.find('#summernote'));
+		
+		$k.util.summernote($page.find('#summernote'), {
+			ctx: '${ctx}'
+		});
 		
 		if (method == 'add') {
 			$k.util.chosen($select);
