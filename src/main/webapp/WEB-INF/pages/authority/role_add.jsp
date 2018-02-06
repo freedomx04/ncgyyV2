@@ -131,6 +131,24 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-supplier">
+								<input type="checkbox"> 供应商管理
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-feedback">
+								<input type="checkbox"> 反馈管理
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-version">
 								<input type="checkbox"> 版本管理
 							</label>
@@ -405,6 +423,42 @@
 					</div>
 					
 					<div class="form-group">
+						<label class="col-sm-2 control-label">招商管理</label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks" data-authority="authority-business-dynamic">
+								<input type="checkbox"> 招商动态
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks" data-authority="authority-business-policy">
+								<input type="checkbox"> 招商政策
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks" data-authority="authority-business-item">
+								<input type="checkbox"> 招商项目
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks" data-authority="authority-business-message">
+								<input type="checkbox"> 留言管理
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
 						<label class="col-sm-2 control-label">服务平台</label>
 						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks" data-authority="authority-declare">
@@ -423,22 +477,15 @@
 					</div>
 					
 					<div class="hr-line-dashed"></div>
-                    
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <c:if test="${method == 'add'}">
-                            <button type="button" class="btn btn-primary btn-role-add">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-role-add">确定</button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
-                            <button type="button" class="btn btn-primary btn-role-edit">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-role-edit">确定</button>
                             </c:if>
-                            <button type="button" class="btn btn-white btn-role-cancel">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
+                            <button type="button" class="btn btn-white btn-fw btn-role-cancel">取消</button>
                         </div>
                     </div>
 				</form>

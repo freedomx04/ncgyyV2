@@ -60,6 +60,8 @@
 						|| fn:contains(user.role.resource, 'authority-user')
 						|| fn:contains(user.role.resource, 'authority-enterprise')
 						|| fn:contains(user.role.resource, 'authority-department')
+						|| fn:contains(user.role.resource, 'authority-supplier')
+						|| fn:contains(user.role.resource, 'authority-feedback')
 						|| fn:contains(user.role.resource, 'authority-version')}">
 					<li>
 						<a href="#">
@@ -78,8 +80,12 @@
 							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
 								<li><a class="J_menuItem" href="department">部门管理</a></li>
 							</c:if>
-							<li><a class="J_menuItem" href="supplierList">供应商管理</a></li>
-							<li><a class="J_menuItem" href="feedbackList">反馈管理</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-supplier')}">
+								<li><a class="J_menuItem" href="supplierList">供应商管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-feedback')}">
+								<li><a class="J_menuItem" href="feedbackList">反馈管理</a></li>
+							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
 								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
 							</c:if>
@@ -187,18 +193,30 @@
 					</li>
 					</c:if>
 					
+					<c:if test="${fn:contains(user.role.resource, 'authority-business-dynamic')
+						|| fn:contains(user.role.resource, 'authority-business-policy')
+						|| fn:contains(user.role.resource, 'authority-business-item')
+						|| fn:contains(user.role.resource, 'authority-business-message')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-globe fa-fw"></i><span class="nav-label">招商管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="articleList?type=10">招商动态</a></li>
-							<li><a class="J_menuItem" href="articleList?type=11">招商政策</a></li>
-							<li><a class="J_menuItem" href="businessItem">招商项目</a></li>
-							<li><a class="J_menuItem" href="businessMessage">留言管理</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-business-dynamic')}">
+								<li><a class="J_menuItem" href="articleList?type=10">招商动态</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-business-policy')}">
+								<li><a class="J_menuItem" href="articleList?type=11">招商政策</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-business-item')}">
+								<li><a class="J_menuItem" href="businessItem">招商项目</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-business-message')}">
+								<li><a class="J_menuItem" href="businessMessage">留言管理</a></li>
+							</c:if>
 						</ul>
 					</li>
-					
+					</c:if>
 					
 					<c:if test="${fn:contains(user.role.resource, 'authority-declare')
 						|| fn:contains(user.role.resource, 'authority-apply')}">
