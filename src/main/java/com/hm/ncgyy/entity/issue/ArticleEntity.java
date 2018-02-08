@@ -19,9 +19,7 @@ import com.hm.ncgyy.entity.BaseEntity;
 		@Index(name = "index_issue_article_updateTime", columnList = "updateTime"), })
 public class ArticleEntity extends BaseEntity {
 
-	/**
-	 * 文章类型
-	 */
+	/** 文章类型 */
 	public class ArticleType {
 		public static final int PHOTONEWS = 1; // 图片新闻
 		public static final int ANNOUNCE = 2; // 公示公告
@@ -32,35 +30,23 @@ public class ArticleEntity extends BaseEntity {
 		public static final int BUSINESS_POLICY = 11;	// 招商政策
 	}
 
-	/**
-	 * 类型
-	 */
+	/** 类型 */
 	private Integer type;
 
-	/**
-	 * 标题
-	 */
+	/** 标题 */
 	private String title;
 
-	/**
-	 * 来源
-	 */
+	/** 来源 */
 	private String source;
 
-	/**
-	 * 图片路径
-	 */
+	/** 图片路径 */
 	private String imagePath;
 
-	/**
-	 * 内容
-	 */
+	/** 内容 */
 	@Column(length = 16777216)
 	private String content;
 	
-	/**
-	 * 附件
-	 */
+	/** 附件 */
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "article_id")
 	private List<ArticleFileEntity> fileList = new LinkedList<>();

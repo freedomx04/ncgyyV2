@@ -12,20 +12,14 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "issue_article_file")
 public class ArticleFileEntity extends BaseEntity {
 	
-	/**
-	 * 关联文章
-	 */
+	/** 关联文章 */
 	@Column(name = "article_id")
     private Long articleId; 
 	
-	/**
-	 * 文件名称
-	 */
+	/** 文件名称 */
 	private String filename;
 	
-	/**
-	 * 文件路径
-	 */
+	/** 文件路径 */
 	private String filepath;
 	
 	public ArticleFileEntity() {

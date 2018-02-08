@@ -393,6 +393,11 @@ public class ManagerController {
 		return "pages/authority/version_history";
 	}
 	
+	@RequestMapping(value = "/authority/business")
+	String business(ModelMap modelMap) {
+		return "pages/authority/business";
+	}
+	
 	/**
 	 * 基础数据接口
 	 */
@@ -570,19 +575,6 @@ public class ManagerController {
 		modelMap.addAttribute("appeal", appeal);
 		
 		return "pages/assist/appeal_get";
-	}
-	
-	/** 
-	 * 招商管理接口
-	 */
-	@RequestMapping(value = "/businessItem")
-	String businessItem() {
-		return "pages/business/item";
-	}
-	
-	@RequestMapping(value = "/businessMessage")
-	String businessMessage() {
-		return "pages/business/message";
 	}
 	
 	/**

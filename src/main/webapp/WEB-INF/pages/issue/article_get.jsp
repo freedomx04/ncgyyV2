@@ -68,9 +68,8 @@
 	<script type="text/javascript">
 	
 		var $page = $('.body-article-detail');
-		
 		$page.on('click', '.btn-article-back', function() {
-			window.location.href = '../articleList?type=${article.type}';
+			window.history.back();
 		});
 		
 	</script>

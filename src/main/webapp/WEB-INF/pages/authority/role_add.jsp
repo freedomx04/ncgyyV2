@@ -423,42 +423,6 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-2 control-label">招商管理</label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks" data-authority="authority-business-dynamic">
-								<input type="checkbox"> 招商动态
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks" data-authority="authority-business-policy">
-								<input type="checkbox"> 招商政策
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks" data-authority="authority-business-item">
-								<input type="checkbox"> 招商项目
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks" data-authority="authority-business-message">
-								<input type="checkbox"> 留言管理
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
 						<label class="col-sm-2 control-label">服务平台</label>
 						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks" data-authority="authority-declare">

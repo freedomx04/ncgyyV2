@@ -33,7 +33,7 @@
 
 <body class="gray-bg body-article-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
-	 	<div class="ibox float-e-margins">
+	 	<div class="ibox">
 	 		<div class="ibox-title">
 	 			<h5>${title}</h5>
 	 		</div>
@@ -87,22 +87,15 @@
 					</div>
 					
 					<div class="hr-line-dashed"></div>
-					
 					<div class="form-group">
 						<div class="col-sm-4 col-sm-offset-1">
 							<c:if test="${method == 'add'}">
-							<button type="button" class="btn btn-primary btn-article-add">
-		                        <i class="fa fa-check fa-fw"></i>确定
-		                    </button>
+								<button type="button" class="btn btn-primary btn-fw btn-article-add">确定</button>
 		                    </c:if>
 		                    <c:if test="${method == 'edit'}">
-		                    <button type="button" class="btn btn-primary btn-article-edit">
-		                        <i class="fa fa-check fa-fw"></i>确定
-		                    </button>
+		                    	<button type="button" class="btn btn-primary btn-fw btn-article-edit">确定</button>
 		                    </c:if>
-							<button type="button" class="btn btn-white btn-article-cancel">
-		                        <i class="fa fa-close fa-fw"></i>取消
-		                    </button>
+							<button type="button" class="btn btn-white btn-fw btn-article-cancel">取消</button>
 						</div>
 					</div>
  				</form>
@@ -134,7 +127,6 @@
 		var method = '${method}';
 		
 		$k.util.bsValidator($form);
-		
 		$k.util.summernote($page.find('#summernote'), {
 			ctx: '${ctx}'
 		});
@@ -190,7 +182,7 @@
 								text: '操作成功',
 								type: 'success'
 							}, function() {
-								window.location.href = './articleList?type=' + type;
+								window.history.back();
 							});
 						} else {
 							swal('', '操作失败', 'error');
@@ -235,18 +227,17 @@
 								text: '操作成功',
 								type: 'success'
 							}, function() {
-								window.location.href = './articleList?type=' + type;
+								window.history.back();
 							});
 						} else {
 							swal('', '操作失败', 'error');
 						}
 					}
-					
 				});
 			}
 		})
 		.on('click', '.btn-article-cancel', function() {
-			window.location.href = './articleList?type=' + type;
+			window.history.back();
 		})
 		.on('click', '.btn-articleFile-delete', function(e) {
 			e.stopPropagation();

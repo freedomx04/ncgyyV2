@@ -58,7 +58,7 @@ public class ArticleController {
 				articleFileService.save(articleFile);
 			}
 
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -91,7 +91,7 @@ public class ArticleController {
 			}
 			
 			articleService.save(article);
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -106,7 +106,7 @@ public class ArticleController {
 				commonService.deleteImage(article.getImagePath());
 			}
 			articleService.delete(articleId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");
@@ -122,7 +122,7 @@ public class ArticleController {
 			for (Long articleId : articleIdList) {
 				delete(articleId);
 			}
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");
