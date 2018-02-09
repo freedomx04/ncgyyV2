@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.utils.ConstantUtil;
@@ -458,49 +457,6 @@ public class ManagerController {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("role", user.getRole());
 		return "pages/base/appealType";
-	}
-	
-	/**
-	 * 新闻发布接口
-	 */
-	@RequestMapping(value = "/articleList")
-	String articleList(ModelMap modelMap, Integer type) {
-		String title = articleService.getArticleTitle(type);
-		modelMap.addAttribute("title", title);
-		modelMap.addAttribute("type", type);
-		
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		
-		return "pages/issue/article_list";
-	}
-	
-	@RequestMapping(value = "/articleAdd")
-	String articleAdd(ModelMap modelMap, Integer type, String method, Long articleId) throws IOException {
-		modelMap.addAttribute("type", type);
-		modelMap.addAttribute("method", method);
-		
-		String title = articleService.getArticleTitle(type);
-		title += method.equals("add") ? " - 新增" : " - 编辑";
-		modelMap.addAttribute("title", title);
-		
-		if (articleId != null) {
-			ArticleEntity article = articleService.findOne(articleId);
-			modelMap.addAttribute("article", article);
-		}
-		
-		return "pages/issue/article_add";
-	}
-	
-	@RequestMapping(value = "/articleGet/{articleId}")
-	String articleGet(ModelMap modelMap, @PathVariable("articleId") Long articleId) throws IOException {
-		ArticleEntity article = articleService.findOne(articleId);
-		if (article != null) {
-			modelMap.addAttribute("article", article);
-			String title = articleService.getArticleTitle(article.getType());
-			modelMap.addAttribute("title", title);
-		}
-		return "pages/issue/article_get";
 	}
 	
 	/**

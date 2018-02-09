@@ -297,7 +297,7 @@
                     events: window.operateEvents = {
                         'click .btn-article-detail': function(e, value, row, index) {
                             e.stopPropagation();
-                            window.location.href = '${ctx}/articleGet/' + row.id;
+                            window.location.href = '${ctx}/authority/article/get?articleId=' + row.id;
                         },
                     }
                 }, {
@@ -318,7 +318,7 @@
     				events: window.operateEvents = {
        					'click .btn-article-edit': function(e, value, row, index) {
        						e.stopPropagation();
-       						window.location.href = '${ctx}/articleAdd?type=' + type + '&method=edit&articleId=' + row.id;
+       						window.location.href = '${ctx}/authority/article/add?type=' + type + '&method=edit&articleId=' + row.id;
        					},
        					'click .btn-article-delete': function(e, value, row, index) {
        						e.stopPropagation();
@@ -558,7 +558,6 @@
 		
 		$page
 		// dynamic, policy
-		$page
     	.on('click', 'a[data-toggle="tab"]', function() {
     		var tab = $(this).data('tab');
     		Url.updateSearchParam('tab', tab);
@@ -567,7 +566,7 @@
     		}
     	})
     	.on('click', '.btn-article-add', function() {
-    		window.location.href = '${ctx}/articleAdd?method=add&type=' + type;
+    		window.location.href = '${ctx}/authority/article/add?method=add&type=' + type;
     	})
     	.on('click', '.btn-article-delete-batch', function() {
 			swal({
