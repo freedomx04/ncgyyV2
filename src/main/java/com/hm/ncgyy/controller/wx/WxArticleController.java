@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
-import com.hm.ncgyy.service.issue.ArticleService;
+import com.hm.ncgyy.service.authority.ArticleService;
 
 @Controller
 public class WxArticleController {

@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.issue;
+package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
 import java.util.List;
@@ -17,11 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.issue.ArticleEntity;
-import com.hm.ncgyy.entity.issue.ArticleFileEntity;
+import com.hm.ncgyy.entity.authority.ArticleEntity;
+import com.hm.ncgyy.entity.authority.ArticleFileEntity;
 import com.hm.ncgyy.service.CommonService;
-import com.hm.ncgyy.service.issue.ArticleFileService;
-import com.hm.ncgyy.service.issue.ArticleService;
+import com.hm.ncgyy.service.authority.ArticleFileService;
+import com.hm.ncgyy.service.authority.ArticleService;
 
 @RestController
 public class ArticleController {

@@ -1,10 +1,10 @@
-package com.hm.ncgyy.service.issue;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.authority.ArticleEntity;
 
 public interface ArticleService {
 	

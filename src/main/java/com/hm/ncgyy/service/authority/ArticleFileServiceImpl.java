@@ -1,10 +1,10 @@
-package com.hm.ncgyy.service.issue;
+package com.hm.ncgyy.service.authority;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.issue.ArticleFileEntity;
-import com.hm.ncgyy.repository.issue.ArticleFileRepository;
+import com.hm.ncgyy.entity.authority.ArticleFileEntity;
+import com.hm.ncgyy.repository.authority.ArticleFileRepository;
 
 @Service
 public class ArticleFileServiceImpl implements ArticleFileService {

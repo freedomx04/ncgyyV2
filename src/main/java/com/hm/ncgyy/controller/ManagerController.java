@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
@@ -28,7 +29,6 @@ import com.hm.ncgyy.entity.authority.VersionEntity;
 import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.entity.base.AreaEntity;
 import com.hm.ncgyy.entity.base.IndustryEntity;
-import com.hm.ncgyy.entity.issue.ArticleEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.service.ApplyEntity;
@@ -37,6 +37,7 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
+import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.LoginService;
@@ -48,7 +49,6 @@ import com.hm.ncgyy.service.authority.VersionService;
 import com.hm.ncgyy.service.base.AppealTypeService;
 import com.hm.ncgyy.service.base.AreaService;
 import com.hm.ncgyy.service.base.IndustryService;
-import com.hm.ncgyy.service.issue.ArticleService;
 import com.hm.ncgyy.service.office.MailService;
 import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
@@ -393,6 +393,44 @@ public class ManagerController {
 		return "pages/authority/version_history";
 	}
 	
+	/**
+	 * 网站管理
+	 */
+	@RequestMapping(value = "/authority/website")
+	String website(ModelMap modelMap) {
+		return "pages/authority/website";
+	}
+	
+	@RequestMapping(value = "/authority/article/add")
+	String article_add(ModelMap modelMap, Integer type, String method, Long articleId) throws IOException {
+		modelMap.addAttribute("type", type);
+		modelMap.addAttribute("method", method);
+		
+		String title = articleService.getArticleTitle(type);
+		title += method.equals("add") ? " - 新增" : " - 编辑";
+		modelMap.addAttribute("title", title);
+		
+		if (articleId != null) {
+			ArticleEntity article = articleService.findOne(articleId);
+			modelMap.addAttribute("article", article);
+		}
+		return "pages/issue/article_add";
+	}
+	
+	@RequestMapping(value = "/authority/article/get")
+	String article_get(ModelMap modelMap, Long articleId) throws IOException {
+		ArticleEntity article = articleService.findOne(articleId);
+		if (article != null) {
+			modelMap.addAttribute("article", article);
+			String title = articleService.getArticleTitle(article.getType());
+			modelMap.addAttribute("title", title);
+		}
+		return "pages/issue/article_get";
+	}
+	
+	/**
+	 * 招商管理
+	 */
 	@RequestMapping(value = "/authority/business")
 	String business(ModelMap modelMap) {
 		return "pages/authority/business";

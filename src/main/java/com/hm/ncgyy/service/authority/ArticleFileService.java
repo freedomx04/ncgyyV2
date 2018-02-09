@@ -1,6 +1,6 @@
-package com.hm.ncgyy.service.issue;
+package com.hm.ncgyy.service.authority;
 
-import com.hm.ncgyy.entity.issue.ArticleFileEntity;
+import com.hm.ncgyy.entity.authority.ArticleFileEntity;
 
 public interface ArticleFileService {
 	

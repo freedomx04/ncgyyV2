@@ -89,6 +89,7 @@
 							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
 								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
 							</c:if>
+							<li><a class="J_menuItem" href="${ctx}/authority/website">网站管理</a></li>
 							<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
 						</ul>
 					</li>

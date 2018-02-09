@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.issue;
+package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.hm.ncgyy.repository.issue;
+package com.hm.ncgyy.repository.authority;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-import com.hm.ncgyy.entity.issue.ArticleEntity;
+import com.hm.ncgyy.entity.authority.ArticleEntity;
 
 public interface ArticleRepository extends CrudRepository<ArticleEntity, Long> {
 	
