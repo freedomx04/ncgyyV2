@@ -9,8 +9,6 @@ import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity.PointStatus;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
 
 @Entity
 @Table(name = "authority_enterprise")

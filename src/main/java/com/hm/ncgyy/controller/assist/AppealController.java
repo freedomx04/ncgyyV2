@@ -23,16 +23,16 @@ import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.assist.AppealEntity.AppealStatus;
 import com.hm.ncgyy.entity.assist.EvaluationEntity;
 import com.hm.ncgyy.entity.assist.UrgeEntity;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.assist.UrgeService;
+import com.hm.ncgyy.service.authority.AppealTypeService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.UserService;
-import com.hm.ncgyy.service.base.AppealTypeService;
 
 @RestController
 public class AppealController {

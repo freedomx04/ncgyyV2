@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.base;
+package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
-import com.hm.ncgyy.service.base.AppealTypeService;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
+import com.hm.ncgyy.service.authority.AppealTypeService;
 
 @RestController
 public class AppealTypeController {
@@ -32,11 +32,10 @@ public class AppealTypeController {
 			if (type != null) {
 				return new Result(Code.EXISTED.value(), "诉求类别已存在");
 			}
-			
 			Date now = new Date();
 			type = new AppealTypeEntity(name, acceptDays, handleDays, now, now);
 			typeService.save(type);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -47,7 +46,6 @@ public class AppealTypeController {
 	public Result update(Long appealTypeId, String name, Integer acceptDays, Integer handleDays) {
 		try {
 			AppealTypeEntity type = typeService.findOne(appealTypeId);
-			
 			AppealTypeEntity updateType = typeService.findByName(name);
 			if (updateType == null || type.getId() == updateType.getId()) {
 				type.setName(name);
@@ -58,8 +56,7 @@ public class AppealTypeController {
 			} else {
 				return new Result(Code.EXISTED.value(), "诉求类型已存在");
 			}
-			
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -70,7 +67,7 @@ public class AppealTypeController {
 	public Result delete(Long appealTypeId) {
 		try {
 			typeService.delete(appealTypeId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
@@ -83,10 +80,8 @@ public class AppealTypeController {
 	@RequestMapping(value = "/api/appealType/batchDelete")
 	public Result batchDelete(@RequestParam("appealTypeIdList[]") List<Long> appealTypeIdList) {
 		try {
-			for (Long appealTypeId: appealTypeIdList) {
-				delete(appealTypeId);
-			}
-			return new Result(Code.SUCCESS.value(), "deleted");
+			typeService.delete(appealTypeIdList);
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 

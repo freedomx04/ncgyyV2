@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.base;
+package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.base.IndustryEntity;
-import com.hm.ncgyy.service.base.IndustryService;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
+import com.hm.ncgyy.service.authority.IndustryService;
 
 @RestController
 public class IndustryController {
@@ -36,7 +36,7 @@ public class IndustryController {
 			Date now = new Date();
 			industry = new IndustryEntity(name, now, now);
 			industryService.save(industry);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -47,7 +47,6 @@ public class IndustryController {
 	public Result update(Long industryId, String name) {
 		try {
 			IndustryEntity industry = industryService.findOne(industryId);
-			
 			IndustryEntity updateIndustry = industryService.findByName(name);
 			if (updateIndustry == null || industry.getId() == updateIndustry.getId()) {
 				industry.setName(name);
@@ -56,7 +55,7 @@ public class IndustryController {
 			} else {
 				return new Result(Code.EXISTED.value(), "行业已存在");
 			}
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -67,7 +66,7 @@ public class IndustryController {
 	public Result delete(Long industryId) {
 		try {
 			industryService.delete(industryId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
@@ -80,10 +79,8 @@ public class IndustryController {
 	@RequestMapping(value = "/api/industry/batchDelete")
 	public Result batchDelete(@RequestParam("industryIdList[]") List<Long> industryIdList) {
 		try {
-			for (Long industryId: industryIdList) {
-				delete(industryId);
-			}
-			return new Result(Code.SUCCESS.value(), "deleted");
+			industryService.delete(industryIdList);
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 

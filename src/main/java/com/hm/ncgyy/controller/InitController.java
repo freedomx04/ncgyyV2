@@ -34,23 +34,23 @@ import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.utils.CiphersUtils;
 import com.hm.ncgyy.common.utils.FileUtil;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
+import com.hm.ncgyy.service.authority.AppealTypeService;
+import com.hm.ncgyy.service.authority.AreaService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.IndustryService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
-import com.hm.ncgyy.service.base.AppealTypeService;
-import com.hm.ncgyy.service.base.AreaService;
-import com.hm.ncgyy.service.base.IndustryService;
 
 @RestController
 public class InitController {

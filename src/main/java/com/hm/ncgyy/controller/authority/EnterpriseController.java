@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 import com.hm.ncgyy.service.CommonService;
+import com.hm.ncgyy.service.authority.AreaService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.IndustryService;
 import com.hm.ncgyy.service.authority.UserService;
-import com.hm.ncgyy.service.base.AreaService;
-import com.hm.ncgyy.service.base.IndustryService;
 
 @RestController
 public class EnterpriseController {

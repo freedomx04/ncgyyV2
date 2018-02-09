@@ -14,8 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
 
 @Entity
 @Table(name = "authority_enterprise", indexes = {

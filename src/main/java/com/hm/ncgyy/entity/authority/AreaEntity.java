@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.base;
+package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
 
@@ -12,15 +12,11 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "base_area")
 public class AreaEntity extends BaseEntity {
 	
-	/**
-	 * 区域名称
-	 */
+	/** 园区名称 */
 	@Column(unique = true)
 	private String name;
 	
-	/**
-	 * 区域描述
-	 */
+	/** 区域描述 */
 	private String description;
 	
 	public AreaEntity() {
@@ -28,10 +24,6 @@ public class AreaEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param name
-	 * @param description
-	 */
 	public AreaEntity(String name, String description, Date createTime, Date updateTime) {
 		super();
 		this.name = name;

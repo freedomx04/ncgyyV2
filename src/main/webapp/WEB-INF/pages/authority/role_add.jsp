@@ -186,69 +186,6 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-2 control-label">基础数据</label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-area">
-								<input type="checkbox"> 园区管理
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-area-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-industry">
-								<input type="checkbox"> 行业管理
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-industry-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-industry-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-industry-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-industry-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-appealType">
-								<input type="checkbox"> 诉求类别管理
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
 						<label class="col-sm-2 control-label">监测平台</label>
 						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-target-report">

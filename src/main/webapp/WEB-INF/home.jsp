@@ -70,6 +70,7 @@
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
+							<li><a class="J_menuItem" href="${ctx}/authority/data">基础数据管理</a></li>
 							<c:if test="${fn:contains(user.role.resource, 'authority-role')}">
 								<li><a class="J_menuItem" href="roleList">角色管理</a></li>
 							</c:if>
@@ -96,26 +97,6 @@
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-business')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
-							</c:if>
-						</ul>
-					</li>
-					</c:if>
-					<c:if test="${fn:contains(user.role.resource, 'authority-area')
-						|| fn:contains(user.role.resource, 'authority-industry')
-						|| fn:contains(user.role.resource, 'authority-appealType')}">
-					<li>
-						<a href="#">
-							<i class="fa fa-calculator fa-fw"></i><span class="nav-label">基础数据</span><span class="fa arrow"></span>
-						</a>
-						<ul class="nav nav-second-level">
-							<c:if test="${fn:contains(user.role.resource, 'authority-area')}">
-								<li><a class="J_menuItem" href="area">园区管理</a></li>
-							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-industry')}">
-								<li><a class="J_menuItem" href="industry">行业管理</a></li>
-							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-appealType')}">
-								<li><a class="J_menuItem" href="appealType">诉求类别管理</a></li>
 							</c:if>
 						</ul>
 					</li>

@@ -1,12 +1,12 @@
-package com.hm.ncgyy.service.base;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
-import com.hm.ncgyy.repository.base.AppealTypeRepository;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
+import com.hm.ncgyy.repository.authority.AppealTypeRepository;
 
 @Service
 public class AppealTypeServiceImpl implements AppealTypeService {
@@ -32,6 +32,12 @@ public class AppealTypeServiceImpl implements AppealTypeService {
 	@Override
 	public void delete(Long appealTypeId) {
 		appealTypeRepository.delete(appealTypeId);
+	}
+	
+	@Override
+	public void delete(List<Long> appealTypeIdList) {
+		Iterable<AppealTypeEntity> it = appealTypeRepository.findByIdIn(appealTypeIdList);
+		appealTypeRepository.delete(it);
 	}
 
 	@Override

@@ -15,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hm.ncgyy.common.utils.FormulaUtils;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 import com.hm.ncgyy.entity.monitor.TargetEntity;
+import com.hm.ncgyy.service.authority.AreaService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
-import com.hm.ncgyy.service.base.AreaService;
-import com.hm.ncgyy.service.base.IndustryService;
+import com.hm.ncgyy.service.authority.IndustryService;
 
 @Service
 public class ReportServiceImpl implements ReportService {

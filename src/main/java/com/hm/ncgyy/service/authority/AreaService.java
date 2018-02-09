@@ -1,8 +1,8 @@
-package com.hm.ncgyy.service.base;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
-import com.hm.ncgyy.entity.base.AreaEntity;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 
 public interface AreaService {
 

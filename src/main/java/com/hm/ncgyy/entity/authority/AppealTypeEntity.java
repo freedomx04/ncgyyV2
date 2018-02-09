@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.base;
+package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
 
@@ -12,20 +12,14 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "base_appeal_type")
 public class AppealTypeEntity extends BaseEntity {
 
-	/**
-	 * 诉求类型名称
-	 */
+	/** 诉求类型名称 */
 	@Column(unique = true)
 	private String name;
 
-	/**
-	 * 最大受理天数
-	 */
+	/** 最大受理天数 */
 	private Integer acceptDays;
 
-	/**
-	 * 最大处理天数
-	 */
+	/** 最大处理天数 */
 	private Integer handleDays;
 
 	public AppealTypeEntity() {

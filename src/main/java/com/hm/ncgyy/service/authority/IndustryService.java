@@ -1,8 +1,8 @@
-package com.hm.ncgyy.service.base;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
-import com.hm.ncgyy.entity.base.IndustryEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 
 public interface IndustryService {
 	
@@ -13,6 +13,8 @@ public interface IndustryService {
 	void save(IndustryEntity industry);
 	
 	void delete(Long industryId);
+	
+	void delete(List<Long> industryIdList);
 	
 	List<IndustryEntity> list();
 

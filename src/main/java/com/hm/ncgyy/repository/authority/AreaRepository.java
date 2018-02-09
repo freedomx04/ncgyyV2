@@ -1,10 +1,10 @@
-package com.hm.ncgyy.repository.base;
+package com.hm.ncgyy.repository.authority;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.hm.ncgyy.entity.base.AreaEntity;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 
 public interface AreaRepository extends CrudRepository<AreaEntity, Long> {
 	

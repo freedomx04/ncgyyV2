@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.base;
+package com.hm.ncgyy.controller.authority;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.service.base.AreaService;
+import com.hm.ncgyy.entity.authority.AreaEntity;
+import com.hm.ncgyy.service.authority.AreaService;
 
 @RestController
 public class AreaController {
@@ -32,11 +32,10 @@ public class AreaController {
 			if (area != null) {
 				return new Result(Code.EXISTED.value(), "园区已存在");
 			}
-			
 			Date now = new Date();
 			area = new AreaEntity(name, description, now, now);
 			areaService.save(area);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -47,7 +46,6 @@ public class AreaController {
 	public Result update(Long areaId, String name, String description) {
 		try {
 			AreaEntity area = areaService.findOne(areaId);
-			
 			AreaEntity updateArea = areaService.findByName(name);
 			if (updateArea == null || area.getId() == updateArea.getId()) {
 				area.setName(name);
@@ -57,7 +55,7 @@ public class AreaController {
 			} else {
 				return new Result(Code.EXISTED.value(), "园区已存在");
 			}
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -68,7 +66,7 @@ public class AreaController {
 	public Result delete(Long areaId) {
 		try {
 			areaService.delete(areaId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
@@ -82,7 +80,7 @@ public class AreaController {
 	public Result batchDelete(@RequestParam("areaIdList[]") List<Long> areaIdList) {
 		try {
 			areaService.delete(areaIdList);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 

@@ -1,8 +1,8 @@
 package com.hm.ncgyy.service.monitor;
 
+import com.hm.ncgyy.entity.authority.AreaEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 import com.hm.ncgyy.entity.monitor.TargetEntity;
 
 public class TargetVO {

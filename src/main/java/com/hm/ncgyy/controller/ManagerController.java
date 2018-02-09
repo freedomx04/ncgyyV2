@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
+import com.hm.ncgyy.entity.authority.AreaEntity;
 import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
 import com.hm.ncgyy.entity.authority.LoginEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
@@ -25,9 +28,6 @@ import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.authority.VersionEntity;
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.entity.base.IndustryEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.service.ApplyEntity;
@@ -36,18 +36,18 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
+import com.hm.ncgyy.service.authority.AppealTypeService;
+import com.hm.ncgyy.service.authority.AreaService;
 import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
+import com.hm.ncgyy.service.authority.IndustryService;
 import com.hm.ncgyy.service.authority.LoginService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
 import com.hm.ncgyy.service.authority.VersionService;
-import com.hm.ncgyy.service.base.AppealTypeService;
-import com.hm.ncgyy.service.base.AreaService;
-import com.hm.ncgyy.service.base.IndustryService;
 import com.hm.ncgyy.service.office.MailService;
 import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
@@ -145,6 +145,11 @@ public class ManagerController {
 	/**
 	 * 角色管理接口
 	 */
+	@RequestMapping(value = "/authority/data")
+	String data() {
+		return "pages/authority/data";
+	}
+	
 	@RequestMapping(value = "/roleList")
 	String roleList(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();

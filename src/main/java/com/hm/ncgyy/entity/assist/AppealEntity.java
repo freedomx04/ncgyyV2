@@ -14,9 +14,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
+import com.hm.ncgyy.entity.authority.AppealTypeEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
-import com.hm.ncgyy.entity.base.AppealTypeEntity;
 
 @Entity
 @Table(name = "assist_appeal")

@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.base;
+package com.hm.ncgyy.entity.authority;
 
 import java.util.Date;
 
@@ -12,9 +12,7 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "base_industry")
 public class IndustryEntity extends BaseEntity {
 	
-	/**
-	 * 行业名称
-	 */
+	/** 行业名称 */
 	@Column(unique = true)
 	private String name;
 	

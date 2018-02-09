@@ -1,12 +1,12 @@
-package com.hm.ncgyy.service.base;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.base.IndustryEntity;
-import com.hm.ncgyy.repository.base.IndustryRepository;
+import com.hm.ncgyy.entity.authority.IndustryEntity;
+import com.hm.ncgyy.repository.authority.IndustryRepository;
 
 @Service
 public class IndustryServiceImpl implements IndustryService {
@@ -32,6 +32,12 @@ public class IndustryServiceImpl implements IndustryService {
 	@Override
 	public void delete(Long industryId) {
 		industryRepository.delete(industryId);
+	}
+	
+	@Override
+	public void delete(List<Long> industryIdList) {
+		Iterable<IndustryEntity> it = industryRepository.findByIdIn(industryIdList);
+		industryRepository.delete(it);
 	}
 
 	@Override

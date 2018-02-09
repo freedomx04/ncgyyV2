@@ -1,12 +1,12 @@
-package com.hm.ncgyy.service.base;
+package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.base.AreaEntity;
-import com.hm.ncgyy.repository.base.AreaRepository;
+import com.hm.ncgyy.entity.authority.AreaEntity;
+import com.hm.ncgyy.repository.authority.AreaRepository;
 
 @Service
 public class AreaServiceImpl implements AreaService {
