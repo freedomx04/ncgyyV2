@@ -62,7 +62,9 @@
 						|| fn:contains(user.role.resource, 'authority-department')
 						|| fn:contains(user.role.resource, 'authority-supplier')
 						|| fn:contains(user.role.resource, 'authority-feedback')
-						|| fn:contains(user.role.resource, 'authority-version')}">
+						|| fn:contains(user.role.resource, 'authority-version')
+						|| fn:contains(user.role.resource, 'authority-website')
+						|| fn:contains(user.role.resource, 'authority-business')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
@@ -89,8 +91,12 @@
 							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
 								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
 							</c:if>
-							<li><a class="J_menuItem" href="${ctx}/authority/website">网站管理</a></li>
-							<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'authority-website')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/website">网站管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'authority-business')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:if>

@@ -413,7 +413,7 @@ public class ManagerController {
 			ArticleEntity article = articleService.findOne(articleId);
 			modelMap.addAttribute("article", article);
 		}
-		return "pages/issue/article_add";
+		return "pages/authority/article_add";
 	}
 	
 	@RequestMapping(value = "/authority/article/get")
@@ -424,7 +424,7 @@ public class ManagerController {
 			String title = articleService.getArticleTitle(article.getType());
 			modelMap.addAttribute("title", title);
 		}
-		return "pages/issue/article_get";
+		return "pages/authority/article_get";
 	}
 	
 	/**

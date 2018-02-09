@@ -168,6 +168,24 @@
 					</div>
 					
 					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-website">
+								<input type="checkbox"> 网站管理
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label"></label>
+						<div class="col-sm-9">
+							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-business">
+								<input type="checkbox"> 招商管理
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group">
 						<label class="col-sm-2 control-label">基础数据</label>
 						<div class="col-sm-9">
 							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-area">
@@ -225,90 +243,6 @@
 								<input type="checkbox"> 编辑
 							</label>
 							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-appealType-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label">新闻发布</label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-photonews">
-								<input type="checkbox"> 图片新闻
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-photonews-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-photonews-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-photonews-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function disabled" data-authority="authority-photonews-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-announce">
-								<input type="checkbox"> 公示公告
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-announce-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-announce-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-announce-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-announce-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-policy">
-								<input type="checkbox"> 政策法规
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-policy-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-policy-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-policy-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-policy-delete">
-								<input type="checkbox"> 删除
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-9">
-							<label class="checkbox-inline i-checks authority-classify" data-authority="authority-overview">
-								<input type="checkbox"> 工业信息
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-overview-add">
-								<input type="checkbox"> 新增
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-overview-delete-batch">
-								<input type="checkbox"> 批量删除
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-overview-edit">
-								<input type="checkbox"> 编辑
-							</label>
-							<label class="checkbox-inline i-checks authority-classify-function" data-authority="authority-overview-delete">
 								<input type="checkbox"> 删除
 							</label>
 						</div>
