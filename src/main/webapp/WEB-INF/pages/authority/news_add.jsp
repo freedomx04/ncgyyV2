@@ -48,18 +48,12 @@
 					<div class="form-group">
 						<div class="col-sm-4 col-sm-offset-1">
 							<c:if test="${method == 'add'}">
-							<button type="button" class="btn btn-primary btn-submit btn-news-add">
-		                        <i class="fa fa-check fa-fw"></i>确定
-		                    </button>
+								<button type="button" class="btn btn-primary btn-fw btn-submit btn-news-add">确定</button>
 		                    </c:if>
 		                    <c:if test="${method == 'edit'}">
-		                    <button type="button" class="btn btn-primary btn-news-edit">
-		                        <i class="fa fa-check fa-fw"></i>确定
-		                    </button>
+		                    	<button type="button" class="btn btn-primary btn-fw btn-news-edit">确定</button>
 		                    </c:if>
-							<button type="button" class="btn btn-white btn-news-cancel">
-		                        <i class="fa fa-close fa-fw"></i>取消
-		                    </button>
+							<button type="button" class="btn btn-white btn-fw btn-news-cancel">取消</button>
 						</div>
 					</div>
  				</form>
@@ -91,11 +85,11 @@
 		}
 		
 		$k.util.bsValidator($form);
+		$k.util.summernote($page.find('#summernote'), {
+			ctx: '${ctx}'
+		});
 		
-		if (method == 'add') {
-			$k.util.summernote($page.find('#summernote'));
-		} else {
-			$k.util.summernote($page.find('#summernote'));
+		if (method == 'edit') {
 			$page.find('#summernote').summernote('code', '${news.content}');
 		}
 		

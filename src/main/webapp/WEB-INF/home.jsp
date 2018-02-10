@@ -78,7 +78,7 @@
 								<li><a class="J_menuItem" href="userList">用户管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-enterprise')}">
-								<li><a class="J_menuItem" href="enterpriseList">企业管理</a></li>
+								<li><a class="J_menuItem" href="${ctx}/authority/enterprise">企业管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
 								<li><a class="J_menuItem" href="department">部门管理</a></li>

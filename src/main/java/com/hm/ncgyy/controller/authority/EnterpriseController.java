@@ -1,5 +1,6 @@
 package com.hm.ncgyy.controller.authority;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,10 +46,10 @@ public class EnterpriseController {
 	CommonService commonService;
 
 	@RequestMapping(value = "/api/enterprise/create", method = RequestMethod.POST)
-	public Result create(String avatar, String name, Long areaId, Long industryId, String mainProduct,
-			String principal, String telephone, String address, Integer pointStatus, String productionTime,
-			String representative, String shareholder, String registeredCapital, String alterRecording,
-			String nationalTax, String localTax, String introduction) {
+	public Result create(String avatar, String name, Long areaId, Long industryId, String mainProduct, String principal,
+			String telephone, String address, Integer pointStatus, String productionTime, String representative,
+			String shareholder, String registeredCapital, String alterRecording, String nationalTax, String localTax,
+			String introduction) {
 		try {
 			EnterpriseEntity enterprise = enterpriseService.findByName(name);
 			if (enterprise != null) {
@@ -72,20 +73,20 @@ public class EnterpriseController {
 	}
 
 	@RequestMapping(value = "/api/enterprise/update", method = RequestMethod.POST)
-	public Result update(Long enterpriseId, String avatar, String name, Long areaId, Long industryId, String mainProduct,
-			String principal, String telephone, String address, Integer pointStatus, String productionTime,
-			String representative, String shareholder, String registeredCapital, String alterRecording,
-			String nationalTax, String localTax, String introduction) {
+	public Result update(Long enterpriseId, String avatar, String name, Long areaId, Long industryId,
+			String mainProduct, String principal, String telephone, String address, Integer pointStatus,
+			String productionTime, String representative, String shareholder, String registeredCapital,
+			String alterRecording, String nationalTax, String localTax, String introduction) {
 		try {
 			EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
 			AreaEntity area = areaService.findOne(areaId);
 			IndustryEntity industry = industryService.findOne(industryId);
-			
+
 			EnterpriseEntity updateEnterprise = enterpriseService.findByName(name);
 			if (updateEnterprise != null && updateEnterprise.getName() != enterprise.getName()) {
 				return new Result(Code.EXISTED.value(), "企业已存在");
 			}
-			
+
 			enterprise.setName(name);
 			enterprise.setAvatar(avatar);
 			enterprise.setArea(area);
@@ -104,7 +105,7 @@ public class EnterpriseController {
 			enterprise.setLocalTax(localTax);
 			enterprise.setIntroduction(introduction);
 			enterprise.setUpdateTime(new Date());
-			
+
 			enterpriseService.save(enterprise);
 			return new Result(Code.SUCCESS.value(), "updated");
 		} catch (Exception e) {
@@ -149,6 +150,22 @@ public class EnterpriseController {
 		}
 	}
 
+	@RequestMapping(value = "/api/enterprise/listByArea")
+	public Result listByArea(Long areaId) {
+		try {
+			List<EnterpriseBaseEntity> list = new ArrayList<>();
+			if (areaId != 0) {
+				list = enterpriseService.listByAreaId(areaId);
+			} else {
+				list = enterpriseService.listBase();
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
 	@RequestMapping(value = "/api/enterprise/listBase")
 	public Result listBase() {
 		try {
@@ -159,7 +176,7 @@ public class EnterpriseController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/enterprise/listPaging")
 	public Result listPaging(int page, int size) {
 		try {
@@ -170,7 +187,7 @@ public class EnterpriseController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/enterprise/listPoint")
 	public Result listPoint() {
 		try {
@@ -192,7 +209,7 @@ public class EnterpriseController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/enterprise/searchPaging")
 	public Result searchPaging(String input, int page, int size) {
 		try {

@@ -56,7 +56,7 @@
 					<div class="form-group">
 						<label for="introduction" class="col-sm-2 control-label"><i class="form-required">*</i>产品介绍</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" name="introduction" style="resize:none; height: 150px;" required>${product.introduction}</textarea>
+                            <textarea class="form-control" name="introduction" style="resize:none; height: 300px;" required>${product.introduction}</textarea>
                         </div>
 					</div>
 					
@@ -65,18 +65,12 @@
 					<div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <c:if test="${method == 'add'}">
-                            <button type="button" class="btn btn-primary btn-product-add">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-product-add">确定</button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
-                            <button type="button" class="btn btn-primary btn-product-edit">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-product-edit">确定</button>
                             </c:if>
-                            <button type="button" class="btn btn-white btn-product-cancel">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
+                            <button type="button" class="btn btn-white btn-fw btn-product-cancel">取消</button>
                         </div>
                     </div>
 				</form>

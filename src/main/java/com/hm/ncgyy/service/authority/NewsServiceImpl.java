@@ -22,11 +22,6 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public NewsEntity findByPath(String path) {
-		return newsRepository.findByPath(path);
-	}
-	
-	@Override
 	public void save(NewsEntity news) {
 		newsRepository.save(news);
 	}
@@ -34,6 +29,12 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public void delete(Long newsId) {
 		newsRepository.delete(newsId);
+	}
+	
+	@Override
+	public void delete(List<Long> newsIdList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

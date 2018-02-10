@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/iCheck/custom.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
@@ -196,10 +197,7 @@
 				                            <button type="button" class="btn btn-primary btn-enterprise-save hide">
 				                                <i class="fa fa-save fa-fw"></i>保存
 				                            </button>
-				                            <button type="button" class="btn btn-white btn-enterprise-cancel hide">
-				                                <i class="fa fa-close fa-fw"></i>取消
-				                            </button>
-				                        
+				                            <button type="button" class="btn btn-white btn-enterprise-cancel hide">取消</button>
 				                        </div>
 				                    </div>
 								</form>
@@ -208,7 +206,7 @@
 						
 						<div id="enterprise-tab-product" class="tab-pane">
 							<div class="panel-body">
-								<div class="btn-group hidden-xs" id="product-list-table-toolbar" role="group">
+								<div class="btn-group" id="product-list-table-toolbar" role="group">
 									<button type="button" class="btn btn-white btn-product-add">
 				                        <i class="fa fa-plus fa-fw"></i>新增
 				                    </button>
@@ -216,13 +214,13 @@
 				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>
 								</div>
-								<table id="product-list-table" class="table-hm" data-mobile-responsive="true"></table>
+								<table id="product-list-table" class="table-hm table-fixed" data-mobile-responsive="true"></table>
 							</div>
 						</div>
 						
 						<div id="enterprise-tab-news" class="tab-pane">
 							<div class="panel-body">
-								<div class="btn-group hidden-xs" id="news-list-table-toolbar" role="group">
+								<div class="btn-group" id="news-list-table-toolbar" role="group">
 									<button type="button" class="btn btn-white btn-news-add">
 				                        <i class="fa fa-plus fa-fw"></i>新增
 				                    </button>
@@ -230,7 +228,7 @@
 				                        <i class="fa fa-trash-o fa-fw"></i>删除
 				                    </button>
 								</div>
-								<table id="news-list-table" class="table-hm" data-mobile-responsive="true"></table>
+								<table id="news-list-table" class="table-hm table-fixed" data-mobile-responsive="true"></table>
 							</div>
 						</div>
 					</div>
@@ -290,10 +288,30 @@
 		</div>
 	</div>
 	
+	<div class="modal" id="modal-product-detail-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-center">
+			<div class="modal-content animated fadeInDown">
+				<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">产品信息</h4>
+                </div>
+                <div class="modal-body">
+                	<dl class="dl-horizontal dl-detail">
+                		<dt>产品图片</dt><dd data-name="imagePath"></dd>
+                		<dt>产品名称</dt><dd data-name="name"></dd>
+                		<dt>规格参数</dt><dd data-name="specification"></dd>
+                		<dt>产品介绍</dt><dd data-name="introduction"></dd>
+                	</dl>
+                </div>
+			</div>
+		</div>
+	</div>
+	
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap-table/bootstrap-table.min.js"></script>
@@ -304,7 +322,7 @@
     <script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/cropper/cropper.min.js"></script>
     <script type="text/javascript" src="${ctx}/plugins/sitelogo/sitelogo.js"></script>
-     <script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
+    <script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 
 	<script type="text/javascript">
 	
@@ -318,6 +336,7 @@
 		$page.find('a[data-option="' + option + '"]').tab('show');
 		
 		// product
+		var $productDetailDialog = $('#modal-product-detail-dialog');
 		var $productTable = $k.util.bsTable($page.find('#product-list-table'), {
 			url: '${ctx}/api/product/listByEnterpriseId?enterpriseId=${enterprise.id}',
 			toolbar: '#product-list-table-toolbar',
@@ -332,31 +351,55 @@
             	field: 'imagePath',
             	title: '产品图片',
             	align: 'center',
+            	width: '150',
             	formatter: function(value, row, index) {
-            		return '<img style="max-width: 100px;" src="${ctx}' + value + '">';
-            	}
+            		return '<a class="btn-product-detail"><img style="max-width: 100px;" src="${ctx}' + value + '"></a>';
+            	},
+            	events: window.operateEvents = {
+                    'click .btn-product-detail': function(e, value, row, index) {
+                        e.stopPropagation();
+                        $.each(row, function(key, val) {
+                        	if (key == 'imagePath') {
+                        		$productDetailDialog.find('dd[data-name="imagePath"]').html('<img class="img-responsive" src="${ctx}' + val + '">');
+                        	} else {
+                        		$productDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+                        	}
+            			});
+            			$productDetailDialog.modal('show');
+                    }
+                }
             }, {
             	field: 'name',
             	title: '产品名称',
-            	align: 'center'
-            }, {
-            	field: 'specification',
-            	title: '规格参数',
-            	align: 'center'
+            	formatter: function(value, row, index) {
+                    return '<a class="btn-product-detail">' + value + '</a>';
+                },
+                events: window.operateEvents = {
+                    'click .btn-product-detail': function(e, value, row, index) {
+                        e.stopPropagation();
+                        $.each(row, function(key, val) {
+                        	if (key == 'imagePath') {
+                        		$productDetailDialog.find('dd[data-name="imagePath"]').html('<img class="img-responsive" src="${ctx}' + val + '">');
+                        	} else {
+                        		$productDetailDialog.find('dd[data-name="' + key + '"]').text(val);
+                        	}
+            			});
+            			$productDetailDialog.modal('show');
+                    }
+                }
             }, {
             	title: '操作',
             	align: 'center',
+            	width: '120',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-product-get a-operate">详情</a><a class="btn-product-edit a-operate">编辑</a><a class="btn-product-delete a-operate">删除</a>';
+            		var $edit = '<a class="btn-product-edit a-operate">编辑</a>';
+                    var $delete = '<a class="btn-product-delete a-operate">删除</a>';
+                    return $edit + $delete;
                 },
                 events: window.operateEvents = {
-                	'click .btn-product-get': function(e, value, row, index) {
-                		e.stopPropagation();
-                		window.location.href= './productGet?productId=' + row.id;
-                	},
                 	'click .btn-product-edit': function(e, value, row, index) {
                 		e.stopPropagation();
-                		window.location.href= './productAdd?method=edit&productId=' + row.id;
+                		window.location.href= '${ctx}/authority/enterprise/product/add?method=edit&productId=' + row.id;
                 	},
                 	'click .btn-product-delete': function(e, value, row, index) {
                 		e.stopPropagation();
@@ -368,22 +411,20 @@
 							cancelButtonText: '取消',
 							confirmButtonColor: '#DD6B55',
 							confirmButtonText: '确定',
-							closeOnConfirm: false
 						}, function() {
 							var productId = row.id;
-							
 							$.ajax({
 								url: '${ctx}/api/product/delete',
 								data: { 
 									productId: productId
 								},
 								success: function(ret) {
-									if (ret.code == '0') {
-										swal('', '删除成功!', 'success');
+									if (ret.code == 0) {
+			                        	toastr['success'](ret.msg);
+			                        	$productTable.bootstrapTable('refresh'); 
 									} else {
-										swal('', ret.msg, 'error');
-									}
-									$productTable.bootstrapTable('refresh'); 
+										toastr['error'](ret.msg);
+			                        }
 								},
 								error: function(err) {}
 							});
@@ -392,7 +433,6 @@
                 }
             }]
 		});
-		
 		$productTable.on('all.bs.table', function(e, row) {
             var selNum = $productTable.bootstrapTable('getSelections').length;
             selNum > 0 ? $page.find('.btn-product-delete-batch').removeAttr('disabled') : $page.find('.btn-product-delete-batch').attr('disabled', 'disabled');
@@ -412,26 +452,34 @@
             }, {
             	field: 'title',
             	title: '新闻标题',
-            	align: 'center'
+            	formatter: function(value, row, index) {
+                    return '<a class="btn-news-detail">' + value + '</a>';
+                },
+                events: window.operateEvents = {
+                    'click .btn-news-detail': function(e, value, row, index) {
+                        e.stopPropagation();
+                        window.location.href = '${ctx}/authority/enterprise/news/get?newsId=' + row.id;
+                    },
+                }
             }, {
             	field: 'updateTime',
             	title: '修改时间',
             	align: 'center',
+            	width: '150',
             	formatter: formatDate2
             }, {
             	title: '操作',
             	align: 'center',
+            	width: '120',
             	formatter: function(value, row, index) {
-                    return '<a class="btn-news-get a-operate">详情</a><a class="btn-news-edit a-operate">编辑</a><a class="btn-news-delete a-operate">删除</a>';
+            		var $edit = '<a class="btn-news-edit a-operate">编辑</a>';
+                    var $delete = '<a class="btn-news-delete a-operate">删除</a>';
+                    return $edit + $delete;
                 },
                 events: window.operateEvents = {
-                	'click .btn-news-get': function(e, value, row, index) {
-                		e.stopPropagation();
-                		window.location.href = './newsGet?newsId=' + row.id;
-                	},
                 	'click .btn-news-edit': function(e, value, row, index) {
                 		e.stopPropagation();
-                		window.location.href= './newsAdd?method=edit&newsId=' + row.id;
+                		window.location.href= '${ctx}/authority/enterprise/news/add?method=edit&newsId=' + row.id;
                 	},
                 	'click .btn-news-delete': function(e, value, row, index) {
                 		e.stopPropagation();
@@ -443,7 +491,6 @@
 							cancelButtonText: '取消',
 							confirmButtonColor: '#DD6B55',
 							confirmButtonText: '确定',
-							closeOnConfirm: false
 						}, function() {
 							$.ajax({
 								url: '${ctx}/api/news/delete',
@@ -451,12 +498,12 @@
 									newsId: row.id
 								},
 								success: function(ret) {
-									if (ret.code == '0') {
-										swal('', '删除成功!', 'success');
+									if (ret.code == 0) {
+			                        	toastr['success'](ret.msg);
+			                        	$newsTable.bootstrapTable('refresh');
 									} else {
-										swal('', ret.msg, 'error');
-									}
-									$newsTable.bootstrapTable('refresh'); 
+										toastr['error'](ret.msg);
+			                        }
 								},
 								error: function(err) {}
 							});
@@ -496,7 +543,7 @@
     		Url.updateSearchParam("tab", option);
     	})
 		.on('click', '.btn-enterprise-back', function() {
-			window.location.href = './enterpriseList';
+			window.location.href = '${ctx}/authority/enterprise';
 		})
 		.on('click', '.btn-enterprise-edit', function() {
 			$form.find('.editable').removeAttr('disabled').removeClass('disabled');
@@ -554,7 +601,7 @@
 			window.location.reload();
 		})
 		.on('click', '.btn-product-add', function() {
-			window.location.href = './productAdd?method=add&enterpriseId=${enterprise.id}';
+			window.location.href = '${ctx}/authority/enterprise/product/add?method=add&enterpriseId=${enterprise.id}';
 		})
 		.on('click', '.btn-product-delete-batch', function() {
 			swal({
@@ -565,7 +612,6 @@
 				cancelButtonText: '取消',
 				confirmButtonColor: '#DD6B55',
 				confirmButtonText: '确定',
-				closeOnConfirm: false
 			}, function() {
 				var rows = $productTable.bootstrapTable('getSelections');
 				$.ajax({
@@ -574,19 +620,19 @@
 						productIdList: $k.util.getIdList(rows) 
 					},
 					success: function(ret) {
-						if (ret.code == '0') {
-							swal('', '删除成功!', 'success');
+						if (ret.code == 0) {
+                        	toastr['success'](ret.msg);
+                        	$productTable.bootstrapTable('refresh');
 						} else {
-							swal('', ret.msg, 'error');
-						}
-						$productTable.bootstrapTable('refresh');
+							toastr['error'](ret.msg);
+                        }
 					},
 					error: function(err) {}
 				});
 			});
 		})
 		.on('click', '.btn-news-add', function() {
-			window.location.href = './newsAdd?method=add&enterpriseId=${enterprise.id}';
+			window.location.href = '${ctx}/authority/enterprise/news/add?method=add&enterpriseId=${enterprise.id}';
 		})
 		.on('click', '.btn-news-delete-batch', function() {
 			swal({
@@ -597,7 +643,6 @@
 				cancelButtonText: '取消',
 				confirmButtonColor: '#DD6B55',
 				confirmButtonText: '确定',
-				closeOnConfirm: false
 			}, function() {
 				var rows = $newsTable.bootstrapTable('getSelections');
 				$.ajax({
@@ -606,12 +651,12 @@
 						newsIdList: $k.util.getIdList(rows) 
 					},
 					success: function(ret) {
-						if (ret.code == '0') {
-							swal('', '删除成功!', 'success');
+						if (ret.code == 0) {
+                        	toastr['success'](ret.msg);
+                        	$newsTable.bootstrapTable('refresh');
 						} else {
-							swal('', ret.msg, 'error');
-						}
-						$newsTable.bootstrapTable('refresh');
+							toastr['error'](ret.msg);
+                        }
 					},
 					error: function(err) {}
 				});

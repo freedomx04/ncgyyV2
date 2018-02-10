@@ -235,14 +235,14 @@ public class ManagerController {
 	/**
 	 * 企业接口
 	 */
-	@RequestMapping(value = "/enterpriseList")
-	String enterpriseList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/enterprise_list";
+	@RequestMapping(value = "/authority/enterprise")
+	String enterprise(ModelMap modelMap) {
+		List<AreaEntity> areaList = areaService.list();
+		modelMap.addAttribute("areaList", areaList);
+		return "pages/authority/enterprise";
 	}
 	
-	@RequestMapping(value = "/enterpriseAdd")
+	@RequestMapping(value = "/authority/enterprise/add")
 	String enterpriseAdd(ModelMap modelMap, String method, Long enterpriseId) {
 		List<AreaEntity> areaList = areaService.list();
 		List<IndustryEntity> industryList = industryService.list();
@@ -258,11 +258,10 @@ public class ManagerController {
 			EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
 			modelMap.addAttribute("enterprise", enterprise);
 		}
-		
 		return "pages/authority/enterprise_add";
 	}
 	
-	@RequestMapping(value = "/enterpriseGet")
+	@RequestMapping(value = "/authority/enterprise/get")
 	String enterpriseGet(ModelMap modelMap, String source, Long enterpriseId) {
 		modelMap.addAttribute("source", source);
 		
@@ -278,7 +277,7 @@ public class ManagerController {
 		return "pages/authority/enterprise_get";
 	}
 	
-	@RequestMapping(value = "/productAdd")
+	@RequestMapping(value = "/authority/enterprise/product/add")
 	String productAdd(ModelMap modelMap, String method, Long productId, Long enterpriseId) {
 		String title = method.equals("add") ? "产品新增" : "产品编辑";
 		modelMap.addAttribute("title", title);
@@ -289,19 +288,10 @@ public class ManagerController {
 			ProductEntity product = productService.findOne(productId);
 			modelMap.addAttribute("product", product);
 		}
-		
 		return "pages/authority/product_add";
 	}
 	
-	@RequestMapping(value = "/productGet")
-	String productGet(ModelMap modelMap, Long productId) {
-		ProductEntity product = productService.findOne(productId);
-		modelMap.addAttribute("product", product);
-		
-		return "pages/authority/product_get";
-	}
-	
-	@RequestMapping(value = "/newsAdd")
+	@RequestMapping(value = "/authority/enterprise/news/add")
 	String newsAdd(ModelMap modelMap, String method, Long newsId, Long enterpriseId) throws IOException {
 		String title = method.equals("add") ? "新闻新增" : "新闻编辑";
 		modelMap.addAttribute("title", title);
@@ -310,21 +300,15 @@ public class ManagerController {
 		
 		if (newsId != null) {
 			NewsEntity news = newsService.findOne(newsId);
-			String content = commonService.getArticleContent(news.getPath());
-			news.setContent(content);
 			modelMap.addAttribute("news", news);
 		}
-		
 		return "pages/authority/news_add";
 	}
 	
-	@RequestMapping(value = "/newsGet")
+	@RequestMapping(value = "/authority/enterprise/news/get")
 	String newsGet(ModelMap modelMap, Long newsId) throws IOException {
 		NewsEntity news = newsService.findOne(newsId);
-		String content = commonService.getArticleContent(news.getPath());
-		news.setContent(content);
 		modelMap.addAttribute("news", news);
-		
 		return "pages/authority/news_get";
 	}
 	

@@ -25,8 +25,8 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
-	public void save(AreaEntity area) {
-		areaRepository.save(area);
+	public AreaEntity save(AreaEntity area) {
+		return areaRepository.save(area);
 	}
 
 	@Override

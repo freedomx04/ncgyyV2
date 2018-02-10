@@ -67,9 +67,6 @@ public class WxEnterpriseController {
 	@RequestMapping(value = "/wx/enterprise/news")
 	String enterprise_news(ModelMap modelMap, Long newsId) throws IOException {
 		NewsEntity news = newsService.findOne(newsId);
-		String content = commonService.getArticleContent(news.getPath());
-		news.setContent(content);
-		
 		modelMap.addAttribute("news", news);
 		return "wx/enterprise/enterprise_news";
 	}

@@ -121,8 +121,6 @@ public class PageController {
 	String newsContent(ModelMap modelMap, Long newsId, Long enterpriseId) throws IOException {
 		NewsEntity news = newsService.findOne(newsId);
 		if (news != null) {
-			String content = commonService.getArticleContent(news.getPath());
-			news.setContent(content);
 			modelMap.addAttribute("news", news);
 			modelMap.addAttribute("enterpriseId", enterpriseId);
 		}

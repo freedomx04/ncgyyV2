@@ -50,7 +50,7 @@ public class ProductController {
 			ProductEntity product = new ProductEntity(enterprise, name, imagePath, specification, introduction, now, now);
 			productService.save(product);
 
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -76,7 +76,7 @@ public class ProductController {
 			}
 
 			productService.save(product);
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -91,7 +91,7 @@ public class ProductController {
 				commonService.deleteImage(product.getImagePath());
 			}
 			productService.delete(productId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");
@@ -107,7 +107,7 @@ public class ProductController {
 			for (Long productId : productIdList) {
 				delete(productId);
 			}
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");

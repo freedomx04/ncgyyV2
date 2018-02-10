@@ -103,13 +103,13 @@ public class InitController {
 			RoleEntity role = roleService.findByName("管理员");
 			if (role == null) {
 				String resource = "authority-role,authority-role-add,authority-role-delete-batch,authority-role-detail,authority-role-edit";
-				role = new RoleEntity("管理员", "管理员", resource, now, now);
+				role = new RoleEntity("管理员", resource, now, now);
 				roleService.save(role);
 			}
 			
 			RoleEntity userRole = roleService.findByName("普通用户");
 			if (userRole == null) {
-				userRole = new RoleEntity("普通用户", "普通用户", "", now, now);
+				userRole = new RoleEntity("普通用户", "", now, now);
 				roleService.save(userRole);
 			}
 			 
@@ -172,7 +172,7 @@ public class InitController {
 			for (String name : list) {
 				AreaEntity area = areaService.findByName(name);
 				if (area == null) {
-					area = new AreaEntity(name, name, now, now);
+					area = new AreaEntity(name, now, now);
 					areaService.save(area);
 				}
 			}

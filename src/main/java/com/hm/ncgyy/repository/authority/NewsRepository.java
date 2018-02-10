@@ -10,8 +10,8 @@ import com.hm.ncgyy.entity.authority.NewsEntity;
 
 public interface NewsRepository extends PagingAndSortingRepository<NewsEntity, Long> {
 	
-	NewsEntity findByPath(String path); 
-
+	Iterable<NewsEntity> findByIdIn(List<Long> newsIdList);
+	
 	List<NewsEntity> findByEnterpriseIdOrderByUpdateTime(Long enterpriseId);
 	
 	Page<NewsEntity> findByEnterpriseIdOrderByUpdateTime(Long enterpriseId, Pageable pageable);

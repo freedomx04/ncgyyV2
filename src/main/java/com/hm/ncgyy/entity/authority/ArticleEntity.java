@@ -15,8 +15,9 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "issue_article", indexes = {
-		@Index(name = "index_issue_article_updateTime", columnList = "updateTime"), })
+@Table(name = "authority_article", indexes = {
+	@Index(name = "index_authority_article_type", columnList = "type, updateTime") 
+})
 public class ArticleEntity extends BaseEntity {
 
 	/** 文章类型 */

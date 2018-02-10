@@ -10,7 +10,7 @@ public interface AreaService {
 	
 	AreaEntity findByName(String name);
 	
-	void save(AreaEntity area);
+	AreaEntity save(AreaEntity area);
 	
 	void delete(Long areaId);
 	

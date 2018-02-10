@@ -38,9 +38,8 @@ public class NewsController {
 	public Result create(Long enterpriseId, String title, String content) {
 		try {
 			EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
-			String path = commonService.saveArticle(content);
 			Date now = new Date();
-			NewsEntity news = new NewsEntity(enterprise, title, path, now, now);
+			NewsEntity news = new NewsEntity(enterprise, title, content, now, now);
 			newsService.save(news);
 			return new Result(Code.SUCCESS.value(), "created");
 		} catch (Exception e) {
@@ -54,8 +53,8 @@ public class NewsController {
 		try {
 			NewsEntity news = newsService.findOne(newsId);
 			news.setTitle(title);
+			news.setContent(content);
 			news.setUpdateTime(new Date());
-			commonService.updateArticle(news.getPath(), content);
 			newsService.save(news);
 
 			return new Result(Code.SUCCESS.value(), "updated");
@@ -68,11 +67,8 @@ public class NewsController {
 	@RequestMapping(value = "/api/news/delete")
 	public Result delete(Long newsId) {
 		try {
-			NewsEntity news = newsService.findOne(newsId);
-			commonService.deleteArticle(news.getPath());
 			newsService.delete(newsId);
-
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");
@@ -85,9 +81,7 @@ public class NewsController {
 	@RequestMapping(value = "/api/news/batchDelete")
 	public Result batchDelete(@RequestParam("newsIdList[]") List<Long> newsIdList) {
 		try {
-			for (Long newsId : newsIdList) {
-				delete(newsId);
-			}
+			newsService.delete(newsIdList);
 			return new Result(Code.SUCCESS.value(), "deleted");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {

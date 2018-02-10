@@ -18,32 +18,22 @@ import com.hm.ncgyy.entity.BaseEntity;
 })
 public class ProductEntity extends BaseEntity {
 	
-	/**
-	 * 关联企业
-	 */
+	/** 关联企业 */
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "enterprise_id")
     private EnterpriseBaseEntity enterprise; 
 	
-	/**
-	 * 产品名称
-	 */
+	/** 产品名称 */
 	private String name;
 	
-	/**
-	 * 产品图片
-	 */
+	/** 产品图片 */
 	private String imagePath;
 	
-	/**
-	 * 规格参数
-	 */
+	/** 规格参数 */
 	@Column(length = 1000)
     private String specification;
 	
-	/**
-	 * 产品介绍
-	 */
+	/** 产品介绍 */
 	@Column(length = 4000)
     private String introduction;
 	

@@ -42,7 +42,7 @@
 			// 分页设置
 			pagination: true,				// 是否显示分页条, 默认为false
 			//pageNumber: 1, 				// 初始化加载第一页， 默认为1
-			pageSize: 25, 					// 每页的记录行数, 默认为10
+			pageSize: 20, 					// 每页的记录行数, 默认为10
 			//pageList: [10, 25, 50, 100], 	// 可供选择的每页的行数, 默认为[10, 25, 50, 100, All]
 			paginationPreText: '上一页',	
 			paginationNextText: '下一页',
