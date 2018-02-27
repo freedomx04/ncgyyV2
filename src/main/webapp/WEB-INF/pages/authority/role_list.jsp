@@ -75,10 +75,6 @@
             	title: '角色名称',
             	align: 'center'
             }, {
-            	field: 'description',
-            	title: '角色描述',
-            	align: 'center'
-            }, {
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {

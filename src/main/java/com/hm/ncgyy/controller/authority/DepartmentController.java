@@ -30,12 +30,16 @@ public class DepartmentController {
 	UserService userService;
 	
 	@RequestMapping(value = "/api/department/create", method = RequestMethod.POST)
-	public Result create(String name, String description, String principal) {
+	public Result create(String name, String principal) {
 		try {
+			DepartmentEntity department = departmentService.findByName(name);
+			if (department != null) {
+				return new Result(Code.EXISTED.value(), "部门已存在");
+			}
 			Date now = new Date();
-			DepartmentEntity department = new DepartmentEntity(name, description, principal, now, now);
+			department = new DepartmentEntity(name, principal, now, now);
 			departmentService.save(department);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -43,21 +47,19 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping(value = "/api/department/update", method = RequestMethod.POST)
-	public Result update(Long departmentId, String name, String description, String principal) {
+	public Result update(Long departmentId, String name, String principal) {
 		try {
 			DepartmentEntity department = departmentService.findOne(departmentId);
-			
 			DepartmentEntity updateDepartment = departmentService.findByName(name);
 			if (updateDepartment == null || department.getName() == updateDepartment.getName()) {
 				department.setName(name);
-				department.setDescription(description);
 				department.setPrincipal(principal);
 				department.setUpdateTime(new Date());
 				departmentService.save(department);
 			} else {
 				return new Result(Code.EXISTED.value(), "部门已存在");
 			}
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -68,7 +70,7 @@ public class DepartmentController {
 	public Result delete(Long departmentId) {
 		try {
 			departmentService.delete(departmentId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
@@ -82,7 +84,7 @@ public class DepartmentController {
 	public Result batchDelete(@RequestParam("departmentIdList[]") List<Long> departmentIdList) {
 		try {
 			departmentService.delete(departmentIdList);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 

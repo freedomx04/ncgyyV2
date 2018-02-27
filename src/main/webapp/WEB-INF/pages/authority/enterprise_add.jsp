@@ -28,11 +28,11 @@
 <body class="gray-bg body-enterprise-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>${title}</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>${title}</h2>
+				</div>
+			
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-enterprise">
 					<div class="form-group">
 						<label for="avatar" class="col-sm-3 control-label">企业图标</label>

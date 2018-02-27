@@ -34,11 +34,11 @@
 <body class="gray-bg body-article-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox">
-	 		<div class="ibox-title">
-	 			<h5>${title}</h5>
-	 		</div>
-	 		
 	 		<div class="ibox-content">
+	 			<div class="page-title">
+		 			<h2>${title}</h2>
+		 		</div>
+	 		
  				<form class="form-horizontal" role="form" autocomplete="off" id="form-article">
 					<div class="form-group">
 						<label for="title" class="col-sm-1 control-label"><i class="form-required">*</i>标题</label>

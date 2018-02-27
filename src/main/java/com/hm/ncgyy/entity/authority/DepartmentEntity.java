@@ -25,11 +25,6 @@ public class DepartmentEntity extends BaseEntity {
 	private String name;
 	
 	/**
-	 * 部门信息
-	 */
-	private String description;
-	
-	/**
 	 * 部门负责人
 	 */
 	private String principal;
@@ -45,10 +40,9 @@ public class DepartmentEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DepartmentEntity(String name, String description, String principal, Date createTime, Date updateTime) {
+	public DepartmentEntity(String name, String principal, Date createTime, Date updateTime) {
 		super();
 		this.name = name;
-		this.description = description;
 		this.principal = principal;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -60,14 +54,6 @@ public class DepartmentEntity extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getPrincipal() {

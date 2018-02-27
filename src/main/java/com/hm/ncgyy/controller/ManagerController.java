@@ -312,10 +312,8 @@ public class ManagerController {
 		return "pages/authority/news_get";
 	}
 	
-	@RequestMapping(value = "/department")
+	@RequestMapping(value = "/authority/department")
 	String department(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
 		return "pages/authority/department";
 	}
 	
@@ -329,14 +327,9 @@ public class ManagerController {
 		return "pages/authority/supplier_list";
 	}
 	
-	/**
-	 * 反馈接口
-	 */
-	@RequestMapping(value = "/feedbackList")
+	@RequestMapping(value = "/authority/feedback")
 	String feedbackList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/feedback_list";
+		return "pages/authority/feedback";
 	}
 	
 	/**

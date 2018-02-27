@@ -507,7 +507,7 @@ public class InitController {
 			for (String name : list) {
 				DepartmentEntity department = departmentService.findByName(name);
 				if (department == null) {
-					department = new DepartmentEntity(name, name, name, now, now);
+					department = new DepartmentEntity(name, name, now, now);
 					departmentService.save(department);
 				}
 			}

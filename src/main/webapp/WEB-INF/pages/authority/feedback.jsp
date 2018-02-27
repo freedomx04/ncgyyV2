@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/animate/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-table/bootstrap-table.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	
@@ -23,11 +24,11 @@
 <body class="gray-bg body-feedback-list">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>反馈管理</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>反馈管理</h2>
+				</div>
+			
 				<div class="btn-group hidden-xs" id="feedback-list-table-toolbar" role="group">
                     <button type="button" class="btn btn-danger btn-feedback-delete-batch" disabled='disabled'>
                         <i class="fa fa-trash-o fa-fw"></i>删除
@@ -59,6 +60,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
