@@ -119,17 +119,17 @@
 								<label class="checkbox-inline i-checks" data-role="role-authority-supplier">
 									<input type="checkbox">供应商管理
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-feedback">
-									<input type="checkbox">反馈管理
-								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-version">
-									<input type="checkbox">版本管理
-								</label>
 								<label class="checkbox-inline i-checks" data-role="role-authority-website">
 									<input type="checkbox">网站管理
 								</label>
 								<label class="checkbox-inline i-checks" data-role="role-authority-business">
 									<input type="checkbox">招商管理
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-authority-feedback">
+									<input type="checkbox">反馈管理
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-authority-version">
+									<input type="checkbox">版本管理
 								</label>
                         	</div>
                         </div>

@@ -37,7 +37,7 @@ public class VersionController {
 			Date now = new Date();
 			version = new VersionEntity(code, releaseTime, content, now, now);
 			versionService.save(version);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -59,7 +59,7 @@ public class VersionController {
 			} else {
 				return new Result(Code.EXISTED.value(), "版本号已存在"); 
 			}
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -70,7 +70,7 @@ public class VersionController {
 	public Result delete(Long versionId) {
 		try {
 			versionService.delete(versionId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -81,7 +81,7 @@ public class VersionController {
 	public Result batchDelete(@RequestParam("versionIdList[]") List<Long> versionIdList) {
 		try {
 			versionService.delete(versionIdList);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

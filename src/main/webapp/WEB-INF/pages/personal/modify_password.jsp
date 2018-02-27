@@ -24,11 +24,11 @@
 <body class="gray-bg body-modify-password">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>修改密码</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>修改密码</h2>
+				</div>
+			
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-password">
 					<div class="panel-body">
 						<div class="form-group">
@@ -41,7 +41,15 @@
                         <div class="form-group">
                         	<label for="newPassword" class="col-sm-3 control-label"><i class="form-required">*</i>新密码</label>
                         	<div class="col-sm-5">
-                        		<input type="password" class="form-control" name="newPassword" id="newPassword" required data-bv-notempty-message="请输入新密码">
+                        		<input type="password" class="form-control" name="newPassword" id="newPassword" required 
+                        			data-bv-notempty-message="请输入新密码"
+                        			data-bv-stringlength="true"
+									data-bv-stringlength-min="6" 
+									data-bv-stringlength-max="16" 
+									data-bv-stringlength-message="密码长度必须在6到16之间"
+									data-bv-identical="true" 
+									data-bv-identical-field="confirmPassword" 
+									data-bv-identical-message="输入的两次密码不一致">
                             </div>
                         </div>
                           
@@ -62,15 +70,21 @@
                         <div class="form-group">
                         	<label for="confirmPassword" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
                         	<div class="col-sm-5">
-                        		<input type="password" class="form-control" name="confirmPassword" required data-bv-notempty-message="请输入确认密码">
+                        		<input type="password" class="form-control" name="confirmPassword" required 
+                        			data-bv-notempty-message="请输入确认密码"
+                        			data-bv-stringlength="true"
+									data-bv-stringlength-min="6" 
+									data-bv-stringlength-max="16" 
+									data-bv-stringlength-message="密码长度必须在6到16之间"
+									data-bv-identical="true" 
+									data-bv-identical-field="newPassword" 
+									data-bv-identical-message="输入的两次密码不一致">
                         	</div>
                         </div>
                           
                         <div class="form-group">
                         	<div class="col-sm-4 col-sm-offset-3">
-                        		<button type="button" class="btn btn-primary btn-password">
-                            		<i class="fa fa-check fa-fw"></i>确定
-                        		</button>
+                        		<button type="button" class="btn btn-primary btn-fw btn-password">确定</button>
                     		</div>
                 		</div>                                        
                 	</div>
@@ -96,37 +110,7 @@
 		var userId = '${user.id}';
 		
 		strength($page.find('#newPassword'), $page.find('#level'));
-        
-		$k.util.bsValidator($formPassword, {
-			fields: {
-            	newPassword: {
-            		validators: {
-            			identical: {
-            				field: 'confirmPassword',
-            				message: '输入的两次密码不一致'
-            			}, 
-            			stringLength: {
-            				min: 6,
-            				max: 16,
-            				message: '密码长度必须在6到16之间'
-            			}
-            		}
-				},
-				confirmPassword: {
-					validators: {
-						identical: {
-							field: 'newPassword',
-							message: '输入的两次密码不一致'
-						}, 
-						stringLength: {
-							min: 6,
-							max: 16,
-							message: '密码长度必须在6到16之间'
-						}
-					}
-				}
-			}
-		});
+		$k.util.bsValidator($formPassword);
 		
 		$formPassword.on('click', '.btn-password', function() {
             var validator = $formPassword.data('bootstrapValidator');

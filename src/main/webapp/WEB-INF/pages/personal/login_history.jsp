@@ -23,12 +23,11 @@
 <body class="gray-bg body-login-history">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>登录历史</h5>
-			</div>
-			
 			<div class="ibox-content">
-                <table id="area-list-table" class="table-hm" data-mobile-responsive="true"></table>
+				<div class="page-title">
+					<h2>登录历史</h2>
+				</div>
+                <table id="login-list-table" class="table-hm" data-mobile-responsive="true"></table>
 			</div>
 		</div>
 	</div>
@@ -48,7 +47,7 @@
 		var $page = $('.body-login-history');
 		var userId = '${user.id}';
 		
-		var $table = $k.util.bsTable($page.find('#area-list-table'), {
+		var $table = $k.util.bsTable($page.find('#login-list-table'), {
 			url: '${ctx}/api/login/list?userId=' + userId,
 			toolbar: '#area-list-table-toolbar',
 			idField: 'id',

@@ -27,11 +27,11 @@
 <body class="gray-bg body-personal-info">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>个人资料</h5>
-			</div>
-		
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>个人资料</h2>
+				</div>
+			
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-info" onsubmit="return false;">
 					<div class="form-group">
 						<label for="avatar" class="col-sm-3 control-label">头像</label>
@@ -113,16 +113,13 @@
                 
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-3">
-                        	<button type="button" class="btn btn-primary btn-info-edit">
+                        	<button type="button" class="btn btn-primary btn-fw btn-info-edit">
                                 <i class="fa fa-edit fa-fw"></i>编辑
                             </button>
-                            <button type="button" class="btn btn-primary btn-info-save hide">
+                            <button type="button" class="btn btn-primary btn-fw btn-info-save hide">
                                 <i class="fa fa-save fa-fw"></i>保存
                             </button>
-                            <button type="button" class="btn btn-white btn-info-cancel hide">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
-                        
+                            <button type="button" class="btn btn-white btn-fw btn-info-cancel hide">取消</button>
                         </div>
                     </div>
 				</form>

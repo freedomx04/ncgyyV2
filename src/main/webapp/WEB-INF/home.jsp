@@ -61,10 +61,10 @@
 						|| fn:contains(user.role.resource, 'role-authority-enterprise')
 						|| fn:contains(user.role.resource, 'role-authority-department')
 						|| fn:contains(user.role.resource, 'role-authority-supplier')
-						|| fn:contains(user.role.resource, 'role-authority-feedback')
-						|| fn:contains(user.role.resource, 'role-authority-version')
 						|| fn:contains(user.role.resource, 'role-authority-website')
-						|| fn:contains(user.role.resource, 'role-authority-business')}">
+						|| fn:contains(user.role.resource, 'role-authority-business')
+						|| fn:contains(user.role.resource, 'role-authority-feedback')
+						|| fn:contains(user.role.resource, 'role-authority-version')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
@@ -83,19 +83,19 @@
 								<li><a class="J_menuItem" href="${ctx}/authority/department">部门管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-authority-supplier')}">
-								<li><a class="J_menuItem" href="supplierList">供应商管理</a></li>
-							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'role-authority-feedback')}">
-								<li><a class="J_menuItem" href="${ctx}/authority/feedback">反馈管理</a></li>
-							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'role-authority-version')}">
-								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
+								<li><a class="J_menuItem" href="${ctx}/authority/supplier">供应商管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-authority-website')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/website">网站管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-authority-business')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-feedback')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/feedback">反馈管理</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-version')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/version">版本管理</a></li>
 							</c:if>
 						</ul>
 					</li>

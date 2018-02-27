@@ -262,51 +262,11 @@ public class ManagerController {
 	/**
 	 * 供应商管理接口
 	 */
-	@RequestMapping(value = "/supplierList")
+	@RequestMapping(value = "/authority/supplier")
 	String supplierList(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/supplier_list";
-	}
-	
-	@RequestMapping(value = "/authority/feedback")
-	String feedbackList(ModelMap modelMap) {
-		return "pages/authority/feedback";
-	}
-	
-	/**
-	 * 版本接口
-	 */
-	@RequestMapping(value = "/versionList")
-	String versionList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/version_list";
-	}
-	
-	@RequestMapping(value = "versionAdd")
-	String versionAdd(ModelMap modelMap, String method, Long versionId) {
-		String title = "";
-		switch (method) {
-		case "add":
-			title = "版本新增";
-			break;
-		case "edit":
-			title = "版本编辑";
-			break;
-		case "detail":
-			title = "版本详情";
-			break;
-		}
-		modelMap.addAttribute("title", title);
-		modelMap.addAttribute("method", method);
-		
-		if (versionId != null) {
-			VersionEntity version = versionService.findOne(versionId);
-			modelMap.addAttribute("version", version);
-		}
-		
-		return "pages/authority/version_add";
+		return "pages/authority/supplier";
 	}
 	
 	@RequestMapping(value = "/versionHistory")
@@ -316,9 +276,6 @@ public class ManagerController {
 		return "pages/authority/version_history";
 	}
 	
-	/**
-	 * 网站管理
-	 */
 	@RequestMapping(value = "/authority/website")
 	String website(ModelMap modelMap) {
 		return "pages/authority/website";
@@ -351,36 +308,19 @@ public class ManagerController {
 		return "pages/authority/article_get";
 	}
 	
-	/**
-	 * 招商管理
-	 */
 	@RequestMapping(value = "/authority/business")
 	String business(ModelMap modelMap) {
 		return "pages/authority/business";
 	}
 	
-	/**
-	 * 基础数据接口
-	 */
-	@RequestMapping(value = "/area")
-	String area(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/base/area";
+	@RequestMapping(value = "/authority/feedback")
+	String feedbackList(ModelMap modelMap) {
+		return "pages/authority/feedback";
 	}
 	
-	@RequestMapping(value = "/industry")
-	String industry(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/base/industry";
-	}
-	
-	@RequestMapping(value = "/appealType")
-	String appealType(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/base/appealType";
+	@RequestMapping(value = "/authority/version")
+	String versionList(ModelMap modelMap) {
+		return "pages/authority/version";
 	}
 	
 	/**
