@@ -14,34 +14,24 @@ import com.hm.ncgyy.entity.authority.EnterpriseEntity.PointStatus;
 @Table(name = "authority_enterprise")
 public class EnterpriseBaseEntity extends BaseEntity {
 	
-	/**
-	 * 企业名称
-	 */
+	/** 企业名称 */
 	@Column(unique = true)
 	private String name;
 	
-	/**
-	 * 企业图片
-	 */
+	/** 企业图片 */
 	private String avatar = "default_enterprise";
 	
-	/**
-	 * 园区
-	 */
+	/** 园区 */
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id")
     private AreaEntity area;
 	
-	/**
-	 * 行业
-	 */
+	/** 行业 */
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "industry_id")
     private IndustryEntity industry; 
 	
-	/**
-	 * 重点企业标识
-	 */
+	/** 重点企业标识 */
     private Integer pointStatus = PointStatus.UNPOINT;
 	
 	public EnterpriseBaseEntity() {

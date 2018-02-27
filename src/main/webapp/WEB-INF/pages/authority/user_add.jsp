@@ -27,11 +27,11 @@
 <body class="gray-bg body-user-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>${title}</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>${title}</h2>
+				</div>
+			
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-user">
 					<div class="form-group">
 						<label for="avatar" class="col-sm-3 control-label">头像</label>
@@ -50,14 +50,31 @@
 					<div class="form-group">
 						<label for="username" class="col-sm-3 control-label"><i class="form-required">*</i>用户名</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" name="username" placeholder="只能包含英文、数字、下划线等字符" value="${user.username}" required>
+                        	<c:if test="${method=='add'}">
+                        		<input type="text" class="form-control" name="username" placeholder="只能包含英文、数字、下划线等字符" required
+                            		data-bv-regexp="true"
+               						data-bv-regexp-regexp="^[a-zA-Z0-9_\.]+$"
+                            		data-bv-regexp-message="用户名只能包含英文、数字、下划线等字符">
+                        	</c:if>
+                        	<c:if test="${method=='edit'}">
+                            	<p class="form-control-static">${user.username}</p>
+                            </c:if>
                         </div>
 					</div>
 					
 					<div class="form-group form-hide">
 						<label for="password" class="col-sm-3 control-label"><i class="form-required">*</i>密码</label>
 						<div class="col-sm-5">
-							<input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" required>
+							<input type="password" id="password" class="form-control" name="password" placeholder="6-16个字符,请使用字母加数字或者符号" 
+								required
+								data-bv-notempty-message="请输入密码" 
+								data-bv-stringlength="true"
+								data-bv-stringlength-min="6" 
+								data-bv-stringlength-max="16" 
+								data-bv-stringlength-message="密码长度必须在6到16之间"
+								data-bv-identical="true" 
+								data-bv-identical-field="confirmPassword" 
+								data-bv-identical-message="输入的两次密码不一致">
 						</div>
 					</div>
 					<div class="form-group form-hide">
@@ -73,9 +90,18 @@
 						</div>
 					</div>
 					<div class="form-group form-hide">
-						<label for="confirm-password" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
+						<label for="confirmPassword" class="col-sm-3 control-label"><i class="form-required">*</i>确认密码</label>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" name="confirmPassword" required>
+							<input type="password" class="form-control" name="confirmPassword" 
+								required
+								data-bv-notempty-message="请输入确认密码"
+								data-bv-stringlength="true"
+								data-bv-stringlength-min="6" 
+								data-bv-stringlength-max="16" 
+								data-bv-stringlength-message="密码长度必须在6到16之间"
+								data-bv-identical="true" 
+								data-bv-identical-field="password" 
+								data-bv-identical-message="输入的两次密码不一致">
 						</div>
 					</div>
 					
@@ -119,7 +145,7 @@
 					<div class="form-group">
 						<label for="email" class="col-sm-3 control-label">邮箱</label>
 						<div class="col-sm-5">
-                            <input type="text" class="form-control" name="email" value="${user.email}">
+                            <input type="email" class="form-control" name="email" value="${user.email}">
                         </div>
 					</div>
 					
@@ -155,25 +181,17 @@
 					</div>
 					
 					<div class="hr-line-dashed"></div>
-					
 					<div class="form-group">
                         <div class="col-sm-4 col-sm-offset-3">
                             <c:if test="${method == 'add'}">
-                            <button type="button" class="btn btn-primary btn-user-add">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-user-add">确定</button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
-                            <button type="button" class="btn btn-primary btn-user-edit">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-user-edit">确定</button>
                             </c:if>
-                            <button type="button" class="btn btn-white btn-user-cancel">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
+                            <button type="button" class="btn btn-white btn-fw btn-user-cancel">取消</button>
                         </div>
                     </div>
-				
 				</form>
 			</div>
 		</div>
@@ -196,63 +214,14 @@
 		
 		var $page = $('.body-user-add');
 		var $form = $page.find('#form-user');
+		$form.bootstrapValidator();
 		var method = '${method}';
 		
 		// password
 		strength($page.find('#password'), $page.find('#level'));
 		
-		$k.util.bsValidator($form, {
-			fields: {
-	             username: {
-	            	 validators: {
-	           	 		regexp: {
-	           	 			regexp: /^[a-zA-Z0-9_\.]+$/,
-	     	                message: '用户名只能包含英文、数字、下划线等字符'
-   	                    }
-   	                 }
-   	             },
-  	             password: {
-  	                 validators: {
-  	                     identical: {
-  	                         field: 'confirmPassword',
-  	                         message: '两次输入密码不一致'
-  	                     },
-  	                 	 stringLength: {
-  	                         min: 6,
-  	                         max: 16,
-  	                         message: '密码长度必须在6到16之间'
-  	                     }
-  	                 }
-  	             },
-  	             confirmPassword: {
-  	             	validators: {
-  	                	identical: {
-  	                    	field: 'password',
-  	                        message: '两次输入密码不一致'
-  	                    },
-  	                  	stringLength: {
-							min: 6,
-							max: 16,
-							message: '密码长度必须在6到16之间'
-						}
-  	                }
-  	            }
-			}
-		});
-		
-		if (method == 'detail') {
+		if (method == 'edit') {
 			$page.find('.form-hide').remove();
-			$page.find('.form-required').remove();
-			$page.find('select[name="roleId"]').val(${user.role.id});
-			$page.find('select[name="gender"]').val(${user.gender});
-			$page.find('select[name="enterpriseId"]').val(${user.enterprise.id});
-			$page.find('select[name="departmentId"]').val(${user.department.id});
-			$page.find('select').addClass('disabled');
-			$page.find('input, select, textarea').addClass('disabled');
-			$page.find('.avatar-view').addClass('disabled').attr('disabled', 'disabled');
-		} else if (method == 'edit') {
-			$page.find('.form-hide').remove();
-			$page.find('input[name="username"]').attr('disabled', 'disabled');
 			$page.find('select[name="roleId"]').val(${user.role.id});
 			$page.find('select[name="gender"]').val(${user.gender});
 			$page.find('select[name="enterpriseId"]').val(${user.enterprise.id});
@@ -282,7 +251,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './userList';
+                                window.location.href = '${ctx}/authority/user';
                             });
                     	} else {
                     		swal('', ret.msg, 'error');
@@ -311,7 +280,7 @@
                             text: '操作成功',
                             type: 'success'
                         }, function() {
-                            window.location.href = './userList';
+                        	window.location.href = '${ctx}/authority/user';
                         });
                 	} else {
                 		swal('', ret.msg, 'error');
@@ -319,10 +288,9 @@
 				},
 				error: function(err) {}
 			});
-			
 		})
 		.on('click', '.btn-user-cancel', function() {
-			window.location.href = './userList';
+			window.location.href = '${ctx}/authority/user';
 		});
 		
 	})( jQuery );

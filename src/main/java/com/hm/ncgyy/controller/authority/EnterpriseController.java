@@ -117,11 +117,11 @@ public class EnterpriseController {
 	@RequestMapping(value = "/api/enterprise/delete")
 	public Result delete(Long enterpriseId) {
 		try {
-
-			return new Result(Code.SUCCESS.value(), "deleted");
+			enterpriseService.delete(enterpriseId);
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint");
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

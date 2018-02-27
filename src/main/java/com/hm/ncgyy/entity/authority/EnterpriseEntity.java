@@ -27,108 +27,70 @@ public class EnterpriseEntity extends BaseEntity {
         public static final int POINT = 1; // 重点企业
     }
 	
-	/**
-	 * 企业名称
-	 */
+	/** 企业名称 */
 	@Column(unique = true)
 	private String name;
 	
-	/**
-	 * 企业图片
-	 */
+	/** 企业图片 */
 	private String avatar = "default_enterprise";
 	
-	/**
-	 * 园区
-	 */
+	/** 园区 */
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id")
     private AreaEntity area; 
 
-	/**
-	 * 行业
-	 */
+	/** 行业 */
 	@OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "industry_id")
     private IndustryEntity industry; 
 	
-	/**
-	 * 企业负责人
-	 */
+	/** 企业负责人 */
 	private String principal;
 	
-	/**
-	 * 主要产品
-	 */
+	/** 主要产品 */
 	private String mainProduct;
 	
-	/**
-	 * 投产时间
-	 */
+	/** 投产时间 */
 	private String productionTime;
 	
-	/**
-	 * 联系电话
-	 */
+	/** 联系电话 */
 	private String telephone;
 	
-	/**
-	 * 地址
-	 */
+	/** 地址 */
 	private String address;
 	
-	/**
-	 * 企业法人
-	 */
+	/** 企业法人 */
 	private String representative; 
 	
-	/**
-	 * 主要股东
-	 */
+	/** 主要股东 */
 	@Column(length = 2000)
 	private String shareholder;
 	
-	/**
-	 * 注册资金
-	 */
+	/** 注册资金 */
 	private String registeredCapital;
 	
-	/**
-	 * 变更记录
-	 */
+	/** 变更记录 */
 	private String alterRecording;
 	
-	/**
-	 * 企业介绍
-	 */
+	/** 企业介绍 */
 	@Column(length = 4000)
 	private String introduction;
 	
-	/**
-	 * 国税识别号
-	 */
+	/** 国税识别号 */
 	private String nationalTax;
 	
-	/**
-	 * 地税识别号
-	 */
+	/** 地税识别号 */
 	private String localTax;
 	
-	/**
-	 * 重点企业标识
-	 */
+	/** 重点企业标识 */
     private Integer pointStatus = PointStatus.UNPOINT;
     
-    /**
-     * 企业产品
-     */
+    /** 企业产品 */
     @OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enterprise_id")
 	private List<ProductEntity> productList = new LinkedList<>(); 
 
-    /**
-     * 企业新闻
-     */
+    /** 企业新闻 */
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enterprise_id")
 	private List<NewsEntity> newsList = new LinkedList<>(); 

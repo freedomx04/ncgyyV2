@@ -37,77 +37,50 @@ public class UserEntity extends BaseEntity {
 		public static final int GENDER_FEMALE = 2;
 	}
 
-	/**
-	 * 用户名,唯一
-	 */
+	/** 用户名,唯一 */
 	@Column(unique = true)
 	private String username;
 
-	/**
-	 * MD5加密后的密码
-	 */
+	/** MD5加密后的密码 */
 	private String password;
 
-	/**
-	 * 姓名
-	 */
+	/** 姓名 */
 	private String name;
 
-	/**
-	 * 头像
-	 */
+	/** 头像 */
 	private String avatar = "default_user";
 
-	/**
-	 * 手机号码,唯一
-	 */
-	@Column(unique = true)
+	/** 手机号码 */
 	private String mobile;
 
-	/**
-	 * 邮箱
-	 */
+	/** 邮箱 */
 	private String email;
 
-	/**
-	 * 性别,默认为未定义
-	 */
+	/** 性别,默认为未定义 */
 	private Integer gender = Gender.GENDER_UNDERFINE;
 
-	/**
-	 * 关联角色
-	 */
+	/** 关联角色 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "role_id")
 	private RoleEntity role;
 
-	/**
-	 * 用户状态
-	 */
+	/** 用户状态 */
 	private Integer status = UserStatus.STATUS_VALID;
 
-	/**
-	 * 关联企业
-	 */
+	/** 关联企业 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "enterprise_id")
 	private EnterpriseEntity enterprise;
 
-	/**
-	 * 关联部门
-	 */
+	/** 关联部门 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "department_id")
 	private DepartmentEntity department;
 
-	/**
-	 * 微信userId
-	 */
+	/** 微信userId */
 	private String wxUserId;
 
-	/**
-	 * 个人描述
-	 */
+	/** 个人描述 */
 	@Column(length = 4000)
 	private String introduction;
 	

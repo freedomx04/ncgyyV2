@@ -56,46 +56,45 @@
 							<i class="fa fa-home fa-fw"></i><span class="nav-label">首页</span>
 						</a>
 					</li>
-					<c:if test="${fn:contains(user.role.resource, 'authority-role')
-						|| fn:contains(user.role.resource, 'authority-user')
-						|| fn:contains(user.role.resource, 'authority-enterprise')
-						|| fn:contains(user.role.resource, 'authority-department')
-						|| fn:contains(user.role.resource, 'authority-supplier')
-						|| fn:contains(user.role.resource, 'authority-feedback')
-						|| fn:contains(user.role.resource, 'authority-version')
-						|| fn:contains(user.role.resource, 'authority-website')
-						|| fn:contains(user.role.resource, 'authority-business')}">
+					<c:if test="${fn:contains(user.role.resource, 'role-authority-data')
+						|| fn:contains(user.role.resource, 'role-authority-user')
+						|| fn:contains(user.role.resource, 'role-authority-enterprise')
+						|| fn:contains(user.role.resource, 'role-authority-department')
+						|| fn:contains(user.role.resource, 'role-authority-supplier')
+						|| fn:contains(user.role.resource, 'role-authority-feedback')
+						|| fn:contains(user.role.resource, 'role-authority-version')
+						|| fn:contains(user.role.resource, 'role-authority-website')
+						|| fn:contains(user.role.resource, 'role-authority-business')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="${ctx}/authority/data">基础数据管理</a></li>
-							<c:if test="${fn:contains(user.role.resource, 'authority-role')}">
-								<li><a class="J_menuItem" href="roleList">角色管理</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-data')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/data">基础数据管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-user')}">
-								<li><a class="J_menuItem" href="userList">用户管理</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-user')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/user">用户管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-enterprise')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-enterprise')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/enterprise">企业管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-department')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-department')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/department">部门管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-supplier')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-supplier')}">
 								<li><a class="J_menuItem" href="supplierList">供应商管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-feedback')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-feedback')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/feedback">反馈管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-version')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-version')}">
 								<li><a class="J_menuItem" href="versionList">版本管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-website')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-website')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/website">网站管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-business')}">
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-business')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
 							</c:if>
 						</ul>

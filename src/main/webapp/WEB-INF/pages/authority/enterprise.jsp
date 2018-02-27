@@ -71,9 +71,6 @@
 							<button type="button" class="btn btn-white btn-enterprise-add">
 		 						<i class="fa fa-plus fa-fw"></i>新增
 		 					</button>
-		 					<button type="button" class="btn btn-danger btn-enterprise-delete-batch" disabled='disabled'>
-		 						<i class="fa fa-trash-o fa-fw"></i>删除
-		 					</button>
 						</div>
 						<table id="enterprise-table" class="table-hm table-fixed" data-mobile-responsive="true"></table>
 					</div>
@@ -174,15 +171,44 @@
 	            }, {
 	            	title: '操作',
 	            	align: 'center',
-	            	width: '80',
+	            	width: '100',
 	            	formatter: function(value, row, index) {
 	            		var $edit = '<a class="btn-enterprise-edit a-operate">编辑</a>';
-	                    return $edit;
+	            		var $delete = '<a class="btn-enterprise-delete a-operate">删除</a>'; 
+	                    return $edit + $delete;
 	            	},
 	            	events: window.operateEvents = {
 	            		'click .btn-enterprise-edit': function(e, value, row, index) {
 	            			e.stopPropagation();
 	            			window.location.href= '${ctx}/authority/enterprise/add?method=edit&enterpriseId=' + row.id;
+	            		},
+	            		'click .btn-enterprise-delete': function(e, value, row, index) {
+	            			e.stopPropagation();
+	            			swal({
+	                            title: '',
+	                            text: '确定删除选中记录?',
+	                            type: 'warning',
+	                            showCancelButton: true,
+	                            cancelButtonText: '取消',
+	                            confirmButtonColor: '#DD6B55',
+	                            confirmButtonText: '确定',
+	                        }, function() {
+	                            $.ajax({
+	                                url: '${ctx}/api/enterprise/delete',
+	                                data: {
+	                                	enterpriseId: row.id
+	                                },
+	                                success: function(ret) {
+	                                	if (ret.code == 0) {
+	                                        toastr['success'](ret.msg);
+	                                        $table.bootstrapTable('refresh'); 
+	                                    } else {
+	                                        toastr['error'](ret.msg);
+	                                    } 
+	                                },
+	                                error: function(err) {}
+	                            });
+	                        });
 	            		}
 	            	}
 	            }]

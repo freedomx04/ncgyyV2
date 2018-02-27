@@ -1,5 +1,6 @@
 package com.hm.ncgyy.controller.authority;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,13 +66,6 @@ public class UserController {
 				return new Result(Code.EXISTED.value(), "用户名已存在");
 			}
 
-			if (!mobile.isEmpty()) {
-				user = userService.findByMobile(mobile);
-				if (user != null) {
-					return new Result(Code.EXISTED.value(), "手机号已存在");
-				}
-			}
-
 			RoleEntity role = roleService.findOne(roleId);
 			Date now = new Date();
 			user = new UserEntity(username, CiphersUtils.getInstance().MD5Password(password), name, avatar, mobile, email, gender, role, introduction, now, now);
@@ -86,7 +80,7 @@ public class UserController {
 			}
 
 			userService.save(user);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -98,13 +92,6 @@ public class UserController {
 			String email, Long enterpriseId, Long departmentId, String introduction) {
 		try {
 			UserEntity user = userService.findOne(userId);
-			if (!mobile.isEmpty()) {
-				UserEntity updateUser = userService.findByMobile(mobile);
-				if (updateUser != null && updateUser.getMobile() != user.getMobile()) {
-					return new Result(Code.EXISTED.value(), "手机号已存在");
-				}
-			}
-			
 			RoleEntity role = roleService.findOne(roleId);
 			user.setAvatar(avatar);
 			user.setName(name);
@@ -131,7 +118,7 @@ public class UserController {
 			user.setUpdateTime(new Date());
 			userService.save(user);
 			
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -142,10 +129,10 @@ public class UserController {
 	public Result delete(Long userId) {
 		try {
 			userService.delete(userId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "constraint");
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -168,6 +155,22 @@ public class UserController {
 		try {
 			List<UserEntity> userList = userService.list();
 			return new ResultInfo(Code.SUCCESS.value(), "ok", userList);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/listByRole")
+	public Result listByRole(Long roleId) {
+		try {
+			List<UserEntity> list = new ArrayList<>();
+			if (roleId != 0) {
+				list = userService.listByRoleId(roleId);
+			} else {
+				list = userService.list();
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -276,7 +279,7 @@ public class UserController {
 
 			user.setPassword(CiphersUtils.getInstance().MD5Password(newPassword));
 			userService.save(user);
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "密码修改成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -289,7 +292,7 @@ public class UserController {
 			UserEntity user = userService.findOne(userId);
 			user.setPassword(CiphersUtils.getInstance().MD5Password(password));
 			userService.save(user);
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "密码修改成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -303,6 +306,32 @@ public class UserController {
 			user.setStatus(status);
 			userService.save(user);
 			return new Result(Code.SUCCESS.value(), "updated");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/enable")
+	public Result enable(Long userId) {
+		try {
+			UserBaseEntity user = userService.findOneBase(userId);
+			user.setStatus(UserStatus.STATUS_VALID);
+			userService.saveBase(user);
+			return new Result(Code.SUCCESS.value(), "已启用");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/user/disable")
+	public Result disable(Long userId) {
+		try {
+			UserBaseEntity user = userService.findOneBase(userId);
+			user.setStatus(UserStatus.STATUS_NO_VALID);
+			userService.saveBase(user);
+			return new Result(Code.SUCCESS.value(), "已禁用");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService {
 	public List<UserEntity> list() {
 		return (List<UserEntity>) userRepository.findAll();
 	}
+	
+	@Override
+	public List<UserEntity> listByRoleId(Long roleId) {
+		return userRepository.findByRoleId(roleId);
+	}
 
 	@Override
 	public UserBaseEntity findOneBase(Long userId) {
@@ -67,6 +72,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserBaseEntity findByUsernameBase(String username) {
 		return baseRepository.findByUsername(username);
+	}
+	
+	@Override
+	public void saveBase(UserBaseEntity user) {
+		baseRepository.save(user);
 	}
 	
 	@Override

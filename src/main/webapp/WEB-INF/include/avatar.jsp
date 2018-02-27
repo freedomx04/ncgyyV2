@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-lg modal-center">
 		<div class="modal-content">
 			<form class="avatar-form" action="${ctx}/api/avatarUpload" enctype="multipart/form-data" method="post">
 				<div class="modal-header">

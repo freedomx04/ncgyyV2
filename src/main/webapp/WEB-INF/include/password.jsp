@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <head>
-
 	<style type="text/css">
 	.pw-strength {
 		clear: both;
@@ -10,13 +9,13 @@
 		/* width: 180px; */
 	}
 	.pw-bar {
-		background: url(img/pwd-1.png) no-repeat;
+		background: url(${ctx}/img/pwd-1.png) no-repeat;
 		height: 14px;
 		overflow: hidden;
 		width: 179px;
 	}
 	.pw-bar-on {
-		background: url(img/pwd-2.png) no-repeat;
+		background: url(${ctx}/img/pwd-2.png) no-repeat;
 		width: 0px;
 		height: 14px;
 		position: absolute;

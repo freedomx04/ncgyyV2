@@ -143,69 +143,23 @@ public class ManagerController {
 	}
 	
 	/**
-	 * 角色管理接口
+	 * 系统管理接口
 	 */
 	@RequestMapping(value = "/authority/data")
 	String data() {
 		return "pages/authority/data";
 	}
 	
-	@RequestMapping(value = "/roleList")
-	String roleList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/role_list";
-	}
-	
-	@RequestMapping(value = "/roleAdd")
-	String roleAdd(ModelMap modelMap, String method, Long roleId) {
-		String title = "";
-		switch (method) {
-		case "add":
-			title = "角色新增";
-			break;
-		case "edit":
-			title = "角色编辑";
-			break;
-		case "detail":
-			title = "角色详情";
-			break;
-		}
-		modelMap.addAttribute("title", title);
-		modelMap.addAttribute("method", method);
-		
-		if (roleId != null) {
-			RoleEntity role = roleService.findOne(roleId);
-			modelMap.addAttribute("role", role);
-		}
-		
-		return "pages/authority/role_add";
-	}
-	
-	/**
-	 * 用户接口
-	 */
-	@RequestMapping(value = "/userList")
+	@RequestMapping(value = "/authority/user")
 	String userList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		return "pages/authority/user_list";
+		List<RoleEntity> roleList = roleService.list();
+		modelMap.addAttribute("roleList", roleList);
+		return "pages/authority/user";
 	}
 	
-	@RequestMapping(value = "/userAdd")
+	@RequestMapping(value = "/authority/user/add")
 	String userAdd(ModelMap modelMap, String method, Long userId) {
-		String title = "";
-		switch (method) {
-		case "add":
-			title = "用户新增";
-			break;
-		case "edit":
-			title = "用户编辑";
-			break;
-		case "detail":
-			title = "用户详情";
-			break;
-		}
+		String title = method.equals("add") ? "用户新增" : "用户编辑";
 		List<RoleEntity> roleList = roleService.list();
 		List<EnterpriseBaseEntity> enterpriseList = enterpriseService.listBase();
 		List<DepartmentEntity> departmentList = departmentService.list();
@@ -220,21 +174,9 @@ public class ManagerController {
 			UserEntity user = userService.findOne(userId);
 			modelMap.addAttribute("user", user);
 		}
-		
 		return "pages/authority/user_add";
 	}
 	
-	@RequestMapping(value = "/userGet")
-	String userGet(ModelMap modelMap, Long userId) {
-		UserEntity user = userService.findOne(userId);
-		modelMap.addAttribute("user", user);
-		
-		return "pages/authority/user_get";
-	}
-	
-	/**
-	 * 企业接口
-	 */
 	@RequestMapping(value = "/authority/enterprise")
 	String enterprise(ModelMap modelMap) {
 		List<AreaEntity> areaList = areaService.list();

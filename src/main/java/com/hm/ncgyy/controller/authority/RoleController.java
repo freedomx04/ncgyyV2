@@ -32,7 +32,6 @@ public class RoleController {
 			if (role != null) {
 				return new Result(Code.EXISTED.value(), "角色已存在");
 			}
-			
 			Date now = new Date();
 			role = new RoleEntity(name, resource, now, now);
 			role = roleService.save(role);
