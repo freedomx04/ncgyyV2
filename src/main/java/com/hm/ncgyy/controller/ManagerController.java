@@ -326,18 +326,34 @@ public class ManagerController {
 	/**
 	 * 监测平台接口
 	 */
-	@RequestMapping(value = "/targetReport")
+	@RequestMapping(value = "/monitor/report")
 	String targetImport(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("role", user.getRole());
-		
 		return "pages/monitor/target_report";
 	}
 	
-	@RequestMapping(value = "/targetEP")
+	@RequestMapping(value = "/monitor/enterprise")
+	String targetEnterprise() {
+		return "pages/monitor/target_enterprise";
+	}
+	
+	@RequestMapping(value = "/monitor/industry")
+	String targetIndustry() {
+		return "pages/monitor/target_industry";
+	}
+	
+	@RequestMapping(value = "/monitor/area")
+	String targetArea() {
+		return "pages/monitor/target_area";
+	}
+	
+	@RequestMapping(value = "/monitor/pointEnterprise")
+	String targetPointEnterprise() {
+		return "pages/monitor/target_point_enterprise";
+	}
+	
+	@RequestMapping(value = "/monitor/myEnterprise")
 	String targetEP(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		
 		if (user.getEnterprise() == null) {
 			modelMap.addAttribute("type", new String("ep"));
 			return "pages/warning";
@@ -345,26 +361,6 @@ public class ManagerController {
 			modelMap.addAttribute("user", user);
 			return "pages/monitor/target_ep";
 		}
-	}
-	
-	@RequestMapping(value = "/targetEnterprise")
-	String targetEnterprise() {
-		return "pages/monitor/target_enterprise";
-	}
-	
-	@RequestMapping(value = "/targetIndustry")
-	String targetIndustry() {
-		return "pages/monitor/target_industry";
-	}
-	
-	@RequestMapping(value = "/targetArea")
-	String targetArea() {
-		return "pages/monitor/target_area";
-	}
-	
-	@RequestMapping(value = "/targetPointEnterprise")
-	String targetPointEnterprise() {
-		return "pages/monitor/target_point_enterprise";
 	}
 		
 	/**

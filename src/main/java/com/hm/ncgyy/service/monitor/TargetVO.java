@@ -40,7 +40,7 @@ public class TargetVO {
 	public TargetVO() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public TargetVO(String monthly, TargetEntity target_current, TargetEntity target_lastYear,
 			TargetEntity target_lastMonth) {
 		super();

@@ -134,29 +134,29 @@
                         	</div>
                         </div>
                         
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">监测平台</label>
                         	<div class="col-sm-9">
-                       			<label class="checkbox-inline i-checks" data-role="role-authority-data">
+                       			<label class="checkbox-inline i-checks" data-role="role-monitor-report">
 									<input type="checkbox">主要指标上报
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-user">
+								<label class="checkbox-inline i-checks" data-role="role-monitor-enterprise">
 									<input type="checkbox">企业主要指标
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-enterprise">
+								<label class="checkbox-inline i-checks" data-role="role-monitor-industry">
 									<input type="checkbox">行业主要指标
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-department">
+								<label class="checkbox-inline i-checks" data-role="role-monitor-area">
 									<input type="checkbox">园区主要指标
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-department">
+								<label class="checkbox-inline i-checks" data-role="role-monitor-pointEnterprise">
 									<input type="checkbox">重点主要主要指标
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-department">
+								<label class="checkbox-inline i-checks" data-role="role-monitor-myEnterprise">
 									<input type="checkbox">主要指标(企业)
 								</label>
                         	</div>
-                        </div> -->
+                        </div> 
                         
                         <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">服务平台</label>

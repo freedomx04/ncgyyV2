@@ -15,41 +15,28 @@ import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 @Entity
 @Table(name = "monitor_target", indexes = { 
 	@Index(name = "index_target_monthly", columnList = "monthly"),
-	@Index(name = "index_target_enterprise", columnList = "enterprise_id"),
 	@Index(name = "index_target_monthly_enterprise", columnList = "monthly, enterprise_id") 
 })
 public class TargetEntity extends BaseEntity {
 
-	/**
-	 * 月报表时间
-	 */
+	/** 月报表时间 */
 	private String monthly;
 
-	/**
-	 * 关联企业
-	 */
+	/** 关联企业 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "enterprise_id")
 	private EnterpriseBaseEntity enterprise;
 
-	/**
-	 * 本月止主营业务收入
-	 */
+	/** 本月止主营业务收入 */
 	private Double mainBusiness;
 
-	/**
-	 * 用电量
-	 */
+	/** 用电量 */
 	private Double electricity;
 
-	/**
-	 * 本月止利润总额
-	 */
+	/** 本月止利润总额 */
 	private Double profit;
 
-	/**
-	 * 本月止实现税金总额
-	 */
+	/** 本月止实现税金总额 */
 	private Double tax;
 
 	public TargetEntity() {

@@ -51,7 +51,7 @@ public class TargetController {
 
 	@Autowired
 	IndustryService industryService;
-	
+
 	@Autowired
 	ReportService reportService;
 
@@ -68,7 +68,7 @@ public class TargetController {
 			Date now = new Date();
 			target = new TargetEntity(monthly, enterprise, mainBusiness, electricity, profit, tax, now, now);
 			targetService.save(target);
-			return new Result(Code.SUCCESS.value(), "created");
+			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -76,7 +76,8 @@ public class TargetController {
 	}
 
 	@RequestMapping(value = "/api/target/update", method = RequestMethod.POST)
-	public Result update(Long targetId, double mainBusiness, double electricity, double profit, double tax) {
+	public Result update(Long targetId, String monthly, Long enterpriseId, double mainBusiness, double electricity,
+			double profit, double tax) {
 		try {
 			TargetEntity target = targetService.findOne(targetId);
 			target.setMainBusiness(mainBusiness);
@@ -86,7 +87,7 @@ public class TargetController {
 			target.setUpdateTime(new Date());
 			targetService.save(target);
 
-			return new Result(Code.SUCCESS.value(), "updated");
+			return new Result(Code.SUCCESS.value(), "编辑成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -97,24 +98,24 @@ public class TargetController {
 	public Result delete(Long targetId) {
 		try {
 			targetService.delete(targetId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
-			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/target/batchDelete")
 	public Result batchDelete(@RequestParam("targetIdList[]") List<Long> targetIdList) {
 		try {
 			targetService.delete(targetIdList);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
-			if(e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
-				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除"); 
+			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
+				return new Result(Code.CONSTRAINT.value(), "该数据存在关联, 无法删除");
 			}
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -325,95 +326,95 @@ public class TargetController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/target/template")
 	public ResponseEntity<InputStreamResource> template(String monthly) {
 		try {
 			HSSFWorkbook book = reportService.createTemplate(monthly);
-            String fileName = monthly + "主要指标模板.xls";
+			String fileName = monthly + "主要指标模板.xls";
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            headers.add("Content-Disposition",
-                    String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
-            headers.add("Pragma", "no-cache");
-            headers.add("Expires", "0");
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Content-Disposition",
+					String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
 
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            book.write(bos);
-            byte[] content = bos.toByteArray();
-			
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			book.write(bos);
+			byte[] content = bos.toByteArray();
+
 			return ResponseEntity.ok().headers(headers).contentLength(content.length)
-                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(new InputStreamResource(new ByteArrayInputStream(content)));
+					.contentType(MediaType.parseMediaType("application/octet-stream"))
+					.body(new InputStreamResource(new ByteArrayInputStream(content)));
 		} catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+			log.error(e.getMessage(), e);
+			return null;
+		}
 	}
-	
+
 	@RequestMapping(value = "/api/target/import", method = RequestMethod.POST)
-    public Result importTarget(MultipartFile uploadfile) {
-        try {
-        	reportService.importTarget(uploadfile.getInputStream());
-            return new Result(Code.SUCCESS.value(), "ok");
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return new Result(Code.ERROR.value(), e.getMessage());
-        }
-    }
-	
+	public Result importTarget(MultipartFile uploadfile) {
+		try {
+			reportService.importTarget(uploadfile.getInputStream());
+			return new Result(Code.SUCCESS.value(), "ok");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+
 	@RequestMapping(value = "/api/target/export")
 	public ResponseEntity<InputStreamResource> export(String monthly, Integer type) {
 		try {
-            HSSFWorkbook book = reportService.export(monthly, type);
-            String fileName = monthly + "主要指标.xls";
+			HSSFWorkbook book = reportService.export(monthly, type);
+			String fileName = monthly + "主要指标.xls";
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            headers.add("Content-Disposition",
-                    String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
-            headers.add("Pragma", "no-cache");
-            headers.add("Expires", "0");
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Content-Disposition",
+					String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
 
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            book.write(bos);
-            byte[] content = bos.toByteArray();
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			book.write(bos);
+			byte[] content = bos.toByteArray();
 
-            return ResponseEntity.ok().headers(headers).contentLength(content.length)
-                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(new InputStreamResource(new ByteArrayInputStream(content)));
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+			return ResponseEntity.ok().headers(headers).contentLength(content.length)
+					.contentType(MediaType.parseMediaType("application/octet-stream"))
+					.body(new InputStreamResource(new ByteArrayInputStream(content)));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return null;
+		}
 	}
-	
+
 	@RequestMapping(value = "/api/target/exportByEnterpriseId")
 	public ResponseEntity<InputStreamResource> exportByEnterpriseId(Long enterpriseId) {
 		try {
-            EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
-            HSSFWorkbook book = reportService.export(enterprise);
-            String fileName = enterprise.getName() + "企业主要指标明细.xls";
+			EnterpriseBaseEntity enterprise = enterpriseService.findOneBase(enterpriseId);
+			HSSFWorkbook book = reportService.export(enterprise);
+			String fileName = enterprise.getName() + "企业主要指标明细.xls";
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            headers.add("Content-Disposition",
-                    String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
-            headers.add("Pragma", "no-cache");
-            headers.add("Expires", "0");
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+			headers.add("Content-Disposition",
+					String.format("attachment; filename=\"%s\"", new String(fileName.getBytes("UTF-8"), "ISO8859-1")));
+			headers.add("Pragma", "no-cache");
+			headers.add("Expires", "0");
 
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            book.write(bos);
-            byte[] content = bos.toByteArray();
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			book.write(bos);
+			byte[] content = bos.toByteArray();
 
-            return ResponseEntity.ok().headers(headers).contentLength(content.length)
-                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(new InputStreamResource(new ByteArrayInputStream(content)));
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+			return ResponseEntity.ok().headers(headers).contentLength(content.length)
+					.contentType(MediaType.parseMediaType("application/octet-stream"))
+					.body(new InputStreamResource(new ByteArrayInputStream(content)));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return null;
+		}
 	}
 
 }
