@@ -438,7 +438,7 @@ public class ManagerController {
 	/**
 	 * 服务平台接口
 	 */
-	@RequestMapping(value = "/supplierApply")
+	@RequestMapping(value = "/service/supplierApply")
 	String supplierApply(ModelMap modelMap, Integer type) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("userId", user.getId());
@@ -449,7 +449,7 @@ public class ManagerController {
 		return "pages/service/supplier_apply";
 	}
 	
-	@RequestMapping(value = "/platformTalent")
+	@RequestMapping(value = "/service/platformTalent")
 	String platformTalent(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_TALENT);
@@ -463,7 +463,7 @@ public class ManagerController {
 		return "pages/service/platform_talent";
 	}
 	
-	@RequestMapping(value = "/platformInformation")
+	@RequestMapping(value = "/service/platformInformation")
 	String platformBusiness(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_INFORMATION);
@@ -472,7 +472,7 @@ public class ManagerController {
 		return "pages/service/platform_information";
 	}
 	
-	@RequestMapping(value = "/platformFinancing")
+	@RequestMapping(value = "/service/platformFinancing")
 	String platformFinancing(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_FINANCING);
@@ -486,7 +486,7 @@ public class ManagerController {
 		return "pages/service/platform_financing";
 	}
 	
-	@RequestMapping(value = "/platformLogistics")
+	@RequestMapping(value = "/service/platformLogistics")
 	String platformLogistics(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		SupplierEntity supplier = supplierService.findByUserIdAndType(user.getId(), SupplierType.TYPE_LOGISITCS);

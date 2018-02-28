@@ -157,23 +157,29 @@
 					</li>
 					</c:if>
 					
-					<c:if test="${fn:contains(user.role.resource, 'authority-declare')
-						|| fn:contains(user.role.resource, 'authority-apply')}">
+					<c:if test="${fn:contains(user.role.resource, 'role-service-talent')
+						|| fn:contains(user.role.resource, 'role-service-information')
+						|| fn:contains(user.role.resource, 'role-service-financing')
+						|| fn:contains(user.role.resource, 'role-service-logistics')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="platformTalent">用工平台</a></li>
-							<li><a class="J_menuItem" href="platformInformation">信息化平台</a></li>
-							<li><a class="J_menuItem" href="platformFinancing">融资平台</a></li>
-							<li><a class="J_menuItem" href="platformLogistics">物流平台</a></li>
-							<c:if test="${fn:contains(user.role.resource, 'authority-declare')}">
-								<li><a class="J_menuItem" href="declareGV">网上申报</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-service-talent')}">
+								<li><a class="J_menuItem" href="${ctx}/service/platformTalent">用工平台</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-apply')}">
-								<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-service-information')}">
+								<li><a class="J_menuItem" href="${ctx}/service/platformInformation">信息化平台</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-service-financing')}">
+								<li><a class="J_menuItem" href="${ctx}/service/platformFinancing">融资平台</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-service-logistics')}">
+								<li><a class="J_menuItem" href="${ctx}/service/platformLogistics">物流平台</a></li>
+							</c:if>
+							<!-- <li><a class="J_menuItem" href="declareGV">网上申报</a></li>
+							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li> -->
 						</ul>
 					</li>
 					</c:if>

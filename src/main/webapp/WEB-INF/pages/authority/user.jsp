@@ -157,6 +157,24 @@
 								</label>
                         	</div>
                         </div> -->
+                        
+                        <div class="form-group">
+                        	<label for="resource" class="col-sm-2 control-label">服务平台</label>
+                        	<div class="col-sm-9">
+                       			<label class="checkbox-inline i-checks" data-role="role-service-talent">
+									<input type="checkbox">用工平台
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-service-information">
+									<input type="checkbox">信息化平台
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-service-financing">
+									<input type="checkbox">融资平台
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-service-logistics">
+									<input type="checkbox">物流平台
+								</label>
+                        	</div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">

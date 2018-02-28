@@ -80,7 +80,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>

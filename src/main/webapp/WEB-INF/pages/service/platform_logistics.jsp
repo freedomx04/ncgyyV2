@@ -259,7 +259,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
@@ -330,7 +330,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
@@ -429,7 +429,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
@@ -1022,7 +1022,7 @@
 		
 		$page
 		.on('click', '.btn-logistics-supplier', function() {
-			window.location.href = '${ctx}/supplierApply?type=4';
+			window.location.href = '${ctx}/service/supplierApply?type=4';
 		})
 		// 线路
 		.on('click', '.btn-line-add', function() {
