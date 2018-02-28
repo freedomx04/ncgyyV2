@@ -88,7 +88,7 @@
 					</div>
 				</div>
 			
-				<div class="col-sm-9 animated fadeInRight">
+				<div class="col-sm-9 animated fadeInRight" style="padding-left: 0;">
 					<div class="tab-content">
 						<div class="tab-pane active animated fadeInRight" id="mail-inbox">
 							<div class="mail-box-header">

@@ -177,14 +177,14 @@
 						</ul>
 					</li>
 					</c:if>
-					<li>
+					<!-- <li>
 						<a href="#">
 							<i class="fa fa-tasks fa-fw"></i><span class="nav-label">日常办公</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<li><a class="J_menuItem" href="mailList">邮箱</a></li>
 						</ul>
-					</li>
+					</li> -->
 					<li>
 						<a href="#">
 							<i class="fa fa-user fa-fw"></i><span class="nav-label">个人中心</span><span class="fa arrow"></span>
@@ -193,6 +193,7 @@
 							<li><a class="J_menuItem" href="${ctx}/personal/info">个人资料</a></li>
 							<li><a class="J_menuItem" href="${ctx}/personal/password">修改密码</a></li>
 							<li><a class="J_menuItem" href="${ctx}/personal/enterprise">我的企业</a></li>
+							<li><a class="J_menuItem" href="${ctx}/mailList">我的邮箱</a></li>
 							<li><a class="J_menuItem" href="${ctx}/personal/login">登录历史</a></li>
 						</ul>
 					</li>					

@@ -573,54 +573,6 @@ public class ManagerController {
 	}
 	
 	/**
-	 * 日常办公
-	 */
-	@RequestMapping(value = "/mailList")
-	String mailList(ModelMap modelMap) {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("user", user);
-		
-		return "pages/office/mail_list";
-	}
-	
-	@RequestMapping(value = "/mailAdd")
-	String mailAdd(ModelMap modelMap, String method, Long mailId) throws IOException {
-		UserEntity user = CurrentUserUtils.getInstance().getUser();
-		modelMap.addAttribute("user", user);
-		
-		String title = method.equals("add") ? "写信" : "草稿";
-		modelMap.addAttribute("title", title);
-		modelMap.addAttribute("method", method);
-		
-		List<UserBaseEntity> userList = userService.listBase();
-		modelMap.addAttribute("userList", userList);
-		
-		if (mailId != null) {
-			MailEntity mail = mailService.findOne(mailId);
-			String content = commonService.getMailContent(mail.getPath());
-			mail.setContent(content);
-			modelMap.addAttribute("mail", mail);
-		}
-		
-		return "pages/office/mail_add";
-	}
-	
-	@RequestMapping(value = "/mailGet")
-	String mailGet(ModelMap modelMap, Long mailId) throws IOException {
-		MailEntity mail = mailService.findOne(mailId);
-		if (mail.getReadStatus() == ReadStatus.UNREAD) {
-			mail.setReadStatus(ReadStatus.READ);
-			mailService.save(mail);
-		}
-		
-		String content = commonService.getMailContent(mail.getPath());
-		mail.setContent(content);
-		modelMap.addAttribute("mail", mail);
-		
-		return "pages/office/mail_get";
-	}
-	
-	/**
 	 * 个人中心
 	 */
 	@RequestMapping(value = "/personal/info")
@@ -665,6 +617,49 @@ public class ManagerController {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
 		return "pages/personal/login";
+	}
+	
+	@RequestMapping(value = "/mailList")
+	String mailList(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		return "pages/office/mail_list";
+	}
+	
+	@RequestMapping(value = "/mailAdd")
+	String mailAdd(ModelMap modelMap, String method, Long mailId) throws IOException {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		
+		String title = method.equals("add") ? "写信" : "草稿";
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("method", method);
+		
+		List<UserBaseEntity> userList = userService.listBase();
+		modelMap.addAttribute("userList", userList);
+		
+		if (mailId != null) {
+			MailEntity mail = mailService.findOne(mailId);
+			String content = commonService.getMailContent(mail.getPath());
+			mail.setContent(content);
+			modelMap.addAttribute("mail", mail);
+		}
+		return "pages/office/mail_add";
+	}
+	
+	@RequestMapping(value = "/mailGet")
+	String mailGet(ModelMap modelMap, Long mailId) throws IOException {
+		MailEntity mail = mailService.findOne(mailId);
+		if (mail.getReadStatus() == ReadStatus.UNREAD) {
+			mail.setReadStatus(ReadStatus.READ);
+			mailService.save(mail);
+		}
+		
+		String content = commonService.getMailContent(mail.getPath());
+		mail.setContent(content);
+		modelMap.addAttribute("mail", mail);
+		
+		return "pages/office/mail_get";
 	}
 
 }
