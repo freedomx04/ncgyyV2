@@ -12,19 +12,13 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Table(name = "authority_version")
 public class VersionEntity extends BaseEntity {
 	
-	/**
-	 * 版本号
-	 */
+	/** 版本号 */
 	private String code;
 	
-	/**
-	 * 发布时间
-	 */
+	/** 发布时间 */
 	private String releaseTime;
 	
-	/**
-	 * 版本内容
-	 */
+	/** 版本内容 */
 	@Column(length = 4000)
 	private String content;
 	

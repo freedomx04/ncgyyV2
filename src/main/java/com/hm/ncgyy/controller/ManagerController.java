@@ -623,7 +623,7 @@ public class ManagerController {
 	/**
 	 * 个人中心
 	 */
-	@RequestMapping(value = "/personalInfo")
+	@RequestMapping(value = "/personal/info")
 	String personalInfo(ModelMap modelMap) {
 		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
 		UserEntity user = userService.findOne(currentUser.getId());
@@ -631,14 +631,14 @@ public class ManagerController {
 		return "pages/personal/info";
 	}
 	
-	@RequestMapping(value = "/modifyPassword")
+	@RequestMapping(value = "/personal/password")
 	String modifyPassword(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
-		return "pages/personal/modify_password";
+		return "pages/personal/password";
 	}
 	
-	@RequestMapping(value = "/personalEnterprise")
+	@RequestMapping(value = "/personal/enterprise")
 	String personalEnterprise(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		if (user.getEnterprise() == null) {
@@ -660,11 +660,11 @@ public class ManagerController {
 		}
 	}
 	
-	@RequestMapping(value = "/loginHistory")
+	@RequestMapping(value = "/personal/login")
 	String loginHistory(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("user", user);
-		return "pages/personal/login_history";
+		return "pages/personal/login";
 	}
 
 }
