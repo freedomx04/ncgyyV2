@@ -23,11 +23,11 @@
 <body class="gray-bg body-appeal-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>${title}</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>${title}</h2>
+				</div>
+			
 				<form class="form-horizontal" role="form" autocomplete="off" id="form-appeal">
 					<div class="form-group">
 						<label for="title" class="col-sm-3 control-label"><i class="form-required">*</i>诉求标题</label>
@@ -60,18 +60,12 @@
 					<div class="form-group">
                         <div class="col-sm-4 col-sm-offset-3">
                             <c:if test="${method == 'add'}">
-                            <button type="button" class="btn btn-primary btn-appeal-add">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-appeal-add">确定</button>
                             </c:if>
                             <c:if test="${method == 'edit'}">
-                            <button type="button" class="btn btn-primary btn-appeal-edit">
-                                <i class="fa fa-check fa-fw"></i>确定
-                            </button>
+                            	<button type="button" class="btn btn-primary btn-fw btn-appeal-edit">确定</button>
                             </c:if>
-                            <button type="button" class="btn btn-white btn-appeal-cancel">
-                                <i class="fa fa-close fa-fw"></i>取消
-                            </button>
+                            <button type="button" class="btn btn-white btn-fw btn-appeal-cancel">取消</button>
                         </div>
                     </div>
 				</form>
@@ -125,7 +119,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './appealEnterprise';
+                                window.location.href = '${ctx}/assist/enterprise';
                             });
                     	} else {
                     		swal('', ret.msg, 'error');
@@ -157,7 +151,7 @@
                                 text: '操作成功',
                                 type: 'success'
                             }, function() {
-                                window.location.href = './appealEnterprise';
+                            	window.location.href = '${ctx}/assist/enterprise';
                             });
                     	} else {
                     		swal('', ret.msg, 'error');
@@ -168,7 +162,7 @@
 			}
 		})
 		.on('click', '.btn-appeal-cancel', function() {
-			window.location.href = './appealEnterprise';
+			window.location.href = '${ctx}/assist/enterprise';
 		});
 		
 	})( jQuery );

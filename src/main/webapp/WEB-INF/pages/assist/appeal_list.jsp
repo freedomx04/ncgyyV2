@@ -80,7 +80,15 @@
             columns: [{
             	field: 'title',
             	title: '诉求标题',
-            	align: 'center'
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-appeal-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+           			'click .btn-appeal-detail': function(e, value, row, index) {
+               			e.stopPropagation();
+               			window.location.href= '${ctx}/assist/appeal/get?appealId=' + row.id;
+               		},
+            	}
             }, {
             	field: 'appealType.name',
             	title: '诉求类型',
@@ -93,6 +101,7 @@
             	field: 'status',
             	title: '状态',
             	align: 'center',
+            	width: '120',
                 formatter: function(value, row, index) {
                     switch (value) {
                     case 0:
@@ -110,19 +119,6 @@
                     case 6:
                         return '<span class="label label-danger">已驳回</span>';
                     }
-                }
-            }, {
-            	title: '操作',
-            	align: 'center',
-            	formatter: function(value, row, index) {
-                    var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
-                    return $detail;
-                },
-                events: window.operateEvents = {
-                	'click .btn-appeal-detail': function(e, value, row, index) {
-                		e.stopPropagation();
-                        window.location.href= './appealGet?appealId=' + row.id;
-                	}
                 }
             }]
 		});

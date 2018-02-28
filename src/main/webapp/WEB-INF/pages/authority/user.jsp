@@ -159,6 +159,24 @@
                         </div> 
                         
                         <div class="form-group">
+                        	<label for="resource" class="col-sm-2 control-label">帮扶平台</label>
+                        	<div class="col-sm-9">
+                       			<label class="checkbox-inline i-checks" data-role="role-assist-appeal">
+									<input type="checkbox">诉求中心
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-assist-enterprise">
+									<input type="checkbox">诉求中心(企业)
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-assist-department">
+									<input type="checkbox">诉求中心(部门)
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-assist-dispatcher">
+									<input type="checkbox">诉求中心(派单)
+								</label>
+                        	</div>
+                        </div> 
+                        
+                        <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">服务平台</label>
                         	<div class="col-sm-9">
                        			<label class="checkbox-inline i-checks" data-role="role-service-talent">

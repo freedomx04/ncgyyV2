@@ -28,12 +28,12 @@
 <body class="gray-bg body-appeal-enterprise">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>诉求中心(企业)</h5>
-			</div>
-			
 			<div class="ibox-content">
-				<div class="btn-group hidden-xs" id="appeal-enterprise-table-toolbar" role="group">
+				<div class="page-title">
+					<h2>诉求中心(企业)</h2>
+				</div>
+			
+				<div class="btn-group" id="appeal-enterprise-table-toolbar" role="group">
 					<button type="button" class="btn btn-white btn-appeal-add">
                         <i class="fa fa-plus fa-fw"></i>新增
                     </button>
@@ -43,8 +43,52 @@
 		</div>
 	</div>
 	
-	<div class="modal" id="modal-appeal-urge-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+	<div class="modal" id="modal-appeal-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
+            <div class="modal-content animated fadeInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">诉求信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" autocomplete="off">
+                        <div class="form-group">
+							<label for="title" class="col-sm-3 control-label"><i class="form-required">*</i>诉求标题</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="title" required>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="appealTypeId" class="col-sm-3 control-label"><i class="form-required">*</i>诉求类型</label>
+							<div class="col-sm-5">
+								<select class="form-control" name="appealTypeId" required> 
+									<option value="">请选择诉求类型</option>
+									<c:forEach var="appealType" items="${appealTypeList}">
+										<option value="${appealType.id}">${appealType.name}</option>
+									</c:forEach> 
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="description" class="col-sm-3 control-label"><i class="form-required">*</i>诉求详情</label>
+	                        <div class="col-sm-5">
+	                            <textarea class="form-control" name="description" style="resize:none; height: 250px;" required></textarea>
+	                        </div>
+						</div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="modal" id="modal-appeal-urge-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-center">
             <div class="modal-content animated fadeInDown">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -61,19 +105,15 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">
-                        <i class="fa fa-close fa-fw"></i>关闭
-                    </button>
-                    <button type="button" class="btn btn-primary btn-confirm">
-                        <i class="fa fa-check fa-fw"></i>确定
-                    </button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
         </div>
     </div>
     
     <div class="modal" id="modal-appeal-evaluation-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-center">
             <div class="modal-content animated fadeInDown">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -108,17 +148,13 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">
-                        <i class="fa fa-close fa-fw"></i>关闭
-                    </button>
-                    <button type="button" class="btn btn-primary btn-confirm">
-                        <i class="fa fa-check fa-fw"></i>确定
-                    </button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
         </div>
     </div>
-	
+    
 	<script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/hplus/content.min.js"></script>
@@ -136,6 +172,7 @@
 		var userId = '${user.id}';
 		
 		var $page = $('.body-appeal-enterprise');
+		var $dialog = $page.find('#modal-appeal-dialog');
 		var $dialogUrge = $page.find('#modal-appeal-urge-dialog');
 		var $dialogEvaluation = $page.find('#modal-appeal-evaluation-dialog');
 		
@@ -148,7 +185,15 @@
             columns: [{
             	field: 'title',
             	title: '诉求标题',
-            	align: 'center'
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-appeal-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+           			'click .btn-appeal-detail': function(e, value, row, index) {
+               			e.stopPropagation();
+               			window.location.href= '${ctx}/assist/appeal/get?appealId=' + row.id;
+               		},
+            	}
             }, {
             	field: 'appealType.name',
             	title: '诉求类型',
@@ -157,6 +202,7 @@
             	field: 'status',
             	title: '状态',
             	align: 'center',
+            	width: '100',
             	formatter: function(value, row, index) {
             		switch (value) {
             		case 0:
@@ -178,8 +224,8 @@
             }, {
             	title: '操作',
             	align: 'center',
+            	width: '160',
             	formatter: function(value, row, index) {
-            		var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
             		var $edit = '<a class="btn-appeal-edit a-operate">编辑</a>';
             		var $delete = '<a class="btn-appeal-delete a-operate">删除</a>';
             		var $send = '<a class="btn-appeal-send a-operate">发送</a>';
@@ -188,23 +234,17 @@
             		
             		switch (row.status) {
             		case 0:
-            			return $detail + $edit + $delete + $send;
+            			return $edit + $delete + $send;
             		case 1:case 2:case 3:
-            			return $detail + $urge;
+            			return $urge;
             		case 4:
-            			return $detail + $confirm;
-            		case 5:case 6:
-            			return $detail;
+            			return $confirm;
             		}
             	},
             	events: window.operateEvents = {
-            		'click .btn-appeal-detail': function(e, value, row, index) {
-            			e.stopPropagation();
-            			window.location.href= './appealGet?appealId=' + row.id;
-            		},
             		'click .btn-appeal-edit': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './appealAdd?method=edit&appealId=' + row.id;
+            			window.location.href= '${ctx}/assist/appeal/add?method=edit&appealId=' + row.id;
             		},
             		'click .btn-appeal-delete': function(e, value, row, index) {
             			e.stopPropagation();
@@ -283,7 +323,7 @@
 		
 		$page
 		.on('click', '.btn-appeal-add', function() {
-			window.location.href = './appealAdd?method=add';
+			window.location.href = '${ctx}/assist/appeal/add?method=add';
 		});
 		
 		$dialogUrge.on('click', '.btn-confirm', function() {

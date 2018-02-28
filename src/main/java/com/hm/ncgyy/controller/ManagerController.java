@@ -366,14 +366,12 @@ public class ManagerController {
 	/**
 	 * 帮扶平台接口
 	 */
-	@RequestMapping(value = "/appealDispatcher")
-	String appealDispatcher(ModelMap modelMap) {
-		List<DepartmentEntity> departmentList = departmentService.list();
-		modelMap.addAttribute("departmentList", departmentList);
-		return "pages/assist/appeal_dispatcher";
+	@RequestMapping(value = "/assist/appeal")
+	String appealList() {
+		return "pages/assist/appeal_list";
 	}
 	
-	@RequestMapping(value = "/appealEnterprise")
+	@RequestMapping(value = "/assist/enterprise")
 	String appealEnterprise(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
@@ -386,7 +384,7 @@ public class ManagerController {
 		}
 	}
 	
-	@RequestMapping(value = "/appealDepartment")
+	@RequestMapping(value = "/assist/department")
 	String appealDepartment(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		
@@ -399,12 +397,14 @@ public class ManagerController {
 		}
 	}
 	
-	@RequestMapping(value = "/appealList")
-	String appealList() {
-		return "pages/assist/appeal_list";
+	@RequestMapping(value = "/assist/dispatcher")
+	String appealDispatcher(ModelMap modelMap) {
+		List<DepartmentEntity> departmentList = departmentService.list();
+		modelMap.addAttribute("departmentList", departmentList);
+		return "pages/assist/appeal_dispatcher";
 	}
 	
-	@RequestMapping(value = "/appealAdd")
+	@RequestMapping(value = "/assist/appeal/add")
 	String appealAdd(ModelMap modelMap, String method, Long appealId) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
 		modelMap.addAttribute("enterpriseId", user.getEnterprise().getId());
@@ -423,11 +423,10 @@ public class ManagerController {
 		return "pages/assist/appeal_add";
 	}
 	
-	@RequestMapping(value = "/appealGet")
+	@RequestMapping(value = "/assist/appeal/get")
 	String appealGet(ModelMap modelMap, Long appealId) {
 		AppealEntity appeal = appealService.findOne(appealId);
 		modelMap.addAttribute("appeal", appeal);
-		
 		return "pages/assist/appeal_get";
 	}
 	

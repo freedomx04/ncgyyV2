@@ -132,26 +132,26 @@
 						</ul>
 					</li>
 					</c:if>
-					<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center') 
-						|| fn:contains(user.role.resource, 'authority-appeal-enterprise')
-						|| fn:contains(user.role.resource, 'authority-appeal-department') 
-						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+					<c:if test="${fn:contains(user.role.resource, 'role-assist-appeal') 
+						|| fn:contains(user.role.resource, 'role-assist-enterprise')
+						|| fn:contains(user.role.resource, 'role-assist-department') 
+						|| fn:contains(user.role.resource, 'role-assist-dispatcher')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-hand-paper-o fa-fw"></i><span class="nav-label">帮扶平台</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
-								<li><a class="J_menuItem" href="appealList">诉求中心</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-assist-appeal')}">
+								<li><a class="J_menuItem" href="${ctx}/assist/appeal">诉求中心</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')}">
-								<li><a class="J_menuItem" href="appealEnterprise">诉求中心(企业)</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-assist-enterprise')}">
+								<li><a class="J_menuItem" href="${ctx}/assist/enterprise">诉求中心(企业)</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-department')}">
-								<li><a class="J_menuItem" href="appealDepartment">诉求中心(部门)</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-assist-department')}">
+								<li><a class="J_menuItem" href="${ctx}/assist/department">诉求中心(部门)</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
-								<li><a class="J_menuItem" href="appealDispatcher">诉求中心(派单)</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-assist-dispatcher')}">
+								<li><a class="J_menuItem" href="${ctx}/assist/dispatcher">诉求中心(派单)</a></li>
 							</c:if>
 						</ul>
 					</li>

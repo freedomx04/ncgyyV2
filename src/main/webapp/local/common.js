@@ -172,7 +172,7 @@
 	$k.util.raty = function($obj, star, param) {
 		var defaultParam = $.extend({
 			score	: 	star,
-			path	: 	'plugins/raty/images/'
+			path	: 	'/plugins/raty/images/'
 		}, param);
 		$obj.raty(defaultParam);
 	}

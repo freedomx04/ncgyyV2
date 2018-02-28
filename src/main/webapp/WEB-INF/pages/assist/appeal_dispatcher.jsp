@@ -24,18 +24,18 @@
 <body class="gray-bg body-appeal-dispatcher">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
-			<div class="ibox-title">
-				<h5>诉求中心(派单)</h5>
-			</div>
-			
 			<div class="ibox-content">
+				<div class="page-title">
+					<h2>诉求中心(派单)</h2>
+				</div>
+			
 				<table id="appeal-dispatcher-table" class="table-hm" data-mobile-responsive="true"></table>
 			</div>
 		</div>
 	</div>
 	
 	<div class="modal" id="modal-appeal-dispatch-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-center">
             <div class="modal-content animated fadeInDown">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -63,19 +63,15 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">
-                        <i class="fa fa-close fa-fw"></i>关闭
-                    </button>
-                    <button type="button" class="btn btn-primary btn-confirm">
-                        <i class="fa fa-check fa-fw"></i>确定
-                    </button>
+                    <button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
         </div>
     </div>
     
     <div class="modal" id="modal-appeal-reject-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-center">
             <div class="modal-content animated fadeInDown">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -92,12 +88,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">
-                        <i class="fa fa-close fa-fw"></i>关闭
-                    </button>
-                    <button type="button" class="btn btn-primary btn-confirm">
-                        <i class="fa fa-check fa-fw"></i>确定
-                    </button>
+                	<button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
             </div>
         </div>
@@ -135,7 +127,15 @@
             columns: [{
             	field: 'title',
             	title: '诉求标题',
-            	align: 'center'
+            	formatter: function(value, row, index) {
+            		return '<a class="btn-appeal-detail">' + value + '</a>';
+            	},
+            	events: window.operateEvents = {
+           			'click .btn-appeal-detail': function(e, value, row, index) {
+               			e.stopPropagation();
+               			window.location.href= '${ctx}/assist/appeal/get?appealId=' + row.id;
+               		},
+            	}
             }, {
             	field: 'appealType.name',
             	title: '诉求类型',
@@ -160,15 +160,14 @@
             	title: '操作',
             	align: 'center',
             	formatter: function(value, row, index) {
-            		var $detail = '<a class="btn-appeal-detail a-operate">详情</a>';
             		var $dispatch = '<a class="btn-appeal-dispatch a-operate">派单</a>';
             		var $reject = '<a class="btn-appeal-reject a-operate">驳回</a>';
-            		return $detail + $dispatch + $reject;
+            		return $dispatch + $reject;
             	},
             	events: window.operateEvents = {
             		'click .btn-appeal-detail': function(e, value, row, index) {
             			e.stopPropagation();
-            			window.location.href= './appealGet?appealId=' + row.id;
+            			window.location.href= '${ctx}/assist/appeal/get?appealId=' + row.id;
             		},
             		'click .btn-appeal-dispatch': function(e, value, row, index) {
             			e.stopPropagation();
