@@ -362,6 +362,16 @@ public class ManagerController {
 			return "pages/monitor/target_ep";
 		}
 	}
+	
+	@RequestMapping(value = "/monitor/economic/report")
+	String economic_report() {
+		return "pages/monitor/economic_report";
+	}
+	
+	@RequestMapping(value = "/monitor/economic")
+	String economic() {
+		return "pages/monitor/economic";
+	}
 		
 	/**
 	 * 帮扶平台接口

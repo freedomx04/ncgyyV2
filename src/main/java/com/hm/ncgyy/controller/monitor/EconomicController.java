@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hm.ncgyy.common.result.Code;
@@ -26,7 +27,7 @@ public class EconomicController {
 	EconomicService economicService;
 	
 	@RequestMapping(value = "/api/monitor/economic/create", method = RequestMethod.POST)
-	public Result create(String monthly, Integer type, double business, double electricity, double profit, double tax) {
+	public Result create(String monthly, Integer type, Double business, Double electricity, Double profit, Double tax) {
 		try {
 			EconomicEntity economic = economicService.findOne(monthly, type);
 			if (economic != null) {
@@ -35,6 +36,7 @@ public class EconomicController {
 			
 			Date now = new Date();
 			economic = new EconomicEntity(monthly, type, business, electricity, profit, tax, now, now);
+			economicService.save(economic);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -43,7 +45,7 @@ public class EconomicController {
 	}
 	
 	@RequestMapping(value = "/api/monitor/economic/update", method = RequestMethod.POST)
-	public Result update(Long economicId, double business, double electricity, double profit, double tax) {
+	public Result update(Long economicId, Double business, Double electricity, Double profit, Double tax) {
 		try {
 			EconomicEntity economic = economicService.findOne(economicId);
 			economic.setBusiness(business);
@@ -63,6 +65,17 @@ public class EconomicController {
 	public Result delete(Long economicId) {
 		try {
 			economicService.delete(economicId);
+			return new Result(Code.SUCCESS.value(), "删除成功");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/monitor/economic/deleteBatch")
+	public Result deleteBatch(@RequestParam("economicIdList[]") List<Long> economicIdList) {
+		try {
+			economicService.delete(economicIdList);
 			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

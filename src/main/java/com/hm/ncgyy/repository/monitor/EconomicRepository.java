@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.hm.ncgyy.entity.monitor.EconomicEntity;
 
 public interface EconomicRepository extends CrudRepository<EconomicEntity, Long> {
+	
+	Iterable<EconomicEntity> findByIdIn(List<Long> economicIds);
 
 	EconomicEntity findByMonthlyAndType(String monthly, Integer type);
 	

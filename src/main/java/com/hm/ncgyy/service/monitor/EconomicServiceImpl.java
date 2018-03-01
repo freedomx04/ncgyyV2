@@ -33,6 +33,12 @@ public class EconomicServiceImpl implements EconomicService {
 	public void delete(Long economicId) {
 		economicRepository.delete(economicId);
 	}
+	
+	@Override
+	public void delete(List<Long> economicIds) {
+		Iterable<EconomicEntity> it = economicRepository.findByIdIn(economicIds);
+		economicRepository.delete(it);
+	}
 
 	@Override
 	public List<EconomicEntity> list(Integer type) {

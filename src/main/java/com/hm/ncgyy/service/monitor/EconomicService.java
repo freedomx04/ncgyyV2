@@ -14,6 +14,8 @@ public interface EconomicService {
 	
 	void delete(Long economicId);
 	
+	void delete(List<Long> economicIds);
+	
 	List<EconomicEntity> list(Integer type);
 	
 	List<EconomicEntity> listByMonthlyInAndType(List<String> monthlyList, Integer type);

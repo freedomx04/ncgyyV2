@@ -155,6 +155,12 @@
 								<label class="checkbox-inline i-checks" data-role="role-monitor-myEnterprise">
 									<input type="checkbox">主要指标(企业)
 								</label>
+								<label class="checkbox-inline i-checks" data-role="role-monitor-economic-report">
+									<input type="checkbox">经济数据上报
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-monitor-economic">
+									<input type="checkbox">经济数据监测
+								</label>
                         	</div>
                         </div> 
                         

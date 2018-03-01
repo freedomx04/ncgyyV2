@@ -129,6 +129,12 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-monitor-myEnterprise')}">
 								<li><a class="J_menuItem" href="${ctx}/monitor/myEnterprise">主要指标(企业)</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-monitor-economic-report')}">
+								<li><a class="J_menuItem" href="${ctx}/monitor/economic/report">经济数据上报</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-monitor-economic')}">
+								<li><a class="J_menuItem" href="${ctx}/monitor/economic">经济数据监测</a></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:if>
