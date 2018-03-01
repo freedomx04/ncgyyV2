@@ -256,7 +256,7 @@
     			}, {
     				title: '操作',
     				align: 'center',
-    				width: '100',
+    				width: '120',
     				formatter: function(value, row, index) {
             			var $edit = '<a class="btn-economic-edit a-operate">编辑</a>';
             			var $delete = '<a class="btn-economic-delete a-operate">删除</a>';
