@@ -74,7 +74,7 @@
 		var $detailDialog = $page.find('#modal-feedback-detail-dialog');
 		
 		var $table = $k.util.bsTable($page.find('#feedback-list-table'), {
-			url: '${ctx}/api/authority/feedback/list',
+			url: '${ctx}/api/website/feedback/list',
 			toolbar: '#feedback-list-table-toolbar',
 			idField: 'id',
 			responseHandler: function(res) {
@@ -95,14 +95,6 @@
             			$detailDialog.find('.feedback-content').text(value);
             			$detailDialog.modal('show');
             		}
-            	}
-            }, {
-            	field: 'user',
-            	title: '反馈用户',
-            	align: 'center',
-            	width: '120',
-            	formatter: function(value, row, index) {
-            		return value.name;
             	}
             }, {
             	field: 'updateTime',
@@ -131,7 +123,7 @@
             }, function() {
                 var rows = $table.bootstrapTable('getSelections');
                 $.ajax({
-                    url: '${ctx}/api/authority/feedback/deleteBatch',
+                    url: '${ctx}/api/website/feedback/deleteBatch',
                     data: { 
                         feedbackIdList: $k.util.getIdList(rows) 
                     },

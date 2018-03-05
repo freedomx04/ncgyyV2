@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.authority;
+package com.hm.ncgyy.controller.website;
 
 import java.util.Date;
 import java.util.List;
@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.authority.FeedbackEntity;
-import com.hm.ncgyy.entity.authority.UserBaseEntity;
-import com.hm.ncgyy.service.authority.FeedbackService;
+import com.hm.ncgyy.entity.website.FeedbackEntity;
 import com.hm.ncgyy.service.authority.UserService;
+import com.hm.ncgyy.service.website.FeedbackService;
 
 @RestController
 public class FeedbackController {
@@ -30,12 +29,11 @@ public class FeedbackController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value = "/api/authority/feedback/create", method = RequestMethod.POST)
-	public Result create(Long userId, String content) {
+	@RequestMapping(value = "/api/website/feedback/create", method = RequestMethod.POST)
+	public Result create(String content) {
 		try {
-			UserBaseEntity user = userService.findOneBase(userId);
 			Date now = new Date();
-			FeedbackEntity feedback = new FeedbackEntity(user, content, now, now);
+			FeedbackEntity feedback = new FeedbackEntity(content, now, now);
 			feedbackService.save(feedback);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -44,7 +42,7 @@ public class FeedbackController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/authority/feedback/delete")
+	@RequestMapping(value = "/api/website/feedback/delete")
 	public Result delete(Long feedbackId) {
 		try {
 			feedbackService.delete(feedbackId);
@@ -55,7 +53,7 @@ public class FeedbackController {
 		}
 	}
 
-	@RequestMapping(value = "/api/authority/feedback/deleteBatch")
+	@RequestMapping(value = "/api/website/feedback/deleteBatch")
 	public Result deleteBatch(@RequestParam("feedbackIdList[]") List<Long> feedbackIdList) {
 		try {
 			feedbackService.delete(feedbackIdList);
@@ -66,7 +64,7 @@ public class FeedbackController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/authority/feedback/get")
+	@RequestMapping(value = "/api/website/feedback/get")
 	public Result get(Long feedbackId) {
 		try {
 			FeedbackEntity feedback = feedbackService.findOne(feedbackId);
@@ -77,7 +75,7 @@ public class FeedbackController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/authority/feedback/list")
+	@RequestMapping(value = "/api/website/feedback/list")
 	public Result list() {
 		try {
 			List<FeedbackEntity> list = feedbackService.list();

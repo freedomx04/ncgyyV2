@@ -1,12 +1,12 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.website;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.authority.FeedbackEntity;
-import com.hm.ncgyy.repository.authority.FeedbackRepository;
+import com.hm.ncgyy.entity.website.FeedbackEntity;
+import com.hm.ncgyy.repository.website.FeedbackRepository;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {

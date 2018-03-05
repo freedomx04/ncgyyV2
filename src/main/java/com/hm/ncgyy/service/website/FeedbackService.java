@@ -1,8 +1,8 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.website;
 
 import java.util.List;
 
-import com.hm.ncgyy.entity.authority.FeedbackEntity;
+import com.hm.ncgyy.entity.website.FeedbackEntity;
 
 public interface FeedbackService {
 	

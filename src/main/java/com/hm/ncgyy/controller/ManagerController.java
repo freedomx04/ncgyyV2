@@ -259,9 +259,6 @@ public class ManagerController {
 		return "pages/authority/department";
 	}
 	
-	/**
-	 * 供应商管理接口
-	 */
 	@RequestMapping(value = "/authority/supplier")
 	String supplierList(ModelMap modelMap) {
 		UserEntity user = CurrentUserUtils.getInstance().getUser();
@@ -313,14 +310,17 @@ public class ManagerController {
 		return "pages/authority/business";
 	}
 	
-	@RequestMapping(value = "/authority/feedback")
-	String feedbackList(ModelMap modelMap) {
-		return "pages/authority/feedback";
-	}
-	
 	@RequestMapping(value = "/authority/version")
 	String versionList(ModelMap modelMap) {
 		return "pages/authority/version";
+	}
+	
+	/** 
+	 * 网站管理接口
+	 */
+	@RequestMapping(value = "/website/feedback")
+	String feedbackList(ModelMap modelMap) {
+		return "pages/website/feedback";
 	}
 	
 	/**

@@ -100,6 +100,19 @@
 						</ul>
 					</li>
 					</c:if>
+					<c:if test="${fn:contains(user.role.resource, 'role-website-feedback')}">
+					<li>
+						<a href="#">
+							<i class="fa fa-globe fa-fw"></i><span class="nav-label">网站管理</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<c:if test="${fn:contains(user.role.resource, 'role-website-feedback')}">
+								<li><a class="J_menuItem" href="${ctx}/website/feedback">反馈管理</a></li>
+							</c:if>
+						</ul>
+					</li>
+					</c:if>
+					
 					<c:if test="${fn:contains(user.role.resource, 'role-monitor-report')
 						|| fn:contains(user.role.resource, 'role-monitor-enterprise')
 						|| fn:contains(user.role.resource, 'role-monitor-industry')
@@ -328,10 +341,9 @@
 		} else {
 			$feedbackDialog.find('.textarea-feedback').css('border', '1px solid #e5e6e7');
 			$.ajax({
-				url: '${ctx}/api/authority/feedback/create',
+				url: '${ctx}/api/website/feedback/create',
 				type: 'post',
 				data: {
-					userId: userId,
 					content: content
 				},
 				success: function(ret) {

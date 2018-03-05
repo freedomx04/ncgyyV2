@@ -1,10 +1,10 @@
-package com.hm.ncgyy.repository.authority;
+package com.hm.ncgyy.repository.website;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.hm.ncgyy.entity.authority.FeedbackEntity;
+import com.hm.ncgyy.entity.website.FeedbackEntity;
 
 public interface FeedbackRepository extends CrudRepository<FeedbackEntity, Long> {
 	

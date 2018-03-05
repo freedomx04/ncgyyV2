@@ -135,6 +135,15 @@
                         </div>
                         
                         <div class="form-group">
+                        	<label for="resource" class="col-sm-2 control-label">网站管理</label>
+                        	<div class="col-sm-9">
+                        		<label class="checkbox-inline i-checks" data-role="role-website-feedback">
+									<input type="checkbox">反馈管理
+								</label>
+                        	</div>
+                        </div>
+                        
+                        <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">监测平台</label>
                         	<div class="col-sm-9">
                        			<label class="checkbox-inline i-checks" data-role="role-monitor-report">
