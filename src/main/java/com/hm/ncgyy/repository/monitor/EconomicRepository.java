@@ -14,6 +14,6 @@ public interface EconomicRepository extends CrudRepository<EconomicEntity, Long>
 	
 	List<EconomicEntity> findByTypeOrderByMonthlyAsc(Integer type);
 	
-	List<EconomicEntity> findByMonthlyInAndType(List<String> monthlyList, Integer type);
+	List<EconomicEntity> findByMonthlyInAndTypeOrderByMonthlyAsc(List<String> monthlyList, Integer type);
 	
 }

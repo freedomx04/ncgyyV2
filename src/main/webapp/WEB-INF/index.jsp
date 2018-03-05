@@ -136,7 +136,7 @@
 		
 		<div class="con_three">
 			<div class="con_three_left">
-				<div class="monitor" style="display: none;">
+				<!-- <div class="monitor" style="display: none;">
 					<dl>
 	                 	<dt>
 	                 		<a href="monitorlist?item=mainBusiness" target="_blank">
@@ -154,7 +154,7 @@
 	                <div class="monitor_target" style="display: block;width: 655px; height: 400px;">
 						
 					</div>
-				</div>
+				</div> -->
 				
 				<div class="assist border_top">
 					<a href="assistlist" target="_blank"><img src="img/assist.jpg" width="96" height="39"></a>
@@ -224,7 +224,7 @@
 		
 		
 		//监测平台
-		getChart('target-1');
+		//getChart('target-1');
 		
 		$page.on('click', '.enterprise-btn', function() {
 			window.open('enterprise?enterpriseId=' + $(this).attr('id'));
@@ -232,7 +232,7 @@
 		
 	})();
 	
-	function getChart(target) {
+	/* function getChart(target) {
 		$("#" + target).closest("dd").find("a").removeClass("curr");
 		$("#" + target).addClass("curr");
 		
@@ -369,7 +369,7 @@
 			},
 			error: function(err) {}
 		});
-	}
+	} */
 	</script>
 	
 </body>

@@ -47,7 +47,7 @@ public class EconomicServiceImpl implements EconomicService {
 
 	@Override
 	public List<EconomicEntity> listByMonthlyInAndType(List<String> monthlyList, Integer type) {
-		return economicRepository.findByMonthlyInAndType(monthlyList, type);
+		return economicRepository.findByMonthlyInAndTypeOrderByMonthlyAsc(monthlyList, type);
 	}
 
 }
