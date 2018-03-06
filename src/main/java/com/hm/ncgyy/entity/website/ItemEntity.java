@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.business;
+package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 
@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "business_business")
-public class BusinessEntity extends BaseEntity {
+@Table(name = "website_business_item")
+public class ItemEntity extends BaseEntity {
 
 	/** 项目名称 */
 	private String name;
@@ -43,11 +43,11 @@ public class BusinessEntity extends BaseEntity {
 	/** 传真 */
 	private String fax;
 	
-	public BusinessEntity() {
+	public ItemEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BusinessEntity(String name, String address, String overview, String content, String scale, String mode,
+	public ItemEntity(String name, String address, String overview, String content, String scale, String mode,
 			String contactUser, String contact, String email, String fax, Date createTime, Date updateTime) {
 		super();
 		this.name = name;

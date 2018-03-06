@@ -1,12 +1,12 @@
-package com.hm.ncgyy.service.business;
+package com.hm.ncgyy.service.website;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.business.MessageEntity;
-import com.hm.ncgyy.repository.business.MessageRepository;
+import com.hm.ncgyy.entity.website.MessageEntity;
+import com.hm.ncgyy.repository.website.MessageRepository;
 
 @Service
 public class MessageServiceImpl implements MessageService {

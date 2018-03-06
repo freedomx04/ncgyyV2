@@ -60,8 +60,7 @@
 						|| fn:contains(user.role.resource, 'role-authority-user')
 						|| fn:contains(user.role.resource, 'role-authority-enterprise')
 						|| fn:contains(user.role.resource, 'role-authority-department')
-						|| fn:contains(user.role.resource, 'role-authority-supplier')
-						|| fn:contains(user.role.resource, 'role-authority-business')}">
+						|| fn:contains(user.role.resource, 'role-authority-supplier')}">
 					<li>
 						<a href="#">
 							<i class="fa fa-cog fa-fw"></i><span class="nav-label">系统管理</span><span class="fa arrow"></span>
@@ -82,13 +81,11 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-authority-supplier')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/supplier">供应商管理</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'role-authority-business')}">
-								<li><a class="J_menuItem" href="${ctx}/authority/business">招商管理</a></li>
-							</c:if>
 						</ul>
 					</li>
 					</c:if>
 					<c:if test="${fn:contains(user.role.resource, 'role-website-article')
+						|| fn:contains(user.role.resource, 'role-website-business')
 						|| fn:contains(user.role.resource, 'role-website-feedback')
 						|| fn:contains(user.role.resource, 'role-website-version')}">
 					<li>
@@ -98,6 +95,9 @@
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'role-website-article')}">
 								<li><a class="J_menuItem" href="${ctx}/website/article">新闻发布</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-website-business')}">
+								<li><a class="J_menuItem" href="${ctx}/website/business">招商管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-website-feedback')}">
 								<li><a class="J_menuItem" href="${ctx}/website/feedback">反馈管理</a></li>

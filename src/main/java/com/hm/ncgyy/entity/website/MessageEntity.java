@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.business;
+package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "business_message")
+@Table(name = "website_business_message")
 public class MessageEntity extends BaseEntity {
 
 	/** 姓名 */

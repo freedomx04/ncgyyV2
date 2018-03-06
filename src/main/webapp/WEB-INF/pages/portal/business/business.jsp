@@ -137,7 +137,7 @@
             if (validator.isValid()) {
             	var formData = new FormData($form[0]);
             	$.ajax({
-				    url: '${ctx}/api/business/message/create',
+				    url: '${ctx}/api/website/business/message/create',
 	            	type: 'post',
 	            	data: formData,
 	        		processData: false,

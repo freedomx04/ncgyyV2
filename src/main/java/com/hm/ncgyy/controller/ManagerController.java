@@ -266,11 +266,6 @@ public class ManagerController {
 		return "pages/authority/supplier";
 	}
 	
-	@RequestMapping(value = "/authority/business")
-	String business(ModelMap modelMap) {
-		return "pages/authority/business";
-	}
-	
 	/** 
 	 * 网站管理接口
 	 */
@@ -304,6 +299,11 @@ public class ManagerController {
 			modelMap.addAttribute("title", title);
 		}
 		return "pages/website/article_get";
+	}
+	
+	@RequestMapping(value = "/website/business")
+	String business(ModelMap modelMap) {
+		return "pages/website/business";
 	}
 	
 	@RequestMapping(value = "/website/feedback")

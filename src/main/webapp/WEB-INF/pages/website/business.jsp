@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>供应商管理</title>
+	<title>招商管理</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -279,7 +279,7 @@
 			}
 			
 			$bsTable = $k.util.bsTable($table, {
-				url: '${ctx}/api/article/list?type=' + type,
+				url: '${ctx}/api/website/article/list?type=' + type,
 				toolbar: $toolbar,
 				idField: 'id',
 				responseHandler: function(res) {
@@ -297,7 +297,7 @@
                     events: window.operateEvents = {
                         'click .btn-article-detail': function(e, value, row, index) {
                             e.stopPropagation();
-                            window.location.href = '${ctx}/authority/article/get?articleId=' + row.id;
+                            window.location.href = '${ctx}/website/article/get?articleId=' + row.id;
                         },
                     }
                 }, {
@@ -318,7 +318,7 @@
     				events: window.operateEvents = {
        					'click .btn-article-edit': function(e, value, row, index) {
        						e.stopPropagation();
-       						window.location.href = '${ctx}/authority/article/add?type=' + type + '&method=edit&articleId=' + row.id;
+       						window.location.href = '${ctx}/website/article/add?type=' + type + '&method=edit&articleId=' + row.id;
        					},
        					'click .btn-article-delete': function(e, value, row, index) {
        						e.stopPropagation();
@@ -333,7 +333,7 @@
        						}, function() {
        							var articleId = row.id;
        							$.ajax({
-       								url: '${ctx}/api/article/delete',
+       								url: '${ctx}/api/website/article/delete',
        								data: { 
        									articleId: articleId
        								},
@@ -365,7 +365,7 @@
         $k.util.bsValidator($itemForm);
         
         var $itemTable = $k.util.bsTable($page.find('#item-table'), {
-            url: '${ctx}/api/business/business/list',
+            url: '${ctx}/api/website/business/item/list',
             toolbar: '#item-table-toolbar',
             idField: 'id',
             responseHandler: function(res) {
@@ -401,6 +401,7 @@
             }, {
                 title: '操作',
                 align: 'center',
+                width: '120',
                 formatter: function(value, row, index) {
                     var $edit = '<a class="btn-item-edit a-operate">编辑</a>';
                     var $delete = '<a class="btn-item-delete a-operate">删除</a>';
@@ -430,9 +431,9 @@
                             confirmButtonText: '确定'
                         }, function() {
                             $.ajax({
-                                url: '${ctx}/api/business/business/delete',
+                                url: '${ctx}/api/website/business/item/delete',
                                 data: {
-                                    businessId: row.id
+                                    itemId: row.id
                                 },
                                 success: function(ret) {
                                      if (ret.code == 0) {
@@ -463,7 +464,7 @@
                 var method = $itemDialog.data('method');
                 if (method == 'add') {
                     $.ajax({
-                        url: '${ctx}/api/business/business/create',
+                        url: '${ctx}/api/website/business/item/create',
                         type: 'post',
                         data: formData,
                         processData: false,
@@ -481,9 +482,9 @@
                         error: function(err) {}
                     });
                 } else {
-                    formData.append('businessId', $itemDialog.data('itemId'));
+                    formData.append('itemId', $itemDialog.data('itemId'));
                     $.ajax({
-                        url: '${ctx}/api/business/business/update',
+                        url: '${ctx}/api/website/business/item/update',
                         type: 'post',
                         data: formData,
                         processData: false,
@@ -507,7 +508,7 @@
 		// message
 		var $messageDetailDialog = $page.find('#modal-message-detail-dialog');
 		var $messageTable = $k.util.bsTable($page.find('#message-table'), {
-			url: '${ctx}/api/business/message/list',
+			url: '${ctx}/api/website/business/message/list',
 			toolbar: '#message-table-toolbar',
 			idField: 'id',
 			responseHandler: function(res) {
@@ -566,7 +567,7 @@
     		}
     	})
     	.on('click', '.btn-article-add', function() {
-    		window.location.href = '${ctx}/authority/article/add?method=add&type=' + type;
+    		window.location.href = '${ctx}/website/article/add?method=add&type=' + type;
     	})
     	.on('click', '.btn-article-delete-batch', function() {
 			swal({
@@ -580,7 +581,7 @@
 			}, function() {
 				var rows = $table.bootstrapTable('getSelections');
 				$.ajax({
-					url: '${ctx}/api/article/batchDelete',
+					url: '${ctx}/api/website/article/batchDelete',
 					data: {
 						articleIdList: $k.util.getIdList(rows) 
 					},
@@ -618,9 +619,9 @@
             }, function() {
                 var rows = $itemTable.bootstrapTable('getSelections');
                 $.ajax({
-                    url: '${ctx}/api/business/business/deleteBatch',
+                    url: '${ctx}/api/website/business/item/deleteBatch',
                     data: { 
-                        businessIdList: $k.util.getIdList(rows) 
+                        itemIdList: $k.util.getIdList(rows) 
                     },
                     success: function(ret) {
                         if (ret.code == 0) {
@@ -647,7 +648,7 @@
             }, function() {
                 var rows = $messageTable.bootstrapTable('getSelections');
                 $.ajax({
-                    url: '${ctx}/api/business/message/deleteBatch',
+                    url: '${ctx}/api/website/business/message/deleteBatch',
                     data: { 
                         messageIdList: $k.util.getIdList(rows) 
                     },

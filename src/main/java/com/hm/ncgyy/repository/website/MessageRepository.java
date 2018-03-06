@@ -1,10 +1,10 @@
-package com.hm.ncgyy.repository.business;
+package com.hm.ncgyy.repository.website;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.hm.ncgyy.entity.business.MessageEntity;
+import com.hm.ncgyy.entity.website.MessageEntity;
 
 public interface MessageRepository extends CrudRepository<MessageEntity, Long> {
 

@@ -17,7 +17,6 @@ import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
-import com.hm.ncgyy.entity.business.BusinessEntity;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
 import com.hm.ncgyy.entity.service.financing.InvestEntity;
 import com.hm.ncgyy.entity.service.information.DemandEntity;
@@ -28,12 +27,12 @@ import com.hm.ncgyy.entity.service.logistics.SupplyEntity;
 import com.hm.ncgyy.entity.service.talent.JobEntity;
 import com.hm.ncgyy.entity.service.talent.RecruitEntity;
 import com.hm.ncgyy.entity.website.ArticleEntity;
+import com.hm.ncgyy.entity.website.ItemEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
-import com.hm.ncgyy.service.business.BusinessService;
 import com.hm.ncgyy.service.service.financing.FinancingService;
 import com.hm.ncgyy.service.service.financing.InvestService;
 import com.hm.ncgyy.service.service.information.DemandService;
@@ -44,6 +43,7 @@ import com.hm.ncgyy.service.service.logistics.SupplyService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
 import com.hm.ncgyy.service.website.ArticleService;
+import com.hm.ncgyy.service.website.ItemService;
 
 @Controller
 public class PageController {
@@ -96,7 +96,7 @@ public class PageController {
 	SupplyService supplyService;
 	
 	@Autowired
-	BusinessService businessService;
+	ItemService itemService;
 	
 	/**
 	 * 新闻页面
@@ -190,7 +190,7 @@ public class PageController {
 		Page<ArticleEntity> policys = articleService.listByType(11, 0, 5);
 		modelMap.addAttribute("policys", policys.getContent());
 		
-		Page<BusinessEntity> businesss = businessService.list(0, 5);
+		Page<ItemEntity> businesss = itemService.list(0, 5);
 		modelMap.addAttribute("businesss", businesss.getContent());
 		return "pages/portal/business/business";
 	}
@@ -226,7 +226,7 @@ public class PageController {
 	
 	@RequestMapping(value = "/business/item/info")
 	String item_info(ModelMap model, Long itemId) {
-		BusinessEntity item = businessService.findOne(itemId);
+		ItemEntity item = itemService.findOne(itemId);
 		model.addAttribute("item", item);
 		return "pages/portal/business/item_info";
 	}

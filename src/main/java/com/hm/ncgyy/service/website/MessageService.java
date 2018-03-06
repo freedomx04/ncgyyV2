@@ -1,8 +1,8 @@
-package com.hm.ncgyy.service.business;
+package com.hm.ncgyy.service.website;
 
 import java.util.List;
 
-import com.hm.ncgyy.entity.business.MessageEntity;
+import com.hm.ncgyy.entity.website.MessageEntity;
 
 public interface MessageService {
 	

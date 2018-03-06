@@ -119,9 +119,6 @@
 								<label class="checkbox-inline i-checks" data-role="role-authority-supplier">
 									<input type="checkbox">供应商管理
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-business">
-									<input type="checkbox">招商管理
-								</label>
                         	</div>
                         </div>
                         
@@ -130,6 +127,9 @@
                         	<div class="col-sm-9">
                         		<label class="checkbox-inline i-checks" data-role="role-website-article">
 									<input type="checkbox">新闻发布
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-website-business">
+									<input type="checkbox">招商管理
 								</label>
                         		<label class="checkbox-inline i-checks" data-role="role-website-feedback">
 									<input type="checkbox">反馈管理
