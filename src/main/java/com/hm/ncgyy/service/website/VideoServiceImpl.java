@@ -39,12 +39,12 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<VideoEntity> list() {
-		return videoRepository.findByUpdateTimeDesc();
+		return videoRepository.findByOrderByUpdateTimeDesc();
 	}
 
 	@Override
 	public Page<VideoEntity> listPaging(int page, int size) {
-		return videoRepository.findOrderByUpdateTimeDesc(new PageRequest(page, size));
+		return videoRepository.findByOrderByUpdateTimeDesc(new PageRequest(page, size));
 	}
 
 }

@@ -99,6 +99,9 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-website-business')}">
 								<li><a class="J_menuItem" href="${ctx}/website/business">招商管理</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-website-safty')}">
+								<li><a class="J_menuItem" href="${ctx}/website/safty">安全生产管理</a></li>
+							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-website-feedback')}">
 								<li><a class="J_menuItem" href="${ctx}/website/feedback">反馈管理</a></li>
 							</c:if>

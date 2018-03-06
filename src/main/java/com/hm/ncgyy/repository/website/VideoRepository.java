@@ -12,8 +12,8 @@ public interface VideoRepository extends PagingAndSortingRepository<VideoEntity,
 	
 	Iterable<VideoEntity> findByIdIn(List<Long> videoIdList);
 	
-	List<VideoEntity> findByUpdateTimeDesc();
+	List<VideoEntity> findByOrderByUpdateTimeDesc();
 	
-	Page<VideoEntity> findOrderByUpdateTimeDesc(Pageable pageable);
+	Page<VideoEntity> findByOrderByUpdateTimeDesc(Pageable pageable);
 
 }

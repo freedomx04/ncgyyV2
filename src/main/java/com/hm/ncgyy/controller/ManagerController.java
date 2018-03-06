@@ -306,6 +306,11 @@ public class ManagerController {
 		return "pages/website/business";
 	}
 	
+	@RequestMapping(value = "/website/safty")
+	String safty(ModelMap modelMap) {
+		return "pages/website/safty";
+	}
+	
 	@RequestMapping(value = "/website/feedback")
 	String feedbackList(ModelMap modelMap) {
 		return "pages/website/feedback";

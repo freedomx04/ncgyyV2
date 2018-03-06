@@ -131,6 +131,9 @@
 								<label class="checkbox-inline i-checks" data-role="role-website-business">
 									<input type="checkbox">招商管理
 								</label>
+								<label class="checkbox-inline i-checks" data-role="role-website-safty">
+									<input type="checkbox">安全生产管理
+								</label>
                         		<label class="checkbox-inline i-checks" data-role="role-website-feedback">
 									<input type="checkbox">反馈管理
 								</label>
