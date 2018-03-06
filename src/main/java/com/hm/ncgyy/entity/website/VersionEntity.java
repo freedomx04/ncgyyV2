@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.authority;
+package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "authority_version")
+@Table(name = "website_version")
 public class VersionEntity extends BaseEntity {
 	
 	/** 版本号 */

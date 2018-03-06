@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.authority;
+package com.hm.ncgyy.controller.website;
 
 import java.util.Date;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.authority.VersionEntity;
-import com.hm.ncgyy.service.authority.VersionService;
+import com.hm.ncgyy.entity.website.VersionEntity;
+import com.hm.ncgyy.service.website.VersionService;
 
 @RestController
 public class VersionController {
@@ -26,7 +26,7 @@ public class VersionController {
 	@Autowired
 	VersionService versionService;
 	
-	@RequestMapping(value = "/api/version/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/website/version/create", method = RequestMethod.POST)
 	public Result create(String code, String releaseTime, String content) {
 		try {
 			VersionEntity version = versionService.findByCode(code);
@@ -44,7 +44,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/website/version/update", method = RequestMethod.POST)
 	public Result update(Long versionId, String code, String releaseTime, String content) {
 		try {
 			VersionEntity version = versionService.findOne(versionId);
@@ -66,7 +66,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/delete")
+	@RequestMapping(value = "/api/website/version/delete")
 	public Result delete(Long versionId) {
 		try {
 			versionService.delete(versionId);
@@ -77,7 +77,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/batchDelete")
+	@RequestMapping(value = "/api/website/version/batchDelete")
 	public Result batchDelete(@RequestParam("versionIdList[]") List<Long> versionIdList) {
 		try {
 			versionService.delete(versionIdList);
@@ -88,7 +88,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/get")
+	@RequestMapping(value = "/api/website/version/get")
 	public Result get(Long versionId) {
 		try {
 			VersionEntity version = versionService.findOne(versionId);
@@ -99,7 +99,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/list")
+	@RequestMapping(value = "/api/website/version/list")
 	public Result list() {
 		try {
 			List<VersionEntity> versionList = versionService.list();
@@ -110,7 +110,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/listPaging")
+	@RequestMapping(value = "/api/website/version/listPaging")
 	public Result listPaging(int page, int size) {
 		try {
 			Page<VersionEntity> versionPage = versionService.listPaging(page, size);
@@ -121,7 +121,7 @@ public class VersionController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/version/latest")
+	@RequestMapping(value = "/api/website/version/latest")
 	public Result latest() {
 		try {
 			VersionEntity version = versionService.findLatest();

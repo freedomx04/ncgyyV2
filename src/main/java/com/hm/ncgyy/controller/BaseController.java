@@ -16,13 +16,13 @@ import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
-import com.hm.ncgyy.entity.authority.VersionEntity;
+import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.UserService;
-import com.hm.ncgyy.service.authority.VersionService;
+import com.hm.ncgyy.service.website.VersionService;
 
 @Controller
 public class BaseController {
@@ -92,7 +92,7 @@ public class BaseController {
 		if (version != null) {
 			modelMap.addAttribute("versionCode", version.getCode());
 		} else {
-			modelMap.addAttribute("versionCode", "1.0");
+			modelMap.addAttribute("versionCode", "无");
 		}
 		
 		return "home";

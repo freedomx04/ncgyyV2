@@ -135,7 +135,7 @@
 		});
 		
 		var $table = $k.util.bsTable($page.find('#version-list-table'), {
-			url: '${ctx}/api/version/list',
+			url: '${ctx}/api/website/version/list',
 			toolbar: '#version-list-table-toolbar',
 			idField: 'id',
 			responseHandler: function(res) {
@@ -203,7 +203,7 @@
                             confirmButtonText: '确定',
             			}, function() {
             				$.ajax({
-            					url: '${ctx}/api/version/delete',
+            					url: '${ctx}/api/website/version/delete',
             					data: {
             						versionId: row.id
             					},
@@ -237,7 +237,7 @@
                 var method = $versionDialog.data('method');
                 if (method == 'add') {
                 	$.ajax({
-    					url: '${ctx}/api/version/create',
+    					url: '${ctx}/api/website/version/create',
     					type: 'post',
     					data: formData,
     					processData: false,
@@ -257,7 +257,7 @@
                 } else {
                 	formData.append('versionId', $versionDialog.data('versionId'));
                 	$.ajax({
-    					url: '${ctx}/api/version/update',
+    					url: '${ctx}/api/website/version/update',
     					type: 'post',
     					data: formData,
     					processData: false,
@@ -300,7 +300,7 @@
             }, function() {
                 var rows = $table.bootstrapTable('getSelections');
                 $.ajax({
-                    url: '${ctx}/api/version/batchDelete',
+                    url: '${ctx}/api/website/version/batchDelete',
                     data: { 
                         versionIdList: $k.util.getIdList(rows) 
                     },

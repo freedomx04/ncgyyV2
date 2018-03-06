@@ -27,13 +27,13 @@ import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.RoleEntity;
 import com.hm.ncgyy.entity.authority.UserBaseEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
-import com.hm.ncgyy.entity.authority.VersionEntity;
 import com.hm.ncgyy.entity.office.MailEntity;
 import com.hm.ncgyy.entity.office.MailEntity.ReadStatus;
 import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
+import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.AppealTypeService;
@@ -47,13 +47,13 @@ import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.RoleService;
 import com.hm.ncgyy.service.authority.UserService;
-import com.hm.ncgyy.service.authority.VersionService;
 import com.hm.ncgyy.service.office.MailService;
 import com.hm.ncgyy.service.service.ApplyService;
 import com.hm.ncgyy.service.service.DeclareService;
 import com.hm.ncgyy.service.service.SupplierService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
+import com.hm.ncgyy.service.website.VersionService;
 
 @Controller
 public class ManagerController {
@@ -266,13 +266,6 @@ public class ManagerController {
 		return "pages/authority/supplier";
 	}
 	
-	@RequestMapping(value = "/versionHistory")
-	String version(ModelMap modelMap) {
-		List<VersionEntity> versionList = versionService.list();
-		modelMap.addAttribute("versionList", versionList);
-		return "pages/authority/version_history";
-	}
-	
 	@RequestMapping(value = "/authority/website")
 	String website(ModelMap modelMap) {
 		return "pages/authority/website";
@@ -310,17 +303,24 @@ public class ManagerController {
 		return "pages/authority/business";
 	}
 	
-	@RequestMapping(value = "/authority/version")
-	String versionList(ModelMap modelMap) {
-		return "pages/authority/version";
-	}
-	
 	/** 
 	 * 网站管理接口
 	 */
 	@RequestMapping(value = "/website/feedback")
 	String feedbackList(ModelMap modelMap) {
 		return "pages/website/feedback";
+	}
+	
+	@RequestMapping(value = "/website/version")
+	String versionList(ModelMap modelMap) {
+		return "pages/website/version";
+	}
+	
+	@RequestMapping(value = "/versionHistory")
+	String version(ModelMap modelMap) {
+		List<VersionEntity> versionList = versionService.list();
+		modelMap.addAttribute("versionList", versionList);
+		return "pages/website/version_history";
 	}
 	
 	/**
