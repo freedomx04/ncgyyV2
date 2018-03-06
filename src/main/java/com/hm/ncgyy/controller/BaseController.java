@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
-import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
+import com.hm.ncgyy.entity.website.ArticleEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.service.assist.AppealService;
-import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.ProductService;
 import com.hm.ncgyy.service.authority.UserService;
+import com.hm.ncgyy.service.website.ArticleService;
 import com.hm.ncgyy.service.website.VersionService;
 
 @Controller

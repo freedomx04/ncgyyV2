@@ -1,4 +1,4 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.website;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.authority.ArticleEntity;
-import com.hm.ncgyy.repository.authority.ArticleRepository;
+import com.hm.ncgyy.entity.website.ArticleEntity;
+import com.hm.ncgyy.repository.website.ArticleRepository;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {

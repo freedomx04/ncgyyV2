@@ -149,7 +149,7 @@
 			}
 			
 			$bsTable = $k.util.bsTable($table, {
-                url: '${ctx}/api/article/list?type=' + type,
+                url: '${ctx}/api/website/article/list?type=' + type,
                 toolbar: $toolbar,
                 idField: 'id',
                 responseHandler: function(res) {
@@ -167,7 +167,7 @@
                     events: window.operateEvents = {
                         'click .btn-article-detail': function(e, value, row, index) {
                             e.stopPropagation();
-                            window.location.href = '${ctx}/authority/article/get?articleId=' + row.id;
+                            window.location.href = '${ctx}/website/article/get?articleId=' + row.id;
                         },
                     }
                 }, {
@@ -188,7 +188,7 @@
                     events: window.operateEvents = {
                         'click .btn-article-edit': function(e, value, row, index) {
                             e.stopPropagation();
-                            window.location.href = '${ctx}/authority/article/add?type=' + type + '&method=edit&articleId=' + row.id;
+                            window.location.href = '${ctx}/website/article/add?type=' + type + '&method=edit&articleId=' + row.id;
                         },
                         'click .btn-article-delete': function(e, value, row, index) {
                             e.stopPropagation();
@@ -235,7 +235,7 @@
     		initTable(tab);
     	})
     	.on('click', '.btn-article-add', function() {
-    		window.location.href = '${ctx}/authority/article/add?method=add&type=' + type;
+    		window.location.href = '${ctx}/website/article/add?method=add&type=' + type;
     	})
     	.on('click', '.btn-article-delete-batch', function() {
 			swal({

@@ -119,17 +119,8 @@
 								<label class="checkbox-inline i-checks" data-role="role-authority-supplier">
 									<input type="checkbox">供应商管理
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-website">
-									<input type="checkbox">网站管理
-								</label>
 								<label class="checkbox-inline i-checks" data-role="role-authority-business">
 									<input type="checkbox">招商管理
-								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-feedback">
-									<input type="checkbox">反馈管理
-								</label>
-								<label class="checkbox-inline i-checks" data-role="role-authority-version">
-									<input type="checkbox">版本管理
 								</label>
                         	</div>
                         </div>
@@ -137,8 +128,14 @@
                         <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">网站管理</label>
                         	<div class="col-sm-9">
+                        		<label class="checkbox-inline i-checks" data-role="role-website-article">
+									<input type="checkbox">新闻发布
+								</label>
                         		<label class="checkbox-inline i-checks" data-role="role-website-feedback">
 									<input type="checkbox">反馈管理
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-website-version">
+									<input type="checkbox">版本管理
 								</label>
                         	</div>
                         </div>

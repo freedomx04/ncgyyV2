@@ -16,7 +16,6 @@ import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.AppealTypeEntity;
 import com.hm.ncgyy.entity.authority.AreaEntity;
-import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.DepartmentEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
@@ -33,12 +32,12 @@ import com.hm.ncgyy.entity.service.ApplyEntity;
 import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
+import com.hm.ncgyy.entity.website.ArticleEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.AppealTypeService;
 import com.hm.ncgyy.service.authority.AreaService;
-import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.DepartmentService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.IndustryService;
@@ -53,6 +52,7 @@ import com.hm.ncgyy.service.service.DeclareService;
 import com.hm.ncgyy.service.service.SupplierService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
+import com.hm.ncgyy.service.website.ArticleService;
 import com.hm.ncgyy.service.website.VersionService;
 
 @Controller
@@ -266,12 +266,20 @@ public class ManagerController {
 		return "pages/authority/supplier";
 	}
 	
-	@RequestMapping(value = "/authority/website")
-	String website(ModelMap modelMap) {
-		return "pages/authority/website";
+	@RequestMapping(value = "/authority/business")
+	String business(ModelMap modelMap) {
+		return "pages/authority/business";
 	}
 	
-	@RequestMapping(value = "/authority/article/add")
+	/** 
+	 * 网站管理接口
+	 */
+	@RequestMapping(value = "/website/article")
+	String website(ModelMap modelMap) {
+		return "pages/website/article";
+	}
+	
+	@RequestMapping(value = "/website/article/add")
 	String article_add(ModelMap modelMap, Integer type, String method, Long articleId) throws IOException {
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("method", method);
@@ -284,10 +292,10 @@ public class ManagerController {
 			ArticleEntity article = articleService.findOne(articleId);
 			modelMap.addAttribute("article", article);
 		}
-		return "pages/authority/article_add";
+		return "pages/website/article_add";
 	}
 	
-	@RequestMapping(value = "/authority/article/get")
+	@RequestMapping(value = "/website/article/get")
 	String article_get(ModelMap modelMap, Long articleId) throws IOException {
 		ArticleEntity article = articleService.findOne(articleId);
 		if (article != null) {
@@ -295,17 +303,9 @@ public class ManagerController {
 			String title = articleService.getArticleTitle(article.getType());
 			modelMap.addAttribute("title", title);
 		}
-		return "pages/authority/article_get";
+		return "pages/website/article_get";
 	}
 	
-	@RequestMapping(value = "/authority/business")
-	String business(ModelMap modelMap) {
-		return "pages/authority/business";
-	}
-	
-	/** 
-	 * 网站管理接口
-	 */
 	@RequestMapping(value = "/website/feedback")
 	String feedbackList(ModelMap modelMap) {
 		return "pages/website/feedback";

@@ -1,4 +1,4 @@
-package com.hm.ncgyy.controller.authority;
+package com.hm.ncgyy.controller.website;
 
 import java.util.Date;
 import java.util.List;
@@ -17,11 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.authority.ArticleEntity;
-import com.hm.ncgyy.entity.authority.ArticleFileEntity;
+import com.hm.ncgyy.entity.website.ArticleEntity;
+import com.hm.ncgyy.entity.website.ArticleFileEntity;
 import com.hm.ncgyy.service.CommonService;
-import com.hm.ncgyy.service.authority.ArticleFileService;
-import com.hm.ncgyy.service.authority.ArticleService;
+import com.hm.ncgyy.service.website.ArticleFileService;
+import com.hm.ncgyy.service.website.ArticleService;
 
 @RestController
 public class ArticleController {
@@ -37,7 +37,7 @@ public class ArticleController {
 	@Autowired
 	CommonService commonService;
 
-	@RequestMapping(value = "/api/article/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/website/article/create", method = RequestMethod.POST)
 	public Result create(Integer type, String title, String source,
 			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content,
 			@RequestParam("attachmentList") List<String> attachmentList) {
@@ -65,7 +65,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/website/article/update", method = RequestMethod.POST)
 	public Result update(Long articleId, String title, String source,
 			@RequestParam(name = "uploadImage", required = false) MultipartFile uploadImage, String content,
 			@RequestParam("attachmentList") List<String> attachmentList) {
@@ -98,7 +98,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/delete")
+	@RequestMapping(value = "/api/website/article/delete")
 	public Result delete(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
@@ -116,7 +116,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/batchDelete")
+	@RequestMapping(value = "/api/website/article/batchDelete")
 	public Result batchDelete(@RequestParam("articleIdList[]") List<Long> articleIdList) {
 		try {
 			for (Long articleId : articleIdList) {
@@ -132,7 +132,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/get")
+	@RequestMapping(value = "/api/website/article/get")
 	public Result get(Long articleId) {
 		try {
 			ArticleEntity article = articleService.findOne(articleId);
@@ -143,7 +143,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/list")
+	@RequestMapping(value = "/api/website/article/list")
 	public Result list(Integer type) {
 		try {
 			List<ArticleEntity> list = articleService.listByType(type);
@@ -154,7 +154,7 @@ public class ArticleController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/article/listPaging")
+	@RequestMapping(value = "/api/website/article/listPaging")
 	public Result listPaging(Integer type, int page, int size) {
 		try {
 			Page<ArticleEntity> list = articleService.listByType(type, page, size);
@@ -165,7 +165,7 @@ public class ArticleController {
 		}
 	}
 
-	@RequestMapping(value = "/api/article/fileDelete")
+	@RequestMapping(value = "/api/website/article/fileDelete")
 	public Result fileDelete(Long articleFileId) {
 		try {
 			ArticleFileEntity articleFile = articleFileService.fileOne(articleFileId);

@@ -1,6 +1,6 @@
-package com.hm.ncgyy.service.authority;
+package com.hm.ncgyy.service.website;
 
-import com.hm.ncgyy.entity.authority.ArticleFileEntity;
+import com.hm.ncgyy.entity.website.ArticleFileEntity;
 
 public interface ArticleFileService {
 	

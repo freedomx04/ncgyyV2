@@ -169,7 +169,7 @@
 				formData.append('attachmentList', attachmentList);
 				
 				$.ajax({
-					url: '${ctx}/api/article/create',
+					url: '${ctx}/api/website/article/create',
 					type: 'POST',
 					data: formData,
 					processData: false,
@@ -214,7 +214,7 @@
 				formData.append('attachmentList', attachmentList);
 				
 				$.ajax({
-					url: '${ctx}/api/article/update',
+					url: '${ctx}/api/website/article/update',
 					type: 'POST',
 					data: formData,
 					processData: false,
@@ -254,7 +254,7 @@
 			}, function() {
 				var fileid = $this.closest('li').data('fileid');
 				$.ajax({
-					url: '${ctx}/api/article/fileDelete',
+					url: '${ctx}/api/website/article/fileDelete',
 					data: {
 						articleFileId: fileid
 					},

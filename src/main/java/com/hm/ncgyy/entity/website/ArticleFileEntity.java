@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.authority;
+package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "issue_article_file")
+@Table(name = "website_article_file")
 public class ArticleFileEntity extends BaseEntity {
 	
 	/** 关联文章 */

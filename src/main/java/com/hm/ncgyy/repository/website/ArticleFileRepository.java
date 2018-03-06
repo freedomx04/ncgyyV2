@@ -1,8 +1,8 @@
-package com.hm.ncgyy.repository.authority;
+package com.hm.ncgyy.repository.website;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.hm.ncgyy.entity.authority.ArticleFileEntity;
+import com.hm.ncgyy.entity.website.ArticleFileEntity;
 
 public interface ArticleFileRepository extends CrudRepository<ArticleFileEntity, Long> {
 

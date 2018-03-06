@@ -1,4 +1,4 @@
-package com.hm.ncgyy.entity.authority;
+package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "authority_article", indexes = {
-	@Index(name = "index_authority_article_type", columnList = "type, updateTime") 
+@Table(name = "website_article", indexes = {
+	@Index(name = "index_website_article_type", columnList = "type, updateTime") 
 })
 public class ArticleEntity extends BaseEntity {
 

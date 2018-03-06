@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.entity.assist.AppealEntity;
-import com.hm.ncgyy.entity.authority.ArticleEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
@@ -28,9 +27,9 @@ import com.hm.ncgyy.entity.service.logistics.NetworkEntity;
 import com.hm.ncgyy.entity.service.logistics.SupplyEntity;
 import com.hm.ncgyy.entity.service.talent.JobEntity;
 import com.hm.ncgyy.entity.service.talent.RecruitEntity;
+import com.hm.ncgyy.entity.website.ArticleEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
-import com.hm.ncgyy.service.authority.ArticleService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
 import com.hm.ncgyy.service.authority.NewsService;
 import com.hm.ncgyy.service.authority.ProductService;
@@ -44,6 +43,7 @@ import com.hm.ncgyy.service.service.logistics.NetworkService;
 import com.hm.ncgyy.service.service.logistics.SupplyService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
+import com.hm.ncgyy.service.website.ArticleService;
 
 @Controller
 public class PageController {
