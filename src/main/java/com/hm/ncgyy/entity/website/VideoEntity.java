@@ -2,6 +2,7 @@ package com.hm.ncgyy.entity.website;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -18,19 +19,24 @@ public class VideoEntity extends BaseEntity {
 	private String title;
 	
 	/** 视频路径 */
-	private String path;
+	private String videoPath;
+	
+	/** 预览图路径 */
+	private String imagePath;
 	
 	/** 视频简介 */
+	@Column(length = 4000)
 	private String content;
 	
 	public VideoEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VideoEntity(String title, String path, String content, Date createTime, Date updateTime) {
+	public VideoEntity(String title, String videoPath, String imagePath, String content, Date createTime, Date updateTime) {
 		super();
 		this.title = title;
-		this.path = path;
+		this.videoPath = videoPath;
+		this.imagePath = imagePath;
 		this.content = content;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
@@ -44,12 +50,20 @@ public class VideoEntity extends BaseEntity {
 		this.title = title;
 	}
 
-	public String getPath() {
-		return path;
+	public String getVideoPath() {
+		return videoPath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setVideoPath(String videoPath) {
+		this.videoPath = videoPath;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public String getContent() {

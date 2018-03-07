@@ -39,8 +39,8 @@
 				'				<input id="attachment-input" name="attachment" type="file" multiple class="file-loading">\n' +
 				'			</div>\n' +
 				'			<div class="modal-footer">\n' +
-				'				<button type="button" class="btn btn-white" data-dismiss="modal">\n' +
-				'					<i class="fa fa-close fa-fw"></i>关闭\n' +
+				'				<button type="button" class="btn btn-white btn-fw" data-dismiss="modal">\n' +
+				'					取消\n' +
 				'				</button>\n' +
 				'				<button type="button" class="btn btn-primary btn-upload">\n' +
 				'					<i class="fa fa-upload fa-fw"></i>上传\n' +

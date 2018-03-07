@@ -196,12 +196,12 @@
                     field: 'title',
                     title: '标题',
                     formatter: function(value, row, index) {
-                        return '<a class="btn-article-detail">' + value + '</a>';
+                        return '<a class="btn-video-detail">' + value + '</a>';
                     },
                     events: window.operateEvents = {
-                        'click .btn-article-detail': function(e, value, row, index) {
+                        'click .btn-video-detail': function(e, value, row, index) {
                             e.stopPropagation();
-                            //window.location.href = '${ctx}/website/article/get?articleId=' + row.id;
+                            window.location.href = '${ctx}/website/safty/video/get?videoId=' + row.id;
                         },
                     }
                 }, {
@@ -220,11 +220,11 @@
     					return $edit + $delete;
     				},
     				events: window.operateEvents = {
-       					'click .btn-article-edit': function(e, value, row, index) {
+       					'click .btn-video-edit': function(e, value, row, index) {
        						e.stopPropagation();
-       						//window.location.href = '${ctx}/website/article/add?type=' + type + '&method=edit&articleId=' + row.id;
+       						window.location.href = '${ctx}/website/safty/video/add?&method=edit&videoId=' + row.id;
        					},
-       					'click .btn-article-delete': function(e, value, row, index) {
+       					'click .btn-video-delete': function(e, value, row, index) {
        						e.stopPropagation();
        						swal({
        							title: '',
@@ -235,11 +235,10 @@
        							confirmButtonColor: '#DD6B55',
        							confirmButtonText: '确定'
        						}, function() {
-       							var articleId = row.id;
        							$.ajax({
-       								url: '${ctx}/api/website/video/delete',
+       								url: '${ctx}/api/website/safty/video/delete',
        								data: { 
-       									articleId: articleId
+       									videoId: row.id
        								},
        								success: function(ret) {
        									if (ret.code == 0) {
@@ -307,7 +306,7 @@
 		})
 		// video
 		.on('click', '.btn-video-add', function() {
-    		window.location.href = '${ctx}/website/video/add?method=add';
+    		window.location.href = '${ctx}/website/safty/video/add?method=add';
     	})
     	.on('click', '.btn-video-delete-batch', function() {
 			swal({

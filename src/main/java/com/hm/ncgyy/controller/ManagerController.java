@@ -34,6 +34,7 @@ import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.entity.website.ArticleEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
+import com.hm.ncgyy.entity.website.VideoEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.AppealTypeService;
@@ -54,6 +55,7 @@ import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
 import com.hm.ncgyy.service.website.ArticleService;
 import com.hm.ncgyy.service.website.VersionService;
+import com.hm.ncgyy.service.website.VideoService;
 
 @Controller
 public class ManagerController {
@@ -119,6 +121,9 @@ public class ManagerController {
 	
 	@Autowired
 	JobService jobService;
+	
+	@Autowired
+	VideoService videoService;
 	
 	/**
 	 * 总览
@@ -309,6 +314,26 @@ public class ManagerController {
 	@RequestMapping(value = "/website/safty")
 	String safty(ModelMap modelMap) {
 		return "pages/website/safty";
+	}
+	
+	@RequestMapping(value = "/website/safty/video/add")
+	String safty_add(ModelMap modelMap, String method, Long videoId) {
+		String title = "视频材料" + ( method.equals("add") ? " - 新增" : " - 编辑");
+		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("title", title);
+		
+		if (videoId != null) {
+			VideoEntity video = videoService.findOne(videoId);
+			modelMap.addAttribute("video", video);
+		}
+		return "pages/website/safty_video_add";
+	}
+	
+	@RequestMapping(value = "/website/safty/video/get")
+	String safty_get(ModelMap modelMap, Long videoId) {
+		VideoEntity video = videoService.findOne(videoId);
+		modelMap.addAttribute("video", video);
+		return "pages/website/safty_video_get";
 	}
 	
 	@RequestMapping(value = "/website/feedback")

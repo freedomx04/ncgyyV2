@@ -27,10 +27,10 @@ public class SaftyController {
 	VideoService videoService;
 	
 	@RequestMapping(value = "/api/weisite/safty/video/create", method = RequestMethod.POST)
-	public Result create(String title, String path, String content) {
+	public Result create(String title, String videoPath, String imagePath, String content) {
 		try {
 			Date now = new Date();
-			VideoEntity video = new VideoEntity(title, path, content, now, now);
+			VideoEntity video = new VideoEntity(title, videoPath, imagePath, content, now, now);
 			videoService.save(video);
 			return new Result(Code.SUCCESS.value(), "添加成功");
 		} catch (Exception e) {
@@ -40,11 +40,12 @@ public class SaftyController {
 	}
 	
 	@RequestMapping(value = "/api/weisite/safty/video/update", method = RequestMethod.POST)
-	public Result update(Long videoId, String title, String path, String content) {
+	public Result update(Long videoId, String title, String videoPath, String imagePath, String content) {
 		try {
 			VideoEntity video = videoService.findOne(videoId);
 			video.setTitle(title);
-			video.setPath(path);
+			video.setVideoPath(videoPath);
+			video.setImagePath(imagePath);
 			video.setContent(content);
 			video.setUpdateTime(new Date());
 			videoService.save(video);
