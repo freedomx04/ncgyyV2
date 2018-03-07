@@ -650,8 +650,6 @@ public class ManagerController {
 		
 		if (mailId != null) {
 			MailEntity mail = mailService.findOne(mailId);
-			String content = commonService.getMailContent(mail.getPath());
-			mail.setContent(content);
 			modelMap.addAttribute("mail", mail);
 		}
 		return "pages/office/mail_add";
@@ -665,10 +663,7 @@ public class ManagerController {
 			mailService.save(mail);
 		}
 		
-		String content = commonService.getMailContent(mail.getPath());
-		mail.setContent(content);
 		modelMap.addAttribute("mail", mail);
-		
 		return "pages/office/mail_get";
 	}
 

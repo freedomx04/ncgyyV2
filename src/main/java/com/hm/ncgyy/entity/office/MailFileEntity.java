@@ -11,33 +11,26 @@ import com.hm.ncgyy.entity.BaseEntity;
 @Entity
 @Table(name = "office_mail_file")
 public class MailFileEntity extends BaseEntity {
-	
-	/**
-	 * 关联邮件
-	 */
+
+	/** 关联邮件 */
 	@Column(name = "mail_id")
 	private Long mailId;
-	
-	/**
-	 * 文件名称
-	 */
+
+	/** 文件名称 */
 	private String filename;
-	
-	/**
-	 * 文件路径
-	 */
+
+	/** 文件路径 */
 	private String filepath;
-	
-	/**
-	 * 文件图标
-	 */
+
+	/** 文件图标 */
 	private String fileIcon;
-	
+
 	public MailFileEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MailFileEntity(Long mailId, String filename, String filepath, String fileIcon, Date createTime, Date updateTime) {
+	public MailFileEntity(Long mailId, String filename, String filepath, String fileIcon, Date createTime,
+			Date updateTime) {
 		super();
 		this.mailId = mailId;
 		this.filename = filename;
@@ -78,5 +71,5 @@ public class MailFileEntity extends BaseEntity {
 	public void setFileIcon(String fileIcon) {
 		this.fileIcon = fileIcon;
 	}
-	
+
 }

@@ -36,7 +36,7 @@ public class MailController {
 
 	@Autowired
 	MailService mailService;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -49,14 +49,13 @@ public class MailController {
 		try {
 			Date now = new Date();
 			UserBaseEntity sender = userService.findOneBase(userId);
-			String path = commonService.saveMail(content);
-			
-			MailEntity mail = new MailEntity(receivers, title, path, sender, now, now);
+
+			MailEntity mail = new MailEntity(receivers, title, sender, now, now);
 			mail.setMailStatus(MailStatus.SEND);
 			mail.setReadStatus(ReadStatus.READ);
 			mail.setSendTime(now);
 			mailService.save(mail);
-			
+
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
@@ -66,17 +65,18 @@ public class MailController {
 			}
 
 			// 发送邮件
-			for (String username: receivers.split(",")) {
+			for (String username : receivers.split(",")) {
 				UserBaseEntity receiver = userService.findByUsernameBase(username);
-				MailEntity receiveMail = new MailEntity(receivers, title, path, sender, receiver, now, now, now);
+				MailEntity receiveMail = new MailEntity(receivers, title, sender, receiver, now, now, now);
 				receiveMail.setMailStatus(MailStatus.RECEIVE);
 				mailService.save(receiveMail);
-				
-				for (String attachment: attachmentList) {
+
+				for (String attachment : attachmentList) {
 					String filename = StringUtils.split(attachment, "?")[0];
 					String filepath = StringUtils.split(attachment, "?")[1];
 					String fileIcon = CommonUtils.getIcon(filename);
-					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now, now);
+					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now,
+							now);
 					mailService.saveFile(mailFile);
 				}
 			}
@@ -94,8 +94,7 @@ public class MailController {
 		try {
 			UserBaseEntity sender = userService.findOneBase(userId);
 			Date now = new Date();
-			String path = commonService.saveMail(content);
-			MailEntity mail = new MailEntity(receivers, title, path, sender, now, now);
+			MailEntity mail = new MailEntity(receivers, title, sender, now, now);
 			mail.setMailStatus(MailStatus.DRAFT);
 			mail.setReadStatus(ReadStatus.READ);
 			mailService.save(mail);
@@ -123,7 +122,7 @@ public class MailController {
 			MailEntity mail = mailService.findOne(mailId);
 			mail.setReceivers(receivers);
 			mail.setTitle(title);
-			commonService.updateMail(mail.getPath(), content);
+			mail.setContent(content);
 			mail.setUpdateTime(now);
 			mailService.save(mail);
 
@@ -141,20 +140,21 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/draftSend", method = RequestMethod.POST)
-	public Result draftSend(Long mailId, String receivers, String title, String content, @RequestParam("attachmentList") List<String> attachmentList) {
+	public Result draftSend(Long mailId, String receivers, String title, String content,
+			@RequestParam("attachmentList") List<String> attachmentList) {
 		try {
 			Date now = new Date();
 			MailEntity mail = mailService.findOne(mailId);
 			mail.setReceivers(receivers);
 			mail.setTitle(title);
-			commonService.updateMail(mail.getPath(), content);
+			mail.setContent(content);
 			mail.setMailStatus(MailStatus.SEND);
 			mail.setUpdateTime(now);
 			mail.setSendTime(now);
 			mailService.save(mail);
-			
+
 			for (String attachment : attachmentList) {
 				String filename = StringUtils.split(attachment, "?")[0];
 				String filepath = StringUtils.split(attachment, "?")[1];
@@ -162,23 +162,24 @@ public class MailController {
 				MailFileEntity mailFile = new MailFileEntity(mail.getId(), filename, filepath, fileIcon, now, now);
 				mailService.saveFile(mailFile);
 			}
-			
+
 			// 发送邮件
-			for (String username: receivers.split(",")) {
+			for (String username : receivers.split(",")) {
 				UserBaseEntity receiver = userService.findByUsernameBase(username);
-				MailEntity receiveMail = new MailEntity(receivers, title, mail.getPath(), mail.getSender(), receiver, now, now, now);
+				MailEntity receiveMail = new MailEntity(receivers, title, mail.getSender(), receiver, now, now, now);
 				receiveMail.setMailStatus(MailStatus.RECEIVE);
 				mailService.save(receiveMail);
-				
-				for (String attachment: attachmentList) {
+
+				for (String attachment : attachmentList) {
 					String filename = StringUtils.split(attachment, "?")[0];
 					String filepath = StringUtils.split(attachment, "?")[1];
 					String fileIcon = CommonUtils.getIcon(filename);
-					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now, now);
+					MailFileEntity mailFile = new MailFileEntity(receiveMail.getId(), filename, filepath, fileIcon, now,
+							now);
 					mailService.saveFile(mailFile);
 				}
 			}
-			
+
 			return new Result(Code.SUCCESS.value(), "send success");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -240,11 +241,11 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/delete")
 	public Result delete(@RequestParam("mailIdList[]") List<Long> mailIdList) {
 		try {
-			for (Long mailId: mailIdList) {
+			for (Long mailId : mailIdList) {
 				MailEntity mail = mailService.findOne(mailId);
 				mail.setDeleteStatus(DeleteStatus.DELETED);
 				mailService.save(mail);
@@ -255,14 +256,14 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/deleteCompletely")
 	public Result deleteCompletely(@RequestParam("mailIdList[]") List<Long> mailIdList) {
 		try {
-			for (Long mailId: mailIdList) {
+			for (Long mailId : mailIdList) {
 				MailEntity mail = mailService.findOne(mailId);
 				List<MailFileEntity> fileList = mail.getFileList();
-				for (MailFileEntity file: fileList) {
+				for (MailFileEntity file : fileList) {
 					commonService.deleteFile(file.getFilepath());
 					mailService.deleteFile(file);
 				}
@@ -274,11 +275,11 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/point")
 	public Result point(@RequestParam("mailIdList[]") List<Long> mailIdList) {
 		try {
-			for (Long mailId: mailIdList) {
+			for (Long mailId : mailIdList) {
 				MailEntity mail = mailService.findOne(mailId);
 				mail.setPointStatus(PointStatus.POINT);
 				mailService.save(mail);
@@ -289,11 +290,11 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/unpoint")
 	public Result unpoint(@RequestParam("mailIdList[]") List<Long> mailIdList) {
 		try {
-			for (Long mailId: mailIdList) {
+			for (Long mailId : mailIdList) {
 				MailEntity mail = mailService.findOne(mailId);
 				mail.setPointStatus(PointStatus.UNPOINT);
 				mailService.save(mail);
@@ -304,11 +305,11 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/recovery")
 	public Result read(@RequestParam("mailIdList[]") List<Long> mailIdList) {
 		try {
-			for (Long mailId: mailIdList) {
+			for (Long mailId : mailIdList) {
 				MailEntity mail = mailService.findOne(mailId);
 				mail.setDeleteStatus(DeleteStatus.NOT_DELETE);
 				mailService.save(mail);
@@ -319,38 +320,38 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/unread")
 	public Result unread(Long userId) {
 		try {
 			Integer unread_inbox = 0;
 			Integer unread_point = 0;
 			Integer unread_delete = 0;
-			
+
 			// 收件箱未读
 			List<MailEntity> inboxList = mailService.listInbox(userId);
-			for (MailEntity mail: inboxList) {
+			for (MailEntity mail : inboxList) {
 				if (mail.getReadStatus() == ReadStatus.UNREAD) {
-					unread_inbox ++;
+					unread_inbox++;
 				}
 			}
-			
+
 			// 星标邮件未读
 			List<MailEntity> pointList = mailService.listPoint(userId);
-			for (MailEntity mail: pointList) {
+			for (MailEntity mail : pointList) {
 				if (mail.getReadStatus() == ReadStatus.UNREAD) {
-					unread_point ++;
+					unread_point++;
 				}
 			}
-			
+
 			// 已删除未读
 			List<MailEntity> deleteList = mailService.listDelete(userId);
-			for (MailEntity mail: deleteList) {
+			for (MailEntity mail : deleteList) {
 				if (mail.getReadStatus() == ReadStatus.UNREAD) {
-					unread_delete ++;
+					unread_delete++;
 				}
 			}
-			
+
 			List<Integer> ret = new LinkedList<>();
 			ret.add(unread_inbox);
 			ret.add(unread_point);
@@ -361,26 +362,26 @@ public class MailController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/inboxUnread")
 	public Result inboxUnread(Long userId) {
 		try {
 			List<MailEntity> retList = new LinkedList<>();
-			
+
 			List<MailEntity> inboxList = mailService.listInbox(userId);
-			for (MailEntity mail: inboxList) {
+			for (MailEntity mail : inboxList) {
 				if (mail.getReadStatus() == ReadStatus.UNREAD) {
 					retList.add(mail);
 				}
 			}
-			
+
 			return new ResultInfo(Code.SUCCESS.value(), "ok", retList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/mail/search")
 	public Result search(Long userId, String input, String type) {
 		List<MailEntity> list = new ArrayList<MailEntity>();
@@ -400,7 +401,7 @@ public class MailController {
 				break;
 			case "delete":
 				list = mailService.searchDelete(userId, input);
-				
+
 			}
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {

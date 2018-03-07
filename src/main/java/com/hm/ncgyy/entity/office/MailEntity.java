@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
@@ -17,10 +18,9 @@ import com.hm.ncgyy.entity.authority.UserBaseEntity;
 
 @Entity
 @Table(name = "office_mail", indexes = {
-	@Index(name = "index_office_mail_1", columnList = "receiver_id, mailStatus, deleteStatus, updateTime"),
-	@Index(name = "index_office_mail_2", columnList = "receiver_id, mailStatus, pointStatus, deleteStatus, updateTime"),
-	@Index(name = "index_office_mail_3", columnList = "sender_id, mailStatus, deleteStatus, updateTime")
-})
+		@Index(name = "index_office_mail_1", columnList = "receiver_id, mailStatus, deleteStatus, updateTime"),
+		@Index(name = "index_office_mail_2", columnList = "receiver_id, mailStatus, pointStatus, deleteStatus, updateTime"),
+		@Index(name = "index_office_mail_3", columnList = "sender_id, mailStatus, deleteStatus, updateTime") })
 public class MailEntity extends BaseEntity {
 
 	public class MailStatus {
@@ -45,70 +45,44 @@ public class MailEntity extends BaseEntity {
 		public static final int DELETED = 1; // 已删除
 	}
 
-	/**
-	 * 收件人（多个,以','隔开）
-	 */
+	/** 收件人（多个,以','隔开） */
 	private String receivers;
 
-	/**
-	 * 邮件标题
-	 */
+	/** 邮件标题 */
 	private String title;
 
-	/**
-	 * 邮件内容路径
-	 */
-	private String path;
-
-	/**
-	 * 邮件内容
-	 */
+	/** 邮件内容 */
+	@Column(length = 16777216)
 	private String content;
 
-	/**
-	 * 附件
-	 */
+	/** 附件 */
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mail_id")
 	private List<MailFileEntity> fileList = new LinkedList<>();
 
-	/**
-	 * 发件人
-	 */
+	/** 发件人 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "sender_id")
 	private UserBaseEntity sender;
 
-	/**
-	 * 收件人
-	 */
+	/** 收件人 */
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "receiver_id")
 	private UserBaseEntity receiver;
 
-	/**
-	 * 邮件状态
-	 */
+	/** 邮件状态 */
 	private Integer mailStatus = MailStatus.NEW;
 
-	/**
-	 * 发送时间
-	 */
+	/** 发送时间 */
 	private Date sendTime;
 
-	/**
-	 * 重点状态
-	 */
+	/** 重点状态 */
 	private Integer pointStatus = PointStatus.UNPOINT;
 
-	/**
-	 * 已读状态
-	 */
+	/** 已读状态 */
 	private Integer readStatus = ReadStatus.UNREAD;
 
-	/**
-	 * 删除状态
-	 */
+	/** 删除状态 */
 	private Integer deleteStatus = DeleteStatus.NOT_DELETE;
 
 	public MailEntity() {
@@ -116,23 +90,20 @@ public class MailEntity extends BaseEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MailEntity(String receivers, String title, String path, UserBaseEntity sender, Date createTime,
-			Date updateTime) {
+	public MailEntity(String receivers, String title, UserBaseEntity sender, Date createTime, Date updateTime) {
 		super();
 		this.receivers = receivers;
 		this.title = title;
-		this.path = path;
 		this.sender = sender;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
 
-	public MailEntity(String receivers, String title, String path, UserBaseEntity sender, UserBaseEntity receiver,
-			Date sendTime, Date createTime, Date updateTime) {
+	public MailEntity(String receivers, String title, UserBaseEntity sender, UserBaseEntity receiver, Date sendTime,
+			Date createTime, Date updateTime) {
 		super();
 		this.receivers = receivers;
 		this.title = title;
-		this.path = path;
 		this.sender = sender;
 		this.receiver = receiver;
 		this.sendTime = sendTime;
@@ -154,14 +125,6 @@ public class MailEntity extends BaseEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
 	}
 
 	public String getContent() {

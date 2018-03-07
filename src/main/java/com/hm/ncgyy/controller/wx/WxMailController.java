@@ -78,12 +78,9 @@ public class WxMailController {
 			mailService.save(mail);
 		}
 		
-		String content = commonService.getMailContent(mail.getPath());
-		mail.setContent(content);
 		modelMap.addAttribute("mail", mail);
 		modelMap.addAttribute("type", type);
 		modelMap.addAttribute("userId", userId);
-		
 		return "wx/office/mail_info";
 	}
 }
