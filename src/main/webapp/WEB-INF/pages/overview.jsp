@@ -31,7 +31,7 @@
 							<p style="color: #999; margin-bottom: 0;">上次登录时间：<fmt:formatDate value="${latestLogin.createTime}" pattern="yyyy-MM-dd HH:mm"/></p>
 						</div>
 						<div style="display: table-cell; vertical-align: middle; padding-left: 10px;">
-							<a href="javascript:;" class="btn btn-outline btn-primary btn-sm openPage" data-menu="personalInfo">个人资料</a>
+							<a href="javascript:;" class="btn btn-outline btn-primary btn-sm openPage" data-menu="${ctx}/personal/info">个人资料</a>
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					<div class="ibox-content">
 						<span style="display: block; margin-bottom: 15px;">
 							以下为您最近${fn:length(loginList)}次登录记录，若存在异常情况，请在核实后尽快
-							<a href="javascript:;" class="openPage" data-menu="modifyPassword"> 修改密码</a>
+							<a href="javascript:;" class="openPage" data-menu="${ctx}/personal/password"> 修改密码</a>
 						</span>
 						<table class="table-hm table text-center" data-mobile-responsive="true" style="margin-bottom: 0;">
 							<thead>
