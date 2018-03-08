@@ -15,8 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/sweetalert/sweetalert.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
-	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
 </head>
 

@@ -54,6 +54,9 @@ public class CommonController {
 	@Value("${customize.path.attachment}")
 	private String attachmentPath;
 	
+	@Value("${customize.path.file}")
+	private String filePath;
+	
 	@Value("${customize.path.image}")
 	private String imageFormat;
 	
@@ -171,6 +174,11 @@ public class CommonController {
 		}
 	}
 	
+	/**
+	 * 图片上传
+	 * @param imageFile
+	 * @return
+	 */
 	@RequestMapping(value = "/api/uploadImage", method = RequestMethod.POST)
 	public Result uploadImage(MultipartFile imageFile) {
 		try {
@@ -192,6 +200,38 @@ public class CommonController {
 			bout.close();
 			
 			return new ResultInfo(Code.SUCCESS.value(), "upload", tarPath);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	/**
+	 * 文件上传
+	 * @param uploadFile
+	 * @return
+	 */
+	@RequestMapping(value = "/api/file/upload", method = RequestMethod.POST)
+	public Result file_upload(MultipartFile uploadFile) {
+		try {
+			if (uploadFile == null) {
+				return null;
+			}
+			
+			String filename = uploadFile.getOriginalFilename();
+			String suffix = FileUtil.getSuffix(filename);
+			
+			String tarPath = filePath + suffix;
+			tarPath = PathFormat.parse(tarPath);
+			
+			File file = Paths.get(uploadPath, tarPath).toFile();
+			FileUtil.sureDirExists(file, true);
+			
+			BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(file));
+			IOUtils.copy(uploadFile.getInputStream(), bout);
+			bout.close();
+			
+			return new ResultInfo(Code.SUCCESS.value(), "updated", tarPath);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
