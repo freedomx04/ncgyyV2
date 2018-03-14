@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 
 <link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
-<link rel="stylesheet" type="text/css" href="${ctx}/local/service.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/local/index.css">
 
 <style type="text/css">
 .pagination-info {

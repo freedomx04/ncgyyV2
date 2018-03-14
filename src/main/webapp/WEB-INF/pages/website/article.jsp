@@ -203,7 +203,7 @@
                             }, function() {
                                 var articleId = row.id;
                                 $.ajax({
-                                    url: '${ctx}/api/article/delete',
+                                    url: '${ctx}/api/website/article/delete',
                                     data: { 
                                         articleId: articleId
                                     },
@@ -249,7 +249,7 @@
 			}, function() {
 				var rows = $table.bootstrapTable('getSelections');
 				$.ajax({
-					url: '${ctx}/api/article/batchDelete',
+					url: '${ctx}/api/website/article/batchDelete',
 					data: {
 						articleIdList: $k.util.getIdList(rows) 
 					},
