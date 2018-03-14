@@ -32,6 +32,7 @@ import com.hm.ncgyy.entity.service.talent.RecruitEntity;
 import com.hm.ncgyy.entity.website.ArticleEntity;
 import com.hm.ncgyy.entity.website.ItemEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
+import com.hm.ncgyy.entity.website.VideoEntity;
 import com.hm.ncgyy.service.CommonService;
 import com.hm.ncgyy.service.assist.AppealService;
 import com.hm.ncgyy.service.authority.EnterpriseService;
@@ -50,6 +51,7 @@ import com.hm.ncgyy.service.service.talent.RecruitService;
 import com.hm.ncgyy.service.website.ArticleService;
 import com.hm.ncgyy.service.website.ItemService;
 import com.hm.ncgyy.service.website.VersionService;
+import com.hm.ncgyy.service.website.VideoService;
 
 @Controller
 public class PageController {
@@ -110,6 +112,9 @@ public class PageController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	VideoService videoService;
+	
 	@RequestMapping(value = { "/", "/index" })
 	String index(ModelMap modelMap) {
 		Page<ArticleEntity> list = null;
@@ -119,7 +124,7 @@ public class PageController {
 		modelMap.addAttribute("photonewsList", list.getContent());
 
 		// 公示公告
-		list = articleService.listByType(2, 0, 8);
+		list = articleService.listByType(2, 0, 6);
 		modelMap.addAttribute("announceList", list.getContent());
 
 		// 政策法规
@@ -130,10 +135,6 @@ public class PageController {
 		list = articleService.listByType(4, 0, 5);
 		modelMap.addAttribute("overviewList", list.getContent());
 		
-		// 安全生产
-		list = articleService.listByType(20, 0, 8);
-		modelMap.addAttribute("saftyList", list.getContent());
-
 		// 企业信息
 		Page<EnterpriseBaseEntity> enterprisePage = enterpriseService.listBase(0, 20);
 		modelMap.addAttribute("enterpriseList", enterprisePage.getContent());
@@ -141,11 +142,43 @@ public class PageController {
 		// 产品信息
 		List<ProductEntity> productList = productService.listPaging(0, 20);
 		modelMap.addAttribute("productList", productList);
+		
+		// 安全生产
+		list = articleService.listByType(20, 0, 5);
+		modelMap.addAttribute("saftyList", list.getContent());
+		
+		Page<VideoEntity> videoPage = videoService.listPaging(0, 1);
+		modelMap.addAttribute("video", videoPage.getContent().get(0));
 
 		// 帮扶平台
 		Page<AppealEntity> appealPage = appealService.listPaging(0, 5);
 		modelMap.addAttribute("appealList", appealPage.getContent());
-
+		
+		// 服务平台
+		Page<RecruitEntity> recruitPage = recruitService.list(0, 5);
+		modelMap.addAttribute("recruitList", recruitPage.getContent());
+		
+		Page<JobEntity> jobPage = jobService.list(0, 5);
+		modelMap.addAttribute("jobList", jobPage.getContent());
+		
+		Page<ServiceEntity> servicePage = serviceService.list(0, 5);
+		modelMap.addAttribute("serviceList", servicePage.getContent());
+		
+		Page<DemandEntity> demandPage = demandService.list(0, 5);
+		modelMap.addAttribute("demandList", demandPage.getContent());
+		
+		Page<FinancingEntity> financingPage = financingService.list(0, 5);
+		modelMap.addAttribute("financingList", financingPage.getContent());
+		
+		Page<InvestEntity> investPage = investService.list(0, 5);
+		modelMap.addAttribute("investList", investPage.getContent());
+		
+		Page<LineEntity> linePage = lineService.list(0, 5);
+		modelMap.addAttribute("lineList", linePage.getContent());
+		
+		Page<SupplyEntity> supplyPage = supplyService.list(0, 5);
+		modelMap.addAttribute("supplyList", supplyPage.getContent());
+		
 		return "index";
 	}
 

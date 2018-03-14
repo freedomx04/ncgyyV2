@@ -41,6 +41,8 @@ a:HOVER {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+/** tab */
 .tabs-container .nav-tabs>li>a {
 	font-size: 16px;
 	font-weight: normal;
@@ -52,6 +54,7 @@ a:HOVER {
 	border-bottom: 2px solid #e94e38;
 	color: #e94e38;
 }
+
 .main .service-item {
 	padding: 20px;
 	border-bottom: 1px solid #e7e7e7;

@@ -39,6 +39,9 @@
 					<a class="index-product" href="${ctx}/product" target="_blank">产品宣传</a>
 				</li>
 				<li>
+					<a class="index-safty" href="${ctx}/safty" target="_blank">安全生产</a>
+				</li>
+				<li>
 					<a class="index-assist" href="${ctx}/assist" target="_blank">帮扶平台</a>
 				</li>
 				<li>
