@@ -85,6 +85,15 @@ public class EnterpriseEntity extends BaseEntity {
 	/** 重点企业标识 */
     private Integer pointStatus = PointStatus.UNPOINT;
     
+    /** 网站*/
+    private String website;
+    
+    /** 传真 */
+    private String fax;
+    
+    /** 邮箱 */
+    private String email;
+    
     /** 企业产品 */
     @OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enterprise_id")
@@ -275,6 +284,30 @@ public class EnterpriseEntity extends BaseEntity {
 
 	public void setNewsList(List<NewsEntity> newsList) {
 		this.newsList = newsList;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	} 
 	
 }

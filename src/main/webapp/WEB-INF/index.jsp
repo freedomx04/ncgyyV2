@@ -23,6 +23,7 @@
 	}
 	.index-title h2 {
 		font-size: 20px;
+		padding-left: 10px;
 	}
 	.index-title a {
 		font-size: 14px;
@@ -65,6 +66,31 @@
 		background: #eee;
 		width: 100%;
 		padding: 10px;
+	}
+	
+	/** enterprise */
+	.enterprise-block {
+		padding: 20px 40px;
+		border: 1px solid #eee;
+	}
+	.enterprise-block .enterprise-title {
+		font-size: 20px;
+		margin-bottom: 5px;
+	}
+	.enterprise-block p {
+		margin: 0;
+		line-height: 2em;
+	}
+	.enterprise-block .enterprise-classify {
+		font-weight: 600;
+		margin-right: 15px;
+	}
+	.enterprise-block .enterprise-avatar {
+		position: absolute;
+		top: 30px;
+		right: 20px;
+		width: 160px;
+		height: 160px;
 	}
 	
 	/** service */
@@ -180,35 +206,41 @@
 		</div>
 	</div>
 	
-	<!-- <div class="main">
+	<!-- 企业宣传 -->
+	<div class="main">
 		<div class="container">
 			<div class="row white-bg">
-				<div class="col-sm-6">
+				<div class="col-sm-12">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>政策法规<a href="#" class="pull-right">更多></a></h2>
+							<h2>企业名片<a href="#" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
-							
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-sm-6">
-					<div class="index-block">
-						<div class="index-title">
-							<h2>工业信息<a href="#" class="pull-right">更多></a></h2>
-						</div>
-						<div class="index-content">
-							
+							<div class="swiper-container swiper-enterprise" style="height: 220px;">
+								<div class="swiper-wrapper">
+									<c:forEach var="enterprise" items="${enterpriseList}">
+										<div class="swiper-slide enterprise-block">
+											<p class="enterprise-title"><a href="#">${enterprise.name}</a></p>
+											<p><span class="enterprise-classify">所属园区</span><span>${enterprise.area.name}</span></p>
+											<p><span class="enterprise-classify">行业类别</span><span>${enterprise.industry.name}</span></p>
+											<p><span class="enterprise-classify">主要产品</span><span>${enterprise.mainProduct}</span></p>
+											<p><span class="enterprise-classify">企业地址</span><span>${enterprise.address}</span></p>
+											<p><span class="enterprise-classify">联系电话</span><span>${enterprise.telephone}</span></p>
+											<img class="enterprise-avatar" src="${ctx}/api/avatar/${enterprise.avatar}">
+										</div>
+									</c:forEach>
+								</div>
+								<div class="swiper-button-prev"></div>
+    							<div class="swiper-button-next"></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>  -->
+	</div>  
 	
-	<!-- 企业宣传，产品宣传 -->
+	<!-- 产品宣传 -->
 	<div class="main">
 		<div class="container">
 			<div class="row white-bg">
@@ -266,6 +298,112 @@
 						</div>
 						<div class="index-content">
 							<div id="saftyVideo"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 帮扶平台 -->
+	<div class="main main-assist">
+		<div class="container">
+			<div class="row white-bg">
+				<div class="col-sm-12">
+					<div class="index-block">
+						<div class="index-title">
+							<h2>诉求列表<a href="#" class="pull-right">更多></a></h2>
+						</div>
+						<div class="index-content">
+							<table class="table">
+								<thead>
+									<tr>
+										<td>诉求名称</td>
+										<td>诉求企业</td>
+										<td>诉求状态</td>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="appeal" items="${appealList}">
+										<tr>
+											<td><a href="#">${appeal.title}</a></td>
+											<td>${appeal.enterprise.name}</td>
+											<c:choose>
+												<c:when test="${appeal.status==0}"><td>待发送</td></c:when>
+												<c:when test="${appeal.status==1}"><td>待派发</td></c:when>
+												<c:when test="${appeal.status==2}"><td>待受理</td></c:when>
+												<c:when test="${appeal.status==3}"><td>处理中</td></c:when>
+												<c:when test="${appeal.status==4}"><td>待确认</td></c:when>
+												<c:when test="${appeal.status==5}"><td>已确认</td></c:when>
+												<c:when test="${appeal.status==6}"><td>已驳回</td></c:when>
+											</c:choose>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 招商管理 -->
+	<div class="main main-business">
+		<div class="container">
+			<div class="row white-bg">
+				<div class="col-sm-6">
+					<div class="index-block">
+						<div class="index-title">
+							<h2>招商动态<a href="#" class="pull-right">更多></a></h2>
+						</div>
+						<div class="index-content">
+							<ul class="list-unstyled">
+								<c:forEach var="dynamic" items="${businessDynamicList}">
+									<li class="text-ellipsis">
+										<a href="#" target="_blank">${dynamic.title}</a>
+										<span class="index-time"><fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy/MM/dd"/></span>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-6">
+					<div class="index-block">
+						<div class="index-title">
+							<h2>招商政策<a href="#" class="pull-right">更多></a></h2>
+						</div>
+						<div class="index-content">
+							<ul class="list-unstyled">
+								<c:forEach var="policy" items="${businessPolicyList}">
+									<li class="text-ellipsis">
+										<a href="#" target="_blank">${policy.title}</a>
+										<span class="index-time"><fmt:formatDate value="${policy.updateTime}" pattern="yyyy/MM/dd"/></span>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row white-bg">
+				<div class="col-sm-12">
+					<div class="index-block">
+						<div class="index-title">
+							<h2>招商项目<a href="#" class="pull-right">更多></a></h2>
+						</div>
+						<div class="index-content">
+							<ul class="list-unstyled">
+								<c:forEach var="item" items="${itemList}">
+									<li class="text-ellipsis">
+										<a href="#" target="_blank">${item.name}</a>
+										<span class="index-time"><fmt:formatDate value="${item.updateTime}" pattern="yyyy/MM/dd"/></span>
+									</li>
+								</c:forEach>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -448,6 +586,7 @@
 	
 	<script type="text/javascript" src="${ctx}/plugins/swiper/js/swiper.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
+	
 	<script type="text/javascript" src="${ctx}/plugins/jwplayer/jwplayer.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/jwplayer/jwplayer.controls.js"></script>
 	<script>jwplayer.key="1XjAHokrtWKykp8f4kSZSg4wQI0BgQlvblMGKA==";</script>  
@@ -467,6 +606,18 @@
 		      nextEl: '.swiper-button-next',
 		      prevEl: '.swiper-button-prev',
 		    },
+		});
+		
+		// 企业列表
+		new Swiper('.swiper-enterprise', {
+			loop: true,
+			navigation: {
+		      nextEl: '.swiper-button-next',
+		      prevEl: '.swiper-button-prev',
+		    },
+			spaceBetween: 20,
+			width: 560,
+			height: 150
 		});
 		
 		// 产品宣传

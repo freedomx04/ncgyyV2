@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
-import com.hm.ncgyy.entity.authority.EnterpriseBaseEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
 import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
@@ -136,7 +135,7 @@ public class PageController {
 		modelMap.addAttribute("overviewList", list.getContent());
 		
 		// 企业信息
-		Page<EnterpriseBaseEntity> enterprisePage = enterpriseService.listBase(0, 20);
+		Page<EnterpriseEntity> enterprisePage = enterpriseService.list(0, 20);
 		modelMap.addAttribute("enterpriseList", enterprisePage.getContent());
 
 		// 产品信息
@@ -149,11 +148,21 @@ public class PageController {
 		
 		Page<VideoEntity> videoPage = videoService.listPaging(0, 1);
 		modelMap.addAttribute("video", videoPage.getContent().get(0));
-
+		
 		// 帮扶平台
 		Page<AppealEntity> appealPage = appealService.listPaging(0, 5);
 		modelMap.addAttribute("appealList", appealPage.getContent());
 		
+		// 招商管理
+		list = articleService.listByType(10, 0, 5);
+		modelMap.addAttribute("businessDynamicList", list.getContent());
+		
+		list = articleService.listByType(11, 0, 5);
+		modelMap.addAttribute("businessPolicyList", list.getContent());
+		
+		Page<ItemEntity> itemPage = itemService.list(0, 5);
+		modelMap.addAttribute("itemList", itemPage.getContent());
+
 		// 服务平台
 		Page<RecruitEntity> recruitPage = recruitService.list(0, 5);
 		modelMap.addAttribute("recruitList", recruitPage.getContent());
