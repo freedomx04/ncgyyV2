@@ -154,7 +154,7 @@ public class ArticleController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/website/article/listPaging")
+	@RequestMapping(value = "/api/website/article/listPaging", method = RequestMethod.POST)
 	public Result listPaging(Integer type, int page, int size) {
 		try {
 			Page<ArticleEntity> list = articleService.listByType(type, page, size);

@@ -342,3 +342,10 @@ function formatDate4(val) {
 	}
 	return undefined;
 }
+
+function formatDate5(val) {
+	if (val) {
+		return new Date(val).Format("yyyy/MM/dd");
+	}
+	return undefined;
+}

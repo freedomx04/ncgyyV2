@@ -13,6 +13,33 @@
 	position: relative;
 	height: 165px;
 }
+html {
+	height: 100%;
+}
+body {
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 160px;
+}
+
+/** pagination */
+.pagination-info {
+	margin: 20px 15px;
+	line-height: 29px;
+}
+.pagination>.active>a, 
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+	background-color: #e94e38;
+	border-color: #e94e38;
+	color: #fff;
+}
+.pagination>li>a, .pagination>li>span {
+	color: #000;
+}
 </style>
 
 <div class="headed-bg hidden-xs"></div>
@@ -67,10 +94,21 @@
 <script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap-paginator/bootstrap-paginator.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="${ctx}/plugins/jquery/url.js"></script>
 <script type="text/javascript" src="${ctx}/local/common.js"></script>
 
 <script type="text/javascript">
 ;(function( $ ) {	
 
+	var type = window.location.pathname;
+	type = type.substring(type.lastIndexOf('/') + 1);
+	
+	var $ul = $('.navbar-nav');
+	switch (type) {
+	case 'news':		$ul.find('.index-news').addClass('current');			break;
+	case 'enterprise':	$ul.find('.index-enterprise').addClass('current');		break;
+	case 'product':		$ul.find('.index-product').addClass('current');			break;
+	}
+	
 })( jQuery );
 </script>

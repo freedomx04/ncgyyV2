@@ -2,6 +2,8 @@
 
 <style type="text/css">
 .footer {
+	position: absolute;
+	bottom: 0;
 	padding-top: 20px;
 	background: #666;
 	width: 100%;

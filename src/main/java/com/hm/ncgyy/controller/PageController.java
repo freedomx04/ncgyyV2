@@ -226,6 +226,22 @@ public class PageController {
 	String init() {
 		return "init";
 	}
+	
+	/**
+	 * 新闻中心
+	 */
+	@RequestMapping(value = "/news")
+	String news() {
+		return "page/news/news_list";
+	}
+	
+	@RequestMapping(value = "/news/get")
+	String news_get(ModelMap modelMap, Long newsid) {
+		ArticleEntity article = articleService.findOne(newsid);
+		modelMap.addAttribute("news", article);
+		return "page/news/news_get";
+	}
+	
 
 	/**
 	 * 新闻页面

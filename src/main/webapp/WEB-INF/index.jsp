@@ -33,7 +33,7 @@
 	}
 	.index-content li {
 		font-size: 16px;
-		margin: 20px 120px 20px 10px;
+		margin: 20px 100px 20px 10px;
 	}
 	.index-content li a:HOVER {
 		text-decoration: underline;
@@ -135,7 +135,7 @@
 						<div class="swiper-wrapper">
 							<c:forEach var="photonews" items="${photonewsList}">
 								<div class="swiper-slide">
-									<a href="#">
+									<a href="${ctx}/news/get?newsid=${photonews.id}" target="_blank">
 										<img src="${ctx}${photonews.imagePath}">
 										<span class="swiper-title text-ellipsis">${photonews.title}</span>
 									</a>
@@ -150,13 +150,13 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>公式公告<a href="#" class="pull-right">更多></a></h2>
+							<h2>公示公告<a href="#" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
 								<c:forEach var="announce" items="${announceList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${announce.title}</a>
+										<a href="${ctx}/news/get?newsid=${announce.id}" target="_blank">${announce.title}</a>
 										<span class="index-time"><fmt:formatDate value="${announce.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -176,7 +176,7 @@
 							<ul class="list-unstyled">
 								<c:forEach var="policy" items="${policyList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${policy.title}</a>
+										<a href="${ctx}/news/get?newsid=${policy.id}" target="_blank">${policy.title}</a>
 										<span class="index-time"><fmt:formatDate value="${policy.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -194,7 +194,7 @@
 							<ul class="list-unstyled">
 								<c:forEach var="overview" items="${overviewList}">
 									<li class="list-unstyled text-ellipsis">
-										<a href="#" target="_blank">${overview.title}</a>
+										<a href="${ctx}/news/get?newsid=${overview.id}" target="_blank">${overview.title}</a>
 										<span class="index-time"><fmt:formatDate value="${overview.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -579,7 +579,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	<!-- footer -->
 	<%@ include file="/WEB-INF/page/footer.jsp"%>
