@@ -40,6 +40,64 @@ body {
 .pagination>li>a, .pagination>li>span {
 	color: #000;
 }
+
+/** tab */
+.main .tabs-container {
+	padding: 10px;
+}
+.main .tabs-container .nav-tabs>li>a {
+	padding: 10px;
+}
+.main .tab-pane {
+	padding: 10px;
+	position: relative;
+}
+.main .tab-content .li-item {
+	list-style: none;
+	font-size: 16px;
+	margin: 20px 100px 20px 10px;
+}
+.main .tab-content .index-time {
+	position: absolute;
+	right: 20px;
+	color: #999;
+}
+
+/** article */
+.article-title {
+	border-bottom: 1px solid #d9d9d9;
+	text-align: center;
+}
+.article-title h2 {
+	font-size: 24px;
+	padding: 30px 20px 10px;
+	margin: 0;
+}
+.article-remark {
+	color: #999;
+	padding: 15px;
+}
+.article-time {
+	margin-right: 20px;
+}
+.article-content {
+	padding: 40px;
+	font-size: 14px;
+	font-family: '宋体';
+	color: #070707;
+	min-height: 400px;
+}
+.article-content img {
+	max-width: 100%!important;
+	height: auto;
+}
+
+/** mobile */
+@media (max-width: 768px) {
+	.article-content {
+		padding: 20px;
+	}
+}
 </style>
 
 <div class="headed-bg hidden-xs"></div>

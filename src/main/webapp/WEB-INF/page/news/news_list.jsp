@@ -8,30 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<title>新闻中心</title>
-	
-	<style type="text/css">
-	.tabs-container {
-		padding: 10px;
-	}
-	.tabs-container .nav-tabs>li>a {
-		padding: 10px;
-	}
-	.tab-pane {
-		padding: 20px 10px;
-		position: relative;
-	}
-	.tab-content .li-item {
-		list-style: none;
-		font-size: 16px;
-		margin: 20px 100px 20px 10px;
-	}
-	.tab-content .index-time {
-		position: absolute;
-		right: 20px;
-		color: #999;
-	}
-	
-	</style>
 </head>
 
 <body class="gray-bg page-news">
@@ -98,7 +74,6 @@
 	<!-- footer -->
 	<%@ include file="/WEB-INF/page/footer.jsp"%>
 	
-	<script type="text/javascript" src="${ctx}/plugins/swiper/js/swiper.min.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript">

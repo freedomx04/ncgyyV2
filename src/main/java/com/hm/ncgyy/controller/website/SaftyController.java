@@ -100,7 +100,7 @@ public class SaftyController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/website/safty/video/listPaging")
+	@RequestMapping(value = "/api/website/safty/video/listPaging", method = RequestMethod.POST)
 	public Result listPaging(int page, int size) {
 		try {
 			Page<VideoEntity> list = videoService.listPaging(page, size);

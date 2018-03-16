@@ -258,14 +258,18 @@ public class PageController {
 		return "page/safty/safty_list";
 	}
 	
-	@RequestMapping(value = "/safty/dynamic")
-	String safty_dynamic() {
-		return "page/safty/safty_dynamic";
+	@RequestMapping(value = "/safty/dynamic/get")
+	String safty_dynamic(ModelMap modelMap, Long dynamicid) {
+		ArticleEntity article = articleService.findOne(dynamicid);
+		modelMap.addAttribute("news", article);
+		return "page/news/news_get";
 	}
 	
-	@RequestMapping(value = "/safty/video")
-	String safty_video() {
-		return "page/safty/safty_video";
+	@RequestMapping(value = "/safty/video/get")
+	String safty_video(ModelMap modelMap, Long videoid) {
+		VideoEntity video = videoService.findOne(videoid);
+		modelMap.addAttribute("video", video);
+		return "page/safty/video_get";
 	}
 	
 	/**
