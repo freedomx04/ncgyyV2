@@ -93,7 +93,7 @@
 									+	'<p><span class="enterprise-classify">主要产品</span><span>' + (enterprise.mainProduct || '') + '</span></p>'
 									+	'<p><span class="enterprise-classify">企业地址</span><span>' + (enterprise.address || '')+ '</span></p>'
 									+	'<p><span class="enterprise-classify">联系电话</span><span>' + (enterprise.telephone || '')+ '</span></p>'
-									+	'<img class="enterprise-avatar" src="${ctx}/api/avatar/' + enterprise.avatar + '">'
+									+	'<img class="enterprise-avatar hidden-xs" src="${ctx}/api/avatar/' + enterprise.avatar + '">'
 									+'</div>';
 								$page.find('.enterprise-list').append($obj);
 							});
