@@ -105,12 +105,16 @@
 	;(function( $ ) {
 		
 		var $page = $('.page-news');
-		var paginatorSize = 5;
+		var paginatorSize = 10;
 		
-		var $photonews = $('#tab-photonews');
-		var $announce = $('#tab-announce');
-		loadNews($photonews, {
-			type: 1,
+		var tab = Url.queryString('tab');
+		if (!tab) {
+			tab = 'photonews';
+		}
+		$page.find('a[data-tab="' + tab + '"]').tab('show');
+		var $tab = $('#tab-' + tab);
+		loadNews($tab, {
+			type: getType(tab),
 			page: 0,
 			size: paginatorSize
 		});

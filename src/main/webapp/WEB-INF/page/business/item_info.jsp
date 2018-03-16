@@ -12,7 +12,7 @@
 
 <body class="gray-bg">
 	<!-- header -->
-	<%@ include file="/WEB-INF/pages/portal/business/header.jsp"%>
+	<%@ include file="/WEB-INF/page/business/header.jsp"%>
 	
 	<div class="main animated fadeInRight">
 		<div class="container">

@@ -150,7 +150,7 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>公示公告<a href="#" class="pull-right">更多></a></h2>
+							<h2>公示公告<a href="${ctx}/news?tab=announce" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
@@ -170,7 +170,7 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>政策法规<a href="#" class="pull-right">更多></a></h2>
+							<h2>政策法规<a href="${ctx}/news?tab=policy" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
@@ -188,7 +188,7 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>工业信息<a href="#" class="pull-right">更多></a></h2>
+							<h2>工业信息<a href="${ctx}/news?tab=overview" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
@@ -355,13 +355,13 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>招商动态<a href="#" class="pull-right">更多></a></h2>
+							<h2>招商动态<a href="${ctx}/business/dynamic" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
 								<c:forEach var="dynamic" items="${businessDynamicList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${dynamic.title}</a>
+										<a href="${ctx}/business/dynamic/info?dynamicId=${dynamic.id}" target="_blank">${dynamic.title}</a>
 										<span class="index-time"><fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -373,13 +373,13 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>招商政策<a href="#" class="pull-right">更多></a></h2>
+							<h2>招商政策<a href="${ctx}/business/policy" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
 								<c:forEach var="policy" items="${businessPolicyList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${policy.title}</a>
+										<a href="${ctx}/business/policy/info?policyId=${policy.id}" target="_blank">${policy.title}</a>
 										<span class="index-time"><fmt:formatDate value="${policy.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -393,13 +393,13 @@
 				<div class="col-sm-12">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>招商项目<a href="#" class="pull-right">更多></a></h2>
+							<h2>招商项目<a href="${ctx}/business/item" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
 								<c:forEach var="item" items="${itemList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${item.name}</a>
+										<a href="${ctx}/business/item/info?itemId=${item.id}" target="_blank">${item.name}</a>
 										<span class="index-time"><fmt:formatDate value="${item.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -426,14 +426,14 @@
 								<li>
 									<a data-toggle="tab" href="#tab-job" aria-expanded="true">找人才</a>
 								</li>
-								<a class="service-more">更多></a>
+								<a href="${ctx}/service/talent" target="_blank" class="service-more">更多></a>
 							</ul>
 							<div class="tab-content index-content">
 								<div id="tab-recruit" class="tab-pane active">
 									<ul class="list-unstyled">
 										<c:forEach var="recruit" items="${recruitList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${recruit.position}</a>
+												<a href="${ctx}/service/talent/recruit/info?recruitId=${recruit.id}" target="_blank">${recruit.position}</a>
 												<span class="index-time"><fmt:formatDate value="${recruit.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -444,7 +444,7 @@
 									<ul class="list-unstyled">
 										<c:forEach var="job" items="${jobList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${job.intention}</a>
+												<a href="${ctx}/service/talent/job/info?jobId=${job.id}" target="_blank">${job.intention}</a>
 												<span class="index-time"><fmt:formatDate value="${job.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -466,14 +466,14 @@
 								<li>
 									<a data-toggle="tab" href="#tab-demand" aria-expanded="true">找需求</a>
 								</li>
-								<a class="service-more">更多></a>
+								<a href="${ctx}/service/information" target="_blank" class="service-more">更多></a>
 							</ul>
 							<div class="tab-content index-content">
 								<div id="tab-service" class="tab-pane active">
 									<ul class="list-unstyled">
 										<c:forEach var="service" items="${serviceList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${service.title}</a>
+												<a href="${ctx}/service/information/service/info?serviceId=${service.id}" target="_blank">${service.title}</a>
 												<span class="index-time"><fmt:formatDate value="${service.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -484,7 +484,7 @@
 									<ul class="list-unstyled">
 										<c:forEach var="demand" items="${demandList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${demand.title}</a>
+												<a href="${ctx}/service/information/demand/info?demandId=${demand.id}" target="_blank">${demand.title}</a>
 												<span class="index-time"><fmt:formatDate value="${demand.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -508,14 +508,14 @@
 								<li>
 									<a data-toggle="tab" href="#tab-invest" aria-expanded="true">找项目</a>
 								</li>
-								<a class="service-more">更多></a>
+								<a href="${ctx}/service/financing" target="_blank" class="service-more">更多></a>
 							</ul>
 							<div class="tab-content index-content">
 								<div id="tab-financing" class="tab-pane active">
 									<ul class="list-unstyled">
 										<c:forEach var="financing" items="${financingList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${financing.title}</a>
+												<a href="${ctx}/service/financing/financing/info?financingId=${financing.id}" target="_blank">${financing.title}</a>
 												<span class="index-time"><fmt:formatDate value="${financing.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -526,7 +526,7 @@
 									<ul class="list-unstyled">
 										<c:forEach var="invest" items="${investList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${invest.title}</a>
+												<a href="${ctx}/service/financing/invest/info?investId=${invest.id}" target="_blank">${invest.title}</a>
 												<span class="index-time"><fmt:formatDate value="${invest.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -548,14 +548,14 @@
 								<li>
 									<a data-toggle="tab" href="#tab-supply" aria-expanded="true">货源信息</a>
 								</li>
-								<a class="service-more">更多></a>
+								<a href="${ctx}/service/logistics" target="_blank" class="service-more">更多></a>
 							</ul>
 							<div class="tab-content index-content">
 								<div id="tab-line" class="tab-pane active">
 									<ul class="list-unstyled">
 										<c:forEach var="line" items="${lineList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${line.origin} - ${line.destination}</a>
+												<a href="${ctx}/service/logistics/line/info?lineId=${line.id}" target="_blank">${line.origin} - ${line.destination}</a>
 												<span class="index-time"><fmt:formatDate value="${line.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>
@@ -566,7 +566,7 @@
 									<ul class="list-unstyled">
 										<c:forEach var="supply" items="${supplyList}">
 											<li class="list-unstyled text-ellipsis">
-												<a href="#" target="_blank">${supply.origin} - ${supply.destination}</a>
+												<a href="${ctx}/service/logistics/supply/info?supplyId=${supply.id}" target="_blank">${supply.origin} - ${supply.destination}</a>
 												<span class="index-time"><fmt:formatDate value="${supply.updateTime}" pattern="yyyy/MM/dd"/></span>
 											</li>
 										</c:forEach>

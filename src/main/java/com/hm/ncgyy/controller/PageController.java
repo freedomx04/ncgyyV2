@@ -242,6 +242,190 @@ public class PageController {
 		return "page/news/news_get";
 	}
 	
+	/**
+	 * 企业宣传
+	 */
+	
+	/**
+	 * 产品宣传
+	 */
+	
+	/**
+	 * 安全生产
+	 */
+	@RequestMapping(value = "/safty")
+	String safty() {
+		return "page/safty/safty_list";
+	}
+	
+	@RequestMapping(value = "/safty/dynamic")
+	String safty_dynamic() {
+		return "page/safty/safty_dynamic";
+	}
+	
+	@RequestMapping(value = "/safty/video")
+	String safty_video() {
+		return "page/safty/safty_video";
+	}
+	
+	/**
+	 * 诉求列表
+	 */
+	
+	/**
+	 * 招商管理
+	 */
+	@RequestMapping(value = "/business")
+	String business(ModelMap modelMap) {
+		Page<ArticleEntity> dynamics = articleService.listByType(10, 0, 5);
+		modelMap.addAttribute("dynamics", dynamics.getContent());
+
+		Page<ArticleEntity> policys = articleService.listByType(11, 0, 5);
+		modelMap.addAttribute("policys", policys.getContent());
+
+		Page<ItemEntity> businesss = itemService.list(0, 5);
+		modelMap.addAttribute("businesss", businesss.getContent());
+		return "page/business/business";
+	}
+
+	@RequestMapping(value = "/business/dynamic")
+	String business_dynamic(ModelMap modelMap) {
+		return "page/business/dynamic";
+	}
+
+	@RequestMapping(value = "/business/dynamic/info")
+	String dynamic_info(ModelMap model, Long dynamicId) {
+		ArticleEntity dynamic = articleService.findOne(dynamicId);
+		model.addAttribute("dynamic", dynamic);
+		return "page/business/dynamic_info";
+	}
+
+	@RequestMapping(value = "/business/policy")
+	String business_policy(ModelMap modelMap) {
+		return "page/business/policy";
+	}
+
+	@RequestMapping(value = "/business/policy/info")
+	String policy_info(ModelMap model, Long policyId) {
+		ArticleEntity policy = articleService.findOne(policyId);
+		model.addAttribute("policy", policy);
+		return "page/business/policy_info";
+	}
+
+	@RequestMapping(value = "/business/item")
+	String business_item(ModelMap modelMap) {
+		return "page/business/item";
+	}
+
+	@RequestMapping(value = "/business/item/info")
+	String item_info(ModelMap model, Long itemId) {
+		ItemEntity item = itemService.findOne(itemId);
+		model.addAttribute("item", item);
+		return "page/business/item_info";
+	}
+	
+	/**
+	 * 服务平台
+	 */
+	@RequestMapping(value = { "/service", "/service/talent" })
+	String service_talent(ModelMap modelMap) {
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("salarys", ConstantUtil.salarys);
+		modelMap.addAttribute("workingYearss", ConstantUtil.workingYearss);
+		modelMap.addAttribute("educations", ConstantUtil.educations);
+		return "page/service/talent";
+	}
+
+	@RequestMapping(value = "/service/talent/recruit/info")
+	String recruit_info(ModelMap model, Long recruitId) {
+		RecruitEntity recruit = recruitService.findOne(recruitId);
+		model.addAttribute("recruit", recruit);
+		return "page/service/talent_recruit_info";
+	}
+
+	@RequestMapping(value = "/service/talent/job/info")
+	String job_info(ModelMap model, Long jobId) {
+		JobEntity job = jobService.findOne(jobId);
+		model.addAttribute("job", job);
+		return "page/service/talent_job_info";
+	}
+
+	@RequestMapping(value = "/service/information")
+	String service_information(ModelMap model) {
+		return "page/service/information";
+	}
+
+	@RequestMapping(value = "/service/information/service/info")
+	String service_info(ModelMap model, Long serviceId) {
+		ServiceEntity service = serviceService.findOne(serviceId);
+		model.addAttribute("service", service);
+		return "page/service/information_service_info";
+	}
+
+	@RequestMapping(value = "/service/information/demand/info")
+	String demand_info(ModelMap model, Long demandId) {
+		DemandEntity demand = demandService.findOne(demandId);
+		model.addAttribute("demand", demand);
+		return "page/service/information_demand_info";
+	}
+
+	@RequestMapping(value = "/service/financing")
+	String service_financing(ModelMap modelMap) {
+		modelMap.addAttribute("professions", ConstantUtil.professions);
+		modelMap.addAttribute("financingTypes", ConstantUtil.financingTypes);
+		modelMap.addAttribute("investTypes", ConstantUtil.investTypes);
+		modelMap.addAttribute("fundTypes", ConstantUtil.fundTypes);
+		return "page/service/financing";
+	}
+
+	@RequestMapping(value = "/service/financing/financing/info")
+	String financing_info(ModelMap model, Long financingId) {
+		FinancingEntity financing = financingService.findOne(financingId);
+		model.addAttribute("financing", financing);
+		return "page/service/financing_financing_info";
+	}
+
+	@RequestMapping(value = "/service/financing/invest/info")
+	String invest_info(ModelMap model, Long investId) {
+		InvestEntity invest = investService.findOne(investId);
+		model.addAttribute("invest", invest);
+		return "page/service/financing_invest_info";
+	}
+
+	@RequestMapping(value = "/service/logistics")
+	String service_logistics(ModelMap model) {
+		return "page/service/logistics";
+	}
+
+	@RequestMapping(value = "/service/logistics/line/info")
+	String line_info(ModelMap model, Long lineId) {
+		LineEntity line = lineService.findOne(lineId);
+		model.addAttribute("line", line);
+		return "page/service/logistics_line_info";
+	}
+
+	@RequestMapping(value = "/service/logistics/network/info")
+	String network_info(ModelMap model, Long networkId) {
+		NetworkEntity network = networkService.findOne(networkId);
+		model.addAttribute("network", network);
+		return "page/service/logistics_network_info";
+	}
+
+	@RequestMapping(value = "/service/logistics/supply/info")
+	String supply_info(ModelMap model, Long supplyId) {
+		SupplyEntity supply = supplyService.findOne(supplyId);
+		model.addAttribute("supply", supply);
+		return "page/service/logistics_supply_info";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 新闻页面
@@ -323,151 +507,5 @@ public class PageController {
 		modelMap.addAttribute("appeal", appeal);
 		return "pages/portal/assistinfo";
 	}
-
-	/**
-	 * 招商管理页面
-	 */
-	@RequestMapping(value = "/business")
-	String business(ModelMap modelMap) {
-		Page<ArticleEntity> dynamics = articleService.listByType(10, 0, 5);
-		modelMap.addAttribute("dynamics", dynamics.getContent());
-
-		Page<ArticleEntity> policys = articleService.listByType(11, 0, 5);
-		modelMap.addAttribute("policys", policys.getContent());
-
-		Page<ItemEntity> businesss = itemService.list(0, 5);
-		modelMap.addAttribute("businesss", businesss.getContent());
-		return "pages/portal/business/business";
-	}
-
-	@RequestMapping(value = "/business/dynamic")
-	String business_dynamic(ModelMap modelMap) {
-		return "pages/portal/business/dynamic";
-	}
-
-	@RequestMapping(value = "/business/dynamic/info")
-	String dynamic_info(ModelMap model, Long dynamicId) {
-		ArticleEntity dynamic = articleService.findOne(dynamicId);
-		model.addAttribute("dynamic", dynamic);
-		return "pages/portal/business/dynamic_info";
-	}
-
-	@RequestMapping(value = "/business/policy")
-	String business_policy(ModelMap modelMap) {
-		return "pages/portal/business/policy";
-	}
-
-	@RequestMapping(value = "/business/policy/info")
-	String policy_info(ModelMap model, Long policyId) {
-		ArticleEntity policy = articleService.findOne(policyId);
-		model.addAttribute("policy", policy);
-		return "pages/portal/business/policy_info";
-	}
-
-	@RequestMapping(value = "/business/item")
-	String business_item(ModelMap modelMap) {
-		return "pages/portal/business/item";
-	}
-
-	@RequestMapping(value = "/business/item/info")
-	String item_info(ModelMap model, Long itemId) {
-		ItemEntity item = itemService.findOne(itemId);
-		model.addAttribute("item", item);
-		return "pages/portal/business/item_info";
-	}
-
-	/**
-	 * 服务平台页面
-	 */
-	@RequestMapping(value = { "/service", "/service/talent" })
-	String service_talent(ModelMap modelMap) {
-		modelMap.addAttribute("professions", ConstantUtil.professions);
-		modelMap.addAttribute("salarys", ConstantUtil.salarys);
-		modelMap.addAttribute("workingYearss", ConstantUtil.workingYearss);
-		modelMap.addAttribute("educations", ConstantUtil.educations);
-		return "pages/portal/service/talent";
-	}
-
-	@RequestMapping(value = "/service/talent/recruit/info")
-	String recruit_info(ModelMap model, Long recruitId) {
-		RecruitEntity recruit = recruitService.findOne(recruitId);
-		model.addAttribute("recruit", recruit);
-		return "pages/portal/service/talent_recruit_info";
-	}
-
-	@RequestMapping(value = "/service/talent/job/info")
-	String job_info(ModelMap model, Long jobId) {
-		JobEntity job = jobService.findOne(jobId);
-		model.addAttribute("job", job);
-		return "pages/portal/service/talent_job_info";
-	}
-
-	@RequestMapping(value = "/service/information")
-	String service_information(ModelMap model) {
-		return "pages/portal/service/information";
-	}
-
-	@RequestMapping(value = "/service/information/service/info")
-	String service_info(ModelMap model, Long serviceId) {
-		ServiceEntity service = serviceService.findOne(serviceId);
-		model.addAttribute("service", service);
-		return "pages/portal/service/information_service_info";
-	}
-
-	@RequestMapping(value = "/service/information/demand/info")
-	String demand_info(ModelMap model, Long demandId) {
-		DemandEntity demand = demandService.findOne(demandId);
-		model.addAttribute("demand", demand);
-		return "pages/portal/service/information_demand_info";
-	}
-
-	@RequestMapping(value = "/service/financing")
-	String service_financing(ModelMap modelMap) {
-		modelMap.addAttribute("professions", ConstantUtil.professions);
-		modelMap.addAttribute("financingTypes", ConstantUtil.financingTypes);
-		modelMap.addAttribute("investTypes", ConstantUtil.investTypes);
-		modelMap.addAttribute("fundTypes", ConstantUtil.fundTypes);
-		return "pages/portal/service/financing";
-	}
-
-	@RequestMapping(value = "/service/financing/financing/info")
-	String financing_info(ModelMap model, Long financingId) {
-		FinancingEntity financing = financingService.findOne(financingId);
-		model.addAttribute("financing", financing);
-		return "pages/portal/service/financing_financing_info";
-	}
-
-	@RequestMapping(value = "/service/financing/invest/info")
-	String invest_info(ModelMap model, Long investId) {
-		InvestEntity invest = investService.findOne(investId);
-		model.addAttribute("invest", invest);
-		return "pages/portal/service/financing_invest_info";
-	}
-
-	@RequestMapping(value = "/service/logistics")
-	String service_logistics(ModelMap model) {
-		return "pages/portal/service/logistics";
-	}
-
-	@RequestMapping(value = "/service/logistics/line/info")
-	String line_info(ModelMap model, Long lineId) {
-		LineEntity line = lineService.findOne(lineId);
-		model.addAttribute("line", line);
-		return "pages/portal/service/logistics_line_info";
-	}
-
-	@RequestMapping(value = "/service/logistics/network/info")
-	String network_info(ModelMap model, Long networkId) {
-		NetworkEntity network = networkService.findOne(networkId);
-		model.addAttribute("network", network);
-		return "pages/portal/service/logistics_network_info";
-	}
-
-	@RequestMapping(value = "/service/logistics/supply/info")
-	String supply_info(ModelMap model, Long supplyId) {
-		SupplyEntity supply = supplyService.findOne(supplyId);
-		model.addAttribute("supply", supply);
-		return "pages/portal/service/logistics_supply_info";
-	}
-
+	
 }

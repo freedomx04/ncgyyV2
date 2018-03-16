@@ -7,26 +7,26 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>${policy.title}</title>
+	<title>${dynamic.title}</title>
 </head>
 
 <body class="gray-bg">
 	<!-- header -->
-	<%@ include file="/WEB-INF/pages/portal/business/header.jsp"%>
+	<%@ include file="/WEB-INF/page/business/header.jsp"%>
 	
 	<div class="main animated fadeInRight">
 		<div class="container">
 			<div class="row">
 				<div class="info-main white-bg">
 					<div class="info-header text-center">
-						<div class="info-name">${policy.title}</div>
+						<div class="info-name">${dynamic.title}</div>
 						<div class="info-time">
-							<span>来源：${policy.source}</span>
-							<span style="margin-left: 20px;">时间：<fmt:formatDate value="${policy.updateTime}" pattern="yyyy-MM-dd"/></span>
+							<span>来源：${dynamic.source}</span>
+							<span style="margin-left: 20px;">时间：<fmt:formatDate value="${dynamic.updateTime}" pattern="yyyy-MM-dd"/></span>
 						</div>
 					</div>
 					
-					<div class="info-content">${policy.content}</div>
+					<div class="info-content">${dynamic.content}</div>
 				</div>
 			</div>
 		</div>

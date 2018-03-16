@@ -24,7 +24,7 @@
 
 <body class="gray-bg page-business">
 	<!-- header -->
-	<%@ include file="/WEB-INF/pages/portal/business/header.jsp"%>
+	<%@ include file="/WEB-INF/page/business/header.jsp"%>
 	
 	<div class="main">
 		<div class="container">
