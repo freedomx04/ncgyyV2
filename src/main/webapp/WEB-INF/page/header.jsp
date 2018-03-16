@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/include/feedback.jsp"%>
 
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -129,6 +130,35 @@ body {
 .product-info .product-enterprise a {
 	color: #999;
 }
+
+/** corner */
+.corner-buttons {
+	position: fixed;
+	width: 50px;
+	right: 0;
+	bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	z-index: 999;
+}
+.corner-container {
+	width: 40px;
+}
+.corner-btn {
+	margin-top: 10px;
+	padding: 0px;
+	color: #999;
+	background: #fff;
+	width: 40px;
+	height: 40px;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+	box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+.corner-btn:HOVER,
+.corner-btn:FOCUS {
+	color: #999;
+	background: #d5dbe7;
+}
 </style>
 
 <div class="headed-bg hidden-xs"></div>
@@ -179,6 +209,20 @@ body {
 	</div>
 </header>
 
+<div class="corner-buttons">
+	<div class="corner-container btn-top" title="回到顶部">
+		<button type="button" class="btn corner-btn">
+			<i class="fa fa-chevron-up fa-lg"></i>
+		</button>
+	</div>
+	
+	<div class="corner-container btn-feedback" title="意见反馈">
+		<button type="button" class="btn corner-btn">
+			<i class="fa fa-pencil fa-lg"></i>
+		</button>
+	</div>
+</div>
+
 <script type="text/javascript" src="${ctx}/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/plugins/bootstrap-paginator/bootstrap-paginator.min.js"></script>
@@ -189,6 +233,8 @@ body {
 <script type="text/javascript">
 ;(function( $ ) {	
 
+	var $feedbackDialog = $('body').find('#modal-feedback-dialog');
+	
 	var type = window.location.pathname;
 	type = type.substring(type.lastIndexOf('/') + 1);
 	
@@ -200,6 +246,40 @@ body {
 	case 'safty':		$ul.find('.index-safty').addClass('current');			break;
 	case 'appeal':		$ul.find('.index-appeal').addClass('current');			break;
 	}
+	
+	$('body')
+	.on('click', '.btn-top', function() {
+		$('html, body').animate({scrollTop: 0}, 1000);
+	})
+	.on('click', '.btn-feedback', function() {
+		$feedbackDialog.modal('show');
+	})
+	.on('click', '.btn-feedback-submit', function() {
+		var content = $feedbackDialog.find('.textarea-feedback').val();
+		if (!content) {
+			$feedbackDialog.find('.textarea-feedback').css('border', '1px solid #f75659');
+			return;
+		} else {
+			$feedbackDialog.find('.textarea-feedback').css('border', '1px solid #e5e6e7');
+			$.ajax({
+				url: '${ctx}/api/website/feedback/create',
+				type: 'post',
+				data: {
+					content: content
+				},
+				success: function(ret) {
+					if (ret.code == 0) {
+						$feedbackDialog.modal('hide');
+						toastr['info']('提交成功！ 谢谢您的建议反馈');
+					}
+				},
+				error: function(err) {}
+			});
+		}
+	})
+	.on('hidden.bs.modal', '#modal-feedback-dialog', function() {
+		$feedbackDialog.find('.textarea-feedback').val('');
+    });;
 	
 })( jQuery );
 </script>
