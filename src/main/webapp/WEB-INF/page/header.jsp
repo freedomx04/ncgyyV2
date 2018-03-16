@@ -127,7 +127,7 @@ body {
 					<a class="index-safty" href="${ctx}/safty" target="_blank">安全生产</a>
 				</li>
 				<li>
-					<a class="index-assist" href="${ctx}/assist" target="_blank">帮扶平台</a>
+					<a class="index-appeal" href="${ctx}/appeal" target="_blank">帮扶平台</a>
 				</li>
 				<li>
 					<a class="index-business" href="${ctx}/business" target="_blank">招商管理</a>
@@ -166,6 +166,8 @@ body {
 	case 'news':		$ul.find('.index-news').addClass('current');			break;
 	case 'enterprise':	$ul.find('.index-enterprise').addClass('current');		break;
 	case 'product':		$ul.find('.index-product').addClass('current');			break;
+	case 'safty':		$ul.find('.index-safty').addClass('current');			break;
+	case 'appeal':		$ul.find('.index-appeal').addClass('current');			break;
 	}
 	
 })( jQuery );

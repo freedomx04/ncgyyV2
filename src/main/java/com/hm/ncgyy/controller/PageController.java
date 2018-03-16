@@ -275,6 +275,17 @@ public class PageController {
 	/**
 	 * 诉求列表
 	 */
+	@RequestMapping(value = "/appeal")
+	String appeal() {
+		return "page/appeal/appeal_list";
+	}
+	
+	@RequestMapping(value = "/appeal/get")
+	String appeal_get(ModelMap modelMap, Long appealid) {
+		AppealEntity appeal = appealService.findOne(appealid);
+		modelMap.addAttribute("appeal", appeal);
+		return "page/appeal/appeal_get";
+	}
 	
 	/**
 	 * 招商管理
@@ -489,27 +500,5 @@ public class PageController {
 		return "pages/portal/productinfo";
 	}
 
-	/**
-	 * 监测平台页面
-	 */
-	@RequestMapping(value = "/monitorlist")
-	String monitor() {
-		return "pages/portal/monitor";
-	}
 
-	/**
-	 * 监测平台页面
-	 */
-	@RequestMapping(value = "/assistlist")
-	String assist() {
-		return "pages/portal/assist";
-	}
-
-	@RequestMapping(value = "/assist")
-	String assistInfo(ModelMap modelMap, Long appealId) {
-		AppealEntity appeal = appealService.findOne(appealId);
-		modelMap.addAttribute("appeal", appeal);
-		return "pages/portal/assistinfo";
-	}
-	
 }

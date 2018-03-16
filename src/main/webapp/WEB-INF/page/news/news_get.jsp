@@ -8,43 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<title>${news.title}</title>
-	
-	<style type="text/css">
-	.article-title {
-		border-bottom: 1px solid #d9d9d9;
-		text-align: center;
-	}
-	.article-title h2 {
-		font-size: 24px;
-		padding: 30px 20px 10px;
-		margin: 0;
-	}
-	.article-remark {
-		color: #999;
-		padding: 15px;
-	}
-	.article-time {
-		margin-right: 20px;
-	}
-	.article-content {
-		padding: 40px;
-		font-size: 14px;
-		font-family: '宋体';
-		color: #070707;
-		min-height: 400px;
-	}
-	.article-content img {
-		max-width: 100%!important;
-		height: auto;
-	}
-	
-	/** mobile */
-	@media (max-width: 768px) {
-		.article-content {
-			padding: 20px;
-		}
-	}
-	</style>
 </head>
 <body class="gray-bg">
 	

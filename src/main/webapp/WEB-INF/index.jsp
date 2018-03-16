@@ -276,13 +276,13 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>安全生产动态<a href="#" class="pull-right">更多></a></h2>
+							<h2>安全生产动态<a href="${ctx}/safty?tab=dynamic" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<ul class="list-unstyled">
 								<c:forEach var="safty" items="${saftyList}">
 									<li class="text-ellipsis">
-										<a href="#" target="_blank">${safty.title}</a>
+										<a href="${ctx}/safty/dynamic/get?dynamicid=${safty.id}" target="_blank">${safty.title}</a>
 										<span class="index-time"><fmt:formatDate value="${safty.updateTime}" pattern="yyyy/MM/dd"/></span>
 									</li>
 								</c:forEach>
@@ -294,7 +294,7 @@
 				<div class="col-sm-6">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>安全生产视频<a href="#" class="pull-right">更多></a></h2>
+							<h2>安全生产视频<a href="${ctx}/safty?tab=video" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<div id="saftyVideo"></div>
@@ -312,7 +312,7 @@
 				<div class="col-sm-12">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>诉求列表<a href="#" class="pull-right">更多></a></h2>
+							<h2>诉求列表<a href="${ctx}/appeal" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<table class="table">
@@ -326,7 +326,7 @@
 								<tbody>
 									<c:forEach var="appeal" items="${appealList}">
 										<tr>
-											<td><a href="#">${appeal.title}</a></td>
+											<td><a href="${ctx}/appeal/get?appealid=${appeal.id}" target="_blank">${appeal.title}</a></td>
 											<td>${appeal.enterprise.name}</td>
 											<c:choose>
 												<c:when test="${appeal.status==0}"><td>待发送</td></c:when>

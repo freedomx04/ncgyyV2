@@ -97,8 +97,8 @@
 		function loadNews($tab, data) {
 			$.ajax({
 				url: '${ctx}/api/website/article/listPaging',
-				data: data,
 				type: 'post',
+				data: data,
 				success: function(ret) {
 					if (ret.code == 0) {
 						$tab.find('.tab-list').empty();
