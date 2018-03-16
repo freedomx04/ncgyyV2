@@ -1,22 +1,17 @@
 package com.hm.ncgyy.controller;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
-import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
@@ -139,8 +134,8 @@ public class PageController {
 		modelMap.addAttribute("enterpriseList", enterprisePage.getContent());
 
 		// 产品信息
-		List<ProductEntity> productList = productService.listPaging(0, 20);
-		modelMap.addAttribute("productList", productList);
+		Page<ProductEntity> productPage = productService.listPaging(0, 20);
+		modelMap.addAttribute("productList", productPage.getContent());
 		
 		// 安全生产
 		list = articleService.listByType(20, 0, 5);
@@ -249,6 +244,17 @@ public class PageController {
 	/**
 	 * 产品宣传
 	 */
+	@RequestMapping(value = "/product")
+	String product() {
+		return "page/enterprise/product_list";
+	}
+	
+	@RequestMapping(value = "/product/get")
+	String product_get(ModelMap modelMap, Long productid) {
+		ProductEntity product = productService.findOne(productid);
+		modelMap.addAttribute("product", product);
+		return "page/enterprise/product_get";
+	}
 	
 	/**
 	 * 安全生产
@@ -433,72 +439,4 @@ public class PageController {
 		return "page/service/logistics_supply_info";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	/**
-	 * 新闻页面
-	 */
-	@RequestMapping(value = "/newslist")
-	String article(ModelMap modelMap, Integer type) {
-		List<ArticleEntity> list = articleService.listByType(type);
-		modelMap.addAttribute("count", list.size());
-		return "pages/portal/article";
-	}
-
-	@RequestMapping(value = "/news/{articleId}")
-	String articleContent(ModelMap modelMap, @PathVariable("articleId") Long articleId) throws IOException {
-		ArticleEntity article = articleService.findOne(articleId);
-		if (article != null) {
-			modelMap.addAttribute("article", article);
-		}
-		return "pages/portal/content";
-	}
-
-	@RequestMapping(value = "/epnews")
-	String newsContent(ModelMap modelMap, Long newsId, Long enterpriseId) throws IOException {
-		NewsEntity news = newsService.findOne(newsId);
-		if (news != null) {
-			modelMap.addAttribute("news", news);
-			modelMap.addAttribute("enterpriseId", enterpriseId);
-		}
-
-		return "pages/portal/epnews";
-	}
-
-	@RequestMapping(value = "/enterpriselist")
-	String enterprise(ModelMap modelMap) {
-		List<EnterpriseEntity> list = enterpriseService.list();
-		modelMap.addAttribute("count", list.size());
-		return "pages/portal/enterprise";
-	}
-
-	@RequestMapping(value = "/enterprise")
-	String enterpriseInfo(ModelMap modelMap, Long enterpriseId) {
-		EnterpriseEntity enterprise = enterpriseService.findOne(enterpriseId);
-		modelMap.addAttribute("enterprise", enterprise);
-		return "pages/portal/enterpriseinfo";
-	}
-
-	@RequestMapping(value = "/productlist")
-	String product(ModelMap modelMap, Integer type) {
-		List<ProductEntity> list = productService.list();
-		modelMap.addAttribute("count", list.size());
-		return "pages/portal/product";
-	}
-
-	@RequestMapping(value = "/product")
-	String productInfo(ModelMap modelMap, Long productId) {
-		ProductEntity product = productService.findOne(productId);
-		modelMap.addAttribute("product", product);
-		return "pages/portal/productinfo";
-	}
-
-
 }

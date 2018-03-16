@@ -247,14 +247,14 @@
 				<div class="col-sm-12">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>产品宣传<a href="#" class="pull-right">更多></a></h2>
+							<h2>产品宣传<a href="${ctx}/product" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<div class="swiper-container swiper-product" style="height: 220px;">
 								<div class="swiper-wrapper">
 									<c:forEach var="product" items="${productList}">
 										<div class="swiper-slide">
-											<a href="#">
+											<a href="${ctx}/product/get?productid=${product.id}" target="_blank">
 												<img class="img-thumbnail" src="${ctx}${product.imagePath}">
 												<span class="text-ellipsis product-title">${product.name}</span>
 											</a>

@@ -2,6 +2,8 @@ package com.hm.ncgyy.service.authority;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.hm.ncgyy.entity.authority.ProductEntity;
 
 public interface ProductService {
@@ -18,7 +20,7 @@ public interface ProductService {
 	
 	List<ProductEntity> list();
 	
-	List<ProductEntity> listPaging(int page, int size);
+	Page<ProductEntity> listPaging(int page, int size);
 	
 	List<ProductEntity> search(String input);
 	

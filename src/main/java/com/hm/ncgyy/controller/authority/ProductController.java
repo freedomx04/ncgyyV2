@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -161,10 +162,10 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = "/api/product/listPaging")
+	@RequestMapping(value = "/api/product/listPaging", method = RequestMethod.POST)
 	public Result listPaging(int page, int size) {
 		try {
-			List<ProductEntity> list = productService.listPaging(page, size);
+			Page<ProductEntity> list = productService.listPaging(page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

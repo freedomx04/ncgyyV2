@@ -48,9 +48,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductEntity> listPaging(int page, int size) {
+	public Page<ProductEntity> listPaging(int page, int size) {
 		Page<ProductEntity> productPage = productRepository.findAll(new PageRequest(page, size));
-		return productPage.getContent();
+		return productPage;
 	}
 
 	@Override
