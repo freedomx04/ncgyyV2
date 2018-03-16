@@ -25,6 +25,9 @@ public class NewsEntity extends BaseEntity {
 
 	/** 新闻标题 */
 	private String title;
+	
+	/** 来源 */
+	private String source;
 
 	/** 新闻内容 */
 	@Column(length = 16777216)
@@ -57,6 +60,14 @@ public class NewsEntity extends BaseEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public String getContent() {

@@ -52,12 +52,12 @@ body {
 	padding: 10px;
 	position: relative;
 }
-.main .tab-content .li-item {
+.main .li-item {
 	list-style: none;
 	font-size: 16px;
 	margin: 20px 100px 20px 10px;
 }
-.main .tab-content .index-time {
+.main .index-time {
 	position: absolute;
 	right: 20px;
 	color: #999;
@@ -91,12 +91,43 @@ body {
 	max-width: 100%!important;
 	height: auto;
 }
-
-/** mobile */
 @media (max-width: 768px) {
 	.article-content {
 		padding: 20px;
 	}
+}
+
+/** product */
+.product-list {
+	padding: 20px;
+}
+.product-item {
+	border: 1px solid #eee;
+	margin-bottom: 20px;
+}
+.product-item:HOVER {
+	border: 1px solid #f40;
+}
+.product-image {
+	width: 100%;
+	height: 200px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+.product-image img {
+	width: 100%;
+	max-height: 100%;
+}
+.product-info {
+	border-top: 1px solid #eee;
+	padding: 15px;
+}
+.product-info .product-name {
+	margin-bottom: 10px;
+}
+.product-info .product-enterprise a {
+	color: #999;
 }
 </style>
 

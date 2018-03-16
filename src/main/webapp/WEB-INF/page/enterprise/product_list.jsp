@@ -8,40 +8,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<title>产品宣传</title>
-	
-	<style type="text/css">
-	.product-list {
-		padding: 20px;
-	}
-	.product-item {
-		border: 1px solid #eee;
-		margin-bottom: 20px;
-	}
-	.product-item:HOVER {
-		border: 1px solid #f40;
-	}
-	.product-image {
-		width: 100%;
-		height: 200px;
-		display: table-cell;
-		text-align: center;
-		vertical-align: middle;
-	}
-	.product-image img {
-		width: 100%;
-		max-height: 100%;
-	}
-	.product-info {
-		border-top: 1px solid #eee;
-		padding: 15px;
-	}
-	.product-info .product-name {
-		margin-bottom: 10px;
-	}
-	.product-info .product-enterprise a {
-		color: #999;
-	}
-	</style>
 </head>
 
 <body class="gray-bg page-product">
@@ -99,7 +65,7 @@
 									+			'<a href="${ctx}/product/get?productid=' + product.id + '" target="_blank">' + product.name + '</a>'
 									+		'</div>'
 									+		'<div class="product-enterprise text-ellipsis">'
-									+			'<a href="">' + product.enterprise.name + '</a>'
+									+			'<a href="${ctx}/enterprise/get?eid=' + product.enterprise.id + '" target="_blank">' + product.enterprise.name + '</a>'
 									+		'</div>'
 									+ 	'</div>'
 									+ '</div>'

@@ -177,7 +177,7 @@ public class EnterpriseController {
 		}
 	}
 
-	@RequestMapping(value = "/api/enterprise/listPaging")
+	@RequestMapping(value = "/api/enterprise/listPaging", method = RequestMethod.POST)
 	public Result listPaging(int page, int size) {
 		try {
 			Page<EnterpriseEntity> list = enterpriseService.list(page, size);
@@ -210,7 +210,7 @@ public class EnterpriseController {
 		}
 	}
 
-	@RequestMapping(value = "/api/enterprise/searchPaging")
+	@RequestMapping(value = "/api/enterprise/searchPaging", method = RequestMethod.POST)
 	public Result searchPaging(String input, int page, int size) {
 		try {
 			Page<EnterpriseEntity> enterprisePage = enterpriseService.search(input, page, size);

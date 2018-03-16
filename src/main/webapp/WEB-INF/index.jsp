@@ -213,14 +213,16 @@
 				<div class="col-sm-12">
 					<div class="index-block">
 						<div class="index-title">
-							<h2>企业名片<a href="#" class="pull-right">更多></a></h2>
+							<h2>企业名片<a href="${ctx}/enterprise" target="_blank" class="pull-right">更多></a></h2>
 						</div>
 						<div class="index-content">
 							<div class="swiper-container swiper-enterprise" style="height: 220px;">
 								<div class="swiper-wrapper">
 									<c:forEach var="enterprise" items="${enterpriseList}">
 										<div class="swiper-slide enterprise-block">
-											<p class="enterprise-title"><a href="#">${enterprise.name}</a></p>
+											<p class="enterprise-title">
+												<a href="${ctx}/enterprise/get?eid=${enterprise.id}" target="_blank">${enterprise.name}</a>
+											</p>
 											<p><span class="enterprise-classify">所属园区</span><span>${enterprise.area.name}</span></p>
 											<p><span class="enterprise-classify">行业类别</span><span>${enterprise.industry.name}</span></p>
 											<p><span class="enterprise-classify">主要产品</span><span>${enterprise.mainProduct}</span></p>

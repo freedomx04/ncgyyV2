@@ -12,6 +12,7 @@ import com.hm.ncgyy.common.utils.ConstantUtil;
 import com.hm.ncgyy.common.utils.CurrentUserUtils;
 import com.hm.ncgyy.entity.assist.AppealEntity;
 import com.hm.ncgyy.entity.authority.EnterpriseEntity;
+import com.hm.ncgyy.entity.authority.NewsEntity;
 import com.hm.ncgyy.entity.authority.ProductEntity;
 import com.hm.ncgyy.entity.authority.UserEntity;
 import com.hm.ncgyy.entity.service.financing.FinancingEntity;
@@ -240,6 +241,24 @@ public class PageController {
 	/**
 	 * 企业宣传
 	 */
+	@RequestMapping(value = "/enterprise")
+	String enterprise() {
+		return "page/enterprise/enterprise_list";
+	}
+	
+	@RequestMapping(value = "/enterprise/get")
+	String enterprise_get(ModelMap modelMap, Long eid) {
+		EnterpriseEntity enterprise = enterpriseService.findOne(eid);
+		modelMap.addAttribute("enterprise", enterprise);
+		return "page/enterprise/enterprise_get";
+	}	
+	
+	@RequestMapping(value = "/enterprise/news/get")
+	String enterprise_news_get(ModelMap modelMap, Long newsid) {
+		NewsEntity news = newsService.findOne(newsid);
+		modelMap.addAttribute("news", news);
+		return "page/news/news_get";
+	}	
 	
 	/**
 	 * 产品宣传
