@@ -1,7 +1,6 @@
 package com.hm.ncgyy.controller.wx;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +30,8 @@ public class WxArticleController {
 	
 	@RequestMapping(value = "/wx/article")
 	String article(ModelMap modelMap) {
-		List<ArticleEntity> list = articleService.listByType(1);
-		modelMap.addAttribute("list", list);
-		
+		//List<ArticleEntity> list = articleService.listByType(1);
+		//modelMap.addAttribute("list", list);
 		return "wx/issue/article";
 	}
 	

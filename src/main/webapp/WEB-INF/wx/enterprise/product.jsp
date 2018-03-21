@@ -63,12 +63,13 @@
  			
 				$.ajax({
 					url: '${ctx}/api/product/listPaging',
+					type: 'post',
 					data: {
 						page: 0,
 						size: size
 					},
 					success: function(ret) {
-						var products = ret.data;
+						var products = ret.data.content;
 						$.each(products, function(key, product) {
 							result +='<a href="javascript:;" class="weui_cell product-info" data-product-id="' + product.id + '">'
 								+ '<div class="weui_cell_hd weui-updown" style="position: relative; margin-right: 10px;">'
@@ -101,12 +102,13 @@
 				
 				$.ajax({
 					url: '${ctx}/api/product/listPaging',
+					type: 'post',
 					data: {
 						page: page,
 						size: size
 					},
 					success: function(ret) {
-						var products = ret.data;
+						var products = ret.data.content;
 						var arrLen = products.length;
 						if (arrLen > 0) {
 							$.each(products, function(key, product) {

@@ -18,16 +18,15 @@
 <body>
 	<div>
 		<c:choose>
-		<c:when test="${fn:contains(user.role.resource, 'authority-target-report')
-						|| fn:contains(user.role.resource, 'authority-target-enterprise')
-						|| fn:contains(user.role.resource, 'authority-target-industry')
-						|| fn:contains(user.role.resource, 'authority-target-area')
-						|| fn:contains(user.role.resource, 'authority-target-point-enterprise')
-						|| fn:contains(user.role.resource, 'authority-target-ep')}">
+		<c:when test="${fn:contains(user.role.resource, 'role-monitor-enterprise')
+						|| fn:contains(user.role.resource, 'role-monitor-industry')
+						|| fn:contains(user.role.resource, 'role-monitor-area')
+						|| fn:contains(user.role.resource, 'role-monitor-pointEnterprise')
+						|| fn:contains(user.role.resource, 'role-monitor-myEnterprise')}">
 		<div class="searchbar_wrap"></div>
 	    <div class="page-bd wx-monitor-list">  
 			<ul>
-				<c:if test="${fn:contains(user.role.resource, 'authority-target-enterprise')}">
+				<c:if test="${fn:contains(user.role.resource, 'role-monitor-enterprise')}">
 				<li>
 					<div class="weui-flex js-category">
 						<p class="weui-flex-item">企业主要指标</p>
@@ -64,7 +63,7 @@
 			    </li>
 			    </c:if>
 			    
-			    <c:if test="${fn:contains(user.role.resource, 'authority-target-ep')}">
+			    <c:if test="${fn:contains(user.role.resource, 'role-monitor-pointEnterprise')}">
 				<li>
 					<div class="weui-flex js-category">
 						<p class="weui-flex-item">企业主要指标</p>
@@ -101,7 +100,7 @@
 			    </li>
 			    </c:if>
 			    
-			    <c:if test="${fn:contains(user.role.resource, 'authority-target-industry')}">
+			    <c:if test="${fn:contains(user.role.resource, 'role-monitor-industry')}">
 				<li>
 					<div class="weui-flex js-category">
 						<p class="weui-flex-item">行业主要指标</p>
@@ -139,7 +138,7 @@
 			    </c:if>
 			    
 			    
-			    <c:if test="${fn:contains(user.role.resource, 'authority-target-area')}">
+			    <c:if test="${fn:contains(user.role.resource, 'role-monitor-area')}">
 				<li>
 					<div class="weui-flex js-category">
 						<p class="weui-flex-item">区域主要指标</p>
@@ -176,7 +175,7 @@
 			    </li>
 			    </c:if>
 			    
-			    <c:if test="${fn:contains(user.role.resource, 'authority-target-point-enterprise')}">
+			    <c:if test="${fn:contains(user.role.resource, 'role-monitor-pointEnterprise')}">
 				<li>
 					<div class="weui-flex js-category">
 						<p class="weui-flex-item">重点企业主要指标</p>

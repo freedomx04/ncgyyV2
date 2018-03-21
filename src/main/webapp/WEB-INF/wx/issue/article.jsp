@@ -130,7 +130,8 @@
 	 				var result = '';
 	 			
 					$.ajax({
-						url: '${ctx}/api/article/listPaging',
+						url: '${ctx}/api/website/article/listPaging',
+						type: 'post',
 						data: {
 							type: type,
 							page: 0,
@@ -186,7 +187,8 @@
 					}
 					
 					$.ajax({
-						url: '${ctx}/api/article/listPaging',
+						url: '${ctx}/api/website/article/listPaging',
+						type: 'post',
 						data: {
 							type: type,
 							page: page,

@@ -18,12 +18,12 @@
 <body>
 	<div>
 		<c:choose>
-		<c:when test="${fn:contains(user.role.resource, 'authority-appeal-center') 
-						|| fn:contains(user.role.resource, 'authority-appeal-enterprise')
-						|| fn:contains(user.role.resource, 'authority-appeal-department') 
-						|| fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+		<c:when test="${fn:contains(user.role.resource, 'role-assist-appeal') 
+						|| fn:contains(user.role.resource, 'role-assist-enterprise')
+						|| fn:contains(user.role.resource, 'role-assist-department') 
+						|| fn:contains(user.role.resource, 'role-assist-dispatcher')}">
 		<div class="weui_cells weui_cells_access">
-			<c:if test="${fn:contains(user.role.resource, 'authority-appeal-center')}">
+			<c:if test="${fn:contains(user.role.resource, 'role-assist-appeal')}">
 				<a class="weui_cell " href="${ctx}/wx/appeal?status=0">
 	                <div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心</p>
@@ -32,7 +32,7 @@
 	            </a>
 			</c:if>
             
-            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-enterprise')}">
+            	<c:if test="${fn:contains(user.role.resource, 'role-assist-enterprise')}">
 	            
 	            <a class="weui_cell " href="${ctx}/wx/appealEP?userId=${user.id}">
 	                <div class="weui_cell_bd weui_cell_primary">
@@ -42,7 +42,7 @@
 	            </a>
             </c:if>
             
-            	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-department')}">
+            	<c:if test="${fn:contains(user.role.resource, 'role-assist-department')}">
             	<a class="weui_cell " href="${ctx}/wx/appealGV?userId=${user.id}">
             		<div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心(部门)</p>
@@ -51,7 +51,7 @@
 	            </a>
             </c:if>
             
-           	<c:if test="${fn:contains(user.role.resource, 'authority-appeal-dispatcher')}">
+           	<c:if test="${fn:contains(user.role.resource, 'role-assist-dispatcher')}">
             	<a class="weui_cell " href="${ctx}/wx/appealDispatcher?userId=${user.id}">
             		<div class="weui_cell_bd weui_cell_primary">
 	                    <p>诉求中心(派单)</p>
