@@ -245,7 +245,7 @@ public class UserController {
 			String ip = IpUtils.getIpAddr(request);
 			LocationEntity ipInfo = IpUtils.getIpInfo(ip);
 			if (ipInfo != null) {
-				String location = ipInfo.getRegion() + ipInfo.getCity() + ipInfo.getCounty();
+				String location = ipInfo.getRegion() + "省" + ipInfo.getCity() + "市";
 				Date now = new Date();
 				LoginEntity login = new LoginEntity(baseUser, ip, location, ipInfo.getIsp(), now, now);
 				loginService.save(login);
