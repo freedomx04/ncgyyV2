@@ -14,7 +14,7 @@
 	<!-- header -->
 	<%@ include file="/WEB-INF/page/business/header.jsp"%>
 	
-	<div class="main animated fadeInRight">
+	<div class="main animated fadeInDown">
 		<div class="container">
 			<div class="row">
 				<div class="info-main white-bg">

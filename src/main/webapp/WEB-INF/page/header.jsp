@@ -210,7 +210,7 @@ body {
 </header>
 
 <div class="corner-buttons">
-	<div class="corner-container btn-top" title="回到顶部">
+	<div class="corner-container btn-top hide" title="回到顶部">
 		<button type="button" class="btn corner-btn">
 			<i class="fa fa-chevron-up fa-lg"></i>
 		</button>
@@ -279,7 +279,17 @@ body {
 	})
 	.on('hidden.bs.modal', '#modal-feedback-dialog', function() {
 		$feedbackDialog.find('.textarea-feedback').val('');
-    });;
+    });
+	
+	// 回到顶部按钮
+	var $top = $('body').find('.btn-top');
+	$(window).scroll(function() {
+		if ($(window).scrollTop() > 600) {
+			$top.removeClass('hide');
+		} else {
+			$top.addClass('hide');
+		}
+	});
 	
 })( jQuery );
 </script>

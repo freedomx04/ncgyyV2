@@ -70,7 +70,7 @@
 							</tbody>
 						</table>
 						<div style="margin-top: 15px;">
-							<a href="javascript:;" class="openPage" data-menu="loginHistory">
+							<a href="javascript:;" class="openPage" data-menu="${ctx}/personal/login">
 								<i class="fa fa-plus-circle fa-fw"></i>全部登录历史
 							</a>
 						</div>
