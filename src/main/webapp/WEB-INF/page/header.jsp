@@ -107,17 +107,21 @@ body {
 	margin-bottom: 20px;
 }
 .product-item:HOVER {
-	border: 1px solid #f40;
+	box-shadow: 0px 0px 1px 1px #f40;
 }
 .product-image {
 	width: 100%;
-	height: 200px;
+	display: table;
+}
+.product-image a {
 	display: table-cell;
+	width: 100%;
+	height: 250px;
 	text-align: center;
 	vertical-align: middle;
 }
 .product-image img {
-	width: 100%;
+	max-width: 100%;
 	max-height: 100%;
 }
 .product-info {

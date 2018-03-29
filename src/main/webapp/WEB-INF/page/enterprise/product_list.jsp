@@ -28,6 +28,7 @@
 	<!-- footer -->
 	<%@ include file="/WEB-INF/page/footer.jsp"%>
 	
+	<script type="text/javascript" src="${ctx}/plugins/jquery/jquery.lazyload.js"></script>
 	<script type="text/javascript" src="${ctx}/local/common.js"></script>
 	
 	<script type="text/javascript">
@@ -58,7 +59,7 @@
 									'<div class="col-sm-3">'
 									+ '<div class="product-item">'
 									+ 	'<div class="product-image">'
-									+		'<a href="${ctx}/product/get?productid=' + product.id + '" target="_blank"><img src="${ctx}' + product.imagePath + '"></a>'
+									+		'<a href="${ctx}/product/get?productid=' + product.id + '" target="_blank"><img class="lazy" data-original="${ctx}' + product.imagePath + '"></a>'
 									+ 	'</div>'
 									+ 	'<div class="product-info">'
 									+ 		'<div class="product-name text-ellipsis">'
@@ -71,6 +72,10 @@
 									+ '</div>'
 									+'</div>';
 								$page.find('.product-list').append($obj);
+							});
+							$page.find('img.lazy').lazyload({
+								placeholder: '${ctx}/img/loading.gif',
+								effect: 'fadeIn',
 							});
 							
 							$k.util.paginator($page.find('.pagination'), {
