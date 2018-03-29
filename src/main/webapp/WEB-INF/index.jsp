@@ -24,6 +24,7 @@
 	.index-title h2 {
 		font-size: 20px;
 		padding-left: 10px;
+		border-left: 3px solid #ce4844;
 	}
 	.index-title a {
 		font-size: 14px;
