@@ -119,14 +119,20 @@
 								<label class="checkbox-inline i-checks" data-role="role-authority-supplier">
 									<input type="checkbox">供应商管理
 								</label>
+								<label class="checkbox-inline i-checks" data-role="role-authority-version">
+									<input type="checkbox">版本管理
+								</label>
                         	</div>
                         </div>
                         
                         <div class="form-group">
-                        	<label for="resource" class="col-sm-2 control-label">网站管理</label>
+                        	<label for="resource" class="col-sm-2 control-label">园区管理</label>
                         	<div class="col-sm-9">
                         		<label class="checkbox-inline i-checks" data-role="role-website-article">
-									<input type="checkbox">新闻发布
+									<input type="checkbox">新闻动态
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-website-party">
+									<input type="checkbox">党建管理
 								</label>
 								<label class="checkbox-inline i-checks" data-role="role-website-business">
 									<input type="checkbox">招商管理
@@ -134,11 +140,11 @@
 								<label class="checkbox-inline i-checks" data-role="role-website-safty">
 									<input type="checkbox">安全生产管理
 								</label>
-                        		<label class="checkbox-inline i-checks" data-role="role-website-feedback">
-									<input type="checkbox">反馈管理
+								<label class="checkbox-inline i-checks" data-role="role-website-approve">
+									<input type="checkbox">并联审批
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-website-version">
-									<input type="checkbox">版本管理
+								<label class="checkbox-inline i-checks" data-role="role-website-feedback">
+									<input type="checkbox">反馈管理
 								</label>
                         	</div>
                         </div>
@@ -192,7 +198,7 @@
                         </div> 
                         
                         <div class="form-group">
-                        	<label for="resource" class="col-sm-2 control-label">服务平台</label>
+                        	<label for="resource" class="col-sm-2 control-label">企业服务</label>
                         	<div class="col-sm-9">
                        			<label class="checkbox-inline i-checks" data-role="role-service-talent">
 									<input type="checkbox">用工平台

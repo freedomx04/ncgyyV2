@@ -271,6 +271,18 @@ public class ManagerController {
 		return "pages/authority/supplier";
 	}
 	
+	@RequestMapping(value = "/authority/version")
+	String versionList(ModelMap modelMap) {
+		return "pages/authority/version";
+	}
+	
+	@RequestMapping(value = "/versionHistory")
+	String version(ModelMap modelMap) {
+		List<VersionEntity> versionList = versionService.list();
+		modelMap.addAttribute("versionList", versionList);
+		return "pages/authority/version_history";
+	}
+	
 	/** 
 	 * 网站管理接口
 	 */
@@ -306,6 +318,11 @@ public class ManagerController {
 		return "pages/website/article_get";
 	}
 	
+	@RequestMapping(value = "/website/party")
+	String party(ModelMap modelMap) {
+		return "pages/website/party";
+	}
+	
 	@RequestMapping(value = "/website/business")
 	String business(ModelMap modelMap) {
 		return "pages/website/business";
@@ -336,21 +353,14 @@ public class ManagerController {
 		return "pages/website/safty_video_get";
 	}
 	
+	@RequestMapping(value = "/website/parallelApprove")
+	String parallelApprove(ModelMap modelMap) {
+		return "pages/website/parallel_approve";
+	}
+	
 	@RequestMapping(value = "/website/feedback")
 	String feedbackList(ModelMap modelMap) {
 		return "pages/website/feedback";
-	}
-	
-	@RequestMapping(value = "/website/version")
-	String versionList(ModelMap modelMap) {
-		return "pages/website/version";
-	}
-	
-	@RequestMapping(value = "/versionHistory")
-	String version(ModelMap modelMap) {
-		List<VersionEntity> versionList = versionService.list();
-		modelMap.addAttribute("versionList", versionList);
-		return "pages/website/version_history";
 	}
 	
 	/**

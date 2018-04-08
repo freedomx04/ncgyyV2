@@ -81,6 +81,9 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-authority-supplier')}">
 								<li><a class="J_menuItem" href="${ctx}/authority/supplier">供应商管理</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-authority-version')}">
+								<li><a class="J_menuItem" href="${ctx}/authority/version">版本管理</a></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:if>
@@ -90,11 +93,14 @@
 						|| fn:contains(user.role.resource, 'role-website-version')}">
 					<li>
 						<a href="#">
-							<i class="fa fa-globe fa-fw"></i><span class="nav-label">网站管理</span><span class="fa arrow"></span>
+							<i class="fa fa-globe fa-fw"></i><span class="nav-label">园区管理</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'role-website-article')}">
-								<li><a class="J_menuItem" href="${ctx}/website/article">新闻发布</a></li>
+								<li><a class="J_menuItem" href="${ctx}/website/article">新闻动态</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-website-party')}">
+								<li><a class="J_menuItem" href="${ctx}/website/party">党建管理</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-website-business')}">
 								<li><a class="J_menuItem" href="${ctx}/website/business">招商管理</a></li>
@@ -102,11 +108,11 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-website-safty')}">
 								<li><a class="J_menuItem" href="${ctx}/website/safty">安全生产管理</a></li>
 							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-website-approve')}">
+								<li><a class="J_menuItem" href="${ctx}/website/parallelApprove">并联审批</a></li>
+							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-website-feedback')}">
 								<li><a class="J_menuItem" href="${ctx}/website/feedback">反馈管理</a></li>
-							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'role-website-version')}">
-								<li><a class="J_menuItem" href="${ctx}/website/version">版本管理</a></li>
 							</c:if>
 						</ul>
 					</li>
@@ -181,7 +187,7 @@
 						|| fn:contains(user.role.resource, 'role-service-logistics')}">
 					<li>
 						<a href="#">
-							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">服务平台</span><span class="fa arrow"></span>
+							<i class="fa fa-building-o fa-fw"></i><span class="nav-label">企业服务</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'role-service-talent')}">

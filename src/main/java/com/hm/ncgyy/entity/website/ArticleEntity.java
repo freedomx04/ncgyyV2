@@ -31,6 +31,9 @@ public class ArticleEntity extends BaseEntity {
 		public static final int BUSINESS_POLICY = 11;	// 招商政策
 		
 		public static final int SAFTY_DYNAMIC = 20;		// 安全生产活动
+		
+		public static final int PARTY_DYNAMIC = 30;		// 党建信息
+		public static final int PARTY_POLICY = 31;		// 党政法规
 	}
 
 	/** 类型 */

@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
-@Table(name = "website_feedback")
+@Table(name = "website_feedback", indexes = {
+	@Index(name = "index_website_feedback", columnList = "updateTime")
+})
 public class FeedbackEntity extends BaseEntity {
 	
 	/** 反馈内容 */
