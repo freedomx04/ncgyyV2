@@ -25,7 +25,7 @@ import com.hm.ncgyy.entity.service.logistics.SupplyEntity;
 import com.hm.ncgyy.entity.service.talent.JobEntity;
 import com.hm.ncgyy.entity.service.talent.RecruitEntity;
 import com.hm.ncgyy.entity.website.ArticleEntity;
-import com.hm.ncgyy.entity.website.ItemEntity;
+import com.hm.ncgyy.entity.website.BusinessItemEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.entity.website.VideoEntity;
 import com.hm.ncgyy.service.CommonService;
@@ -44,7 +44,7 @@ import com.hm.ncgyy.service.service.logistics.SupplyService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
 import com.hm.ncgyy.service.website.ArticleService;
-import com.hm.ncgyy.service.website.ItemService;
+import com.hm.ncgyy.service.website.BusinessItemService;
 import com.hm.ncgyy.service.website.VersionService;
 import com.hm.ncgyy.service.website.VideoService;
 
@@ -99,7 +99,7 @@ public class PageController {
 	SupplyService supplyService;
 
 	@Autowired
-	ItemService itemService;
+	BusinessItemService businessItemService;
 
 	@Autowired
 	VersionService versionService;
@@ -156,7 +156,7 @@ public class PageController {
 		list = articleService.listByType(11, 0, 5);
 		modelMap.addAttribute("businessPolicyList", list.getContent());
 		
-		Page<ItemEntity> itemPage = itemService.list(0, 5);
+		Page<BusinessItemEntity> itemPage = businessItemService.list(0, 5);
 		modelMap.addAttribute("itemList", itemPage.getContent());
 
 		// 服务平台
@@ -323,7 +323,7 @@ public class PageController {
 		Page<ArticleEntity> policys = articleService.listByType(11, 0, 5);
 		modelMap.addAttribute("policys", policys.getContent());
 
-		Page<ItemEntity> businesss = itemService.list(0, 5);
+		Page<BusinessItemEntity> businesss = businessItemService.list(0, 5);
 		modelMap.addAttribute("businesss", businesss.getContent());
 		return "page/business/business";
 	}
@@ -359,7 +359,7 @@ public class PageController {
 
 	@RequestMapping(value = "/business/item/info")
 	String item_info(ModelMap model, Long itemId) {
-		ItemEntity item = itemService.findOne(itemId);
+		BusinessItemEntity item = businessItemService.findOne(itemId);
 		model.addAttribute("item", item);
 		return "page/business/item_info";
 	}

@@ -10,7 +10,7 @@ import com.hm.ncgyy.entity.BaseEntity;
 
 @Entity
 @Table(name = "website_business_item")
-public class ItemEntity extends BaseEntity {
+public class BusinessItemEntity extends BaseEntity {
 
 	/** 项目名称 */
 	private String name;
@@ -43,11 +43,11 @@ public class ItemEntity extends BaseEntity {
 	/** 传真 */
 	private String fax;
 	
-	public ItemEntity() {
+	public BusinessItemEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItemEntity(String name, String address, String overview, String content, String scale, String mode,
+	public BusinessItemEntity(String name, String address, String overview, String content, String scale, String mode,
 			String contactUser, String contact, String email, String fax, Date createTime, Date updateTime) {
 		super();
 		this.name = name;

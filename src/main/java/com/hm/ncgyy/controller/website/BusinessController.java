@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hm.ncgyy.common.result.Code;
 import com.hm.ncgyy.common.result.Result;
 import com.hm.ncgyy.common.result.ResultInfo;
-import com.hm.ncgyy.entity.website.ItemEntity;
+import com.hm.ncgyy.entity.website.BusinessItemEntity;
 import com.hm.ncgyy.entity.website.MessageEntity;
-import com.hm.ncgyy.service.website.ItemService;
+import com.hm.ncgyy.service.website.BusinessItemService;
 import com.hm.ncgyy.service.website.MessageService;
 
 @RestController
@@ -26,8 +26,8 @@ public class BusinessController {
 	static Logger log = LoggerFactory.getLogger(BusinessController.class);
 
 	@Autowired
-	ItemService itemService;
-	
+	BusinessItemService itemService;
+
 	@Autowired
 	MessageService messageService;
 
@@ -39,7 +39,7 @@ public class BusinessController {
 			String contactUser, String contact, String email, String fax) {
 		try {
 			Date now = new Date();
-			ItemEntity item = new ItemEntity(name, address, overview, content, scale, mode, contactUser,
+			BusinessItemEntity item = new BusinessItemEntity(name, address, overview, content, scale, mode, contactUser,
 					contact, email, fax, now, now);
 			itemService.save(item);
 			return new Result(Code.SUCCESS.value(), "添加成功");
@@ -53,7 +53,7 @@ public class BusinessController {
 	public Result item_update(Long itemId, String name, String address, String overview, String content, String scale,
 			String mode, String contactUser, String contact, String email, String fax) {
 		try {
-			ItemEntity item = itemService.findOne(itemId);
+			BusinessItemEntity item = itemService.findOne(itemId);
 			item.setName(name);
 			item.setAddress(address);
 			item.setOverview(overview);
@@ -72,7 +72,7 @@ public class BusinessController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/website/business/item/delete")
 	public Result item_delete(Long itemId) {
 		try {
@@ -98,7 +98,7 @@ public class BusinessController {
 	@RequestMapping(value = "/api/website/business/item/get")
 	public Result item_get(Long itemId) {
 		try {
-			ItemEntity item = itemService.findOne(itemId);
+			BusinessItemEntity item = itemService.findOne(itemId);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", item);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -109,25 +109,25 @@ public class BusinessController {
 	@RequestMapping(value = "/api/website/business/item/list")
 	public Result item_list() {
 		try {
-			List<ItemEntity> list = itemService.list();
+			List<BusinessItemEntity> list = itemService.list();
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	@RequestMapping(value = "/api/website/business/item/listPaging")
 	public Result item_listPaging(int page, int size) {
 		try {
-			Page<ItemEntity> list = itemService.list(page, size);
+			Page<BusinessItemEntity> list = itemService.list(page, size);
 			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * message
 	 */
@@ -176,5 +176,5 @@ public class BusinessController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
-	
+
 }

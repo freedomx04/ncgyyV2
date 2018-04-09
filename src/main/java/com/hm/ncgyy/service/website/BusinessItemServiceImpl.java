@@ -7,22 +7,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.hm.ncgyy.entity.website.ItemEntity;
-import com.hm.ncgyy.repository.website.ItemRepository;
+import com.hm.ncgyy.entity.website.BusinessItemEntity;
+import com.hm.ncgyy.repository.website.BusinessItemRepository;
 
 @Service
-public class ItemServiceImpl implements ItemService {
+public class BusinessItemServiceImpl implements BusinessItemService {
 	
 	@Autowired
-	ItemRepository itemRepository;
+	BusinessItemRepository itemRepository;
 
 	@Override
-	public ItemEntity findOne(Long ItemId) {
+	public BusinessItemEntity findOne(Long ItemId) {
 		return itemRepository.findOne(ItemId);
 	}
 
 	@Override
-	public void save(ItemEntity Item) {
+	public void save(BusinessItemEntity Item) {
 		itemRepository.save(Item);
 	}
 
@@ -33,17 +33,17 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void delete(List<Long> ItemIds) {
-		Iterable<ItemEntity> it = itemRepository.findByIdIn(ItemIds);
+		Iterable<BusinessItemEntity> it = itemRepository.findByIdIn(ItemIds);
 		itemRepository.delete(it);
 	}
 
 	@Override
-	public List<ItemEntity> list() {
+	public List<BusinessItemEntity> list() {
 		return itemRepository.findByOrderByUpdateTimeDesc();
 	}
 	
 	@Override
-	public Page<ItemEntity> list(int page, int size) {
+	public Page<BusinessItemEntity> list(int page, int size) {
 		return itemRepository.findByOrderByUpdateTimeDesc(new PageRequest(page, size));
 	}
 
