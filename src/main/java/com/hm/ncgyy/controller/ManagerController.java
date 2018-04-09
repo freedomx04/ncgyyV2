@@ -323,6 +323,11 @@ public class ManagerController {
 		return "pages/website/party";
 	}
 	
+	@RequestMapping(value = "/website/project")
+	String project(ModelMap modelMap) {
+		return "pages/website/project";
+	}
+	
 	@RequestMapping(value = "/website/business")
 	String business(ModelMap modelMap) {
 		return "pages/website/business";
