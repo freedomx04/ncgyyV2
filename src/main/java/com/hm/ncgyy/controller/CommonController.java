@@ -142,7 +142,7 @@ public class CommonController {
 			if (file.exists()) {
 				file.delete();
 			}
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());

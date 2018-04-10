@@ -33,6 +33,7 @@ import com.hm.ncgyy.entity.service.DeclareEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity;
 import com.hm.ncgyy.entity.service.SupplierEntity.SupplierType;
 import com.hm.ncgyy.entity.website.ArticleEntity;
+import com.hm.ncgyy.entity.website.ItemEntity;
 import com.hm.ncgyy.entity.website.VersionEntity;
 import com.hm.ncgyy.entity.website.VideoEntity;
 import com.hm.ncgyy.service.CommonService;
@@ -54,6 +55,7 @@ import com.hm.ncgyy.service.service.SupplierService;
 import com.hm.ncgyy.service.service.talent.JobService;
 import com.hm.ncgyy.service.service.talent.RecruitService;
 import com.hm.ncgyy.service.website.ArticleService;
+import com.hm.ncgyy.service.website.ItemService;
 import com.hm.ncgyy.service.website.VersionService;
 import com.hm.ncgyy.service.website.VideoService;
 
@@ -124,6 +126,9 @@ public class ManagerController {
 	
 	@Autowired
 	VideoService videoService;
+	
+	@Autowired
+	ItemService itemService;
 	
 	/**
 	 * 总览
@@ -326,6 +331,25 @@ public class ManagerController {
 	@RequestMapping(value = "/website/project")
 	String project(ModelMap modelMap) {
 		return "pages/website/project";
+	}
+	
+	@RequestMapping(value = "/website/item")
+	String item(ModelMap modelMap) {
+		return "pages/website/item";
+	}
+	
+	@RequestMapping(value = "/website/item/add")
+	String item_add(ModelMap modelMap, String method, Long itemId) {
+		String title = method.equals("add") ? "项目新增" : "项目编辑";
+		modelMap.addAttribute("method", method);
+		modelMap.addAttribute("title", title);
+		modelMap.addAttribute("itemLevels", ConstantUtil.itemLevels);
+		
+		if (itemId != null) {
+			ItemEntity item = itemService.findOne(itemId);
+			modelMap.addAttribute("item", item);
+		}
+		return "pages/website/item_add";
 	}
 	
 	@RequestMapping(value = "/website/business")

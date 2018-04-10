@@ -37,5 +37,8 @@ public class ConstantUtil {
 
 	/** 运输方式 */
 	public static String[] transportModes = { "公路运输", "铁路运输", "水路运输", "航空运输", "管道运输", "国际多式联运" };
+	
+	/** 项目级别 */
+	public static String[] itemLevels = { "国家级", "省级", "市级", "县级", "其他" };
 
 }

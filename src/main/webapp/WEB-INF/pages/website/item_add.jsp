@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>新增新闻</title>
+	<title>${title}</title>
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,13 +17,14 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrapValidator/css/bootstrapValidator.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/bootstrap-fileinput/css/fileinput-rtl.min.css">
+	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/datepicker/datepicker3.css">
 	
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/hplus/style.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/plugins/toastr/toastr.min.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/local/common.css">
 	
 	<style type="text/css">
-	#summernote img {
+	.note-editing-area img {
 		max-width: 100%;
 		height: auto;
 		display: block;
@@ -32,7 +33,7 @@
 	
 </head>
 
-<body class="gray-bg body-article-add">
+<body class="gray-bg body-item-add">
 	<div class="wrapper wrapper-content animated fadeInRight">
 	 	<div class="ibox">
 	 		<div class="ibox-content">
@@ -40,46 +41,60 @@
 		 			<h2>${title}</h2>
 		 		</div>
 	 		
- 				<form class="form-horizontal" role="form" autocomplete="off" id="form-article">
+ 				<form class="form-horizontal" role="form" autocomplete="off" id="form-item">
 					<div class="form-group">
-						<label for="title" class="col-sm-1 control-label"><i class="form-required">*</i>标题</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="title" value="${article.title}" required>
-						</div>
-					</div>	
-					<div class="form-group">
-						<label for="source" class="col-sm-1 control-label">来源</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="source" value="${article.source}">
+						<label for="name" class="col-sm-2 control-label"><i class="form-required">*</i>项目名称</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="name" value="${item.name}" required>
 						</div>
 					</div>
-					<c:if test="${type==1}">
+					
 					<div class="form-group">
-						<label for="uploadImage" class="col-sm-1 control-label"><i class="form-required">*</i>图片</label>
-						<div class="col-sm-10">
-							<input id="uploadImage" type="file" class="file-loading" name="uploadImage" required>
+                        <label for="level" class="col-sm-2 control-label"><i class="form-required">*</i>项目级别</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="level" required>
+                           		<option value="">请选择项目级别</option>
+								<c:forEach var="itemLevel" items="${itemLevels}">
+									<option value="${itemLevel}">${itemLevel}</option>
+								</c:forEach>
+							</select>
+                        </div>
+                    </div>	
+					
+					<div class="form-group">
+						<label for="unit" class="col-sm-2 control-label"><i class="form-required">*</i>主管单位</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="unit" value="${item.unit}" required>
 						</div>
 					</div>
-					</c:if>
+					
+					<div class="form-group">
+						<label for="deadline" class="col-sm-2 control-label"><i class="form-required">*</i>截止日期</label>
+						<div class="col-sm-9 input-group date deadline" style="padding-left: 15px; padding-right: 15px;">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							<input type="text" class="form-control" name="deadline" value="${item.deadline}" required/>
+						</div>
+					</div>
+					
 					<div class="form-group" >
-						<label for="content" class="col-sm-1 control-label">正文</label>
-						<div class="col-sm-10">
+						<label for="content" class="col-sm-2 control-label"><i class="form-required">*</i>项目概述</label>
+						<div class="col-sm-9">
 							<div id="summernote"></div>
 						</div>
 					</div>	
 					
 					<div class="form-group">
-						<label for="attachment" class="col-sm-1 control-label">附件</label>
-						<div class="col-sm-10">
+						<label for="attachment" class="col-sm-2 control-label">附件</label>
+						<div class="col-sm-9">
 							<div id="attachment">
 								<button type="button" class="btn btn-white btn-attachment-add">
 			                        <i class="fa fa-paperclip fa-fw"></i>添加附件
 			                    </button>
 								<ul class="attachment-list list-unstyled project-files">
-			                   		<c:forEach var="file" items="${article.fileList}">
+			                   		<c:forEach var="file" items="${item.fileList}">
 										<li data-fileid="${file.id}" data-filename="${file.filename}" data-filepath="${file.filepath}">
 											${file.filename}
-											<a class="btn-articleFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
+											<a class="btn-itemFile-delete" style="color: #337ab7;"><i class="fa fa-trash-o fa-fw"></i>删除</a>
 										</li>
 									</c:forEach> 
 			                    </ul>
@@ -89,14 +104,14 @@
 					
 					<div class="hr-line-dashed"></div>
 					<div class="form-group">
-						<div class="col-sm-4 col-sm-offset-1">
+						<div class="col-sm-4 col-sm-offset-2">
 							<c:if test="${method == 'add'}">
-								<button type="button" class="btn btn-primary btn-fw btn-article-add">确定</button>
+								<button type="button" class="btn btn-primary btn-fw btn-item-add">确定</button>
 		                    </c:if>
 		                    <c:if test="${method == 'edit'}">
-		                    	<button type="button" class="btn btn-primary btn-fw btn-article-edit">确定</button>
+		                    	<button type="button" class="btn btn-primary btn-fw btn-item-edit">确定</button>
 		                    </c:if>
-							<button type="button" class="btn btn-white btn-fw btn-article-cancel">取消</button>
+							<button type="button" class="btn btn-white btn-fw btn-item-cancel">取消</button>
 						</div>
 					</div>
  				</form>
@@ -112,6 +127,7 @@
 	<script type="text/javascript" src="${ctx}/plugins/toastr/toastr.min.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/local/attachment.js"></script>
+	<script type="text/javascript" src="${ctx}/plugins/datepicker/bootstrap-datepicker.js"></script>
 	
 	<script type="text/javascript" src="${ctx}/plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="${ctx}/plugins/summernote/summernote.js"></script>
@@ -123,56 +139,54 @@
 	
 	<script type="text/javascript">
 	
-		var $page = $('.body-article-add');
-		var $form = $page.find('#form-article');
+		var $page = $('.body-item-add');
+		var $form = $page.find('#form-item');
 		
 		var type = '${type}';
 		var method = '${method}';
 		
 		$k.util.bsValidator($form);
+		$page.find('.deadline').datepicker({
+			autoclose: true,
+			startDate: new Date()
+		}).on('hide', function() {
+			$form.data('bootstrapValidator')
+				.updateStatus('deadline', 'NOT_VALIDATED', null)
+				.validateField('deadline');
+		});
+
 		$k.util.summernote($page.find('#summernote'), {
 			ctx: '${ctx}'
 		});
-		
 		new Attachment($page.find('#attachment'), {
 			uploadUrl: '${ctx}/api/fileUpload',
 			deleteUrl: '${ctx}/api/fileDelete',
 		});
 		
-		if (method == 'add') {
-			if (type == 1) {
-				$k.util.fileinput($page.find('#uploadImage'));
-			}
-		} else {
-			$('#summernote').summernote('code', '${article.content}');
-			if (type == 1) {
-				$k.util.fileinput($page.find('#uploadImage'), {
-					initialPreview:	'<img src="${ctx}${article.imagePath}" class="file-preview-image" style="max-width: auto; max-height: 200px;">',
-				    initialCaption: '${article.imagePath}',
-				});
-			}
+		if (method == 'edit') {
+			$page.find('select[name="level"]').val('${item.level}');
+			$('#summernote').summernote('code', '${item.content}');
 		}
 		
 		$page
-		.on('click', '.btn-article-add', function() {
+		.on('click', '.btn-item-add', function() {
 			var validator = $form.data('bootstrapValidator');
 			validator.validate();
 			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]); 
-				formData.append('type', type);
 				formData.append('content', $('#summernote').summernote('code'));
 				
-				var attachmentList = new Array();
+				var fileList = new Array();
 				$form.find('.attachment-list li').each(function(k, elem) {
 					var filename = $(elem).data('filename');
 					var filepath = $(elem).data('filepath');
-					attachmentList.push(filename + '?' + filepath);
+					fileList.push(filename + '?' + filepath);
 				});
-				formData.append('attachmentList', attachmentList);
+				formData.append('fileList', fileList);
 				
 				$.ajax({
-					url: '${ctx}/api/website/article/create',
+					url: '${ctx}/api/website/item/create',
 					type: 'POST',
 					data: formData,
 					processData: false,
@@ -195,29 +209,29 @@
 				});
 			}
 		})
-		.on('click', '.btn-article-edit', function() {
+		.on('click', '.btn-item-edit', function() {
 			var validator = $form.data('bootstrapValidator');
 			validator.removeField('uploadImage');
 			validator.validate();
 			
 			if (validator.isValid()) {
 				var formData = new FormData($form[0]); 
-				formData.append('articleId', '${article.id}');
+				formData.append('itemId', '${item.id}');
 				formData.append('content', $('#summernote').summernote('code'));
 				
-				var attachmentList = new Array();
+				var fileList = new Array();
 				$form.find('.attachment-list li').each(function(k, elem) {
 					var fileid = $(elem).data('fileid');
 					if (!fileid) {
 						var filename = $(elem).data('filename');
 						var filepath = $(elem).data('filepath');
-						attachmentList.push(filename + '?' + filepath);
+						fileList.push(filename + '?' + filepath);
 					}
 				});
-				formData.append('attachmentList', attachmentList);
+				formData.append('fileList', fileList);
 				
 				$.ajax({
-					url: '${ctx}/api/website/article/update',
+					url: '${ctx}/api/website/item/update',
 					type: 'POST',
 					data: formData,
 					processData: false,
@@ -239,10 +253,10 @@
 				});
 			}
 		})
-		.on('click', '.btn-article-cancel', function() {
+		.on('click', '.btn-item-cancel', function() {
 			window.history.back();
 		})
-		.on('click', '.btn-articleFile-delete', function(e) {
+		.on('click', '.btn-itemFile-delete', function(e) {
 			e.stopPropagation();
 			var $this = $(this);
 			swal({
@@ -253,20 +267,19 @@
                 cancelButtonText: '取消',
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: '确定',
-                closeOnConfirm: false
 			}, function() {
 				var fileid = $this.closest('li').data('fileid');
 				$.ajax({
-					url: '${ctx}/api/website/article/fileDelete',
+					url: '${ctx}/api/website/item/fileDelete',
 					data: {
-						articleFileId: fileid
+						itemFileId: fileid
 					},
 					success: function(ret) {
 						if (ret.code == 0) {
-							swal('', '删除成功!', 'success');
+							toastr['success'](ret.msg);
 							$this.closest('li').remove();
 						} else {
-							swal('', ret.msg, 'error');
+							toastr['error'](ret.msg);
 						}
 					},
 					error: function(err) {}

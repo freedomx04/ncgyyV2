@@ -137,6 +137,9 @@
 								<label class="checkbox-inline i-checks" data-role="role-website-project">
 									<input type="checkbox">工程进度管理
 								</label>
+								<label class="checkbox-inline i-checks" data-role="role-website-item">
+									<input type="checkbox">项目管理
+								</label>
 								<label class="checkbox-inline i-checks" data-role="role-website-business">
 									<input type="checkbox">招商管理
 								</label>

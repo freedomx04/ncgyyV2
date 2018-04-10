@@ -42,7 +42,7 @@
 				'				<button type="button" class="btn btn-white btn-fw" data-dismiss="modal">\n' +
 				'					取消\n' +
 				'				</button>\n' +
-				'				<button type="button" class="btn btn-primary btn-upload">\n' +
+				'				<button type="button" class="btn btn-primary btn-upload btn-fw">\n' +
 				'					<i class="fa fa-upload fa-fw"></i>上传\n' +
 				'				</button>\n' +
 				'			</div>\n' +
@@ -115,7 +115,6 @@
                 cancelButtonText: '取消',
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: '确定',
-                closeOnConfirm: false
 			}, function() {
 				var filepath = $this.closest('li').data('filepath');
 				$.ajax({
@@ -125,10 +124,10 @@
 					},
 					success: function(ret) {
 						if (ret.code == 0) {
-							swal('', '删除成功!', 'success');
+							toastr['success'](ret.msg);
 							$this.closest('li').remove();
 						} else {
-							swal('', ret.msg, 'error');
+							toastr['error'](ret.msg);
 						}
 					},
 					error: function(err) {}

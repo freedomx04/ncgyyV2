@@ -171,7 +171,7 @@ public class ArticleController {
 			ArticleFileEntity articleFile = articleFileService.fileOne(articleFileId);
 			commonService.deleteFile(articleFile.getFilepath());
 			articleFileService.delete(articleFileId);
-			return new Result(Code.SUCCESS.value(), "deleted");
+			return new Result(Code.SUCCESS.value(), "删除成功");
 		} catch (Exception e) {
 			if (e.getCause().toString().indexOf("ConstraintViolationException") != -1) {
 				return new Result(Code.CONSTRAINT.value(), "constraint");
