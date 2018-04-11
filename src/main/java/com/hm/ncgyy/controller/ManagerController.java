@@ -352,6 +352,13 @@ public class ManagerController {
 		return "pages/website/item_add";
 	}
 	
+	@RequestMapping(value = "/website/item/public")
+	String item_public(ModelMap modelMap, Long itemId) {
+		ItemEntity item = itemService.findOne(itemId);
+		modelMap.addAttribute("item", item);
+		return "pages/website/item_public";
+	}
+	
 	@RequestMapping(value = "/website/business")
 	String business(ModelMap modelMap) {
 		return "pages/website/business";

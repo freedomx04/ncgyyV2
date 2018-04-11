@@ -128,6 +128,34 @@ public class ItemController {
 			return new Result(Code.ERROR.value(), e.getMessage());
 		}
 	}
+	
+	@RequestMapping(value = "/api/website/item/declare")
+	public Result declare(Long itemId) {
+		try {
+			ItemEntity item = itemService.findOne(itemId);
+			item.setStatus(ItemStatus.STATUS_DECLARE);
+			item.setUpdateTime(new Date());
+			itemService.save(item);
+			return new Result(Code.SUCCESS.value(), "操作成功");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/api/website/item/public", method = RequestMethod.POST)
+	public Result item_public(Long itemId, String result) {
+		try {
+			ItemEntity item = itemService.findOne(itemId);
+			item.setResult(result);
+			item.setStatus(ItemStatus.STATUS_PUBLIC);
+			itemService.save(item);
+			return new Result(Code.SUCCESS.value(), "操作成功");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return new Result(Code.ERROR.value(), e.getMessage());
+		}
+	}
 
 	@RequestMapping(value = "/api/website/item/list")
 	public Result list() {
