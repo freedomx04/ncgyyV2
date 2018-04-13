@@ -186,6 +186,15 @@
                         </div> 
                         
                         <div class="form-group">
+                        	<label for="resource" class="col-sm-2 control-label">大数据中心</label>
+                        	<div class="col-sm-9">
+                       			<label class="checkbox-inline i-checks" data-role="role-dataCenter-economic">
+									<input type="checkbox">主要经济指标
+								</label>
+							</div>
+						</div>
+                        
+                        <div class="form-group">
                         	<label for="resource" class="col-sm-2 control-label">帮扶平台</label>
                         	<div class="col-sm-9">
                        			<label class="checkbox-inline i-checks" data-role="role-assist-appeal">

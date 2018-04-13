@@ -448,7 +448,15 @@ public class ManagerController {
 	String economic() {
 		return "pages/monitor/economic";
 	}
-		
+	
+	/**
+	 * 大数据中心接口
+	 */
+	@RequestMapping(value = "/dataCenter/economic")
+	String dataCenter_economic () {
+		return "pages/dataCenter/economic";
+	}
+	
 	/**
 	 * 帮扶平台接口
 	 */

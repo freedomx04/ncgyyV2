@@ -162,6 +162,20 @@
 						</ul>
 					</li>
 					</c:if>
+					
+					<c:if test="${fn:contains(user.role.resource, 'role-dataCenter-economic')}">
+					<li>
+						<a href="#">
+							<i class="fa fa-bar-chart fa-fw"></i><span class="nav-label">大数据中心</span><span class="fa arrow"></span>
+						</a>
+						<ul class="nav nav-second-level">
+							<c:if test="${fn:contains(user.role.resource, 'role-dataCenter-economic')}">
+								<li><a class="J_menuItem" href="${ctx}/dataCenter/economic">主要经济指标</a></li>
+							</c:if>
+						</ul>
+					</li>
+					</c:if>
+					
 					<c:if test="${fn:contains(user.role.resource, 'role-assist-appeal') 
 						|| fn:contains(user.role.resource, 'role-assist-enterprise')
 						|| fn:contains(user.role.resource, 'role-assist-department') 
