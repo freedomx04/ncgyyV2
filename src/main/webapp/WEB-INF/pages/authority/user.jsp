@@ -229,6 +229,18 @@
 								</label>
                         	</div>
                         </div>
+                        
+                        <div class="form-group">
+                        	<label for="resource" class="col-sm-2 control-label">电力服务</label>
+                        	<div class="col-sm-9">
+                       			<label class="checkbox-inline i-checks" data-role="role-power-dynamic">
+									<input type="checkbox">服务动态
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-power-setting">
+									<input type="checkbox">服务设置
+								</label>
+                        	</div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">

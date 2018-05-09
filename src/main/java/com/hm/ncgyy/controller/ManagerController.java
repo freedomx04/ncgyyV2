@@ -662,6 +662,19 @@ public class ManagerController {
 	}
 	
 	/**
+	 * 电力服务
+	 */
+	@RequestMapping(value = "/power/dynamic")
+	String power_dynamic(ModelMap modelMap) {
+		return "pages/power/dynamic";
+	}
+	
+	@RequestMapping(value = "/power/setting")
+	String power_setting(ModelMap modelMap) {
+		return "pages/power/setting";
+	}
+	
+	/**
 	 * 个人中心
 	 */
 	@RequestMapping(value = "/personal/info")

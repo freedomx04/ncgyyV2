@@ -22,10 +22,10 @@ public class ArticleEntity extends BaseEntity {
 
 	/** 文章类型 */
 	public class ArticleType {
-		public static final int PHOTONEWS = 1; // 图片新闻
-		public static final int ANNOUNCE = 2; // 公示公告
-		public static final int POLICY = 3; // 政策法规
-		public static final int OVERVIEW = 4; // 工业信息
+		public static final int PHOTONEWS = 1; 			// 图片新闻
+		public static final int ANNOUNCE = 2; 			// 公示公告
+		public static final int POLICY = 3; 			// 政策法规
+		public static final int OVERVIEW = 4; 			// 工业信息
 		
 		public static final int BUSINESS_DYNAMIC = 10;	// 招商动态
 		public static final int BUSINESS_POLICY = 11;	// 招商政策
@@ -34,6 +34,10 @@ public class ArticleEntity extends BaseEntity {
 		
 		public static final int PARTY_DYNAMIC = 30;		// 党建信息
 		public static final int PARTY_POLICY = 31;		// 党政法规
+		
+		public static final int POWER_POLICY = 40;		// 用点政策
+		public static final int POWER_CUT = 41;			// 停电信息
+		public static final int POWER_INFO = 42;		// 线上服务
 	}
 
 	/** 类型 */

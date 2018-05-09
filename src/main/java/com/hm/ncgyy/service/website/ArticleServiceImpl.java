@@ -60,6 +60,9 @@ public class ArticleServiceImpl implements ArticleService {
 		case 20:	title = "安全动态";		break;
 		case 30:	title = "党建信息";		break;
 		case 31:	title = "党政法规";		break;
+		case 40:	title = "用电政策";		break;
+		case 41:	title = "停电信息";		break;
+		case 42:	title = "线上服务";		break;
 		default:	break;
 		}
 		return title;

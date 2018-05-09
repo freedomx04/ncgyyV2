@@ -227,14 +227,24 @@
 						</ul>
 					</li>
 					</c:if>
-					<!-- <li>
+					
+					<c:if test="${fn:contains(user.role.resource, 'role-power-dynamic')
+						|| fn:contains(user.role.resource, 'role-power-setting')}">
+					<li>
 						<a href="#">
-							<i class="fa fa-tasks fa-fw"></i><span class="nav-label">日常办公</span><span class="fa arrow"></span>
+							<i class="fa fa-lightbulb-o fa-fw"></i><span class="nav-label">电力服务</span><span class="fa arrow"></span>
 						</a>
 						<ul class="nav nav-second-level">
-							<li><a class="J_menuItem" href="mailList">邮箱</a></li>
+							<c:if test="${fn:contains(user.role.resource, 'role-power-dynamic')}">
+								<li><a class="J_menuItem" href="${ctx}/power/dynamic">服务动态</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-power-setting')}">
+								<li><a class="J_menuItem" href="${ctx}/power/setting">服务设置</a></li>
+							</c:if>
 						</ul>
-					</li> -->
+					</li>
+					</c:if>
+					
 					<li>
 						<a href="#">
 							<i class="fa fa-user fa-fw"></i><span class="nav-label">个人中心</span><span class="fa arrow"></span>
