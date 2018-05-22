@@ -224,11 +224,15 @@
 							</c:if>
 							<!-- <li><a class="J_menuItem" href="declareGV">网上申报</a></li>
 							<li><a class="J_menuItem" href="declareEP">网上申报(企业)</a></li> -->
+							<c:if test="${fn:contains(user.role.resource, 'role-service-power')}">
+								<li><a class="J_menuItem" href="${ctx}/power/power">电力服务服务</a></li>
+							</c:if>
 						</ul>
 					</li>
 					</c:if>
 					
 					<c:if test="${fn:contains(user.role.resource, 'role-power-dynamic')
+						|| fn:contains(user.role.resource, 'role-power-order')
 						|| fn:contains(user.role.resource, 'role-power-setting')}">
 					<li>
 						<a href="#">
@@ -237,6 +241,9 @@
 						<ul class="nav nav-second-level">
 							<c:if test="${fn:contains(user.role.resource, 'role-power-dynamic')}">
 								<li><a class="J_menuItem" href="${ctx}/power/dynamic">服务动态</a></li>
+							</c:if>
+							<c:if test="${fn:contains(user.role.resource, 'role-power-order')}">
+								<li><a class="J_menuItem" href="${ctx}/power/order">服务订单</a></li>
 							</c:if>
 							<c:if test="${fn:contains(user.role.resource, 'role-power-setting')}">
 								<li><a class="J_menuItem" href="${ctx}/power/setting">服务设置</a></li>

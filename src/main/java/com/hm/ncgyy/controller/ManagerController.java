@@ -586,6 +586,13 @@ public class ManagerController {
 		return "pages/service/platform_logistics";
 	}
 	
+	@RequestMapping(value = "/power/power")
+	String platformPower(ModelMap modelMap) {
+		UserEntity user = CurrentUserUtils.getInstance().getUser();
+		modelMap.addAttribute("user", user);
+		return "pages/power/power";
+	}
+	
 	@RequestMapping(value = "/declareGV")
 	String declareGV(ModelMap modelMap) {
 		UserEntity currentUser = CurrentUserUtils.getInstance().getUser();
@@ -667,6 +674,11 @@ public class ManagerController {
 	@RequestMapping(value = "/power/dynamic")
 	String power_dynamic(ModelMap modelMap) {
 		return "pages/power/dynamic";
+	}
+	
+	@RequestMapping(value = "/power/order")
+	String power_order(ModelMap modelMap) {
+		return "pages/power/order";
 	}
 	
 	@RequestMapping(value = "/power/setting")

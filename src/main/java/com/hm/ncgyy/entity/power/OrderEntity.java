@@ -18,14 +18,18 @@ public class OrderEntity extends BaseEntity {
 	
 	/** 订单状态 */
 	public class OrderStatus {
-		public static final int STATUS_NEW = 0;			// 新增
-		public static final int STATUS_SENDING = 1;		// 已发送，待处理
-		public static final int STATUS_PROCESSING = 2;	// 已受理，处理中
-		public static final int STATUS_UNCONFIRM = 3;	// 已处理，待确认
-		public static final int STATUS_CONFIRMED = 4;	// 已确认
-		public static final int STATUS_REJECT = 5;		// 驳回
+		public static final int STATUS_NEW = 0;			// 待发送
+		public static final int STATUS_SENDING = 1;		// 待处理
+		public static final int STATUS_UNCONFIRM = 2;	// 待确认
+		public static final int STATUS_CONFIRMED = 3;	// 已确认
+		public static final int STATUS_REJECT = 4;		// 驳回
 		
 	}
+	
+	/** 企业 */
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "enterprise_id")
+	private EnterpriseBaseEntity enterprise;
 	
 	/** 订单标题 */
 	private String title;
@@ -34,11 +38,6 @@ public class OrderEntity extends BaseEntity {
 	@Column(length = 4000)
 	private String content;
 	
-	/** 企业 */
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "enterprise_id")
-	private EnterpriseBaseEntity enterprise;
-	
 	/** 联系人  */
 	private String contactUser;
 	
@@ -46,23 +45,25 @@ public class OrderEntity extends BaseEntity {
 	private String contact;
 	
 	/** 订单状态 */
-	private Integer status;
+	private Integer status = OrderStatus.STATUS_NEW;
 	
-	/** 评价 */
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "evaluation_id")
-	public OrderEvaluationEntity evaluation;
+	/** 服务评价 */
+	private Integer result = 5;
+	
+	/** 评价内容 */
+	@Column(length = 2000)
+	private String evaluate;
 	
 	public OrderEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderEntity(String title, String content, EnterpriseBaseEntity enterprise, String contactUser,
+	public OrderEntity(EnterpriseBaseEntity enterprise, String title, String content, String contactUser,
 			String contact, Date createTime, Date updateTime) {
 		super();
+		this.enterprise = enterprise;
 		this.title = title;
 		this.content = content;
-		this.enterprise = enterprise;
 		this.contactUser = contactUser;
 		this.contact = contact;
 		this.createTime = createTime;
@@ -117,12 +118,20 @@ public class OrderEntity extends BaseEntity {
 		this.status = status;
 	}
 
-	public OrderEvaluationEntity getEvaluation() {
-		return evaluation;
+	public Integer getResult() {
+		return result;
 	}
 
-	public void setEvaluation(OrderEvaluationEntity evaluation) {
-		this.evaluation = evaluation;
+	public void setResult(Integer result) {
+		this.result = result;
 	}
-	
+
+	public String getEvaluate() {
+		return evaluate;
+	}
+
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
+	}
+
 }

@@ -227,6 +227,9 @@
 								<label class="checkbox-inline i-checks" data-role="role-service-logistics">
 									<input type="checkbox">物流平台
 								</label>
+								<label class="checkbox-inline i-checks" data-role="role-service-power">
+									<input type="checkbox">电力服务平台
+								</label>
                         	</div>
                         </div>
                         
@@ -235,6 +238,9 @@
                         	<div class="col-sm-9">
                        			<label class="checkbox-inline i-checks" data-role="role-power-dynamic">
 									<input type="checkbox">服务动态
+								</label>
+								<label class="checkbox-inline i-checks" data-role="role-power-order">
+									<input type="checkbox">服务订单
 								</label>
 								<label class="checkbox-inline i-checks" data-role="role-power-setting">
 									<input type="checkbox">服务设置
