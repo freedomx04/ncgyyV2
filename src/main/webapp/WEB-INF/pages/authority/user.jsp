@@ -242,9 +242,6 @@
 								<label class="checkbox-inline i-checks" data-role="role-power-order">
 									<input type="checkbox">服务订单
 								</label>
-								<label class="checkbox-inline i-checks" data-role="role-power-setting">
-									<input type="checkbox">服务设置
-								</label>
                         	</div>
                         </div>
                     </form>

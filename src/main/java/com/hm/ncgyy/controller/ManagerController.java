@@ -681,11 +681,6 @@ public class ManagerController {
 		return "pages/power/order";
 	}
 	
-	@RequestMapping(value = "/power/setting")
-	String power_setting(ModelMap modelMap) {
-		return "pages/power/setting";
-	}
-	
 	/**
 	 * 个人中心
 	 */

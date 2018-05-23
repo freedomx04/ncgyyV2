@@ -245,9 +245,6 @@
 							<c:if test="${fn:contains(user.role.resource, 'role-power-order')}">
 								<li><a class="J_menuItem" href="${ctx}/power/order">服务订单</a></li>
 							</c:if>
-							<c:if test="${fn:contains(user.role.resource, 'role-power-setting')}">
-								<li><a class="J_menuItem" href="${ctx}/power/setting">服务设置</a></li>
-							</c:if>
 						</ul>
 					</li>
 					</c:if>
