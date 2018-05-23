@@ -35,12 +35,20 @@
 					<h2>电力服务</h2>
 				</div>
 				
-				<div class="btn-group" id="power-table-toolbar" role="group">
-					<button type="button" class="btn btn-white btn-power-add">
-                        <i class="fa fa-plus fa-fw"></i>新增
-                    </button>
-				</div>
-				<table id="power-table" class="table-hm" data-mobile-responsive="true"></table>
+				<c:if test="${empty user.enterprise}">
+					<div class="text-center padding-15">
+						<p><i class="fa fa-lock" style="font-size: 100px; color: #999;"></i></p>
+						<p>您还不是企业用户</p>
+					</div>
+				</c:if>
+				<c:if test="${not empty user.enterprise}">
+					<div class="btn-group" id="power-table-toolbar" role="group">
+						<button type="button" class="btn btn-white btn-power-add">
+	                        <i class="fa fa-plus fa-fw"></i>新增
+	                    </button>
+					</div>
+					<table id="power-table" class="table-hm" data-mobile-responsive="true"></table>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -110,6 +118,7 @@
                 <div class="modal-body">
                 	<dl class="dl-horizontal dl-detail">
                 		<dt>申请企业</dt><dd data-name="enterprise"></dd>
+                		<dt>订单状态</dt><dd data-name="status"></dd>
                 		<dt>服务标题</dt><dd data-name="title"></dd>
                 		<dt>服务内容</dt><dd data-name="content"></dd>
                 		<dt>联系人</dt><dd data-name="contactUser"></dd>
@@ -125,7 +134,7 @@
 			 <div class="modal-content animated fadeInDown">
 			 	<div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">确认办结</h4>
+                    <h4 class="modal-title">服务评价</h4>
                 </div>
                 <div class="modal-body">
                 	<form class="form-horizontal" role="form" autocomplete="off">
@@ -148,6 +157,26 @@
                     <button type="button" class="btn btn-primary btn-fw btn-confirm">确定</button>
                 </div>
 			 </div>
+		</div>
+	</div>
+	
+	<div class="modal" id="modal-power-evaluate-dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true">
+		<div class="modal-dialog modal-center">
+			<div class="modal-content animated fadeInDown">
+				<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">评价详情</h4>
+                </div>
+                <div class="modal-body">
+                	<dl class="dl-horizontal dl-detail">
+                		<dt>服务评价</dt><dd data-name="result"><div class="evaluation-star"></div></dd>
+                		<dt>评价内容</dt><dd data-name="evaluate"></dd>
+                	</dl>
+                </div>
+                <div class="modal-footer">
+                	<button type="button" class="btn btn-white btn-fw" data-dismiss="modal">取消</button>
+                </div>
+			</div>
 		</div>
 	</div>
 
@@ -174,6 +203,7 @@
 		$k.util.bsValidator($form);
 		var $detailDialog = $page.find('#modal-power-detail-dialog');
 		var $confirmDialog = $page.find('#modal-power-confirm-dialog');
+		var $evaluateDialog = $page.find('#modal-power-evaluate-dialog');
 		
 		var $table = $k.util.bsTable($page.find('#power-table'), {
 			url: '${ctx}/api/power/order/listByEnterpriseId?enterpriseId=' + enterpriseId,
@@ -191,7 +221,19 @@
            			'click .btn-power-detail': function(e, value, row, index) {
                			e.stopPropagation();
                			$.each(row, function(key, val) {
-            				$detailDialog.find('dd[data-name="' + key + '"]').text(val);
+               				if (key == 'status') {
+               					var status;
+               					switch (val) {
+               					case 0:	status = '<span class="label label-warning">待发送</span>';	break;
+               					case 1:	status = '<span class="label label-warning">待处理</span>';	break;
+               					case 2:	status = '<span class="label label-info">已处理</span>';		break;
+               					case 3:	status = '<span class="label label-success">已评价</span>';	break;
+               					case 4:	status = '<span class="label label-danger">已驳回</span>';		break;
+               					}
+               					$detailDialog.find('dd[data-name="status"]').html(status);
+               				} else {
+               					$detailDialog.find('dd[data-name="' + key + '"]').text(val);
+               				}
             			});
                			$detailDialog.find('dd[data-name="enterprise"]').text('${user.enterprise.name}');
             			$detailDialog.modal('show');
@@ -207,7 +249,7 @@
             	width: '120'
             }, {
             	field: 'status',
-            	title: '状态',
+            	title: '订单状态',
             	align: 'center',
             	width: '100',
             	formatter: function(value, row, index) {
@@ -217,11 +259,11 @@
             		case 1:
             			return '<span class="label label-warning">待处理</span>';
             		case 2:
-            			return '<span class="label label-info">待确认</span>';
+            			return '<span class="label label-info">已处理</span>';
             		case 3:
-            			return '<span class="label label-success">已确认</span>';
+            			return '<span class="label label-success">已评价</span>';
             		case 4:
-            			return '<span class="label label-danger">驳回</span>';
+            			return '<span class="label label-danger">已驳回</span>';
             		}
             	}
             }, {
@@ -232,13 +274,16 @@
             		var $edit = '<a class="btn-power-edit a-operate">编辑</a>';
             		var $delete = '<a class="btn-power-delete a-operate">删除</a>';
             		var $send = '<a class="btn-power-send a-operate">发送</a>';
-            		var $confirm = '<a class="btn-power-confirm a-operate">确认</a>';
+            		var $evaluate = '<a class="btn-power-evaluate a-operate">评价</a>';
+            		var $result = '<a class="btn-power-result a-operate">评价详情</a>';
             		
             		switch (row.status) {
             		case 0:
             			return $edit + $delete + $send;
             		case 2:
-            			return $confirm;
+            			return $evaluate;
+            		case 3:
+            			return $result;
             		}
             	},
             	events: window.operateEvents = {
@@ -309,13 +354,24 @@
             				});
             			});
             		},
-            		'click .btn-power-confirm': function(e, value, row, index) {
+            		'click .btn-power-evaluate': function(e, value, row, index) {
             			e.stopPropagation();
             			$k.util.raty($confirmDialog.find('.evaluation-star'), 5, {
             				path: '${ctx}/plugins/raty/images/'
             			});
             			$confirmDialog.data('orderId', row.id);
             			$confirmDialog.modal('show');
+            		},
+            		'click .btn-power-result': function(e, value, row, index) {
+            			e.stopPropagation();
+            			$evaluateDialog.find('dd[data-name="result"] .evaluation-star').raty({
+            				score: row.result,
+            				hints: ['非常差', '差', '一般', '好', '非常好'],
+            				path: '${ctx}/plugins/raty/images/',
+            				readOnly: true,
+            			});
+            			$evaluateDialog.find('dd[data-name="evaluate"]').text(row.evaluate);
+            			$evaluateDialog.modal('show');
             		}
             	}
             }]

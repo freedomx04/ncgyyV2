@@ -20,9 +20,9 @@ public class OrderEntity extends BaseEntity {
 	public class OrderStatus {
 		public static final int STATUS_NEW = 0;			// 待发送
 		public static final int STATUS_SENDING = 1;		// 待处理
-		public static final int STATUS_UNCONFIRM = 2;	// 待确认
-		public static final int STATUS_CONFIRMED = 3;	// 已确认
-		public static final int STATUS_REJECT = 4;		// 驳回
+		public static final int STATUS_UNCONFIRM = 2;	// 已处理
+		public static final int STATUS_CONFIRMED = 3;	// 已评价
+		public static final int STATUS_REJECT = 4;		// 已驳回
 		
 	}
 	

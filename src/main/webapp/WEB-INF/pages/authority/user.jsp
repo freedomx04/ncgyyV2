@@ -388,7 +388,9 @@
 	            			e.stopPropagation();
 	            			$.each(row, function(key, val) {
 	            				if (key == 'role' || key == 'enterprise' || key == 'department') {
-	            					$userDetailDialog.find('dd[data-name="' + key + '"]').text(val.name);
+	            					if (val) {
+	            						$userDetailDialog.find('dd[data-name="' + key + '"]').text(val.name);
+	            					}
 	            				} else if (key == 'gender') {
 	            					var gender;
 	            					switch (val) {

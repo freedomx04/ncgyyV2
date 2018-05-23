@@ -1,6 +1,7 @@
 package com.hm.ncgyy.controller.power;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -88,8 +89,14 @@ public class OrderController {
 	@RequestMapping(value = "/api/power/order/list")
 	public Result list() {
 		try {
+			List<OrderEntity> retList = new LinkedList<>();
 			List<OrderEntity> list = orderService.list();
-			return new ResultInfo(Code.SUCCESS.value(), "ok", list);
+			for (OrderEntity order: list) {
+				if (order.getStatus() > 0) {
+					retList.add(order);
+				}
+			}
+			return new ResultInfo(Code.SUCCESS.value(), "ok", retList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return new Result(Code.ERROR.value(), e.getMessage());
@@ -107,24 +114,11 @@ public class OrderController {
 		}
 	}
 	
-	@RequestMapping(value = "/api/power/order/send")
-	public Result status(Long orderId) {
+	@RequestMapping(value = "/api/power/order/status")
+	public Result status(Long orderId, Integer status) {
 		try {
 			OrderEntity order = orderService.findOne(orderId);
-			order.setStatus(OrderStatus.STATUS_SENDING);
-			orderService.save(order);
-			return new Result(Code.SUCCESS.value(), "发送成功");
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-			return new Result(Code.ERROR.value(), e.getMessage());
-		}
-	}
-	
-	@RequestMapping(value = "/api/power/order/unconfirm")
-	public Result unconfirm(Long orderId) {
-		try {
-			OrderEntity order = orderService.findOne(orderId);
-			order.setStatus(OrderStatus.STATUS_UNCONFIRM);
+			order.setStatus(status);
 			orderService.save(order);
 			return new Result(Code.SUCCESS.value(), "操作成功");
 		} catch (Exception e) {
