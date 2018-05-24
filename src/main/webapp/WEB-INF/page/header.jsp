@@ -200,6 +200,9 @@ body {
 				<li>
 					<a class="index-service" href="${ctx}/service" target="_blank">服务平台</a>
 				</li>
+				<li>
+					<a class="index-power" href="${ctx}/power" target="_blank">电力服务</a>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>

@@ -458,4 +458,12 @@ public class PageController {
 		return "page/service/logistics_supply_info";
 	}
 	
+	/**
+	 * 电力服务
+	 */
+	@RequestMapping(value = "/power")
+	String power() {
+		return "page/news/power_list";
+	}
+	
 }

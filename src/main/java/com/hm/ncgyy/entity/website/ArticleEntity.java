@@ -35,7 +35,7 @@ public class ArticleEntity extends BaseEntity {
 		public static final int PARTY_DYNAMIC = 30;		// 党建信息
 		public static final int PARTY_POLICY = 31;		// 党政法规
 		
-		public static final int POWER_POLICY = 40;		// 用点政策
+		public static final int POWER_POLICY = 40;		// 用电政策
 		public static final int POWER_CUT = 41;			// 停电信息
 		public static final int POWER_INFO = 42;		// 线上服务
 	}
